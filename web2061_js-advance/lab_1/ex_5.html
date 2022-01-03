@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>5 Luyện tập phương thức built-in xử lý thời gian</title>
+</head>
+
+<body>
+  <div class="form">
+    <div>
+      <label>Date</label>
+      <input type="number" id="day">
+    </div>
+    <div>
+      <label>Month</label>
+      <input type="number" id="month">
+    </div>
+    <div>
+      <label>Year</label>
+      <input type="number" id="year">
+    </div>
+    <div>
+      <button type="button" id="convert">
+        Convert
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <h3 id="dateType1"></h3>
+    <h3 id="dateType2"></h3>
+    <h3 id="dateType3"></h3>
+    <h3 id="dateType4"></h3>
+    <h3 id="dateType5"></h3>
+  </div>
+
+  <script>
+    const convertBtn = document.querySelector('#convert');
+    const yearInput = document.querySelector('#year');
+    const monthInput = document.querySelector('#month');
+    const dayInput = document.querySelector('#day');
+
+    let date, year, month, day;
+    const monthShortTextList = [
+      "Jan", "Feb", "Mar", "Apr",
+      "May", "Jun", "Jul", "Aug", "Sep",
+      "Oct", "Nov", "Dec"
+    ];
+    const monthLongTextList = [
+      "January", "February", "March", "April",
+      "May", "June", "July", "August", "September",
+      "October", "November", "December"
+    ];
+
+    convertBtn.onclick = function () {
+      year = parseInt(yearInput.value);
+      month = parseInt(monthInput.value);
+      day = parseInt(dayInput.value);
+      if (
+        year >= 100 &&
+        month >= 1 && month <= 12 &&
+        day >= 1 && day <= 31
+      ) {
+        date = new Date(`${year}-${month}-${day}`);
+
+        day = date.getDate();
+        if (day < 10) {
+          day = '0' + day;
+        }
+        if (month < 10) {
+          month = `0${month}`;
+        }
+        year = date.getFullYear();
+        monthShortText = monthShortTextList[date.getMonth()];
+        monthLongText = monthLongTextList[date.getMonth()];
+
+        document.querySelector('#dateType1').innerHTML = `
+          ${year}-${month}-${day}
+        `;
+        document.querySelector('#dateType2').innerHTML = `
+          ${day}/${month}/${year}
+        `;
+        document.querySelector('#dateType3').innerHTML = `
+          ${day}.${month}.${year}
+        `;
+        document.querySelector('#dateType4').innerHTML = `
+          ${day}, ${monthShortText} ${year}
+        `;
+        document.querySelector('#dateType5').innerHTML = `
+          ${day}, ${monthLongText} ${year}
+        `;
+
+      } else {
+        alert('please insert true date format');
+      }
+    }
+  </script>
+</body>
+
+</html>

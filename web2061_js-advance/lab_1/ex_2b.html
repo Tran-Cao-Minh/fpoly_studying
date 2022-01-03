@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2b Luyện tập các thuộc tính của DOM</title>
+  <style>
+    #target {
+      border: 1px solid #000;
+      min-height: 300px;
+    }
+
+    .title {
+      color: red;
+      font-family: arial;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="target"></div>
+
+  <script>
+    const target = document.querySelector('#target');
+
+    const h2El = document.createElement('h2');
+    h2El.innerText = 'Hello Polytechnic';
+    h2El.setAttribute('class', 'title');
+
+    target.appendChild(h2El);
+  </script>
+</body>
+
+</html>
