@@ -1,0 +1,17 @@
+{
+  "name": "lab_1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "Test"
+  },
+  "keywords": [
+    "lab_1"
+  ],
+  "author": "tran cao minh",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
