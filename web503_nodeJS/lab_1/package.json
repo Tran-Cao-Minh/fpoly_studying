@@ -12,6 +12,7 @@
   "author": "tran cao minh",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.2",
+    "server.js": "^1.0.0"
   }
 }
