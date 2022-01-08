@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 show length of string</title>
+</head>
+
+<body>
+  <label for="input1">String</label>
+  <input type="text" id="input1">
+  <button type="submit" id="submit-btn">Count</button>
+  <h1 id="string-length"></h1>
+  <script>
+    const input = document.querySelector('#input1');
+    const submitBtn = document.querySelector('#submit-btn');
+    const stringLengthContainer = document.querySelector('#string-length');
+
+    submitBtn.addEventListener('click', function () {
+      stringLengthContainer.innerHTML = input.value.length;
+    })
+  </script>
+</body>
+
+</html>

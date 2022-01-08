@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 hide redundant character</title>
+</head>
+
+<body>
+  <label for="input1">String</label>
+  <input type="text" id="input1"><br>
+  <label for="input2">Number</label>
+  <input type="number" id="input2"><br>
+  <button type="submit" id="submit-btn">Convert</button>
+  <h1 id="result"></h1>
+  <script>
+    const inputText = document.querySelector('#input1');
+    const inputNum = document.querySelector('#input2');
+    const submitBtn = document.querySelector('#submit-btn');
+    const result = document.querySelector('#result');
+
+    submitBtn.addEventListener('click', function () {
+      if (inputText.value.length > inputNum.value) {
+        result.innerHTML = inputText.value.substr(0, inputNum.value) + '...';
+
+      } else {
+        result.innerHTML = inputText.value + '.';
+      }
+    })
+  </script>
+</body>
+
+</html>

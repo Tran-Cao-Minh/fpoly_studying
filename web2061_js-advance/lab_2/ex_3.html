@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 convert string to camel case and remove non-character</title>
+</head>
+
+<body>
+  <label for="input1">String</label>
+  <input type="text" id="input1"><br>
+  <button type="submit" id="submit-btn">Convert</button>
+  <h1 id="result"></h1>
+  <script>
+    const input = document.querySelector('#input1');
+    const submitBtn = document.querySelector('#submit-btn');
+    const result = document.querySelector('#result');
+
+    submitBtn.addEventListener('click', function () {
+      let resultConverted = input.value.replace(/\W+/g, ' ');
+      resultConverted = resultConverted.split(' ');
+      for (let i = 1; i < resultConverted.length; i++) {
+        resultConverted[i] = resultConverted[i].charAt(0).toUpperCase() + resultConverted[i].slice(1);
+      }
+      resultConverted = resultConverted.join('');
+      result.innerHTML = resultConverted;
+    })
+  </script>
+</body>
+
+</html>
