@@ -169,6 +169,8 @@ app.post('/add-new', (req, res) => {
   })
 })
 // end ex-3
+
+// ex-4
 app.get('/detail/:productId', (req, res) => {
   let product;
   let productID = parseInt(req.params.productId);
@@ -177,11 +179,11 @@ app.get('/detail/:productId', (req, res) => {
       product = productItem;
     }
   });
-  
-  res.render('product-detail', {product: product});
-})
-// ex-4
 
+  res.render('product-detail', {
+    product: product
+  });
+})
 // end ex-4
 
 app.listen(port, () => {
