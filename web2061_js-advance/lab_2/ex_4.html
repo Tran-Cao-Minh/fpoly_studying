@@ -5,30 +5,32 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>4 Email RegExp</title>
+  <title>3 convert string to camel case and remove non-character</title>
 </head>
 
 <body>
-  <label for="input1">Email</label>
+  <label for="input1">String</label>
   <input type="text" id="input1"><br>
-  <button type="submit" id="submit-btn">Check</button>
+  <button type="submit" id="submit-btn">Convert</button>
   <h1 id="result"></h1>
+
   <script>
     const input = document.querySelector('#input1');
     const submitBtn = document.querySelector('#submit-btn');
     const result = document.querySelector('#result');
 
     submitBtn.addEventListener('click', function () {
-      result.innerHTML = /^[a-z][a-z0-9_\.]{4,32}@{1}[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$/.test(input.value.toLowerCase());
-      /* 
-        input.value.toLowerCase() - email ignore sensitive case
-        ^[a-z] - start with 1 character
-        [a-z0-9_\.] - a to z, 0 to 9, _, and '.' is special character so we need \ before it
-        {4,32} - email prefix length is 5 - 32 char but it start with 1 "^[a-z]" so it become 4,32
-        @{1} - 1 character @
-        [a-z0-9]{2,} first suffix like gmail, fpt, ...
-        (\.[a-z0-9]{2,4}){1,2}$ - domain level can be 1 or 2
-      */
+      let resultConverted = input.value.toLowerCase().replace(/\W+/g, ' ');
+
+      resultConverted = resultConverted.split(' ');
+      for (let i = 0; i < resultConverted.length; i++) {
+        resultConverted[i] =
+          resultConverted[i].charAt(0).toUpperCase() + resultConverted[i].slice(1);
+      }
+
+      resultConverted = resultConverted.join('');
+      resultConverted = resultConverted.charAt(0).toLowerCase() + resultConverted.slice(1);
+      result.innerHTML = resultConverted;
     })
   </script>
 </body>
