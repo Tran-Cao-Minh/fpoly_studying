@@ -14,3 +14,6 @@ npm i ejs
 
 # support upload img
 npm i formidable
+
+# connect db mySql
+npm i mysql
