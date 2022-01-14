@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4 __proto__ property</title>
+</head>
+
+<body>
+  <div>
+    <label>1st Person Name</label>
+    <input type="text" id="firstPersonName">
+  </div>
+  <div>
+    <label>1st Person Age</label>
+    <input type="number" id="firstPersonAge">
+  </div>
+  <div>
+    <label>1st Person Address</label>
+    <input type="text" id="firstPersonAddress">
+  </div>
+  <div>
+    <label>2nd Person Name</label>
+    <input type="text" id="secondPersonName">
+  </div>
+  <div>
+    <label>2nd Person Age</label>
+    <input type="number" id="secondPersonAge">
+  </div>
+  <div>
+    <label>2nd Person Address</label>
+    <input type="text" id="secondPersonAddress">
+  </div>
+  <input type="button" value="Show profile" id="showProfile">
+
+  <h3 id="firstPersonProfile"></h3>
+  <hr>
+  <h3 id="secondPersonProfile"></h3>
+
+  <script>
+    const firstPersonNameInput = document.getElementById('firstPersonName');
+    const firstPersonAgeInput = document.getElementById('firstPersonAge');
+    const firstPersonAddressInput = document.getElementById('firstPersonAddress');
+    const firstPersonProfileContainer = document.getElementById('firstPersonProfile');
+    const secondPersonNameInput = document.getElementById('secondPersonName');
+    const secondPersonAgeInput = document.getElementById('secondPersonAge');
+    const secondPersonAddressInput = document.getElementById('secondPersonAddress');
+    const secondPersonProfileContainer = document.getElementById('secondPersonProfile');
+
+    let PersonProto = {
+      name: '',
+      age: '',
+      address: '',
+      showProfile: function (container) {
+        if (
+          this.name === '' ||
+          this.age === '' ||
+          this.address === ''
+        ) {
+          alert('Please enter all information');
+          container.innerHTML = '';
+
+        } else {
+          container.innerHTML = `
+            Person Name: ${this.name} <br> 
+            Person Age: ${this.age} <br> 
+            Person Address: ${this.address} <br> 
+          `;
+        }
+      },
+    }
+
+    let firstPerson = {
+      __proto__: PersonProto,
+    };
+
+    let secondPerson = {
+      __proto__: PersonProto,
+    };
+
+    const showProfileBtn = document.getElementById('showProfile');
+    showProfileBtn.addEventListener('click', function () {
+      firstPerson.name = firstPersonNameInput.value;
+      firstPerson.age = firstPersonAgeInput.value;
+      firstPerson.address = firstPersonAddressInput.value;
+      firstPerson.showProfile(firstPersonProfileContainer);
+
+      secondPerson.name = secondPersonNameInput.value;
+      secondPerson.age = secondPersonAgeInput.value;
+      secondPerson.address = secondPersonAddressInput.value;
+      secondPerson.showProfile(secondPersonProfileContainer);
+    })
+  </script>
+</body>
+
+</html>

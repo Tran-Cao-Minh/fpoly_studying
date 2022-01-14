@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 practice access an object</title>
+</head>
+
+<body>
+  <div>
+    <label>Subject Name</label>
+    <input type="text" id="subjectName">
+  </div>
+  <div>
+    <label>Point</label>
+    <input type="number" id="subjectScore">
+  </div>
+  <input type="button" value="Add" id="addSubject">
+
+  <p id="studentName"></p>
+  <p id="studentAge"></p>
+  <p id="studentAddress"></p>
+  <p>Subjects:</p>
+  <ul id="subjects"></ul>
+
+  <script>
+    let student = {
+      name: 'Tran Cao Minh',
+      age: '19',
+      address: 'Dong Nai',
+      subjects: [
+        {
+          name: 'Javascript',
+          point: 10,
+        }
+      ],
+    };
+
+    document.getElementById('studentName').innerHTML = student.name;
+    document.getElementById('studentAge').innerHTML = student.age;
+    document.getElementById('studentAddress').innerHTML = student.address;
+
+    const subjectsContainer = document.getElementById('subjects');
+
+    function showSubjects() {
+      subjectsContainer.innerHTML = '';
+
+      student.subjects.forEach(subject => {
+        let subjectItem = document.createElement('li');
+        subjectItem.innerHTML = `${subject.name} - ${subject.point}`;
+
+        subjectsContainer.appendChild(subjectItem);
+      });
+    }
+    showSubjects();
+
+    const subjectInput = document.getElementById('subjectName');
+    const pointInput = document.getElementById('subjectScore');
+    const addBtn = document.getElementById('addSubject');
+
+    addBtn.addEventListener('click', function () {
+      let subject = {
+        name: subjectInput.value,
+        point: pointInput.value,
+      };
+
+      student.subjects.push(subject);
+      showSubjects();
+    })
+
+  </script>
+</body>
+
+</html>

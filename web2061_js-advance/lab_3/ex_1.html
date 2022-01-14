@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 create an object by Object Literals method</title>
+</head>
+
+<body>
+  <h1 id="result"></h1>
+
+  <script>
+    let student = {
+      id: 'ps18817',
+      fullName: 'Tran Cao Minh',
+      email: 'minhtcps18817@fpt.edu.vn',
+      avatar: 'minhtcps18817.jpg',
+      address: 'Dong Nai - Viet Nam',
+      studyMajor: 'Website Designer - Front End',
+      avgScore: 10,
+      getAvgScore: function () {
+        return this.avgScore;
+      },
+      setAvgScore: function (newScore) {
+        this.avgScore = newScore;
+      },
+      changeAdress: function (newAdress) {
+        this.address = newAdress;
+      },
+    };
+
+    student.setAvgScore(student.getAvgScore() * 10);
+    student.changeAdress('Ho Chi Minh - Viet Nam');
+
+    document.getElementById('result').innerHTML = JSON.stringify(student);
+
+  </script>
+</body>
+
+</html>
