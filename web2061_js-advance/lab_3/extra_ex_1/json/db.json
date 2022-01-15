@@ -1,0 +1,90 @@
+{
+  "category": [{
+      "categoryId": 1,
+      "categoryName": "Travel"
+    },
+    {
+      "categoryId": 2,
+      "categoryName": "History"
+    },
+    {
+      "categoryId": 3,
+      "categoryName": "Business"
+    },
+    {
+      "categoryId": 4,
+      "categoryName": "Technology"
+    },
+    {
+      "categoryId": 5,
+      "categoryName": "Manga"
+    }
+  ],
+  "product": [{
+      "productId": 1,
+      "productName": "All about Love: New Visions",
+      "productPrice": 55.31,
+      "productCategory": "History"
+    },
+    {
+      "productId": 2,
+      "productName": "One Piece Pirate Recipes",
+      "productPrice": 49.02,
+      "productCategory": "Manga"
+    },
+    {
+      "productId": 3,
+      "productName": "Chainsaw Man, Vol. 1, 1",
+      "productPrice": 13.73,
+      "productCategory": "Manga"
+    },
+    {
+      "productId": 4,
+      "productName": "Icebound: Shipwrecked at the Edge of the World",
+      "productPrice": 32.36,
+      "productCategory": "History"
+    },
+    {
+      "productId": 5,
+      "productName": "Mudlark: In Search of London",
+      "productPrice": 98.39,
+      "productCategory": "History"
+    },
+    {
+      "productId": 6,
+      "productName": "Stress Test: Reflections on Financial Crises",
+      "productPrice": 25.58,
+      "productCategory": "Business"
+    },
+    {
+      "productId": 7,
+      "productName": "Jack: Straight from the Gut",
+      "productPrice": 59.55,
+      "productCategory": "Business"
+    },
+    {
+      "productId": 8,
+      "productName": "San Diego from A to Z: An Alphabetical Guide",
+      "productPrice": 95.19,
+      "productCategory": "Travel"
+    },
+    {
+      "productId": 9,
+      "productName": "Paris in Stride: An Insider",
+      "productPrice": 33.26,
+      "productCategory": "Travel"
+    },
+    {
+      "productId": 10,
+      "productName": "Circe",
+      "productPrice": 91.07,
+      "productCategory": "Technology"
+    },
+    {
+      "productId": 11,
+      "productName": "The Song of Achilles",
+      "productPrice": 14.71,
+      "productCategory": "Travel"
+    }
+  ]
+}
