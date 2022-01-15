@@ -4,23 +4,23 @@
       <% productList.forEach(product => { %>
       <div class="col">
         <div class="card text-center">
-          <div class="card-header py-1">
+          <a class="card-header py-1" href="/detail/<%= product.PkProduct_Id %>">
             <img src="<%= getParentFolder %>images/<%= product.ProductImage %>" alt="A Book"
               class="img-fluid img-thumbnail" style="width: 140px; height: 200px;">
-          </div>
+          </a>
           <div class="card-body py-0">
-            <h4 class="pt-2 pb-0 fs-6 overflow-hidden text-truncate text-nowrap">
-              <a class="text-decoration-none text-dark" href="#">
+            <h4 class="pt-2 pb-0 fs-6 text-truncate">
+              <a class="text-decoration-none text-dark" href="/detail/<%= product.PkProduct_Id %>">
                 <%= product.ProductName %>
               </a>
             </h4>
             <h5 class="mt-2 fs-6 py-2 bg-light text-success">
               <%= 
-                  (product.ProductPrice).toLocaleString('en-US', {
-                    style: 'currency',
-                    currency: 'USD',
-                  });
-                %>
+                (product.ProductPrice).toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                });
+              %>
             </h5>
           </div>
           <div class="card-footer p-0">

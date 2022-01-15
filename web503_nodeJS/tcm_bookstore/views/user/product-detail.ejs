@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM Bookstore</title>
+  <%- include('./module/general-link.ejs') %>
+</head>
+
+<body>
+  <div class="container-fluid bg-dark">
+    <%- include('./module/header.ejs') %>
+    <%- include('./module/nav-bar.ejs') %>
+
+    <div class="container my-5 mb-0 rounded-1 overflow-hidden">
+      <div class="row">
+        <div class="col-lg-5 col-xl-4 bg-primary p-1">
+          <img src="<%= getParentFolder %>images/<%= product[0].ProductImage %>" alt="A Book"
+            class="col-md-6 col-lg-12 img-thumbnail mx-auto d-block">
+        </div>
+        <div class="col-lg-7 col-xl-8 bg-white p-2">
+          <p class="fs-2 bg-light mb-0 text-primary p-2 rounded-1 text-truncate" style="font-weight: 500;">
+            <%= product[0].ProductName %>
+          </p>
+          <div class="col-12 pb-2">
+            <span class="fs-4 d-inline-block mt-2 mb-0 me-2 bg-light text-success p-2 rounded-1"
+              style="font-weight: 500;">
+              Price:
+              <%= 
+                (product[0].ProductPrice).toLocaleString('en-US', {
+                  style: 'currency',
+                  currency: 'USD',
+                });
+              %>
+            </span>
+            <span class="fs-4 d-inline-block mt-2 mb-0 me-2 bg-light text-dark p-2 rounded-1" style="font-weight: 500;">
+              Category:
+              <% typeList.forEach(type => { %>
+              <% if (type.PkType_Id === product[0].FkType_Id) { %>
+              <%= type.TypeName %>
+              <% } %>
+              <% }); %>
+            </span>
+            <span class="fs-4 d-inline-block mt-2 mb-0 bg-light text-dark p-2 rounded-1" style="font-weight: 500;">
+              View: <%= product[0].ProductViews %>
+            </span>
+          </div>
+          <hr class="my-0 border-1 border-top border-dark">
+          <table class="table mb-2">
+            <tr>
+              <td class="text-primary">
+                Publisher
+              </td>
+              <td>
+                <%= product[0].ProductPublisher %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-primary">
+                Publish Date
+              </td>
+              <td>
+                <%= 
+                  product[0].ProductPublishDate.toLocaleDateString("en-US", { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric' 
+                  });
+                %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-primary">
+                Pages
+              </td>
+              <td>
+                <%= product[0].ProductPages %>
+              </td>
+            </tr>
+            <tr>
+              <td class="text-primary">
+                Dimensions
+              </td>
+              <td>
+                <%= product[0].ProductDimensions %>
+              </td>
+            </tr>
+          </table>
+          <div class="col-12 bg-light px-2 pt-2">
+            <button type="button" class="btn me-1 mb-2 btn-primary text-uppercase fs-5 px-5">
+              Add to cart
+            </button>
+            <button type="button" class="btn mb-2 btn-dark text-uppercase fs-5 px-5">
+              Buy now
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container mb-5 mt-4 p-0 rounded-1 overflow-hidden bg-white">
+      <h4 class="bg-light text-primary p-2 mb-0">
+        Description:
+      </h4>
+      <p class="p-2 mb-1 lh-lg">
+        <%= product[0].ProductDescription %>
+      </p>
+    </div>
+
+    <%- include('./module/footer.ejs') %>
+  </div>
+</body>
+
+</html>

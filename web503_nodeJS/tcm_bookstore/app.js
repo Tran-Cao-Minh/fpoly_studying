@@ -18,32 +18,120 @@ const db = mysql.createConnection({
 // </> USER
 // home page
 app.get('/', (req, res) => {
-  let sql = `SELECT PkType_Id, TypeName 
-            FROM product_type 
-            WHERE TypeDisplay = 1`;
-  db.query(sql, function (err, typeList) {
-    if (err) {
-      throw err;
-    }
-
-    sql = `SELECT 
-            PkProduct_Id, ProductName, ProductImage, ProductPrice 
-          FROM product 
-          WHERE ProductDisplay = 1`;
-
-    db.query(sql, function (err, productList) {
+  db.query(`
+    SELECT PkType_Id, TypeName 
+    FROM product_type 
+    WHERE TypeDisplay = 1
+    `,
+    function (err, typeList) {
       if (err) {
         throw err;
       }
-      res.render('user/home', {
-        typeList: typeList,
-        productList: productList,
-        getParentFolder: '',
-      });
+      db.query(`
+        SELECT 
+          PkProduct_Id, ProductName, ProductImage, ProductPrice 
+        FROM product 
+        WHERE ProductDisplay = 1
+        `,
+        function (err, productList) {
+          if (err) {
+            throw err;
+          }
+          res.render('user/home', {
+            typeList: typeList,
+            productList: productList,
+            getParentFolder: '',
+          });
+        })
     })
-  })
 })
 // end home page
+
+// view product by category
+app.get('/type/:typeId', (req, res) => {
+  let FkType_Id = req.params.typeId;
+
+  db.query(`
+    SELECT PkType_Id, TypeName 
+    FROM product_type 
+    WHERE TypeDisplay = 1
+    `,
+    function (err, typeList) {
+      if (err) {
+        throw err;
+      }
+      db.query(`
+        SELECT 
+          PkProduct_Id, ProductName, ProductImage, ProductPrice 
+        FROM product 
+        WHERE FkType_Id = ${FkType_Id}
+        `,
+        function (err, productList) {
+          if (err) {
+            throw err;
+          }
+          res.render('user/home', {
+            typeList: typeList,
+            productList: productList,
+            getParentFolder: '../',
+          });
+        })
+    })
+})
+// end view product by category
+
+// view product detail
+app.get('/detail/:productId', (req, res) => {
+  let PkProduct_Id = req.params.productId;
+
+  db.query(`
+    SELECT PkType_Id, TypeName 
+    FROM product_type 
+    WHERE TypeDisplay = 1
+    `,
+    function (err, typeList) {
+      if (err) {
+        throw err;
+      }
+      db.query(`
+        SELECT 
+          ProductName, 
+          ProductDescription, 
+          ProductImage, 
+          ProductPrice, 
+          ProductPublisher,
+          ProductPublishDate,
+          ProductDimensions,
+          ProductPages,
+          ProductViews,
+          FkType_Id
+        FROM product
+        WHERE PkProduct_Id = ${PkProduct_Id}
+        LIMIT 1
+        `,
+        function (err, product) {
+          if (err) {
+            throw err;
+          }
+          res.render('user/product-detail', {
+            typeList: typeList,
+            product: product,
+            getParentFolder: '../',
+          });
+          db.query(`
+            UPDATE product
+            SET ProductViews = ProductViews + 1
+            WHERE PkProduct_Id = ${PkProduct_Id}
+            `,
+            function (err, data) {
+              if (err) {
+                throw err;
+              }
+            })
+        })
+    })
+})
+// end view product detail
 
 // end </> USER
 
@@ -55,17 +143,19 @@ app.get('/admin', (req, res) => {
 })
 
 app.get('/admin/add-product', (req, res) => {
-  let sql = `SELECT PkType_Id, TypeName 
-            FROM product_type`;
-  db.query(sql, function (err, typeList) {
-    if (err) {
-      throw err;
-    }
-    res.render('admin/add-product', {
-      typeList: typeList,
-      getParentFolder: '../',
-    });
-  })
+  db.query(`
+    SELECT PkType_Id, TypeName 
+    FROM product_type
+    `,
+    function (err, typeList) {
+      if (err) {
+        throw err;
+      }
+      res.render('admin/add-product', {
+        typeList: typeList,
+        getParentFolder: '../',
+      });
+    })
 })
 
 app.post('/admin/add-product', (req, res) => {
@@ -117,7 +207,7 @@ app.post('/admin/add-product', (req, res) => {
       if (err) {
         throw err;
       }
-      res.redirect('/');
+      res.redirect('/admin/add-product');
     })
   })
 })
