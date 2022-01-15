@@ -18,7 +18,7 @@ const db = mysql.createConnection({
 // </> USER
 // home page
 app.get('/', (req, res) => {
-  let sql =`SELECT PkType_Id, TypeName 
+  let sql = `SELECT PkType_Id, TypeName 
             FROM product_type 
             WHERE TypeDisplay = 1`;
   db.query(sql, function (err, typeList) {
@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
       throw err;
     }
 
-    sql =`SELECT 
+    sql = `SELECT 
             PkProduct_Id, ProductName, ProductImage, ProductPrice 
           FROM product 
           WHERE ProductDisplay = 1`;
@@ -55,13 +55,16 @@ app.get('/admin', (req, res) => {
 })
 
 app.get('/admin/add-product', (req, res) => {
-  let sql =`SELECT PkType_Id, TypeName 
+  let sql = `SELECT PkType_Id, TypeName 
             FROM product_type`;
   db.query(sql, function (err, typeList) {
     if (err) {
       throw err;
     }
-    res.render('admin/add-product', {typeList: typeList});
+    res.render('admin/add-product', {
+      typeList: typeList,
+      getParentFolder: '../',
+    });
   })
 })
 
@@ -74,6 +77,10 @@ app.post('/admin/add-product', (req, res) => {
     let productName = fields.productName;
     let productPrice = fields.productPrice;
     let productDescription = fields.productDescription;
+    let productPublisher = fields.productPublisher;
+    let productPublishDate = fields.productPublishDate;
+    let productDimensions = fields.productDimensions;
+    let productPages = fields.productPages;
     let productDisplay = fields.productDisplay;
 
     let date = new Date();
@@ -97,12 +104,16 @@ app.post('/admin/add-product', (req, res) => {
       productName: productName,
       productPrice: productPrice,
       productDescription: productDescription,
+      productPublisher: productPublisher,
+      productPublishDate: productPublishDate,
+      productDimensions: productDimensions,
+      productPages: productPages,
       productDisplay: productDisplay,
       productImage: fileName,
     };
     console.log(product);
 
-    db.query('INSERT INTO product SET ?', product, function(err, data) {
+    db.query('INSERT INTO product SET ?', product, function (err, data) {
       if (err) {
         throw err;
       }
