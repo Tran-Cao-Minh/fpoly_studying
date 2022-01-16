@@ -20,9 +20,9 @@
         <h4 class="text-center text-uppercase mb-3">
           Add product
         </h4>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1">Product type</label>
-          <select class="form-select mb-3" name="productType">
+          <select class="form-select" name="productType">
             <% typeList.forEach(type => { %>
             <option value="<%= type.PkType_Id %>">
               <%= type.TypeName %>
@@ -30,44 +30,79 @@
             <% }) %>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productName">Product name</label>
-          <input required type="text" maxlength="200" class="form-control mb-3" id="productName" name="productName">
+          <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="productName"
+            name="productName" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+          <div class="invalid-feedback">
+            Please fill this input that is start with alphanumeric,
+            less than 200 characters and contains only alphanumeric
+            or underscore or some specials characters include , ' " : - ; _ + . |
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productImage">Product image</label>
-          <input required accept="image/*" type="file" class="form-control mb-3" id="productImage" name="productImage">
+          <input required accept="image/*" type="file" class="form-control js-img-input" id="productImage" name="productImage">
+          <div class="col-12 bg-primary p-2 mt-1 text-center rounded-1 js-preview-img d-none">
+            <img src="../images/circe_1642254165871.webp" class="img-thumbnail" style="height: calc(100px + 15vw);">
+          </div>
+          <div class="invalid-feedback">
+            Please choose an image smaller than 2MB
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productPrice">Product price ($)</label>
-          <input required type="number" min="0" max="100000" step="0.01" class="form-control mb-3" id="productPrice"
-            name="productPrice">
+          <input required type="number" min="0" max="99999" step="0.01" class="js-bootstrap-validate form-control"
+            id="productPrice" name="productPrice" pattern="^([1-9]{1})([0-9]{0,4})((\.{1}[0-9]+)?)$">
+          <div class="invalid-feedback">
+            Please fill this input with a float number that is start with a number greater than 0 and
+            less than 100000
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productDescription">Product description</label>
-          <textarea required rows="5" class="form-control mb-3" id="productDescription" name="productDescription"
-            maxlength="2000"></textarea>
+          <textarea required rows="5" class="form-control js-bootstrap-validate" id="productDescription"
+            name="productDescription" maxlength="2001" pattern="^(\S{1})([\s\S]{0,1999})$"></textarea>
+          <div class="invalid-feedback">
+            Please fill this input that is not start with a whitespace and less than 2000 characters
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productPublisher">Product publisher</label>
-          <input required type="text" maxlength="200" class="form-control mb-3" id="productPublisher" name="productPublisher">
+          <input required type="text" maxlength="200" class="js-bootstrap-validate form-control" id="productPublisher"
+            name="productPublisher" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+          <div class="invalid-feedback">
+            Please fill this input that is start with alphanumeric,
+            less than 200 characters and contains only alphanumeric
+            or underscore or some specials characters include , ' " : - ; _ + . |
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productPublishDate">Product publish date</label>
-          <input required type="date" class="form-control mb-3" id="productPublishDate" name="productPublishDate">
+          <input required type="date" class="form-control" id="productPublishDate" name="productPublishDate">
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productDimensions">Product dimensions</label>
-          <input required type="text" maxlength="100" class="form-control mb-3" id="productDimensions" name="productDimensions">
+          <input required type="text" maxlength="100" class="js-bootstrap-validate form-control" id="productDimensions"
+            name="productDimensions" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+          <div class="invalid-feedback">
+            Please fill this input that is start with alphanumeric,
+            less than 100 characters and contains only alphanumeric
+            or underscore or some specials characters include , ' " : - ; _ + . |
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1" for="productPages">Product pages</label>
-          <input required type="number" min="1" max="99999" step="0.01" class="form-control mb-3" id="productPages"
-            name="productPages">
+          <input required type="number" min="1" max="99999" step="1" class="js-bootstrap-validate form-control"
+            id="productPages" name="productPages" pattern="^([1-9]{1})([0-9]{0,4})$">
+          <div class="invalid-feedback">
+            Please fill this input with an integer number that is start with a number greater than 0 and
+            less than 100000
+          </div>
         </div>
-        <div class="form-group">
+        <div class="form-group mb-3">
           <label class="mb-1">Product display</label>
-          <select class="form-select mb-3" name="productDisplay">
+          <select class="form-select" name="productDisplay">
             <option value="0">Hide</option>
             <option value="1" selected>Show</option>
           </select>
@@ -82,6 +117,10 @@
 
     <%- include('./module/footer.ejs') %>
   </div>
+
+  <!-- js -->
+  <script src="<%= getParentFolder %>js/bootstrap-validate.js"></script>
+  <script src="<%= getParentFolder %>js/preview-img.js"></script>
 </body>
 
 </html>

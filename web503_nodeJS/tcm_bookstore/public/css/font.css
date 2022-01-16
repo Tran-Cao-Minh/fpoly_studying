@@ -1,5 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Dosis&display=swap');
 
 .font-logo {
   font-family: 'Fredoka One', cursive;
+}
+
+.font-title {
+  font-family: 'Dosis', sans-serif;
+  font-weight: 700;
 }

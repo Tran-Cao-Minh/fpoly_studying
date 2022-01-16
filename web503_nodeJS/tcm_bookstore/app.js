@@ -85,6 +85,17 @@ app.get('/detail/:productId', (req, res) => {
   let PkProduct_Id = req.params.productId;
 
   db.query(`
+    UPDATE product
+    SET ProductViews = ProductViews + 1
+    WHERE PkProduct_Id = ${PkProduct_Id}
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      }
+    })
+
+  db.query(`
     SELECT PkType_Id, TypeName 
     FROM product_type 
     WHERE TypeDisplay = 1
@@ -118,16 +129,6 @@ app.get('/detail/:productId', (req, res) => {
             product: product,
             getParentFolder: '../',
           });
-          db.query(`
-            UPDATE product
-            SET ProductViews = ProductViews + 1
-            WHERE PkProduct_Id = ${PkProduct_Id}
-            `,
-            function (err, data) {
-              if (err) {
-                throw err;
-              }
-            })
         })
     })
 })
@@ -136,12 +137,15 @@ app.get('/detail/:productId', (req, res) => {
 // end </> USER
 
 // </> ADMIN
+// home page
 app.get('/admin', (req, res) => {
   res.render('admin/home', {
     getParentFolder: '',
   });
 })
+// end home page
 
+// add product page
 app.get('/admin/add-product', (req, res) => {
   db.query(`
     SELECT PkType_Id, TypeName 
@@ -164,17 +168,17 @@ app.post('/admin/add-product', (req, res) => {
     let pathFile = files.productImage.filepath;
     let fileExtension = files.productImage.mimetype.split('/').pop();
     let productType = fields.productType;
-    let productName = fields.productName;
+    let productName = fields.productName.trim();
     let productPrice = fields.productPrice;
-    let productDescription = fields.productDescription;
-    let productPublisher = fields.productPublisher;
+    let productDescription = fields.productDescription.trim();
+    let productPublisher = fields.productPublisher.trim();
     let productPublishDate = fields.productPublishDate;
-    let productDimensions = fields.productDimensions;
+    let productDimensions = fields.productDimensions.trim();
     let productPages = fields.productPages;
     let productDisplay = fields.productDisplay;
 
     let date = new Date();
-    let slug = productName.toLowerCase().trim().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
+    let slug = productName.toLowerCase().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
     let prefix = slug + '_' + date.getTime();
     let fileName = prefix + '.' + fileExtension;
     let destPath = __dirname + '\\public\\images\\' + fileName;
@@ -207,10 +211,12 @@ app.post('/admin/add-product', (req, res) => {
       if (err) {
         throw err;
       }
-      res.redirect('/admin/add-product');
+      res.redirect('/');
     })
   })
 })
+// end add product page
+
 // end </> ADMIN
 
 app.listen(port, function () {
