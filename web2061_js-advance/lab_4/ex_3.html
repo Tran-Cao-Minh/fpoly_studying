@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 order list by name</title>
+</head>
+<body>
+  <input id="name" type="text" placeholder="Nhập tên">
+  <button id="showResult">Enter</button>
+  <ul id="result"></ul>
+
+  <script>
+    let studentNameList = [];
+
+    function getName(name, callback) {
+      if (name === '') {
+        alert('Please enter student name');
+
+      } else {
+        let check = true;
+
+        studentNameList.forEach(studentName => {
+          if (studentName === name) {
+            alert('Student name already exists');
+            check = false;
+          }
+        });
+
+        if (check === true) {
+          studentNameList.push(name);
+          showResult(studentNameList);
+        }
+      }
+    }
+
+    function showResult(studentNameList) {
+      result.innerHTML = '';
+      studentNameList.sort();
+
+      studentNameList.forEach(studentName => {
+        let item = document.createElement('li');
+        item.innerHTML = studentName;
+        result.appendChild(item);
+      });
+    }
+
+    const result = document.getElementById('result');
+    const nameInput = document.getElementById('name');
+    const showResultBtn = document.getElementById('showResult');
+
+    showResultBtn.addEventListener('click', function () {
+      getName(nameInput.value, showResult);
+    })
+  </script>
+</body>
+</html>

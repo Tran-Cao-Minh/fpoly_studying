@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 get BMI index</title>
+</head>
+<body>
+  <input id="weight" type="number" placeholder="Weight (kg)">
+  <input id="height" type="number" placeholder="Height (cm)">
+  <button id="showResult">Enter</button>
+  <h1>Your BMI index is: <span id="result"></span></h1>
+
+  <script>
+    function getInformation(weight, height, callback) {
+      if (weight <= 0) {
+        alert('Please enter weight greater than 0');
+
+      } else if (height <= 0) {
+        alert('Please enter height greater than 0');
+
+      } else {
+        callback(weight, height);
+      }
+    }
+
+    function showResult(weight, height) {
+      result.innerHTML = weight / Math.pow(height, 2); 
+    }
+
+    const showResultBtn = document.getElementById('showResult');
+    const weightInput = document.getElementById('weight');
+    const heightInput = document.getElementById('height');
+    const result = document.getElementById('result');
+
+    showResultBtn.addEventListener('click', function() {
+      getInformation(weightInput.value, heightInput.value, showResult);
+    })
+  </script>
+</body>
+</html>
