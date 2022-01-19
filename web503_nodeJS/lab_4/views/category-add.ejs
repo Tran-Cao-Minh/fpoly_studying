@@ -1,0 +1,24 @@
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<div class="container">
+  <form class="col-6 border border-dark rounded p-3 m-auto" action="/category/store" method="POST">
+    <div class="form-group mb-3">
+      <label for="categoryName">Category name</label>
+      <input type="text" class="form-control bg-info" name="categoryName" id="categoryName">
+    </div>
+    <div class="form-group mb-3">
+      <label for="categoryOrder">Category order</label>
+      <input class="form-control bg-primary" name="categoryOrder" id="categoryOrder">
+    </div>
+    <div class="form-group mb-3">
+      <label>Category display</label>
+      <input type="radio" name="categoryDisplay" value="1" checked> Show &nbsp; &nbsp;
+      <input type="radio" name="categoryDisplay" value="0"> Hide
+    </div>
+    <div class="form-group mt-3 ">
+      <button type="submit" class="btn btn-dark px-4  py-2 text-white"> 
+        Save 
+      </button>
+    </div>
+  </form>
+</div>
