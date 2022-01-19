@@ -17,3 +17,15 @@ npm i formidable
 
 # connect db mySql
 npm i mysql
+
+# fast create project with express
+> global express
+npm i -g express
+> express generator
+npm -g i express-generator
+> move to folder contain project and run command
+express --<view template> <projectName>
+ex: express --ejs lab_4
+
+# http-errors required in express fast create
+npm i http-errors
