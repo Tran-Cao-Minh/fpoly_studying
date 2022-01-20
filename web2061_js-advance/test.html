@@ -9,68 +9,113 @@
   <!-- bootstrap -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-  </script>
   <!-- font awsome -->
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
   <!-- custom css -->
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+
+    body {
+      position: relative;
+    }
+
     .aside {
+      position: fixed;
+      top: 0;
+      left: 0;
+      bottom: 0;
+
       width: 280px;
+
+      overflow-y: auto;
+    }
+
+    .main {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: calc(100% - 280px);
       min-height: 100vh;
+
+      /* background: linear-gradient(red, blue); */
+    }
+
+    .logo-font {
+      font-family: 'Shrikhand', cursive;
+    }
+
+    :root {
+      --bs-primary-rgb: 41, 44, 109;
+      --bs-primary-hex: #35589A;
+      --bs-secondary-rgb: 187, 187, 187;
+      --bs-light-rgb: 245, 245, 250;
+    }
+
+    .btn-primary {
+      color: var(--bs-white-rgb);
+      background-color: var(--bs-primary-hex);
+      border-color: var(--bs-primary-hex);
+    }
+
+    .table-primary {
+      --bs-table-bg: var(--bs-primary-hex);
+    }
+
+    .table>:not(caption)>*>td {
+      line-height: 2.34rem;
+    }
+
+    .btn-square {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 3rem;
+      height: 3rem;
+    }
+
+    .nav-pills .nav-link.active {
+      color: var(--bs-white-rgb);
+      background-color: rgb(var(--bs-primary-rgb)) !important;
+    }
+
+    .nav-link:hover {
+      background-color: rgba(var(--bs-primary-rgb), 0.4);
     }
   </style>
 </head>
 
 <body>
   <aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark aside">
-    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-      <svg class="bi me-2" width="40" height="32">
-        <use xlink:href="#bootstrap"></use>
-      </svg>
-      <span class="fs-4">Sidebar</span>
+    <a href="/" class="d-flex align-items-center text-primary text-decoration-none">
+      <span class="fs-1 logo-font text-center w-100 bg-light pt-1 rounded-3">TCM</span>
     </a>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
         <a href="#" class="nav-link active" aria-current="page">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#home"></use>
-          </svg>
-          Home
+          Categories
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#speedometer2"></use>
-          </svg>
-          Dashboard
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#table"></use>
-          </svg>
-          Orders
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#grid"></use>
-          </svg>
+        <a href="#" class="nav-link text-light">
           Products
         </a>
       </li>
       <li>
-        <a href="#" class="nav-link text-white">
-          <svg class="bi me-2" width="16" height="16">
-            <use xlink:href="#people-circle"></use>
-          </svg>
-          Customers
+        <a href="#" class="nav-link text-light">
+          Orders
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-light">
+          Users
+        </a>
+      </li>
+      <li>
+        <a href="#" class="nav-link text-light">
+          Comments
         </a>
       </li>
     </ul>
@@ -92,6 +137,117 @@
       </ul>
     </div>
   </aside>
+
+  <main class="main bg-light">
+    <header class="container-fluid bg-white p-2 d-flex align-items-center">
+      <button class="btn btn-primary text-light fs-3 btn-square">
+        <i class="fas fa-caret-left"></i>
+      </button>
+      <h1 class="fs-5 mb-0 text-center" style="width: calc(100% - 6rem);">
+        Categories
+      </h1>
+    </header>
+    <div class="container p-4">
+      <section class="col-12 bg-white rounded-1 p-3">
+        <form class="row g-3">
+          <div class="col-12 input-group">
+            <input type="text" class="form-control" placeholder="Enter search text">
+            <button class="btn btn-primary text-light px-4" type="button">Search</button>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-select">
+              <option selected>Choose column</option>
+              <option>...</option>
+            </select>
+          </div>
+          <div class="col-lg-6">
+            <select class="form-select">
+              <option selected>Choose order</option>
+              <option>Descending</option>
+              <option>Ascending</option>
+            </select>
+          </div>
+        </form>
+      </section>
+
+      <section class="col-12 bg-white rounded-1 p-1 mt-4">
+        <table class="table table-striped table-hover table-borderless mb-0">
+          <thead class="table-primary text-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">First</th>
+              <th scope="col">Last</th>
+              <th scope="col">Handle</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td scope="row">1</td>
+              <td>Mark</td>
+              <td>Otto</td>
+              <td>
+                <button class="btn btn-danger">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+                <button class="btn btn-warning text-light">
+                  <i class="far fa-file-alt"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td scope="row">2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td scope="row">2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td scope="row">2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+            <tr>
+              <td scope="row">2</td>
+              <td>Jacob</td>
+              <td>Thornton</td>
+              <td>@fat</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section class="col-12 bg-white rounded-1 p-1 mt-1 d-flex justify-content-center">
+        <button class="btn mx-1 px-3 btn-light text-primary">
+          <i class="fas fa-step-backward"></i>
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-dark fw-bold">
+          1
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-dark fw-bold">
+          2
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-dark fw-bold">
+          3
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-dark fw-bold">
+          4
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-dark fw-bold">
+          ...
+        </button>
+        <button class="btn mx-1 px-3 btn-light text-primary">
+          <i class="fas fa-step-forward"></i>
+        </button>
+
+      </section>
+    </div>
+  </main>
 </body>
 
 </html>
