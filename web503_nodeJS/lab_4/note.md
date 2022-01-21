@@ -4,6 +4,10 @@ Done
 # 2. Cài module cho project
 > required
 npm i http-errors
+npm i mysql
+> advance
+npm i formidable
+npm i fs
 
 # 3. Chạy project
 Done $ npm start

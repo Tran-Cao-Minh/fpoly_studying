@@ -50,7 +50,7 @@ router.post('/store', function (req, res, next) {
     let productDimensions = fields.productDimensions.trim();
     let productPages = fields.productPages;
     let productDisplay = fields.productDisplay;
-
+ 
     let date = new Date();
     let slug = productName.toLowerCase().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
     let prefix = slug + '_' + date.getTime();

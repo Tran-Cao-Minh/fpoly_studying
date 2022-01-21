@@ -58,7 +58,7 @@ router.get('/edit/:id', function (req, res, next) {
     }
   )
 })
-
+ 
 router.post('/update', function (req, res, next) {
   // get data from edit router to update into database
   let PkCategory_Id = req.body.categoryId;
