@@ -1,12 +1,14 @@
 <section class="col-12 bg-white rounded-1 p-3">
   <form class="row g-3">
-    <div class="col-12 input-group">
-      <input type="text" class="form-control" placeholder="Enter search text">
-      <button class="btn btn-primary text-light px-4" type="button">Search</button>
+    <div class="input-group col-lg-6">
+      <input type="text" class="form-control" placeholder="Enter search value">
+      <button class="btn btn-primary text-light" type="button">
+        <i class="fas fa-search"></i>
+      </button>
     </div>
-    <div class="col-lg-6">
+    <div class="input-group col-lg-6">
+      <span class="input-group-text">Search by</span>
       <select class="form-select">
-        <option selected>Choose column</option>
         <% columnList.forEach(column => { %>
           <option value="<%= column.key %> ">
             <%= column.name %> 
@@ -14,9 +16,19 @@
         <% }) %>
       </select>
     </div>
-    <div class="col-lg-6">
+    <div class="input-group col-lg-6">
+      <span class="input-group-text">Order by</span>
       <select class="form-select">
-        <option selected>Choose order</option>
+        <% columnList.forEach(column => { %>
+          <option value="<%= column.key %> ">
+            <%= column.name %> 
+          </option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="input-group col-lg-6">
+      <span class="input-group-text">Order rule</span>
+      <select class="form-select">
         <option>Descending</option>
         <option>Ascending</option>
       </select>

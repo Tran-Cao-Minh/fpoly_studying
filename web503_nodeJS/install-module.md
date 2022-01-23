@@ -29,3 +29,6 @@ ex: express --ejs lab_4
 
 # http-errors required in express fast create
 npm i http-errors
+
+# parse body for POST API request
+npm i body-parser

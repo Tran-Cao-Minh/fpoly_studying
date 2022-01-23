@@ -65,33 +65,131 @@
   </main>
 
   <script>
-    fetch('http://localhost:3000/category')
-      .then(function (res) {
-        console.log(res);
+    // raw postman
+    // {
+    // "columnList": ["PkCategory_Id",  "CategoryName"],
+    // "searchValue": 1,
+    // "searchColumn": "CategoryDisplay",
+    // "orderRule": "ASC",
+    // "orderColumn": "CategoryDisplay",
+    // "offset": 2,
+    // "rowCount": 4
+    // }
+    // postman head need
+    // Content-Type : application/json
 
-        if (!res.ok) {
-          throw new Error('Error = ' + res.status);
+    // COLUMN LIST
+    let filterColumnList = [
+      {
+        key: 'PkCategory_Id',
+        name: 'ID',
+        type: 'pk',
+      },
+      {
+        key: 'CategoryName',
+        name: 'Name',
+        type: 'text',
+      },
+      {
+        key: 'CategoryOrder',
+        name: 'Order',
+        type: 'text',
+      },
+      {
+        key: 'CategoryDisplay',
+        name: 'Display',
+        type: 'text',
+      },
+    ];
+    function FilterFormCreator () {
+      this.createSearchColumnOption = function (selectInput) {
+
+      };
+
+      this.createOrderColumnOption = function (selectInput) {
+
+      };
+    }
+    // end COLUMN LIST
+
+    // DATA READER
+    function DataReader(columnList, fetchLink) {
+      this.columnList = columnList;
+      this.filterDataInit = function () {
+        this.searchValue = '';
+        this.searchColumn = this.columnList[0];
+        this.orderRule = 'ASC';
+        this.orderColumn = this.columnList[0];
+        this.offset = 0;
+        this.rowCount = 5;
+      };
+
+      this.fetchLink = fetchLink;
+      this.setData = function (result) {
+        this.dataResult = result;
+        alert(1);
+      };
+      this.getData = function (callback) {
+        this.data = {
+          'columnList': this.columnList,
+          'searchValue': this.searchValue,
+          'searchColumn': this.searchColumn,
+          'orderRule': this.orderRule,
+          'orderColumn': this.orderColumn,
+          'offset': this.offset,
+          'rowCount': this.rowCount
         };
-        return res.json();
-      })
-      .then(function (data) {
-        console.log(data);
 
-        let container = document.querySelector('js-table-body');
+        fetch(this.fetchLink, {
+            method: 'POST',
+            body: JSON.stringify(this.data),
+            headers: {
+              'Content-type': 'application/json; charset=UTF-8'
+            }
+          })
+          .then(function (res) {
+            if (!res.ok) {
+              throw new Error('Error = ' + res.status);
+            };
+            return res.json();
+          })
+          .then(function (result) {
+            callback(result);
+          })
+          .catch(function (err) {
+            console.log('Error: ', err);
+          })
+      };
+    }
 
-        data.forEach(row => {
-          let tr = document.createElement('tr');
-          columnList.forEach(column => {
-            let td = document.createElement('td');
-            td.innerText = row[column.key];
+    let test = new DataReader(
+      ['PkCategory_Id', 'CategoryName'],
+      'http://localhost:3000/category',
+    );
 
-            tr.appendChild ###
-          });
-        });
-      })
-      .catch(function (err) {
-        console.log('Error: ', err);
-      })
+    test.filterDataInit();
+    test.orderRule = 'DESC';
+
+    test.getData(function(result) {
+      alert(JSON.stringify(result));
+    });
+    // end DATA READER
+
+    // 
+
+
+
+
+    // let container = document.querySelector('js-table-body');
+
+    // data.forEach(row => {
+    //   let tr = document.createElement('tr');
+    //   columnList.forEach(column => {
+    //     let td = document.createElement('td');
+    //     td.innerText = row[column.key];
+
+    //   });
+    // });
   </script>
 </body>
 

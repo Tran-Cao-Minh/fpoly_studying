@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const modelCategory = require('../models/category');
+const modelCategory = require('../models/m-category');
 
 // View
 router.get('/overview', function (req, res, next) {
@@ -37,7 +37,7 @@ router.get('/overview', function (req, res, next) {
       name: 'Display',
       type: 'text',
     },
-  ]
+  ];
 
   res.render('admin/category/category-overview', {
     columnList : columnList,
@@ -45,9 +45,17 @@ router.get('/overview', function (req, res, next) {
 })
 
 // API
-router.get('/', function (req, res, next) {
-  let categoryList = modelCategory.list();
-  res.json(categoryList); 
+router.post('/', function (req, res, next) {
+  let filter = req.body;
+  res.json(modelCategory.list(
+    filter.columnList,
+    filter.searchValue,
+    filter.searchColumn,
+    filter.orderRule,
+    filter.orderColumn,
+    filter.offset,
+    filter.rowCount,
+  )); 
 })
 
 router.get('/add', function (req, res, next) {
