@@ -1,3 +1,6 @@
 @import url(../base/reset.css);
-@import url(../base/color.css);
+@import url(../base/color-variant.css);
 @import url(../base/font.css);
+@import url(../module/hover.css);
+@import url(../module/box-model.css);
+@import url(../module/text.css);

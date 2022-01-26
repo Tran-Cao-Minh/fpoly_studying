@@ -1,0 +1,12 @@
+:root {
+  --primary-color: #435ebe;
+  --bg-body: #f2f7ff;
+  --bg-hover: #f0f1f5;
+
+  --link-color: var(--primary-color);
+  --text-color: #25396f;
+  --icon-color: #7c8db5;
+  --text-blur-color: #607080;
+
+  --white: #fff;
+}

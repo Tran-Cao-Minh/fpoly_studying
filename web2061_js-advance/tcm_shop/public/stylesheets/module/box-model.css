@@ -1,0 +1,11 @@
+/* background */
+.bg-white {
+  background: var(--white);
+}
+/* end background */
+
+/* border-radius */
+.rounded-1 {
+  border-radius: 0.5rem;
+}
+/* end border-radius */

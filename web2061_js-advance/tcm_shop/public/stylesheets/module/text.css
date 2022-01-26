@@ -1,0 +1,15 @@
+.text-link {
+  color: var(--link-color);
+}
+
+.text {
+  color: var(--text-color);
+}
+
+.text-icon {
+  color: var(--icon-color);
+}
+
+.text-blur {
+  color: var(--text-blur-color);
+}

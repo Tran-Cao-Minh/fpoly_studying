@@ -26,8 +26,6 @@
       width: 300px;
       height: 100vh;
 
-      background-color: var(--white);
-
       transition: left .5s ease-out;
     }
 
@@ -39,7 +37,7 @@
       display: flex;
       justify-content: space-between;
 
-      padding: 2rem 1.7rem 2rem 1.2rem;
+      padding: 2rem 0.9rem 1.4rem 1rem;
     }
 
     .sidebar__logo img,
@@ -56,39 +54,125 @@
       height: 3.2rem;
       border-radius: 0.5rem;
 
-      cursor: pointer;
-
-      transition: all .2s ease-out;
+      transition: all .5s ease-out;
 
       /* background: blue; */
     }
 
-    .sidebar__toggle:hover {
-      background-color: var(--bg-hover);
+    .sidebar__close-icon {
+      font-size: 1.5rem;
     }
 
-    .sidebar__close-icon {
-      color: var(--link-color);
-      font-size: 1.5rem;
+    .sidebar__body {
+      padding: 0 1rem;
+    }
+
+    .sidebar__menu {
+      list-style-type: none;
+    }
+
+    .sidebar__item--has-sub,
+    .sidebar__item {
+      position: relative;
+
+      margin-top: 0.5rem;
+    }
+
+
+    .sidebar__item-title {
+      padding: 0.7rem 1rem;
+
+      font-size: 1.1rem;
+
+      display: flex;
+      align-items: center;
+
+      transition: all .5s;
+    }
+    
+    .sidebar__item--has-sub.active>.sidebar__item-title,
+    .sidebar__item.active>.sidebar__item-title {
+      background-color: var(--primary-color) !important;
+    }
+
+    .sidebar__item--has-sub.active>.sidebar__item-title>.sidebar__item-icon,
+    .sidebar__item.active>.sidebar__item-title>.sidebar__item-icon,
+    .sidebar__item--has-sub.active>.sidebar__item-title>.sidebar__item-text,
+    .sidebar__item.active>.sidebar__item-title>.sidebar__item-text {
+      color: var(--white) !important;
+    }
+
+    .sidebar__item--has-sub>.sidebar__item-title:after {
+      font-family: 'Font Awesome 5 Free';
+      content: '\f078';
+      font-weight: 600;
+
+      position: absolute;
+      right: 1rem;
+      top: 0.8rem;
+
+      transform: rotateZ(270deg);
+
+      color: #ccc;
+
+      transition: transform .5s ease-out;
+    }
+
+    .sidebar__item--has-sub.active>.sidebar__item-title:after {
+      transform: rotateZ(360deg);
+
+      color: #fff;
+    }
+
+    .sidebar__item-icon {
+      font-size: var(--font-size, 3rem);
+      margin: var(--margin, 0);
+    }
+
+    .sidebar__item-text {
+      margin-top: 0.1rem;
+      margin-left: 0.8rem;
     }
   </style>
 </head>
 
 <body>
-  <aside id="sidebar" class="active">
+  <aside id="sidebar" class="active bg-white">
     <header class="sidebar__header">
       <div class="sidebar__logo">
         <a href="#">
           <img src="../public/images/base/logo.png" alt="logo">
         </a>
       </div>
-      <div class="sidebar__toggle">
-        <i class="fas fa-times sidebar__close-icon"></i>
+      <div class="sidebar__toggle hover-bg-white hover-pointer">
+        <i class="fas fa-times sidebar__close-icon text-icon"></i>
       </div>
     </header>
     <section class="sidebar__body">
       <ul class="sidebar__menu">
-        <li class="sidebar__item"></li>
+        <li class="sidebar__item--has-sub">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
+            <i class="fas fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+
+            </li>
+          </ul>
+        </li>
+        <!-- <li class="sidebar__item--has-sub active">
+          <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
+            <i class="fas fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text">Category</span>
+          </a>
+        </li> -->
       </ul>
     </section>
   </aside>
