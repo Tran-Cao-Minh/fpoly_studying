@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <style>
+    body {
+      background-color: var(--bg-body);
+    }
+
+    #sidebar {
+      overflow-y: auto;
+
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      left: -300px;
+      z-index: 10;
+
+      width: 300px;
+      height: 100vh;
+
+      background-color: var(--white);
+
+      transition: left .5s ease-out;
+    }
+
+    #sidebar.active {
+      left: 0;
+    }
+
+    .sidebar__header {
+      display: flex;
+      justify-content: space-between;
+
+      padding: 2rem 1.7rem 2rem 1.2rem;
+    }
+
+    .sidebar__logo img,
+    .sidebar__logo svg {
+      height: 3.2rem;
+    }
+
+    .sidebar__toggle {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      width: 3.2rem;
+      height: 3.2rem;
+      border-radius: 0.5rem;
+
+      cursor: pointer;
+
+      transition: all .2s ease-out;
+
+      /* background: blue; */
+    }
+
+    .sidebar__toggle:hover {
+      background-color: var(--bg-hover);
+    }
+
+    .sidebar__close-icon {
+      color: var(--link-color);
+      font-size: 1.5rem;
+    }
+  </style>
+</head>
+
+<body>
+  <aside id="sidebar" class="active">
+    <header class="sidebar__header">
+      <div class="sidebar__logo">
+        <a href="#">
+          <img src="../public/images/base/logo.png" alt="logo">
+        </a>
+      </div>
+      <div class="sidebar__toggle">
+        <i class="fas fa-times sidebar__close-icon"></i>
+      </div>
+    </header>
+    <section class="sidebar__body">
+      <ul class="sidebar__menu">
+        <li class="sidebar__item"></li>
+      </ul>
+    </section>
+  </aside>
+  <main>
+
+  </main>
+</body>
+
+</html>
