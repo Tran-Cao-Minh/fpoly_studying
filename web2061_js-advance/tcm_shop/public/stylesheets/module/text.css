@@ -13,3 +13,9 @@
 .text-blur {
   color: var(--text-blur-color);
 }
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

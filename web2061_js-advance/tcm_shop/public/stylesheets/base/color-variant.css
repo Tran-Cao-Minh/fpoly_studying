@@ -1,5 +1,6 @@
 :root {
   --primary-color: #435ebe;
+
   --bg-body: #f2f7ff;
   --bg-hover: #f0f1f5;
 
@@ -10,4 +11,13 @@
 
   --white: #fff;
   --light-gray: #ccc;
+  --black-overlay: #0002;
+
+  --blue: #435ebe;
+  --red: #dc3545; 
+
+  --btn-primary-bg: var(--blue);
+  --btn-primary-hightlight: #3950a2;
+  --btn-primary-focus-shadow: rgba(95, 118, 200, 0.5);
+  --btn-danger-bg: var(--red);
 }

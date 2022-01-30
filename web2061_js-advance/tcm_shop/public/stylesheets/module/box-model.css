@@ -2,10 +2,18 @@
 .bg-white {
   background: var(--white);
 }
+
+.bg-body {
+  background: var(--bg-body);
+}
 /* end background */
 
 /* border-radius */
+.rounded-0 {
+  border-radius: 0.25rem;
+}
 .rounded-1 {
   border-radius: 0.5rem;
 }
 /* end border-radius */
+

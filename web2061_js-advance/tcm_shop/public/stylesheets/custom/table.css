@@ -1,7 +1,0 @@
-.table-primary {
-  --bs-table-bg: var(--bs-primary);
-}
-
-.table>:not(caption)>*>td {
-  line-height: 2.34rem;
-}

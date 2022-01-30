@@ -25,6 +25,4 @@ body {
 
   width: calc(100% - 280px);
   min-height: 100vh;
-
-  /* background: linear-gradient(red, blue); */
 }

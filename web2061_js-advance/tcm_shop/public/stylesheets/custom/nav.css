@@ -1,8 +1,0 @@
-.nav-pills .nav-link.active {
-  color: var(--bs-white-rgb);
-  background-color: rgb(var(--bs-primary-rgb)) !important;
-}
-
-.nav-link:hover {
-  background-color: rgba(var(--bs-primary-rgb), 0.4);
-}

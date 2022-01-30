@@ -10,62 +10,175 @@
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
   <style>
-
+    
   </style>
 </head>
 
 <body>
   <aside id="sidebar" class="active bg-white">
+    <div class="sidebar__tablet-overlay js-sidebar-toggle"></div>
+
     <header class="sidebar__header">
       <div class="sidebar__logo">
         <a href="#">
           <img src="../public/images/base/logo.png" alt="logo">
         </a>
       </div>
-      <div class="sidebar__toggle hover-bg-white hover-pointer">
+      <button type="button" class="sidebar__toggle hover-bg-white hover-pointer js-sidebar-toggle">
         <i class="fas fa-times sidebar__close-icon text-icon"></i>
-      </div>
+      </button>
     </header>
+
     <section class="sidebar__body">
       <ul class="sidebar__menu">
-        <li class="sidebar__item--has-sub active">
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
           <a class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
             <i class="fas fa-cubes sidebar__item-icon text-icon" style="
               --font-size: 1.2rem;
               --margin: 0 0 0 0;
             "></i>
-            <span class="sidebar__item-text text">Category</span>
+            <span class="sidebar__item-text text text-truncate">Category</span>
           </a>
           <ul class="sidebar__sub-menu">
             <li class="sidebar__sub-menu-item">
               <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-1">
                 <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
-                <span class="sidebar__sub-item-text text">Overview</span>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
               </a>
             </li>
             <li class="sidebar__sub-menu-item">
               <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-1">
                 <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
-                <span class="sidebar__sub-item-text text">Add</span>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
               </a>
             </li>
           </ul>
         </li>
-        <li class="sidebar__item--has-sub">
+        <li class="sidebar__item">
           <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
             <i class="fas fa-cubes sidebar__item-icon text-icon" style="
               --font-size: 1.2rem;
               --margin: 0 0 0 0;
             "></i>
-            <span class="sidebar__item-text text">Category</span>
+            <span class="sidebar__item-text text text-truncate">Category</span>
           </a>
+        </li>
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
+            <i class="fas fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-1">
+            <i class="fas fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-1">
+                <i class="fas fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+          </ul>
         </li>
       </ul>
     </section>
   </aside>
-  <main>
 
+  <main id="main">
+    <div class="main__wrapper">
+      <header class="main__header bg-white">
+        <button type="button" class="main__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+          <i class="fas fa-bars main__collapse-icon text-icon"></i>
+        </button>
+        <div class="main__page-name text-truncate">
+          Category Overview
+        </div>
+        <div class="main__user-interaction">
+          <div class="main__user-avatar hover-pointer bg-body">
+            <img src="https://avatars.githubusercontent.com/u/78601445?v=4" alt="">
+          </div>
+          <div class="main__user-dashboard bg-body">
+            <div class="main__username rounded-1 bg-white text-truncate text col-12">
+              Hi, Tran Cao Minh
+            </div>
+            <button type="button" class="col-12 btn-primary">
+              <i class="fas fa-sign-out-alt"></i>&nbsp;
+              Log Out
+            </button>
+          </div>
+        </div>
+      </header>
+      
+      <!-- body content -->
+      <section class="row bg-white" style="height: 200vh;">
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+        test
+      </section>
+      <!-- end body content -->
+    </div>
   </main>
+
+  <script type="module" src="../public/javascripts/admin/layout.js"></script>
 </body>
 
 </html>
