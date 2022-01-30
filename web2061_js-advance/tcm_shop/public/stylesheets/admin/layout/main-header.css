@@ -19,13 +19,14 @@
   width: 100%;
   min-width: 320px;
 
-  padding-top: 5rem;
+  padding: 5rem 2rem 2rem;
 }
 
 .main__header {
   position: absolute;
   top: 0;
   left: 0;
+  z-index: 9;
   
   display: flex;
   justify-content: space-between;
@@ -62,6 +63,7 @@
 
   text-align: center;
   font-size: 1.2rem;
+  font-weight: 600;
 }
 
 @media only screen and (max-width: 991px) {

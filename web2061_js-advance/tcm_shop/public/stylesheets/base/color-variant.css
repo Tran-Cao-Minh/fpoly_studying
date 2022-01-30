@@ -20,4 +20,9 @@
   --btn-primary-hightlight: #3950a2;
   --btn-primary-focus-shadow: rgba(95, 118, 200, 0.5);
   --btn-danger-bg: var(--red);
+
+
+  --border-light-color: #dce7f1;
+  --border-light-focus-color: #a1afdf;
+  --input-focus-shadow: rgba(67, 94, 190, 0.25);
 }

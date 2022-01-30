@@ -1,22 +1,36 @@
-export function SingleCollapser (activeClass, targetElement) {
+export function SingleCollapser(
+  activeClass = String(),
+  targetElement = Node(),
+) {
   this.activeClass = activeClass;
   this.targetElement = targetElement;
 
-  this.createEvent = function (element, event) {
+  this.createEvent = function (
+    element = Node(),
+    event = String(),
+  ) {
     let targetElement = this.targetElement;
     let activeClass = this.activeClass;
 
     element.addEventListener(event, function () {
       targetElement.classList.toggle(activeClass);
     })
-  }
+  };
 };
 
-export function MultipleCollapser (activeClass, targetElementList) {
+export function MultipleCollapser(
+  activeClass = String(),
+  targetElementList = [
+    Node(),
+  ],
+) {
   this.activeClass = activeClass;
   this.targetElementList = targetElementList;
 
-  this.createEvent = function (element, event) {
+  this.createEvent = function (
+    element = Node(),
+    event = String(),
+  ) {
     let targetElementList = this.targetElementList;
     let activeClass = this.activeClass;
 
@@ -26,5 +40,5 @@ export function MultipleCollapser (activeClass, targetElementList) {
       });
       element.classList.toggle(activeClass);
     })
-  }
+  };
 };

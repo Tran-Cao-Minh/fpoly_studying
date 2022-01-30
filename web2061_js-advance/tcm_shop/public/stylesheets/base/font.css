@@ -1,3 +1,15 @@
+/* @font-face {
+  font-family: main-font;
+  src: url(../../fonts/nunito/Nunito-Regular.ttf);
+  font-weight: 400;
+} */
+
+@font-face {
+  font-family: main-font;
+  src: url(../../fonts/nunito/Nunito-Medium.ttf);
+  font-weight: 500;
+}
+
 @font-face {
   font-family: main-font;
   src: url(../../fonts/nunito/Nunito-SemiBold.ttf);
@@ -13,4 +25,5 @@
 body {
   font-family: main-font;
   font-size: 16px;
+  font-weight: 500;
 }
