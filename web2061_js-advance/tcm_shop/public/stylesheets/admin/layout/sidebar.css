@@ -204,7 +204,7 @@
 .sidebar__item--has-sub.active>.sidebar__item-title:after {
   transform: rotateZ(360deg);
 
-  color: #fff;
+  color: var(--white);
 }
 
 /* end body */
