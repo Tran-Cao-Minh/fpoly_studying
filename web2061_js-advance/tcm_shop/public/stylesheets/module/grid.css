@@ -4,9 +4,21 @@
   flex-wrap: wrap;
 
   width: 100%;
-  
+
   padding: 1rem 0.75rem 1rem;
   margin: 2rem 0;
+}
+
+@media only screen and (max-width: 1199.98px) {
+  .row {
+    margin: 1.5rem 0;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  .row {
+    margin: 1rem 0;
+  }
 }
 
 /* end row */

@@ -15,6 +15,10 @@
 
   --blue: #435ebe;
   --red: #dc3545; 
+  --green: #198754;
+
+  --text-danger: var(--red);
+  --text-success: var(--green);
 
   --btn-primary-bg: var(--blue);
   --btn-primary-hightlight: #3950a2;

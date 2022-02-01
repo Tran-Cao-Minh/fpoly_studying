@@ -6,14 +6,36 @@
 .bg-body {
   background: var(--bg-body);
 }
+
 /* end background */
 
 /* border-radius */
-.rounded-0 {
+.rounded-1 {
   border-radius: 0.25rem;
 }
-.rounded-1 {
+
+.rounded-2 {
   border-radius: 0.5rem;
 }
-/* end border-radius */
 
+.rounded-top {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.rounded-bottom {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.rounded-end {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.rounded-start {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* end border-radius */

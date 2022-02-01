@@ -22,6 +22,19 @@
   padding: 5rem 2rem 2rem;
 }
 
+@media only screen and (max-width: 1199.98px) {
+  .main__wrapper {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+@media only screen and (max-width: 767.98px) {
+  .main__wrapper {
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+  }
+}
+
 .main__header {
   position: absolute;
   top: 0;
@@ -57,19 +70,18 @@
 }
 
 .main__page-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
   width: calc(100% - 6rem);
+  padding: 0 1.5rem;
 
   color: var(--text-color);
 
   text-align: center;
   font-size: 1.2rem;
   font-weight: 600;
-}
-
-@media only screen and (max-width: 991px) {
-  .main__page-name {
-    display: none;
-  }
 }
 
 .main__user-interaction {

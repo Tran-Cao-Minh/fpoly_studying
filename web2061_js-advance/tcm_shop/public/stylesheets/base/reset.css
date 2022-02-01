@@ -7,6 +7,22 @@
   box-sizing: border-box;
 }
 
+:root {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 1199.98px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  :root {
+    font-size: 14px;
+  }
+}
+
 body {
   min-height: 100vh;
   line-height: 1.5;

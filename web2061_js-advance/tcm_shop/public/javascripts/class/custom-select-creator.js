@@ -36,7 +36,7 @@ export function CustomSelectCreator(
   this.createCustomSelect = function (
     defaultOptionValue = String(),
     selectTextContainer = Node(),
-    optionActiveClass = String(),
+    optionActiveAttribute = String(),
   ) {
     let selectElement = this.selectElement;
     selectElement.setAttribute('tabindex', '0');
@@ -86,9 +86,9 @@ export function CustomSelectCreator(
 
     function changeOptionStatus(option) {
       optionList.forEach(option => {
-        option.classList.remove(optionActiveClass);
+        option.removeAttribute(optionActiveAttribute);
       });
-      option.classList.add(optionActiveClass);
+      option.setAttribute(optionActiveAttribute, '');
     }
 
     optionList.forEach((option, index) => {

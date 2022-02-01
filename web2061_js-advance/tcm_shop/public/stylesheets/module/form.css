@@ -3,7 +3,7 @@
   padding: 0.5rem 0.75rem;
 }
 
-.form-group label {
+.form-group>label {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -115,6 +115,7 @@
 
   border: 0.25rem solid var(--input-focus-shadow);
   border-top-width: 0;
+  border-bottom-width: 1px;
 
   transition: background 0.15s ease-in-out;
 }
@@ -124,10 +125,11 @@
 }
 
 .custom-select-list li:last-child {
+  border-bottom-width: 0.25rem;
   border-radius: 0 0 0.5rem 0.5rem;
 }
 
-.custom-select-list li.choosen {
+.custom-select-list li[choosen] {
   background: var(--bg-body);
 }
 
