@@ -6,6 +6,15 @@ var logger = require('morgan');
 
 var app = express();
 
+// set up cors for fetch from other sources
+const cors = require('cors');
+app.use(
+  cors({
+    origin: '*',
+  })
+);
+// end set up cors for fetch from other sources
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');

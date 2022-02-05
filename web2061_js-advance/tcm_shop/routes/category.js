@@ -16,8 +16,7 @@ router.get('/overview', function (req, res, next) {
   //   }
   // );
 
-  let columnList = [
-    {
+  let columnList = [{
       key: 'PkCategory_Id',
       name: 'ID',
       type: 'pk',
@@ -40,22 +39,27 @@ router.get('/overview', function (req, res, next) {
   ];
 
   res.render('admin/category/category-overview', {
-    columnList : columnList,
+    columnList: columnList,
   });
 })
 
 // API
 router.post('/', function (req, res, next) {
   let filter = req.body;
-  res.json(modelCategory.list(
-    filter.columnList,
-    filter.searchValue,
-    filter.searchColumn,
-    filter.orderRule,
-    filter.orderColumn,
-    filter.offset,
-    filter.rowCount,
-  )); 
+  if (filter.searchMode === 'searchByValue') {
+    res.json(modelCategory.searchByValue(
+      filter.columnList,
+      filter.searchValue,
+      filter.searchColumn,
+      filter.orderRule,
+      filter.orderColumn,
+      filter.offset,
+      filter.rowCount,
+    ));
+
+  } else if (filter.searchMode === 'searchByMinMax') {
+
+  }
 })
 
 router.get('/add', function (req, res, next) {

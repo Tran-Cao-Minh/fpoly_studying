@@ -1,0 +1,8 @@
+#js-search-input-container:not(.active)>#js-overview-search-min,
+#js-search-input-container:not(.active)>#js-overview-search-max {
+  display: none;
+}
+
+#js-search-input-container.active>#js-overview-search-value {
+  display: none;
+}

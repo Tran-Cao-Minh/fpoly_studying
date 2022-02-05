@@ -1,24 +1,24 @@
 import {
-  SingleCollapser
-} from '../class/collapser.js';
+  SingleActivator
+} from '../class/activator.js';
 
 let sidebar = document.querySelector('#sidebar');
-let sidebarCollapser = new SingleCollapser('active', sidebar);
+let sidebarActivator = new SingleActivator('active', sidebar);
 let toggleBtnList = document.querySelectorAll('.js-sidebar-toggle');
 toggleBtnList.forEach(btn => {
-  sidebarCollapser.createEvent(btn, 'click');
+  sidebarActivator.createEvent(btn, 'click');
 });
 
 let userInteractionArea = document.querySelector('.main__user-interaction');
-let userDashboardCollapser = new SingleCollapser('active', userInteractionArea);
-userDashboardCollapser.createEvent(userInteractionArea, 'click');
+let userDashboardActivator = new SingleActivator('active', userInteractionArea);
+userDashboardActivator.createEvent(userInteractionArea, 'click');
 
 import {
-  MultipleCollapser
-} from '../class/collapser.js';
+  MultipleActivator
+} from '../class/activator.js';
 
 let menuItemList = document.querySelectorAll('.js-menu-item-collapse');
-let menuItemCollapser = new MultipleCollapser('active', menuItemList);
+let menuItemActivator = new MultipleActivator('active', menuItemList);
 menuItemList.forEach(menuItem => {
-  menuItemCollapser.createEvent(menuItem, 'click');
+  menuItemActivator.createEvent(menuItem, 'click');
 });

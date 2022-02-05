@@ -40,14 +40,19 @@
 }
 
 
-.form-control:focus,
-.form-control:hover {
+.form-control:not(:disabled):focus,
+.form-control:not(:disabled):hover{
   box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
   outline: 0;
 }
 
 .form-control:focus {
   border-color: var(--border-light-focus-color);
+}
+
+.form-control:disabled {
+  background: var(--light);
+  color: var(--text-blur-color);
 }
 
 /* end form control */
@@ -166,7 +171,8 @@
   border-bottom-left-radius: 0;
 }
 
-.input-group>*:focus {
+.input-group>*:focus,
+.input-group>*:hover {
   z-index: 3;
 }
 
@@ -190,3 +196,76 @@
 }
 
 /* end input group */
+
+/* custom input radio, checkbox */
+.form-check-input {
+  position: fixed;
+  z-index: -1;
+  
+  width: 0;
+  height: 0;
+}
+
+.form-check-input[type=checkbox] + label,
+.form-check-input[type=radio] + label {
+  position: relative;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  background: transparent;
+}
+
+.form-check-input[type=checkbox] + label::after,
+.form-check-input[type=radio] + label::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  background: var(--white);
+  color: transparent;
+
+  border: 0.2rem solid var(--border-light-color);
+
+  line-height: 1rem;
+  text-align: center;
+
+  transition: all .15s ease-in-out;
+}
+
+.form-check-input[type=radio] + label::after {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f111';
+  font-weight: 600;
+
+  border-radius: 50%;
+  font-size: 0.5rem;
+}
+
+.form-check-input[type=checkbox] + label::after {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f00c';
+  font-weight: 600;
+
+  padding-top: 1px;
+
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.form-check-input:checked + label::after {
+  border-color: var(--input-checked-color) !important;
+  background: var(--input-checked-color) !important;
+  color: var(--white) !important;
+}
+
+
+.form-check-input:focus + label::after,
+.form-check-input + label:hover::after {
+  box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
+}
+
+/* end custom input radio, checkbox */

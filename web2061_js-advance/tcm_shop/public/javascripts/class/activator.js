@@ -1,8 +1,14 @@
-export function SingleCollapser(
+function Activator (
+  activeClass = String(),
+) {
+  this.activeClass = activeClass;
+};
+
+export function SingleActivator(
   activeClass = String(),
   targetElement = Node(),
 ) {
-  this.activeClass = activeClass;
+  Activator.call(this, activeClass);
   this.targetElement = targetElement;
 
   this.createEvent = function (
@@ -18,13 +24,13 @@ export function SingleCollapser(
   };
 };
 
-export function MultipleCollapser(
+export function MultipleActivator(
   activeClass = String(),
   targetElementList = [
     Node(),
   ],
 ) {
-  this.activeClass = activeClass;
+  Activator.call(this, activeClass);
   this.targetElementList = targetElementList;
 
   this.createEvent = function (

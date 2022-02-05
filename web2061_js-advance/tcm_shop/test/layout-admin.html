@@ -9,6 +9,7 @@
   <!-- font awsome -->
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
   <style>
 
   </style>
@@ -157,17 +158,42 @@
       </header>
 
       <!-- body content -->
-      <section class="bg-white">
-
-      </section>
+      <style>
+        
+      </style>
       <section class="row bg-white rounded-2 rounded-bottom">
+        <!-- change search mode area -->
+        <div class="col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="input-group-text">
+                <input class="form-check-input" type="radio" 
+                value="value" name="searchMode" id="searchByValue" checked>
+                <label for="searchByValue"></label>
+                <span class="ms-2">
+                  Search by Value
+                </span>
+              </label>
+              <label class="input-group-text">
+                <input class="form-check-input" type="radio" 
+                value="minMax" name="searchMode" id="searchByMinMax">
+                <label for="searchByMinMax"></label>
+                <span class="ms-2">
+                  Search by Min - Max
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- end change search mode area -->
+
         <!-- search form -->
         <div class="col-12 col-lg-8">
           <div class="form-group">
-            <div class="input-group">
+            <div class="input-group" id="js-search-input-container">
               <input type="text" class="form-control" id="js-overview-search-value" placeholder="Search value">
-              <!-- <input type="date" class="form-control" id="js-overview-search-value" placeholder="Min value">
-              <input type="date" class="form-control" id="js-overview-search-value" placeholder="Max value"> -->
+              <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min" placeholder="Min value">
+              <input type="text" class="form-control" id="js-overview-search-max" placeholder="Max value">
               <button class="btn-primary">
                 <i class="fas fa-search"></i>
               </button>
@@ -245,7 +271,7 @@
 
   <script type="module" src="../public/javascripts/admin/layout.js"></script>
 
-  <script type="module" src="../public/javascripts/admin/overview.js"></script>
+  <script type="module" src="../public/javascripts/admin/overview/index.js"></script>
 </body>
 
 </html>

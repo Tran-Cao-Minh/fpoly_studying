@@ -16,6 +16,7 @@
   --blue: #435ebe;
   --red: #dc3545; 
   --green: #198754;
+  --light: #f9fafb;
 
   --text-danger: var(--red);
   --text-success: var(--green);
@@ -29,4 +30,6 @@
   --border-light-color: #dce7f1;
   --border-light-focus-color: #a1afdf;
   --input-focus-shadow: rgba(67, 94, 190, 0.25);
+
+  --input-checked-color: #4c66c1;
 }
