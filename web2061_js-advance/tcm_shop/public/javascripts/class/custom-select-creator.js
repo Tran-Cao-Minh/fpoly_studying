@@ -115,12 +115,16 @@ export function CustomSelectCreator(
       if (event.key === 'ArrowDown') {
         if (currentOptionIndex < (optionList.length - 1)) {
           currentOptionIndex++;
+        } else {
+          currentOptionIndex = 0;
         }
         changeOptionStatus(optionList[currentOptionIndex]);
 
       } else if (event.key === 'ArrowUp') {
         if (currentOptionIndex > 0) {
           currentOptionIndex--;
+        } else {
+          currentOptionIndex = optionList.length - 1;
         }
         changeOptionStatus(optionList[currentOptionIndex]);
 

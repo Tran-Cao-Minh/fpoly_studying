@@ -159,7 +159,7 @@
 
       <!-- body content -->
       <style>
-        
+
       </style>
       <section class="row bg-white rounded-2 rounded-bottom">
         <!-- change search mode area -->
@@ -167,16 +167,14 @@
           <div class="form-group">
             <div class="input-group">
               <label class="input-group-text">
-                <input class="form-check-input" type="radio" 
-                value="value" name="searchMode" id="searchByValue" checked>
+                <input class="form-check-input" type="radio" value="value" name="searchMode" id="searchByValue" checked>
                 <label for="searchByValue"></label>
                 <span class="ms-2">
                   Search by Value
                 </span>
               </label>
               <label class="input-group-text">
-                <input class="form-check-input" type="radio" 
-                value="minMax" name="searchMode" id="searchByMinMax">
+                <input class="form-check-input" type="radio" value="minMax" name="searchMode" id="searchByMinMax">
                 <label for="searchByMinMax"></label>
                 <span class="ms-2">
                   Search by Min - Max
@@ -191,8 +189,13 @@
         <div class="col-12 col-lg-8">
           <div class="form-group">
             <div class="input-group" id="js-search-input-container">
-              <input type="text" class="form-control" id="js-overview-search-value" placeholder="Search value">
-              <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min" placeholder="Min value">
+              <input autocomplete="off"  type="text" class="form-control custom-select" id="js-overview-search-value"
+                placeholder="Search value">
+              <ul class="custom-select-list">
+                <!-- add by overview.js -->
+              </ul>
+              <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min"
+                placeholder="Min value">
               <input type="text" class="form-control" id="js-overview-search-max" placeholder="Max value">
               <button class="btn-primary">
                 <i class="fas fa-search"></i>

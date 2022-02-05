@@ -6,3 +6,9 @@
 #js-search-input-container.active>#js-overview-search-value {
   display: none;
 }
+
+#js-overview-search-value + .custom-select-list{
+  left: -0.25rem;
+  
+  width: calc(100% - 2.5rem);
+}

@@ -8,6 +8,7 @@ export function adminFilterCustomSelectCreator(
     key: String(),
     type: String(),
   }, ],
+  defaultColumnOptionValue = String(),
 ) {
   // search column 
   let searchColumnSelect =
@@ -47,7 +48,7 @@ export function adminFilterCustomSelectCreator(
   searchColumnSelectCreator.createLabelPointer(searchColumnSelectLabel);
 
   searchColumnSelectCreator.createCustomSelect(
-    'CategoryName',
+    defaultColumnOptionValue,
     searchColumnSelectText,
     'choosen',
   );
@@ -85,7 +86,7 @@ export function adminFilterCustomSelectCreator(
   orderColumnSelectCreator.createLabelPointer(orderColumnSelectLabel);
 
   orderColumnSelectCreator.createCustomSelect(
-    'CategoryName',
+    defaultColumnOptionValue,
     orderColumnSelectText,
     'choosen',
   );

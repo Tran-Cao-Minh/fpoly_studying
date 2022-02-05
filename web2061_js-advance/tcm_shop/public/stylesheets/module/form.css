@@ -101,7 +101,8 @@
   transition: max-height 0.4s ease-in-out;
 }
 
-.custom-select.active>.custom-select-list {
+.custom-select.active>.custom-select-list,
+.custom-select-list.active {
   max-height: 50rem;
 }
 
