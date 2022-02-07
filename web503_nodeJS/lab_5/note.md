@@ -29,5 +29,21 @@ Vào thư mục web503_nodeJS, mở terminal
 - viết bằng tiếng Anh, format đẹp
 
 # 5. Tạo route (product thay sách)
+tại file app.js dòng 25, 31
+tạo file routes/product.js
+- format đẹp
+
+# 6. Thực hiện chức năng danh sách record
+tại router get dòng 7 - file routes/product.js
+- gộp sql cùng hàm query, code đẹp
+- gọi tất cả dữ liệu ra res.json
+- tìm hiểu res.json có thể format, định dạng khác với res.send
+test với postman, gọi ra. 
+- tạo link test vào collection với tên gợi nhớ - get product list data
+http://localhost:3000/product - method: GET
+(collection - lab 5 node js)
+
+# 7. Thực hiện chức năng thêm record
+
 
 
