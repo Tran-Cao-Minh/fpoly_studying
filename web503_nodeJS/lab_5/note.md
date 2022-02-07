@@ -79,6 +79,12 @@ test với postman, gọi ra
 - tên gợi nhớ: delete product
 http://localhost:3000/product/id - method: DELETE
 
+# 10. Thực hiện tương tự với table product_category (loai)
+route tại file app.js dòng 24, 30
+tại file routes/category.js
+*** add,update không dùng form-data cho chỉ xử lý với req.body
+*** mà dùng x-www-form-urlencoded
+
 
 
 
