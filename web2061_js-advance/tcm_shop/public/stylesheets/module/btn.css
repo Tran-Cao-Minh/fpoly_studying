@@ -1,3 +1,4 @@
+/* general btn */
 [class*='btn-'] {
   display: inline-flex;
   justify-content: center;
@@ -11,7 +12,7 @@
   border: none;
   border-radius: 0.25rem;
 
-  font-size: 1rem;
+  font-size: var(--icon-size, 1rem);
 
   transition: all 0.15s ease-in-out;
 }
@@ -20,6 +21,14 @@
   cursor: pointer;
 }
 
+.btn-square {
+  width: 2.5rem;
+  padding: 0;
+}
+
+/* end general btn */
+
+/* btn variant */
 .btn-primary {
   background-color: var(--btn-primary-bg);
 }
@@ -27,10 +36,48 @@
 .btn-primary:hover,
 .btn-primary:active,
 .btn-primary:focus {
-  background-color: var(--btn-primary-hightlight);
+  box-shadow: 0 0 0 0.25rem var(--btn-primary-shadow);
 }
 
-.btn-primary:focus {
-  box-shadow: 0 0 0 0.25rem var(--btn-primary-focus-shadow);
-  outline: 0;
+.btn-danger {
+  background-color: var(--btn-danger-bg);
 }
+
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger:focus {
+  box-shadow: 0 0 0 0.25rem var(--btn-danger-shadow);
+}
+
+.btn-warning {
+  background-color: var(--btn-warning-bg);
+}
+
+.btn-warning:hover,
+.btn-warning:active,
+.btn-warning:focus {
+  box-shadow: 0 0 0 0.25rem var(--btn-warning-shadow);
+}
+
+.btn-success {
+  background-color: var(--btn-success-bg);
+}
+
+.btn-success:hover,
+.btn-success:active,
+.btn-success:focus {
+  box-shadow: 0 0 0 0.25rem var(--btn-success-shadow);
+}
+
+.btn-light {
+  background-color: var(--btn-light-bg);
+  color: var(--text-color);
+}
+
+.btn-light:hover,
+.btn-light:active,
+.btn-light:focus {
+  box-shadow: 0 0 0 0.25rem var(--btn-light-shadow);
+}
+
+/* end btn variant */

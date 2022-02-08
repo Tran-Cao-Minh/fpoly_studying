@@ -1,10 +1,18 @@
 /* background */
 .bg-white {
-  background: var(--white);
+  background-color: var(--white);
 }
 
 .bg-body {
-  background: var(--bg-body);
+  background-color: var(--bg-body);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-white-blur {
+  background-color: var(--white-blur);
 }
 
 /* end background */

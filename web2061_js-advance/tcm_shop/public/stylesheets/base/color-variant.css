@@ -10,21 +10,29 @@
   --text-blur-color: #607080;
 
   --white: #fff;
+  --white-blur: #fff4;
   --light-gray: #ccc;
   --black-overlay: #0002;
 
   --blue: #435ebe;
   --red: #dc3545; 
-  --green: #198754;
+  --yellow: #F7BE16;
+  --green: #198754; 
   --light: #f9fafb;
 
   --text-danger: var(--red);
   --text-success: var(--green);
 
   --btn-primary-bg: var(--blue);
-  --btn-primary-hightlight: #3950a2;
-  --btn-primary-focus-shadow: rgba(95, 118, 200, 0.5);
+  --btn-primary-shadow: rgb(95 118 200 / 50%);
   --btn-danger-bg: var(--red);
+  --btn-danger-shadow: rgb(225 83 97 / 50%);
+  --btn-warning-bg: var(--yellow);
+  --btn-warning-shadow: rgb(217 164 6 / 50%);
+  --btn-success-bg: var(--green);
+  --btn-success-shadow: rgb(60 153 110 / 50%);
+  --btn-light-bg: var(--light);
+  --btn-light-shadow: rgb(211 212 213 / 50%);
 
 
   --border-light-color: #dce7f1;

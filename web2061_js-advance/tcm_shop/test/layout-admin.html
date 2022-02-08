@@ -157,11 +157,9 @@
         </div>
       </header>
 
-      <!-- body content -->
-      <style>
-
-      </style>
-      <section class="row bg-white rounded-2 rounded-bottom">
+      <!-- BODY CONTENT -->
+      <!-- filter form -->
+      <section class="row bg-white rounded-2" style="display: none;">
         <!-- change search mode area -->
         <div class="col-12">
           <div class="form-group">
@@ -189,7 +187,7 @@
         <div class="col-12 col-lg-8">
           <div class="form-group">
             <div class="input-group" id="js-search-input-container">
-              <input autocomplete="off"  type="text" class="form-control custom-select" id="js-overview-search-value"
+              <input autocomplete="off" type="text" class="form-control custom-select" id="js-overview-search-value"
                 placeholder="Search value">
               <ul class="custom-select-list">
                 <!-- add by overview.js -->
@@ -268,7 +266,83 @@
         </div>
         <!-- end order column -->
       </section>
-      <!-- end body content -->
+      <!-- end filter form -->
+
+      <!-- data table -->
+      <style>
+
+      </style>
+
+      <section class="row bg-white-blur rounded-2">
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th style="width: 10rem;">#</th>
+                <th style="width: 7rem;">First</th>
+                <th style="width: 10rem;">Last</th>
+                <th style="width: 13rem;">Handle</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="width: 10rem;">
+                  <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/172/original/Lavery-Bookshop-2048x600-FINAL_%281%29_%282%29.jpg?1644248531" alt="">
+                </td>
+                <td style="width: 7rem;">Mark</td>
+                <td style="width: 10rem;">Otto</td>
+                <td style="width: 13rem;">
+                  <!-- <button class="btn-danger btn-square me-1">
+                    <i class="fas fa-lock"></i>
+                  </button> -->
+                  <button class="btn-success btn-square me-1">
+                    <i class="fas fa-unlock-alt"></i>
+                  </button>
+                  <button class="btn-warning btn-square">
+                    <i class="fas fa-file-alt"></i>
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td style="width: 10rem;">
+                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
+                </td>
+                <td style="width: 7rem;">Jacob</td>
+                <td style="width: 10rem;">Thornton</td>
+                <td style="width: 13rem;">
+                  <button class="btn-danger btn-square me-1">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                  <button class="btn-warning btn-square">
+                    <i class="fas fa-file-alt"></i>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <ul class="paging-link-list mt-2">
+          <li class="btn-light fw-bold">
+            1
+          </li>
+          <li class="btn-light fw-bold">
+            2
+          </li>
+          <li class="btn-light fw-bold">
+            3
+          </li>
+          <li class="btn-light fw-bold">
+            4
+          </li>
+          <li class="btn-light">
+            <i class="fas fa-step-forward"></i>
+          </li>
+        </ul>
+      </section>
+      <!-- end data table -->
+
+      <!-- end BODY CONTENT -->
     </div>
   </main>
 
