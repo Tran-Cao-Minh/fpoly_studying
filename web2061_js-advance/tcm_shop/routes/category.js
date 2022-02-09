@@ -3,49 +3,9 @@ const router = express.Router();
 const modelCategory = require('../models/m-category');
 
 // View
-router.get('/overview', function (req, res, next) {
-  // db.query(
-  //   `
-  //     SELECT PkCategory_Id, CategoryName, CategoryOrder, CategoryDisplay
-  //     FROM product_category
-  //   `,
-  //   function (err, data) {
-  //     res.render('category-list', {
-  //       categoryList: data
-  //     });
-  //   }
-  // );
+router.get('/', function (req, res) {
+  let filter = req.query;
 
-  let columnList = [{
-      key: 'PkCategory_Id',
-      name: 'ID',
-      type: 'pk',
-    },
-    {
-      key: 'CategoryName',
-      name: 'Name',
-      type: 'text',
-    },
-    {
-      key: 'CategoryOrder',
-      name: 'Order',
-      type: 'text',
-    },
-    {
-      key: 'CategoryDisplay',
-      name: 'Display',
-      type: 'text',
-    },
-  ];
-
-  res.render('admin/category/category-overview', {
-    columnList: columnList,
-  });
-})
-
-// API
-router.post('/', function (req, res, next) {
-  let filter = req.body;
   if (filter.searchMode === 'searchByValue') {
     res.json(modelCategory.searchByValue(
       filter.columnList,
@@ -53,14 +13,33 @@ router.post('/', function (req, res, next) {
       filter.searchColumn,
       filter.orderRule,
       filter.orderColumn,
-      filter.offset,
-      filter.rowCount,
+      filter.resultQuantity,
+      filter.pageNum,
     ));
 
   } else if (filter.searchMode === 'searchByMinMax') {
 
-  }
+  };
 })
+
+// API
+// router.post('/', function (req, res, next) {
+//   let filter = req.body;
+//   if (filter.searchMode === 'searchByValue') {
+//     res.json(modelCategory.searchByValue(
+//       filter.columnList,
+//       filter.searchValue,
+//       filter.searchColumn,
+//       filter.orderRule,
+//       filter.orderColumn,
+//       filter.offset,
+//       filter.rowCount,
+//     ));
+
+//   } else if (filter.searchMode === 'searchByMinMax') {
+
+//   };
+// })
 
 router.get('/add', function (req, res, next) {
   // res.render('category-add');

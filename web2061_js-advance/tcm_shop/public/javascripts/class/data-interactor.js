@@ -1,28 +1,41 @@
 function DataInteractor(
   fetchLink = String(),
   fetchMethod = String(),
-  fetchHeaders = {
-    'Content-Type': 'application/json; charset=UTF-8',
-  },
 ) {
   this.fetchLink = fetchLink;
   this.fetchMethod = fetchMethod;
-  this.fetchHeaders = fetchHeaders;
 }
 
 export function DataReader(
   fetchLink = String(),
 ) {
-  DataInteractor.call(this, fetchLink, 'POST');
+  DataInteractor.call(this, fetchLink, 'GET');
 
   this.readData = function (
     fetchBody = Object(),
     callback = Function(data = Object()),
     msReadTime = Number(),
   ) {
-    let fetchLink = this.fetchLink;
     let fetchMethod = this.fetchMethod;
-    let fetchHeaders = this.fetchHeaders;
+
+    let fetchLink = this.fetchLink;
+    let getMethodPrameter = '';
+    Object.entries(fetchBody).forEach(parameter => {
+      let key = parameter[0];
+      let value = parameter[1];
+
+      if (typeof (value) !== 'object') {
+        getMethodPrameter += `&${key}=${value}`;
+
+      } else {
+        value.forEach(item => {
+          getMethodPrameter += `&${key}[]=${item}`;
+        });
+      };
+    });
+    getMethodPrameter = 
+      getMethodPrameter.replace(/&/, '?'); // replace first '&' character with '?'
+    fetchLink += getMethodPrameter;
 
     /**
      * Because when I use Node JS to write API with res.json
@@ -31,30 +44,26 @@ export function DataReader(
      * msReadTime
      */
     fetch(fetchLink, {
-        method: fetchMethod,
-        body: JSON.stringify(fetchBody),
-        headers: fetchHeaders,
-      });
+      method: fetchMethod,
+    });
 
     setTimeout(function () {
       fetch(fetchLink, {
-        method: fetchMethod,
-        body: JSON.stringify(fetchBody),
-        headers: fetchHeaders,
-      })
-      .then(function (res) {
-        if (!res.ok) {
-          throw new Error('error = ' + res.status);
-        };
+          method: fetchMethod,
+        })
+        .then(function (res) {
+          if (!res.ok) {
+            throw new Error('error = ' + res.status);
+          };
 
-        return res.json();
+          return res.json();
 
-      }).then(function (data) {
-        callback(data);
-      })
-      .catch(function (error) {
-        console.log('error: ' + error);
-      });
+        }).then(function (data) {
+          callback(data);
+        })
+        .catch(function (error) {
+          console.log('error: ' + error);
+        });
     }, msReadTime);
-  }
+  };
 }

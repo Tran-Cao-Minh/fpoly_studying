@@ -38,10 +38,10 @@ export function searchAssistantCreator(
       "searchColumn": "PkProductCategory_Id",
       "orderRule": "ASC",
       "orderColumn": "PkProductCategory_Id",
-      "offset": 0,
-      "rowCount": 999999999999
+      "resultQuantity": 999999999999,
+      "pageNum": 1
     },
-    function (data) {
+    function createSearchSuggester(data) {
       data.forEach((dataObject, index) => {
         let currentValue = dataObject[defaultColumnOptionValue];
         let currentIndex = index;
@@ -90,10 +90,10 @@ export function searchAssistantCreator(
           "searchColumn": "PkProductCategory_Id",
           "orderRule": "ASC",
           "orderColumn": "PkProductCategory_Id",
-          "offset": 0,
-          "rowCount": 999999999999
+          "resultQuantity": 999999999999,
+          "pageNum": 1
         },
-        function (data) {
+        function updateSearchSuggestData(data) {
           data.forEach((dataObject, index) => {
             let currentValue = dataObject[searchColumnSelectValue];
             let currentIndex = index;

@@ -31,8 +31,8 @@
   --btn-warning-shadow: rgb(217 164 6 / 50%);
   --btn-success-bg: var(--green);
   --btn-success-shadow: rgb(60 153 110 / 50%);
-  --btn-light-bg: var(--light);
-  --btn-light-shadow: rgb(211 212 213 / 50%);
+  --btn-white-bg: var(--white);
+  --btn-white-shadow: rgb(211 212 213 / 50%);
 
 
   --border-light-color: #dce7f1;

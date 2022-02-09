@@ -7,10 +7,12 @@ exports.searchByValue = function (
   searchColumn,
   orderRule,
   orderColumn,
-  offset,
-  rowCount,
+  resultQuantity,
+  pageNum,
 ) {
   columnList = columnList.join(', ');
+  let offset = resultQuantity * (pageNum - 1);
+  let rowCount = resultQuantity;
 
   let sql = `
     SELECT ${columnList}

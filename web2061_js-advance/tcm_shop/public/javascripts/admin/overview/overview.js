@@ -32,7 +32,13 @@ import {
 } from './create-custom-select.js';
 adminFilterCustomSelectCreator(columnList, defaultColumnOptionValue);
 
-// import {
-//   searchAssistantCreator
-// } from './create-search-assistant.js';
-// searchAssistantCreator(defaultColumnOptionValue, dataFetchLink);
+import {
+  searchAssistantCreator
+} from './create-search-assistant.js';
+searchAssistantCreator(defaultColumnOptionValue, dataFetchLink);
+
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+
+let tableDataReader = new DataReader(dataFetchLink);

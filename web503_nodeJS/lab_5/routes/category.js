@@ -6,8 +6,10 @@ const db = require('../models/database');
 router.get('/', function (req, res, next) {
   db.query(
     `
-      SELECT PkCategory_Id, CategoryName, CategoryOrder, CategoryDisplay
-      FROM product_category
+      SELECT 
+        PkCategory_Id, CategoryName, CategoryOrder, CategoryDisplay
+      FROM 
+        product_category
     `,
     function (err, data) {
       res.json(data);

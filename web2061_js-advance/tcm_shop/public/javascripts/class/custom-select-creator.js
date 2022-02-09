@@ -48,7 +48,7 @@ export function CustomSelectCreator(
 
       } else {
         selectElement.classList.remove(activeClass);
-      }
+      };
     };
 
     selectElement.addEventListener('focus', function () {
