@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 use promise to handling callback hell</title>
+</head>
+
+<body>
+  <script>
+    function ToDoList() {
+      this.wakeUp = function () {
+        return new Promise(function (resolve, reject) {
+          console.log('Step 1: Woke up!');
+          return resolve();
+        });
+      };
+
+      this.brushTeeth = function () {
+        return new Promise(function (resolve, reject) {
+          console.log('Step 2: Brushing teeth');
+          setTimeout(function () {
+            console.log('Done brushing!');
+            return resolve();
+          }, 2000);
+        });
+      };
+
+      this.changeClothes = function () {
+        return new Promise(function (resolve, reject) {
+          console.log('Step 3: Changing clothes');
+          setTimeout(function () {
+            console.log('Done changing clothes!');
+            return resolve();
+          }, 3000);
+        });
+      };
+
+      this.goToSchool = function () {
+        return new Promise(function (resolve, reject) {
+          console.log('Step 4: Moving...');
+          setTimeout(function () {
+            console.log('Went to school!');
+            return resolve();
+          }, 4000);
+        });
+      };
+    };
+
+    let myToDoList = new ToDoList();
+    myToDoList.wakeUp()
+      .then(function () {
+        return myToDoList.brushTeeth();
+      })
+      .then(function () {
+        return myToDoList.changeClothes();
+      })
+      .then(function () {
+        return myToDoList.goToSchool();
+      });
+  </script>
+</body>
+
+</html>

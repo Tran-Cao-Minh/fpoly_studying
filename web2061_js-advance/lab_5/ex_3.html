@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 use promise to handle the problem</title>
+</head>
+
+<body>
+  <script>
+    function RankedAcademicCalculator() {
+      this.score = {};
+
+      this.getStudentFullName = function () {
+        let that = this;
+        return new Promise(function (resolve, reject) {
+          that.studentFullName = prompt('Please enter student full name');
+          return resolve();
+        });
+      };
+
+      this.getSubjectName = function () {
+        let that = this;
+        return new Promise(function (resolve, reject) {
+          that.subjectName = prompt('Please enter subject name');
+          return resolve();
+        });
+      };
+
+      this.getScoreInformation = function (
+        score = {
+          key: String(),
+          ratioPercent: Number(),
+        },
+        delaySecond = Number(),
+      ) {
+        let that = this;
+        return new Promise(function (resolve, reject) {
+          setTimeout(function () {
+            that.score[score.key] =
+              Number(prompt(`What is student's ${score.key} score`)) * (score.ratioPercent / 100);
+            return resolve();
+          }, (delaySecond * 1000));
+        });
+      };
+
+      this.showResult = function () {
+        let that = this;
+        return new Promise(function (resolve, reject) {
+          let finalScore = 0;
+          Object.entries(that.score).forEach(score => {
+            finalScore += score[1];
+          });
+
+          let rankedAcademic;
+          if (finalScore >= 0 && finalScore < 5) {
+            rankedAcademic = 'Weak';
+
+          } else if (finalScore >= 5 && finalScore < 7) {
+            rankedAcademic = 'Fairly good	';
+
+          } else if (finalScore >= 7 && finalScore < 8.5) {
+            rankedAcademic = 'Good';
+
+          } else if (finalScore >= 8.5 && finalScore < 10) {
+            rankedAcademic = 'Very good';
+          }
+
+          let displayResult = `Student full name: ${that.studentFullName}\n`;
+          displayResult += `Subject name: ${that.subjectName}\n`;
+          displayResult += `Ranked academic: ${rankedAcademic}`;
+
+          alert(displayResult);
+          return resolve();
+        });
+      };
+    }
+
+    let rankedAcademicCalculator = new RankedAcademicCalculator();
+    rankedAcademicCalculator.getStudentFullName()
+      .then(function () {
+        return rankedAcademicCalculator.getSubjectName();
+      })
+      .then(function () {
+        return rankedAcademicCalculator.getScoreInformation(
+          score = {
+            key: 'Lab 1',
+            ratioPercent: 10,
+          },
+          0
+        );
+      })
+      .then(function () {
+        return rankedAcademicCalculator.getScoreInformation(
+          score = {
+            key: 'Lab 2',
+            ratioPercent: 20,
+          },
+          3
+        );
+      })
+      .then(function () {
+        return rankedAcademicCalculator.getScoreInformation(
+          score = {
+            key: 'Lab 3',
+            ratioPercent: 30,
+          },
+          4
+        );
+      })
+      .then(function () {
+        return rankedAcademicCalculator.getScoreInformation(
+          score = {
+            key: 'Final exam',
+            ratioPercent: 40,
+          },
+          3
+        );
+      })
+      .then(function () {
+        rankedAcademicCalculator.showResult()
+      });
+  </script>
+</body>
+
+</html>
