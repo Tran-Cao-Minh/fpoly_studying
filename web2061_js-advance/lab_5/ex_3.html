@@ -50,8 +50,8 @@
         let that = this;
         return new Promise(function (resolve, reject) {
           let finalScore = 0;
-          Object.entries(that.score).forEach(score => {
-            finalScore += score[1];
+          Object.values(that.score).forEach(score => {
+            finalScore += score;
           });
 
           let rankedAcademic;
