@@ -13,7 +13,7 @@ export function DataReader(
 
   this.readData = function (
     fetchBody = Object(),
-    callback = Function(data = Object()),
+    callbackFn = Function(data = Object()),
     msReadTime = Number(),
   ) {
     let fetchMethod = this.fetchMethod;
@@ -59,7 +59,7 @@ export function DataReader(
           return res.json();
 
         }).then(function (data) {
-          callback(data);
+          callbackFn(data);
         })
         .catch(function (error) {
           console.log('error: ' + error);

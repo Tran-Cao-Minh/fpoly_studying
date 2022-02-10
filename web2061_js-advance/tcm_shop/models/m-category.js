@@ -30,17 +30,18 @@ exports.searchByValue = function (
         pc.FkDisplayStatus_Id = ds.PkDisplayStatus_Id
       INNER JOIN 
         product p ON
-        p.FkCategory_Id = pc.PkProductCategory_Id
-      WHERE 
-        ${searchColumn} LIKE '%${searchValue}%'
+        p.FkProductCategory_Id = pc.PkProductCategory_Id
       GROUP BY
         PkProductCategory_Id
-      ORDER BY
-        ${orderColumn} ${orderRule}
-      LIMIT 
-        ${offset}, ${rowCount}
     ) AS category
+    WHERE 
+      ${searchColumn} LIKE '%${searchValue}%'
+    ORDER BY
+      ${orderColumn} ${orderRule}
+    LIMIT 
+      ${offset}, ${rowCount}
   `;
+  console.log(sql);
 
   db.query(sql,
     function (err, result) {

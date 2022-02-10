@@ -8,6 +8,7 @@
   <title>Document</title>
   <!-- font awsome -->
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
   <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
   <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
   <style>
@@ -159,7 +160,7 @@
 
       <!-- BODY CONTENT -->
       <!-- filter form -->
-      <section class="row bg-white rounded-2" style="">
+      <section class="row bg-white rounded-2">
         <!-- change search mode area -->
         <div class="col-12">
           <div class="form-group">
@@ -271,125 +272,8 @@
       <!-- data table -->
       <section class="row rounded-2 justify-content-center" style="background-color: var(--bg-hover);">
         <div class="table-container">
-          <table>
-            <thead>
-              <tr>
-                <th style="width: 10rem;">#</th>
-                <th style="width: 7rem;">First</th>
-                <th style="width: 10rem;">Last</th>
-                <th style="width: 13rem;">Handle</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-production.bookshop.org/spree/promo_banner_slides/desktop_images/172/original/Lavery-Bookshop-2048x600-FINAL_%281%29_%282%29.jpg?1644248531" alt="">
-                </td>
-                <td style="width: 7rem;">Mark</td>
-                <td style="width: 10rem;">Otto</td>
-                <td style="width: 13rem;">
-                  <!-- <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-lock"></i>
-                  </button> -->
-                  <button class="btn-success btn-square me-1">
-                    <i class="fas fa-unlock-alt"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-              <tr>
-                <td style="width: 10rem;">
-                  <img src="https://images-us.bookshop.org/ingram/9780394747231.jpg?height=500&v=v2" alt="">
-                </td>
-                <td style="width: 7rem;">Jacob</td>
-                <td style="width: 10rem;">Thornton</td>
-                <td style="width: 13rem;">
-                  <button class="btn-danger btn-square me-1">
-                    <i class="fas fa-trash"></i>
-                  </button>
-                  <button class="btn-warning btn-square">
-                    <i class="fas fa-file-alt"></i>
-                  </button>
-                </td>
-              </tr>
-            </tbody>
+          <table id="js-data-table">
+            <!-- add by overview.js -->
           </table>
         </div>
 

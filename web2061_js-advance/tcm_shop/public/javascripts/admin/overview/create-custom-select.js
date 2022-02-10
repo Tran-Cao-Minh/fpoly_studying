@@ -137,7 +137,7 @@ export function adminFilterCustomSelectCreator(
   });
 
   orderRuleSelectCreator.createCustomSelect(
-    'DESC',
+    'ASC',
     orderRuleSelectText,
     'choosen',
   );

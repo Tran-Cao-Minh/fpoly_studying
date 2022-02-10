@@ -25,21 +25,20 @@ export function searchAssistantCreator(
   let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
   let searchInputList = document.querySelectorAll('[id*="js-overview-search-"]');
 
-
   let tableDataReader = new DataReader(dataFetchLink);
 
   let searchSuggester;
   tableDataReader.readData({
-      "columnList": [
+      'columnList': [
         defaultColumnOptionValue
       ],
-      "searchValue": "",
-      "searchMode": "searchByValue",
-      "searchColumn": "PkProductCategory_Id",
-      "orderRule": "ASC",
-      "orderColumn": "PkProductCategory_Id",
-      "resultQuantity": 999999999999,
-      "pageNum": 1
+      'searchValue': '',
+      'searchMode': 'searchByValue',
+      'searchColumn': 'CategoryId'
+      'orderRule': 'ASC',
+      'orderColumn': 'CategoryId'
+      'resultQuantity': 999999999999,
+      'pageNum': 1
     },
     function createSearchSuggester(data) {
       data.forEach((dataObject, index) => {
@@ -82,16 +81,16 @@ export function searchAssistantCreator(
       });
 
       tableDataReader.readData({
-          "columnList": [
+          'columnList': [
             searchColumnSelectValue
           ],
-          "searchValue": "",
-          "searchMode": "searchByValue",
-          "searchColumn": "PkProductCategory_Id",
-          "orderRule": "ASC",
-          "orderColumn": "PkProductCategory_Id",
-          "resultQuantity": 999999999999,
-          "pageNum": 1
+          'searchValue': '',
+          'searchMode': 'searchByValue',
+          'searchColumn': 'CategoryId'
+          'orderRule': 'ASC',
+          'orderColumn': 'CategoryId'
+          'resultQuantity': 999999999999,
+          'pageNum': 1
         },
         function updateSearchSuggestData(data) {
           data.forEach((dataObject, index) => {
