@@ -1,24 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const modelCategory = require('../models/m-category');
+const modelCategory = require('../models/m-category.js');
 
 // View
 router.get('/', function (req, res) {
   let filter = req.query;
+  filter.resultQuantity = Number(filter.resultQuantity);
+  filter.pageNum = Number(filter.pageNum);
 
   if (filter.searchMode === 'searchByValue') {
-    res.json(modelCategory.searchByValue(
-      filter.columnList,
-      filter.searchValue,
-      filter.searchColumn,
-      filter.orderRule,
-      filter.orderColumn,
-      filter.resultQuantity,
-      filter.pageNum,
-    ));
+    modelCategory.searchByValue(
+      filter,
+      function (data) {
+        res.json(data);
+      },
+    );
 
   } else if (filter.searchMode === 'searchByMinMax') {
-
+    modelCategory.searchByMinMax(
+      filter,
+      function (data) {
+        res.json(data);
+      },
+    );
   };
 })
 

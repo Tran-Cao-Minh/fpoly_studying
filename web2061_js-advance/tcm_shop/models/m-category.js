@@ -1,21 +1,23 @@
 var db = require('./database');
-var data = [];
 
 exports.searchByValue = function (
-  columnList,
-  searchValue,
-  searchColumn,
-  orderRule,
-  orderColumn,
-  resultQuantity,
-  pageNum,
+  filter = {
+    columnList: Array(String()),
+    searchValue: String(),
+    searchColumn: String(),
+    orderRule: String(),
+    orderColumn: String(),
+    resultQuantity: Number(),
+    pageNum: Number(),
+  },
+  callbackFn = Function(data = Object()),
 ) {
-  columnList = columnList.join(', ');
-  let offset = resultQuantity * (pageNum - 1);
-  let rowCount = resultQuantity;
+  filter.columnList = filter.columnList.join(', ');
+  let offset = filter.resultQuantity * (filter.pageNum - 1);
+  let rowCount = filter.resultQuantity;
 
   let sql = `
-    SELECT ${columnList}
+    SELECT ${filter.columnList}
     FROM (
       SELECT
           PkProductCategory_Id AS CategoryId,
@@ -34,20 +36,35 @@ exports.searchByValue = function (
       GROUP BY
         PkProductCategory_Id
     ) AS category
-    WHERE 
-      ${searchColumn} LIKE '%${searchValue}%'
+  `;
+
+  if (filter.searchValue === '') {
+    sql += `WHERE ${filter.searchColumn} LIKE '%%' `;
+
+  } else {
+    let searchValueList = filter.searchValue.trim().split(/\s+/);
+    let searchSql = 'WHERE ';
+    searchValueList.forEach(searchValue => {
+      searchSql += `LOWER(${filter.searchColumn}) LIKE LOWER('%${searchValue}%') AND `;
+    });
+  
+    sql += searchSql.slice(0, -4);
+  }
+  
+  sql += `
     ORDER BY
-      ${orderColumn} ${orderRule}
+      ${filter.orderColumn} ${filter.orderRule}
     LIMIT 
       ${offset}, ${rowCount}
   `;
   console.log(sql);
 
   db.query(sql,
-    function (err, result) {
-      if (err) throw err;
-      data = result;
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
     }
-  )
-  return data;
-}
+  );
+};

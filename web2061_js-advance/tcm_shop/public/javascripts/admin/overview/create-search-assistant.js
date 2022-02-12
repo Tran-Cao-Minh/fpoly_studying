@@ -34,9 +34,9 @@ export function searchAssistantCreator(
       ],
       'searchValue': '',
       'searchMode': 'searchByValue',
-      'searchColumn': 'CategoryId'
+      'searchColumn': searchColumnSelect.getAttribute('value'),
       'orderRule': 'ASC',
-      'orderColumn': 'CategoryId'
+      'orderColumn': searchColumnSelect.getAttribute('value'),
       'resultQuantity': 999999999999,
       'pageNum': 1
     },
@@ -68,7 +68,6 @@ export function searchAssistantCreator(
         'highlight',
       );
     },
-    100,
   );
 
   searchColumnSelect.addEventListener('DOMSubtreeModified', function () {
@@ -86,9 +85,9 @@ export function searchAssistantCreator(
           ],
           'searchValue': '',
           'searchMode': 'searchByValue',
-          'searchColumn': 'CategoryId'
+          'searchColumn': searchColumnSelect.getAttribute('value'),
           'orderRule': 'ASC',
-          'orderColumn': 'CategoryId'
+          'orderColumn': searchColumnSelect.getAttribute('value'),
           'resultQuantity': 999999999999,
           'pageNum': 1
         },
@@ -110,7 +109,6 @@ export function searchAssistantCreator(
           searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
           searchSuggester.suggestData = data;
         },
-        100,
       );
     }
   });

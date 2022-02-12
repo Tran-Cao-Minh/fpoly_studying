@@ -14,7 +14,6 @@ export function DataReader(
   this.readData = function (
     fetchBody = Object(),
     callbackFn = Function(data = Object()),
-    msReadTime = Number(),
   ) {
     let fetchMethod = this.fetchMethod;
 
@@ -33,37 +32,25 @@ export function DataReader(
         });
       };
     });
-    getMethodPrameter = 
+    getMethodPrameter =
       getMethodPrameter.replace(/&/, '?'); // replace first '&' character with '?'
     fetchLink += getMethodPrameter;
 
-    /**
-     * Because when I use Node JS to write API with res.json
-     * it write late and return previous result of API call
-     * So I need to use it to prepare API and get true result after
-     * msReadTime
-     */
     fetch(fetchLink, {
-      method: fetchMethod,
-    });
+        method: fetchMethod,
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
 
-    setTimeout(function () {
-      fetch(fetchLink, {
-          method: fetchMethod,
-        })
-        .then(function (res) {
-          if (!res.ok) {
-            throw new Error('error = ' + res.status);
-          };
+        return res.json();
 
-          return res.json();
-
-        }).then(function (data) {
-          callbackFn(data);
-        })
-        .catch(function (error) {
-          console.log('error: ' + error);
-        });
-    }, msReadTime);
+      }).then(function (data) {
+        callbackFn(data);
+      })
+      .catch(function (error) {
+        console.log('error: ' + error);
+      });
   };
 }
