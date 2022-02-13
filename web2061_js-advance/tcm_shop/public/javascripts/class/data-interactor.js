@@ -49,8 +49,8 @@ export function DataReader(
       }).then(function (data) {
         callbackFn(data);
       })
-      .catch(function (error) {
-        console.log('error: ' + error);
-      });
+      // .catch(function (error) {
+      //   console.log('error: ' + error);
+      // });
   };
 }

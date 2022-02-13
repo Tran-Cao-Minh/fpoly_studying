@@ -17,8 +17,17 @@
   transition: all 0.15s ease-in-out;
 }
 
-[class*='btn-']:not(:disabled) {
+[class*='btn-']:not([disabled]) {
   cursor: pointer;
+}
+
+[class*='btn-'][disabled] {
+  cursor: default;
+  opacity: 0.85;
+}
+
+[class*='btn-'][disabled]:hover {
+  box-shadow: none;
 }
 
 .btn-square {

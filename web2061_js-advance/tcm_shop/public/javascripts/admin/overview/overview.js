@@ -50,30 +50,30 @@ function addTableButtonEvent() {
 let tableColumnList = [{
     name: 'Name',
     key: 'CategoryName',
-    width: '12rem',
+    width: 12,
   },
   {
     name: 'Order',
     key: 'CategoryOrder',
-    width: '6rem',
+    width: 6,
   },
   {
     name: 'Display',
     key: 'CategoryDisplay',
-    width: '7rem',
+    width: 7,
   },
   {
     name: 'Quantity',
     key: 'CategoryProductQuantity',
-    width: '7rem',
+    width: 7,
   },
   {
     name: 'Handle',
     key: 'CategoryId',
-    width: '7rem',
+    width: 7,
     formatFunction: function (id = Number()) {
-        return tableDeleteButtonFormatter.formatButton(id) +
-          tableUpdateLinkFormatter.formatLink(id);
+      return tableDeleteButtonFormatter.formatButton(id) +
+        tableUpdateLinkFormatter.formatLink(id);
     },
     formatPrameterKeyList: [
       'CategoryId',
@@ -131,22 +131,172 @@ let tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
+  'rem',
 );
 
-function changeTableData (filterInformation) {
+function PagingLinkCreator(
+  iconClass = Array(String()),
+  numberClass = Array(String()),
+  firstPageIcon = String(),
+  lastPageIcon = String(),
+  container = Node(),
+  hideClass = String(),
+  itemChoosenAttribute = String(),
+  maxPage = Number(odd),
+) {
+  this.iconClass = iconClass;
+  this.getIconClass = function () {
+    if (this.iconClass.length > 0) {
+      let classValue = '';
+      this.iconClass.forEach(item => {
+        classValue += ` ${item}`;
+      });
+      classValue.slice(0, 1);
+
+      return classValue;
+    } else {
+      return '';
+    };
+  };
+  this.numberClass = numberClass;
+  this.getNumberClass = function () {
+    if (this.numberClass.length > 0) {
+      let classValue = '';
+      this.numberClass.forEach(item => {
+        classValue += ` ${item}`;
+      });
+      classValue.slice(0, 1);
+
+      return classValue;
+    } else {
+      return '';
+    };
+  };
+
+  this.firstPageIcon = firstPageIcon;
+  this.lastPageIcon = lastPageIcon;
+  this.container = container;
+  this.hideClass = hideClass;
+  this.itemChoosenAttribute = itemChoosenAttribute;
+  this.maxPage = maxPage;
+  this.offset = (maxPage - 1) / 2;
+
+  this.changePagingLink = function (
+    pageNum = Number(),
+    resultQuantity = Number(),
+    total = Number(),
+    pagingItemEvent = Function(pageNum = Number),
+  ) {
+    let pageQuantity = Math.ceil(total / resultQuantity);
+
+    if (pageQuantity > 1) {
+      this.container.classList.remove(hideClass);
+      this.container.innerHTML = '';
+
+      let pagingItemClass = this.getNumberClass();
+      let itemChoosenAttribute = this.itemChoosenAttribute;
+      let pagingLinkListContainer = this.container;
+      function createPagingItem(i = Number()) {
+        let pagingItem = document.createElement('li');
+        pagingItem.setAttribute('class', pagingItemClass);
+        pagingItem.innerHTML = i;
+        pagingItem.setAttribute('value', i);
+  
+        if (i === pageNum) {
+          pagingItem.setAttribute(itemChoosenAttribute, '');
+        };
+  
+        pagingLinkListContainer.appendChild(pagingItem);
+      }
+  
+      if (pageQuantity <= this.maxPage) {
+        for (let i = 1; i <= pageQuantity; i++) {
+          createPagingItem(i);
+        };
+      } else if (pageQuantity > maxPage) {
+        let pagingItemFirst = document.createElement('li');
+        pagingItemFirst.setAttribute('class', this.getIconClass());
+        pagingItemFirst.innerHTML = this.firstPageIcon;
+        pagingItemFirst.setAttribute('value', 1);
+  
+        let pagingItemLast = document.createElement('li');
+        pagingItemLast.setAttribute('class', this.getIconClass());
+        pagingItemLast.innerHTML = this.lastPageIcon;
+        pagingItemLast.setAttribute('value', pageQuantity);
+  
+        if (
+          pageNum > this.offset &&
+          pageNum <= (pageQuantity - this.offset)
+        ) {
+          this.container.appendChild(pagingItemFirst);
+          for (let i = (pageNum - 1); i <= (pageNum + 1); i++) {
+            createPagingItem(i);
+          };
+          this.container.appendChild(pagingItemLast);
+  
+        } else if (pageNum <= this.offset) {
+          for (let i = 1; i <= (this.offset * 2); i++) {
+            createPagingItem(i);
+          };
+          this.container.appendChild(pagingItemLast);
+  
+        } else if (pageNum > (pageQuantity - this.offset)) {
+          this.container.appendChild(pagingItemFirst);
+          for (let i = (pageQuantity - (this.offset + 1)); i <= pageQuantity; i++) {
+            createPagingItem(i);
+          };
+        };
+      };
+
+      let pagingItemList = this.container.querySelectorAll('li');
+      pagingItemList.forEach(pagingItem => {
+        pagingItem.addEventListener('click', function() {
+          let pageNum = Number(pagingItem.getAttribute('value'));
+          pagingItemEvent(pageNum);
+        });
+      });
+
+    } else {
+      this.container.classList.add(hideClass);
+    };
+  };
+}
+
+let pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
+let tablePagingLinkCreator = new PagingLinkCreator(
+  ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
+  ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
+  '<i class="fas fa-step-backward"></i>',
+  '<i class="fas fa-step-forward"></i>',
+  pagingLinkContainer,
+  'd-none',
+  'disabled',
+  5,
+);
+
+function changeTableData(filterInformation) {
   tableDataReader.readData(
     filterInformation,
-    function (data) {
-      tableCreator.convertData(data);
+    function (result) {
+      tableCreator.convertData(result.data);
+      tablePagingLinkCreator.changePagingLink(
+        filterInformation.pageNum,
+        filterInformation.resultQuantity,
+        result.total,
+        function (pageNum) {
+          filterInformation.pageNum = pageNum;
+          changeTableData(filterInformation);
+        },
+      );
     },
   );
-};
+}
 changeTableData(filterInformation);
 
 let confirmSearchButton = document.querySelector('#js-confirm-search-button');
 let searchByValueModeRadio = document.querySelector('#js-search-by-value');
 let searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
-confirmSearchButton.addEventListener('click', function() {
+confirmSearchButton.addEventListener('click', function () {
   if (searchByValueModeRadio.checked === true) {
     filterInformation.searchMode = 'searchByValue';
     filterInformation.searchValue = searchByValueInput.value;
@@ -156,18 +306,14 @@ confirmSearchButton.addEventListener('click', function() {
     filterInformation.searchMinValue = searchByMinInput.value;
     filterInformation.searchMaxValue = searchByMaxInput.value;
   };
+
+  let searchColumnValue = searchColumnSelect.getAttribute('value');
+  filterInformation.searchColumn = searchColumnValue;
+
   filterInformation.pageNum = 1;
   changeTableData(filterInformation);
 });
-searchColumnSelect.addEventListener('DOMSubtreeModified', function() {
-  let searchColumnValue = searchColumnSelect.getAttribute('value');
-  if (searchColumnValue !== filterInformation.searchColumn) {
-    filterInformation.pageNum = 1;
-    filterInformation.searchColumn = searchColumnValue;
-    changeTableData(filterInformation);
-  };
-});
-orderColumnSelect.addEventListener('DOMSubtreeModified', function() {
+orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
   let orderColumnValue = orderColumnSelect.getAttribute('value');
   if (orderColumnValue !== filterInformation.orderColumn) {
     filterInformation.pageNum = 1;
@@ -175,7 +321,7 @@ orderColumnSelect.addEventListener('DOMSubtreeModified', function() {
     changeTableData(filterInformation);
   };
 });
-orderRuleSelect.addEventListener('DOMSubtreeModified', function() {
+orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
   let orderRuleValue = orderRuleSelect.getAttribute('value');
   if (orderRuleValue !== filterInformation.orderRule) {
     filterInformation.pageNum = 1;
@@ -183,7 +329,7 @@ orderRuleSelect.addEventListener('DOMSubtreeModified', function() {
     changeTableData(filterInformation);
   };
 });
-resultQuantitySelect.addEventListener('DOMSubtreeModified', function() {
+resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
   let resultQuantityValue = resultQuantitySelect.getAttribute('value');
   if (resultQuantityValue !== filterInformation.resultQuantity) {
     filterInformation.pageNum = 1;

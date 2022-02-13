@@ -8,22 +8,17 @@ router.get('/', function (req, res) {
   filter.resultQuantity = Number(filter.resultQuantity);
   filter.pageNum = Number(filter.pageNum);
 
-  if (filter.searchMode === 'searchByValue') {
-    modelCategory.searchByValue(
-      filter,
-      function (data) {
-        res.json(data);
-      },
-    );
-
-  } else if (filter.searchMode === 'searchByMinMax') {
-    modelCategory.searchByMinMax(
-      filter,
-      function (data) {
-        res.json(data);
-      },
-    );
-  };
+  modelCategory.search(
+    filter,
+    function (data, total) {
+      // console.log(data);
+      // console.log(total);
+      res.json({
+        data: data,
+        total: total,
+      });
+    },
+  );
 })
 
 // API

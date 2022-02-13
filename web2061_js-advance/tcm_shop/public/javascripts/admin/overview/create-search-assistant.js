@@ -40,7 +40,8 @@ export function searchAssistantCreator(
       'resultQuantity': 999999999999,
       'pageNum': 1
     },
-    function createSearchSuggester(data) {
+    function createSearchSuggester(result) {
+      let data = result.data;
       data.forEach((dataObject, index) => {
         let currentValue = dataObject[defaultColumnOptionValue];
         let currentIndex = index;
@@ -91,7 +92,8 @@ export function searchAssistantCreator(
           'resultQuantity': 999999999999,
           'pageNum': 1
         },
-        function updateSearchSuggestData(data) {
+        function updateSearchSuggestData(result) {
+          let data = result.data;
           data.forEach((dataObject, index) => {
             let currentValue = dataObject[searchColumnSelectValue];
             let currentIndex = index;

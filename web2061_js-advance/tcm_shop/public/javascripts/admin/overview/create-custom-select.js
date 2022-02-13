@@ -162,7 +162,7 @@ export function adminFilterCustomSelectCreator(
 
   let rowsSelectList = [{
       descriptionText: '5 rows',
-      value: '5',
+      value: '1',
     },
     {
       descriptionText: '10 rows',
@@ -185,7 +185,7 @@ export function adminFilterCustomSelectCreator(
   });
 
   rowsSelectCreator.createCustomSelect(
-    '5',
+    '1',
     rowsSelectText,
     'choosen',
   );
