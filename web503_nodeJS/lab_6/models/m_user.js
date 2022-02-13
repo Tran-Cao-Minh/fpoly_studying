@@ -6,12 +6,18 @@ exports.read = function (callbackFn = Function()) {
       SELECT
         UserFullName,
         UserEmail,
-        UserGender,
-        UserAddress,
-        UserRole,
-        UserStatus
+        GenderName,
+        RoleName,
+        StatusName,
+        UserImage
       FROM
-        user
+          user AS u
+      INNER JOIN user_gender AS ug ON
+        u.FkUserGender_Id = ug.PkUserGender_Id
+      INNER JOIN user_role AS ur ON
+        u.FkUserRole_Id = ur.PkUserRole_Id
+      INNER JOIN user_status AS us ON
+        u.FkUserStatus_Id = us.PkUserStatus_Id
     `,
     function (err, data) {
       if (err) {
