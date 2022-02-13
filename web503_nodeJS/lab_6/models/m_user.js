@@ -4,6 +4,7 @@ exports.read = function (callbackFn = Function()) {
   db.query(
     `
       SELECT
+        PkUser_Id,
         UserFullName,
         UserEmail,
         GenderName,

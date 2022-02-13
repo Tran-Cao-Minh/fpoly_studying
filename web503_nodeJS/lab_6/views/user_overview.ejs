@@ -76,17 +76,30 @@
         imgAvatar.src = '../images/user/' + row.UserImage;
         userAvatar.appendChild(imgAvatar);
 
+        let userHandle = document.createElement('td');
+        let deleteButton = document.createElement('button');
+        deleteButton.setAttribute('data-id', row.PkUser_Id);
+        deleteButton.setAttribute('class', 'mt-3 me-2 py-2 btn btn-danger');
+        deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        let updateLink = document.createElement('a');
+        updateLink.href = '/user/update/' + row.PkUser_Id;
+        updateLink.setAttribute('class', 'mt-3 py-2 btn btn-warning text-decoration-none text-light');
+        updateLink.innerHTML = '<i class="far fa-file-alt"></i>';
+        userHandle.appendChild(deleteButton);
+        userHandle.appendChild(updateLink);
+
         tr.appendChild(userFullname);
         tr.appendChild(userEmail);
         tr.appendChild(userGender);
         tr.appendChild(userRole);
         tr.appendChild(userStatus);
         tr.appendChild(userAvatar);
+        tr.appendChild(userHandle);
 
         tableBody.appendChild(tr);
       });
     })
-    // .catch(function (error) {
-    //   console.log('error: ' + error);
-    // });
+    .catch(function (error) {
+      console.log('error: ' + error);
+    });
 </script>

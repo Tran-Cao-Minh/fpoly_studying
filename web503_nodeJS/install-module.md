@@ -32,3 +32,6 @@ npm i http-errors
 
 # parse body for POST API request
 npm i body-parser
+
+# hash password
+npm i bcrypt
