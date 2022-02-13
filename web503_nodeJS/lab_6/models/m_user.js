@@ -1,4 +1,5 @@
 const db = require('./database.js');
+const fs = require('fs');
 
 exports.read = function (callbackFn = Function()) {
   db.query(
@@ -76,16 +77,19 @@ exports.readById = function (
       SELECT
         PkUser_Id,
         UserFullName,
+        UserName,
+        UserPassword,
         UserEmail,
-        UserGender,
+        FkUserGender_Id,
         UserAddress,
-        UserRole,
-        UserStatus,
+        FkUserRole_Id,
+        FkUserStatus_Id,
         UserImage
       FROM
-          USER
+          user
       WHERE
           PkUser_Id = ${id}
+      LIMIT 1
     `,
     id,
     function (err, data) {
@@ -94,5 +98,37 @@ exports.readById = function (
       };
       callbackFn(data);
     }
-  )
+  );
+}
+
+exports.delete = function (
+  id = Number(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT UserImage
+      FROM user 
+      WHERE PkUser_Id = ${id}
+      LIMIT 1
+    `,
+    function (err, data) {
+      let imageFileNamePath =
+        __dirname.replace('\\models', '') + '\\public\\images\\user\\' + data[0].UserImage;
+      fs.unlink(imageFileNamePath, () => {
+        console.log('User image file is deleted ' + imageFileNamePath);
+      });
+
+      db.query(
+        `
+          DELETE FROM user
+          WHERE PkUser_Id = ${id}
+          LIMIT 1
+        `,
+        function (err, data) {
+          callbackFn(data);
+        }
+      );
+    }
+  );
 }

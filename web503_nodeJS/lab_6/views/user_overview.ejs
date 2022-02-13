@@ -7,6 +7,7 @@
   .table>*>*>* {
     line-height: 4rem;
   }
+
   .table>*>*>*>img {
     height: 4rem;
   }
@@ -41,6 +42,27 @@
 <script>
   let url = 'http://localhost:3000/user';
   let tableBody = document.querySelector('#js-table-body');
+
+  function deleteData(id, deletedRow) {
+    fetch(url + '/' + id, {
+        method: 'DELETE',
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
+
+        return res.json();
+
+      })
+      .then(function (data) {
+        console.log(data);
+        tableBody.removeChild(deletedRow);
+      })
+      .catch(function (error) {
+        console.log('error: ' + error);
+      });
+  }
 
   fetch(url, {
       method: 'GET',
@@ -81,6 +103,9 @@
         deleteButton.setAttribute('data-id', row.PkUser_Id);
         deleteButton.setAttribute('class', 'mt-3 me-2 py-2 btn btn-danger');
         deleteButton.innerHTML = '<i class="fa-solid fa-trash"></i>';
+        deleteButton.addEventListener('click', function() {
+          deleteData(this.dataset.id, this.parentElement.parentElement);
+        });
         let updateLink = document.createElement('a');
         updateLink.href = '/user/update/' + row.PkUser_Id;
         updateLink.setAttribute('class', 'mt-3 py-2 btn btn-warning text-decoration-none text-light');

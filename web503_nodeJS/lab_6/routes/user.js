@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../models/database');
 const formidable = require('formidable');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
@@ -69,10 +68,8 @@ router.post('/', function (req, res, next) {
     };
     console.log(user);
 
-    db.query('INSERT INTO user SET ?', user, function (err, data) {
-      if (err) {
-        throw err;
-      };
+    modelUser.add(user, function(data) {
+      console.log(data);
       res.json({
         'notification': 'add user completed',
       });
@@ -80,81 +77,38 @@ router.post('/', function (req, res, next) {
   });
 })
 
-router.get('/edit/:id', function (req, res, next) {
-  let id = req.params.id;
-
-  db.query(`
-    SELECT PkCategory_Id, CategoryName 
-    FROM product_category 
-    `,
-    function (err, categoryList) {
-      if (err) {
-        throw err;
-      }
-
-      db.query(
-        `
-          SELECT 
-            PkProduct_Id,
-            ProductName,
-            ProductDescription,
-            ProductImage,
-            ProductPrice,
-            FkCategory_Id,
-            ProductDisplay,
-            ProductPublisher,
-            ProductPublishDate,
-            ProductDimensions,
-            ProductPages
-          FROM product 
-          WHERE PkProduct_Id = ${id}
-          LIMIT 1
-        `,
-        function (err, data) {
-          let date = new Date(data[0].ProductPublishDate);
-          let year = date.getFullYear();
-          let month = date.getMonth() + 1;
-          if (month < 10) {
-            month = '0' + month;
-          }
-          let day = date.getDate();
-          if (day < 10) {
-            day = '0' + day;
-          }
-          data[0].ProductPublishDate = `${year}-${month}-${day}`;
-          res.render('product-edit', {
-            product: data[0],
-            categoryList: categoryList,
-          });
-        })
-    })
+router.get('/:id', function (req, res, next) {
+  modelUser.readById(req.params.id, function(data) {
+    res.json(data[0]);
+  });
 })
 
-router.post('/update', function (req, res, next) {
+router.get('/update/:id', function (req, res, next) {
+  res.render('user_update');
+})
+
+router.put('/:id', function (req, res, next) {
   // get data from edit router to update into database
   let form = new formidable.IncomingForm();
   form.parse(req, function (err, fields, files) {
-    let productCategory = fields.productCategory;
-    let productName = fields.productName.trim();
-    let productPrice = fields.productPrice;
-    let productDescription = fields.productDescription.trim();
-    let productPublisher = fields.productPublisher.trim();
-    let productPublishDate = fields.productPublishDate;
-    let productDimensions = fields.productDimensions.trim();
-    let productPages = fields.productPages;
-    let productDisplay = fields.productDisplay;
+    let userFullName = fields.userFullName.trim();
+    let userEmail = fields.userEmail.trim();
+    let userGenderId = Number(fields.userGender);
+    let userAddress = fields.userAddress.trim();
+    let userRoleId = Number(fields.userRole);
+    let userStatusId = Number(fields.userStatus);
 
-    let checkUpdateProduct = files.productImage.size;
+    let checkUpdateImage = files.userImage.size;
     let fileName = fields.oldImageFileName;
-    if (checkUpdateProduct !== 0) {
-      let pathFile = files.productImage.filepath;
-      let fileExtension = files.productImage.mimetype.split('/').pop();
+    if (checkUpdateImage !== 0) {
+      let pathFile = files.userImage.filepath;
+      let fileExtension = files.userImage.mimetype.split('/').pop();
 
       let date = new Date();
-      let slug = productName.toLowerCase().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
+      let slug = userFullName.toLowerCase().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
       let prefix = slug + '_' + date.getTime();
       fileName = prefix + '.' + fileExtension;
-      let destPath = __dirname.replace('\\routes', '') + '\\public\\images\\' + fileName;
+      let destPath = __dirname.replace('\\routes', '') + '\\public\\images\\user\\' + fileName;
       console.log(destPath);
 
       fs.copyFile(pathFile, destPath, (err) => {
@@ -168,74 +122,45 @@ router.post('/update', function (req, res, next) {
 
         let oldImageFileName = fields.oldImageFileName;
         let oldImageFileNamePath =
-          __dirname.replace('\\routes', '') + '\\public\\images\\' + oldImageFileName;
+          __dirname.replace('\\routes', '') + '\\public\\images\\user\\' + oldImageFileName;
         fs.unlink(oldImageFileNamePath, () => {
           console.log('Old image file is deleted ' + oldImageFileNamePath);
         })
       })
     }
 
-    const product = {
-      FkCategory_Id: productCategory,
-      ProductName: productName,
-      ProductPrice: productPrice,
-      ProductDescription: productDescription,
-      ProductPublisher: productPublisher,
-      ProductPublishDate: productPublishDate,
-      ProductDimensions: productDimensions,
-      ProductPages: productPages,
-      ProductDisplay: productDisplay,
-      ProductImage: fileName,
+    const user = {
+      UserFullName: userFullName,
+      UserEmail: userEmail,
+      FkUserGender_Id: userGenderId,
+      UserAddress: userAddress,
+      FkUserRole_Id: userRoleId,
+      FkUserStatus_Id: userStatusId,
+      UserImage: fileName,
     };
-    console.log(product);
+    console.log(user);
 
-    let PkProduct_Id = fields.productId;
-    db.query(
-      `
-        UPDATE product SET ?
-        WHERE PkProduct_Id = ${PkProduct_Id}
-      `,
-      product,
-      function (err, data) {
-        if (data.affectedRows === 0) {
-          console.log(`Do not have product with ID ${PkProduct_Id} to update`);
-        };
-        res.redirect('/product');
-      })
+    let PkUser_Id = req.params.id;
+    modelUser.update(PkUser_Id, user, function(data) {
+      console.log(data);
+      res.json({
+        'notification': 'update user completed',
+      });
+    })
   })
 })
 
 router.delete('/:id', function (req, res) {
   let id = req.params.id;
 
-  db.query(
-    `
-      SELECT UserImage
-      FROM user 
-      WHERE PkUser_Id = ${id}
-      LIMIT 1
-    `,
-    function (err, data) {
-      let oldImageFileNamePath =
-        __dirname.replace('\\routes', '') + '\\public\\images\\' + data[0].UserImage;
-      fs.unlink(oldImageFileNamePath, () => {
-        console.log('Old image file is deleted ' + oldImageFileNamePath);
-      })
-
-      db.query(
-        `
-          DELETE FROM user
-          WHERE PkUser_Id = ${id}
-        `,
-        function (err, data) {
-          if (data.affectedRows === 0) {
-            console.log(`Do not have product with ID ${PkUser_Id} to delete`);
-          };
-          res.redirect('/product');
-        }
-      )
-    }
-  )
+  modelUser.delete(id, function(data) {
+    if (data.affectedRows === 0) {
+      console.log(`Do not have user with ID ${PkUser_Id} to delete`);
+    };
+    res.json({
+      'notification': 'delete user completed',
+    });
+  });
 })
 
 module.exports = router;
