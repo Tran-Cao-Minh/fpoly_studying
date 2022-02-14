@@ -32,12 +32,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 // declare router
 const indexRouter = require('./routes/index');
 const userRouter = require('./routes/user');
-// const productRouter = require('./routes/product');
+const productRouter = require('./routes/product');
 
 // use router
 app.use('/', indexRouter);
 app.use('/user', userRouter);
-// app.use('/product', productRouter);
+app.use('/product', productRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
