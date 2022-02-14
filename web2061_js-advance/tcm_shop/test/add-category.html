@@ -10,7 +10,7 @@
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
   <!-- custom style -->
   <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
-  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
+  <!-- <link rel="stylesheet" href="../public/stylesheets/admin/overview.css"> -->
   <style>
 
   </style>
@@ -159,58 +159,54 @@
       </header>
 
       <!-- BODY CONTENT -->
-      <!-- filter form -->
-      <section class="row bg-white rounded-2">
-        <!-- change search mode area -->
-        <div class="col-12">
+      <!-- add form -->
+      <form class="row bg-white rounded-2">
+        <!-- category name -->
+        <div class="col-12 col-md-6">
           <div class="form-group">
-            <div class="input-group">
-              <label class="input-group-text">
-                <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-value" checked>
-                <label for="js-search-by-value"></label>
-                <span class="ms-2">
-                  Search by Value
-                </span>
-              </label>
-              <label class="input-group-text">
-                <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-min-max">
-                <label for="js-search-by-min-max"></label>
-                <span class="ms-2">
-                  Search by Min - Max
-                </span>
-              </label>
+            <label for="">
+              Name
+            </label>
+            <div class="input-with-icon-group">
+              <input type="text" class="form-control is-valid" id="js-overview-search-value"
+                placeholder="Product category">
+              <div class="validate-icon"></div>
             </div>
+            <span class="invalid-feedback">
+              This is invalid state.
+              This is invalid state.
+              This is invalid state.
+              This is invalid state.
+              This is invalid state.
+            </span>
           </div>
         </div>
-        <!-- end change search mode area -->
+        <!-- end category name -->
 
-        <!-- search form -->
-        <div class="col-12 col-lg-8">
+        <!-- category order -->
+        <div class="col-4 col-md-2">
           <div class="form-group">
-            <div class="input-group" id="js-search-input-container">
-              <input autocomplete="off" type="text" class="form-control custom-select" id="js-overview-search-value"
-                placeholder="Search value">
-              <ul class="custom-select-list">
-                <!-- add by overview.js -->
-              </ul>
-              <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min"
-                placeholder="Min value">
-              <input type="text" class="form-control" id="js-overview-search-max" placeholder="Max value">
-              <button class="btn-primary" id="js-confirm-search-button">
-                <i class="fa-solid fa-search"></i>
-              </button>
-            </div>
+            <label for="">
+              Order
+            </label>
+            <input type="number" class="form-control" id="js-overview-search-value" placeholder="1">
+            <span class="invalid-feedback d-none">
+              This is invalid state.
+            </span>
           </div>
         </div>
-        <!-- end search form -->
+        <!-- end category order -->
 
-        <!-- search by min value input -->
-
-        <!-- search column -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+        <!-- category display -->
+        <div class="col-8 col-md-4">
           <div class="form-group">
+            <label for="">
+              Display
+            </label>
             <div class="input-group">
-              <label for="js-overview-search-column" class="input-group-text">Search by</label>
+              <label for="js-overview-search-column" class="input-group-text">
+                Status
+              </label>
               <div class="form-control custom-select" id="js-overview-search-column">
                 <span class="custom-select-text">
                   <!-- add by overview.js -->
@@ -222,80 +218,22 @@
             </div>
           </div>
         </div>
-        <!-- end search column -->
+        <!-- end category display -->
 
-        <!-- order column -->
-        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+        <!-- btn group category -->
+        <div class="col-4 col-md-3 col-lg-2">
           <div class="form-group">
-            <div class="input-group">
-              <label for="js-overview-order-column" class="input-group-text">Order by</label>
-              <div class="form-control custom-select" id="js-overview-order-column">
-                <span class="custom-select-text">
-                  <!-- add by overview.js -->
-                </span>
-                <ul class="custom-select-list">
-                  <!-- add by overview.js -->
-                </ul>
-              </div>
-            </div>
+            <button class="btn-success col-12" id="js-add-data-submit">Save</button>
           </div>
         </div>
-        <!-- end order column -->
-
-        <!-- order column -->
-        <div class="col-12 col-sm-6 col-md-4">
+        <div class="col-8 col-md-5 col-lg-4">
           <div class="form-group">
-            <div class="input-group">
-              <div class="form-control custom-select" id="js-overview-order-rule">
-                <span class="custom-select-text">
-                  <!-- add by overview.js -->
-                </span>
-                <ul class="custom-select-list">
-                  <!-- add by overview.js -->
-                </ul>
-              </div>
-              <div class="form-control custom-select" id="js-overview-rows">
-                <span class="custom-select-text">
-                  <!-- add by overview.js -->
-                </span>
-                <ul class="custom-select-list">
-                  <!-- add by overview.js -->
-                </ul>
-              </div>
-            </div>
+            <a href="#" class="btn-primary col-12">Overview</a>
           </div>
         </div>
-        <!-- end order column -->
-      </section>
-      <!-- end filter form -->
-
-      <!-- data table -->
-      <section class="row rounded-2 justify-content-center" style="background-color: var(--bg-hover);">
-        <div class="table-container">
-          <table id="js-data-table">
-            <!-- add by overview.js -->
-          </table>
-        </div>
-
-        <ul class="mt-1" id="js-table-paging-link-list">
-          <!-- <li class="btn-white fw-bold ms-1 me-1 mt-2">
-            1
-          </li>
-          <li class="btn-white fw-bold ms-1 me-1 mt-2">
-            2
-          </li>
-          <li class="btn-white fw-bold ms-1 me-1 mt-2">
-            3
-          </li>
-          <li class="btn-white fw-bold ms-1 me-1 mt-2">
-            4
-          </li>
-          <li class="btn-white ms-1 me-1 mt-2">
-            <i class="fa-solid fa-step-forward"></i>
-          </li> -->
-        </ul>
-      </section>
-      <!-- end data table -->
+        <!-- end btn group category -->
+      </form>
+      <!-- end add form -->
 
       <!-- end BODY CONTENT -->
     </div>
@@ -303,7 +241,7 @@
 
   <script type="module" src="../public/javascripts/admin/layout.js"></script>
 
-  <script type="module" src="../public/javascripts/admin/overview/overview.js"></script>
+  <!-- <script type="module" src="../public/javascripts/admin/overview/overview.js"></script> -->
 </body>
 
 </html>

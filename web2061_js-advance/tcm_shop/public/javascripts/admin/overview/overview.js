@@ -204,8 +204,13 @@ function PagingLinkCreator(
   
         if (i === pageNum) {
           pagingItem.setAttribute(itemChoosenAttribute, '');
+
+        } else {
+          pagingItem.addEventListener('click', function() {
+            pagingItemEvent(i);
+          });
         };
-  
+
         pagingLinkListContainer.appendChild(pagingItem);
       }
   
@@ -218,11 +223,17 @@ function PagingLinkCreator(
         pagingItemFirst.setAttribute('class', this.getIconClass());
         pagingItemFirst.innerHTML = this.firstPageIcon;
         pagingItemFirst.setAttribute('value', 1);
+        pagingItemFirst.addEventListener('click', function() {
+          pagingItemEvent(1);
+        });
   
         let pagingItemLast = document.createElement('li');
         pagingItemLast.setAttribute('class', this.getIconClass());
         pagingItemLast.innerHTML = this.lastPageIcon;
         pagingItemLast.setAttribute('value', pageQuantity);
+        pagingItemLast.addEventListener('click', function() {
+          pagingItemEvent(pageQuantity);
+        });
   
         if (
           pageNum > this.offset &&
@@ -248,14 +259,6 @@ function PagingLinkCreator(
         };
       };
 
-      let pagingItemList = this.container.querySelectorAll('li');
-      pagingItemList.forEach(pagingItem => {
-        pagingItem.addEventListener('click', function() {
-          let pageNum = Number(pagingItem.getAttribute('value'));
-          pagingItemEvent(pageNum);
-        });
-      });
-
     } else {
       this.container.classList.add(hideClass);
     };
@@ -266,15 +269,29 @@ let pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
 let tablePagingLinkCreator = new PagingLinkCreator(
   ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
   ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
-  '<i class="fas fa-step-backward"></i>',
-  '<i class="fas fa-step-forward"></i>',
+  '<i class="fa-solid fa-step-backward"></i>',
+  '<i class="fa-solid fa-step-forward"></i>',
   pagingLinkContainer,
   'd-none',
   'disabled',
   5,
 );
 
-function changeTableData(filterInformation) {
+import {
+  ToastCreator
+} from '../../class/toast-creator.js';
+
+const tableDataToastify = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16,
+);
+
+function changeTableData(
+  filterInformation = Object(),
+  changePageNum = Boolean(),
+  ) {
   tableDataReader.readData(
     filterInformation,
     function (result) {
@@ -285,13 +302,43 @@ function changeTableData(filterInformation) {
         result.total,
         function (pageNum) {
           filterInformation.pageNum = pageNum;
-          changeTableData(filterInformation);
+          changeTableData(filterInformation, true);
         },
       );
+
+      let toastifyDisplayTime = 2;
+      if (changePageNum === false) {
+        if (result.total > 1) {
+          tableDataToastify.createToast(
+            'success',
+            `Filter data successully return ${result.total} rows result`,
+            toastifyDisplayTime,
+          );
+        } else if (result.total === 1) {
+          tableDataToastify.createToast(
+            'success',
+            `Filter data successully return 1 row result`,
+            toastifyDisplayTime,
+          );
+  
+        } else {
+          tableDataToastify.createToast(
+            'warning',
+            `No suitable data`,
+            toastifyDisplayTime,
+          );
+        };
+      } else {
+        tableDataToastify.createToast(
+          'success',
+          `Switch to page ${filterInformation.pageNum} completed`,
+          toastifyDisplayTime,
+        );
+      };
     },
   );
 }
-changeTableData(filterInformation);
+changeTableData(filterInformation, false);
 
 let confirmSearchButton = document.querySelector('#js-confirm-search-button');
 let searchByValueModeRadio = document.querySelector('#js-search-by-value');
@@ -311,14 +358,14 @@ confirmSearchButton.addEventListener('click', function () {
   filterInformation.searchColumn = searchColumnValue;
 
   filterInformation.pageNum = 1;
-  changeTableData(filterInformation);
+  changeTableData(filterInformation, false);
 });
 orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
   let orderColumnValue = orderColumnSelect.getAttribute('value');
   if (orderColumnValue !== filterInformation.orderColumn) {
     filterInformation.pageNum = 1;
     filterInformation.orderColumn = orderColumnValue;
-    changeTableData(filterInformation);
+    changeTableData(filterInformation, false);
   };
 });
 orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
@@ -326,7 +373,7 @@ orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
   if (orderRuleValue !== filterInformation.orderRule) {
     filterInformation.pageNum = 1;
     filterInformation.orderRule = orderRuleValue;
-    changeTableData(filterInformation);
+    changeTableData(filterInformation, false);
   };
 });
 resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
@@ -334,6 +381,6 @@ resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
   if (resultQuantityValue !== filterInformation.resultQuantity) {
     filterInformation.pageNum = 1;
     filterInformation.resultQuantity = resultQuantityValue;
-    changeTableData(filterInformation);
+    changeTableData(filterInformation, false);
   };
 });

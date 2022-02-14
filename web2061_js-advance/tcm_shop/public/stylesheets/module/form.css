@@ -12,7 +12,7 @@
   margin-bottom: 0.3rem;
 
   color: var(--text-blur-color);
-  font-size: 1rem;
+  font-size: 0.875rem;
   font-weight: 500;
 }
 
@@ -41,7 +41,7 @@
 
 
 .form-control:not(:disabled):focus,
-.form-control:not(:disabled):hover{
+.form-control:not(:disabled):hover {
   box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
   outline: 0;
 }
@@ -198,17 +198,106 @@
 
 /* end input group */
 
+/* validate input */
+.input-with-icon-group {
+  position: relative;
+}
+
+.form-control.is-invalid,
+.form-control.is-valid {
+  padding-right: 2.25rem;
+}
+
+.form-control.is-invalid {
+  border-color: var(--red);
+}
+
+.form-control.is-invalid:focus,
+.form-control.is-invalid:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-invalid-shadow);
+}
+
+.form-control.is-valid {
+  border-color: var(--green);
+}
+
+.form-control.is-valid:focus,
+.form-control.is-valid:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-valid-shadow);
+}
+
+.validate-icon {
+  position: absolute;
+
+  top: 0;
+  right: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 2.5rem;
+  height: 100%;
+}
+
+.form-control + .validate-icon::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1.25rem;
+  height: 1.25rem;
+
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+}
+
+.form-control.is-invalid + .validate-icon::after {
+  color: var(--red);
+
+  border-color: var(--red);
+
+  font: var(--fa-font-solid);
+  content: '\21';
+
+  font-size: 0.75rem;
+}
+.form-control.is-valid + .validate-icon::after {
+  padding-top: 0.05rem;
+  color: var(--green);
+
+  border-color: var(--green);
+
+  font: var(--fa-font-solid);
+  content: '\f00c';
+
+  font-size: 0.75rem;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+
+  color: var(--red);
+
+  font-size: .75em;
+}
+
+/* end validate input */
+
 /* custom input radio, checkbox */
 .form-check-input {
   position: fixed;
   z-index: -1;
-  
+
   width: 0;
   height: 0;
 }
 
-.form-check-input[type=checkbox] + label,
-.form-check-input[type=radio] + label {
+.form-check-input[type=checkbox]+label,
+.form-check-input[type=radio]+label {
   position: relative;
 
   width: 1.4rem;
@@ -217,8 +306,8 @@
   background: transparent;
 }
 
-.form-check-input[type=checkbox] + label::after,
-.form-check-input[type=radio] + label::after {
+.form-check-input[type=checkbox]+label::after,
+.form-check-input[type=radio]+label::after {
   position: absolute;
   top: 0;
   left: 0;
@@ -237,7 +326,7 @@
   transition: all .15s ease-in-out;
 }
 
-.form-check-input[type=radio] + label::after {
+.form-check-input[type=radio]+label::after {
   font-family: 'Font Awesome 5 Free';
   content: '\f111';
   font-weight: 600;
@@ -246,7 +335,7 @@
   font-size: 0.5rem;
 }
 
-.form-check-input[type=checkbox] + label::after {
+.form-check-input[type=checkbox]+label::after {
   font-family: 'Font Awesome 5 Free';
   content: '\f00c';
   font-weight: 600;
@@ -257,15 +346,15 @@
   font-size: 0.75rem;
 }
 
-.form-check-input:checked + label::after {
+.form-check-input:checked+label::after {
   border-color: var(--input-checked-color) !important;
   background: var(--input-checked-color) !important;
   color: var(--white) !important;
 }
 
 
-.form-check-input:focus + label::after,
-.form-check-input + label:hover::after {
+.form-check-input:focus+label::after,
+.form-check-input+label:hover::after {
   box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
 }
 
