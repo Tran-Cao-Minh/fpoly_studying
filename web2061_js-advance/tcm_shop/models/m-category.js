@@ -93,8 +93,8 @@ exports.search = function (
 
   countSql += baseSql;
 
-  console.log(dataSql);
-  console.log(countSql);
+  // console.log(dataSql);
+  // console.log(countSql);
 
   db.query(dataSql,
     function (err, data) {

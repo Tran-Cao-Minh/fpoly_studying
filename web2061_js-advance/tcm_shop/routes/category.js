@@ -11,8 +11,6 @@ router.get('/', function (req, res) {
   modelCategory.search(
     filter,
     function (data, total) {
-      // console.log(data);
-      // console.log(total);
       res.json({
         data: data,
         total: total,

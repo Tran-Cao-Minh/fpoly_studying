@@ -160,15 +160,15 @@
 
       <!-- BODY CONTENT -->
       <!-- add form -->
-      <form class="row bg-white rounded-2">
+      <form class="row bg-white rounded-2" name="addCategoryForm">
         <!-- category name -->
         <div class="col-12 col-md-6">
           <div class="form-group">
-            <label for="">
+            <label for="categoryName">
               Name
             </label>
             <div class="input-with-icon-group">
-              <input type="text" class="form-control is-valid" id="js-overview-search-value"
+              <input type="text" class="form-control is-valid" id="categoryName"
                 placeholder="Product category">
               <div class="validate-icon"></div>
             </div>
@@ -186,10 +186,10 @@
         <!-- category order -->
         <div class="col-4 col-md-2">
           <div class="form-group">
-            <label for="">
+            <label for="categoryOrder">
               Order
             </label>
-            <input type="number" class="form-control" id="js-overview-search-value" placeholder="1">
+            <input type="number" class="form-control" id="categoryOrder" placeholder="1">
             <span class="invalid-feedback d-none">
               This is invalid state.
             </span>
@@ -200,19 +200,19 @@
         <!-- category display -->
         <div class="col-8 col-md-4">
           <div class="form-group">
-            <label for="">
+            <label for="categoryDisplay">
               Display
             </label>
             <div class="input-group">
-              <label for="js-overview-search-column" class="input-group-text">
+              <label for="categoryDisplay" class="input-group-text">
                 Status
               </label>
-              <div class="form-control custom-select" id="js-overview-search-column">
+              <div class="form-control custom-select" id="categoryDisplay">
                 <span class="custom-select-text">
-                  <!-- add by overview.js -->
+                  <!-- add by add-category.js -->
                 </span>
                 <ul class="custom-select-list">
-                  <!-- add by overview.js -->
+                  <!-- add by add-category.js -->
                 </ul>
               </div>
             </div>
@@ -240,6 +240,7 @@
   </main>
 
   <script type="module" src="../public/javascripts/admin/layout.js"></script>
+  <script type="module" src="../public/javascripts/admin/add/add-category.js"></script>
 
   <!-- <script type="module" src="../public/javascripts/admin/overview/overview.js"></script> -->
 </body>

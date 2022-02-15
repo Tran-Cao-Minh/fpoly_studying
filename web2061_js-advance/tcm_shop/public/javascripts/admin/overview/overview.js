@@ -27,12 +27,12 @@ import {
   LinkFormatter,
   ButtonFormatter,
 } from '../../class/data-formatter.js';
-let tableUpdateLinkFormatter = new LinkFormatter(
+const tableUpdateLinkFormatter = new LinkFormatter(
   './update/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
-let tableDeleteButtonFormatter = new ButtonFormatter(
+const tableDeleteButtonFormatter = new ButtonFormatter(
   ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
   '<i class="fas fa-trash"></i>',
 );
@@ -266,7 +266,7 @@ function PagingLinkCreator(
 }
 
 let pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
-let tablePagingLinkCreator = new PagingLinkCreator(
+const tablePagingLinkCreator = new PagingLinkCreator(
   ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
   ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
   '<i class="fa-solid fa-step-backward"></i>',

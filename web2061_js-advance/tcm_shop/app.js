@@ -29,15 +29,18 @@ app.use(cookieParser());
 // static resources
 app.use(express.static(path.join(__dirname, 'public')));
 
-// declare router
+// declare and use router
 const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-const categoryRouter = require('./routes/category');
-
-// use router
 app.use('/', indexRouter);
+
+const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
+
+const categoryRouter = require('./routes/category');
 app.use('/category', categoryRouter);
+
+const displayStatusRouter = require('./routes/display-status');
+app.use('/display-status', displayStatusRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
