@@ -168,20 +168,105 @@
               Name
             </label>
             <div class="input-with-icon-group">
-              <input type="text" class="form-control is-valid" id="categoryName"
-                placeholder="Product category">
+              <input type="text" class="form-control" id="categoryName" placeholder="Product category">
               <div class="validate-icon"></div>
             </div>
-            <span class="invalid-feedback">
-              This is invalid state.
-              This is invalid state.
-              This is invalid state.
-              This is invalid state.
-              This is invalid state.
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
             </span>
           </div>
         </div>
         <!-- end category name -->
+
+        <!-- image -->
+        <div class="col-7">
+          <div class="form-group">
+            <label for="image">
+              Image
+            </label>
+            <div class="input-with-icon-group">
+              <input type="file" class="form-control" id="image">
+              <label for="image" class="input-file-custom" tabindex="0">
+                No file chosen
+                No file chosen
+                No file chosen
+                No file chosen
+                No file chosen
+                No file chosen
+                No file chosen
+              </label>
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+              please choose an image that smaller than 2mb
+            </span>
+            <!-- <label class="input-preview-image" for="image">
+              <img src="../public/images/products/cloud-cuckoo-land_1642262710799.webp" alt="">
+            </label> -->
+            <label class="input-preview-image" for="image">
+              <img src="../public/images/base/preview-img.svg" alt="">
+            </label>
+          </div>
+        </div>
+        <!-- end image -->
+
+        <!-- test -->
+        <div class="col-5">
+          <!-- <div class="col-12">
+            <div class="form-group">
+              <label for="categoryOrder">
+                Order
+              </label>
+              <div class="input-with-icon-group">
+                <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+                <div class="validate-icon"></div>
+              </div>
+              <span class="invalid-feedback d-none">
+              </span>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="categoryOrder">
+                Order
+              </label>
+              <div class="input-with-icon-group">
+                <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+                <div class="validate-icon"></div>
+              </div>
+              <span class="invalid-feedback d-none">
+              </span>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="categoryOrder">
+                Order
+              </label>
+              <div class="input-with-icon-group">
+                <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+                <div class="validate-icon"></div>
+              </div>
+              <span class="invalid-feedback d-none">
+              </span>
+            </div>
+          </div>
+          <div class="col-12">
+            <div class="form-group">
+              <label for="categoryOrder">
+                Order
+              </label>
+              <div class="input-with-icon-group">
+                <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+                <div class="validate-icon"></div>
+              </div>
+              <span class="invalid-feedback d-none">
+              </span>
+            </div>
+          </div> -->
+        </div>
+        <!-- end test -->
 
         <!-- category order -->
         <div class="col-4 col-md-2">
@@ -189,9 +274,12 @@
             <label for="categoryOrder">
               Order
             </label>
-            <input type="number" class="form-control" id="categoryOrder" placeholder="1">
+            <div class="input-with-icon-group">
+              <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+              <div class="validate-icon"></div>
+            </div>
             <span class="invalid-feedback d-none">
-              This is invalid state.
+              <!-- message by js -->
             </span>
           </div>
         </div>
@@ -221,14 +309,16 @@
         <!-- end category display -->
 
         <!-- btn group category -->
-        <div class="col-4 col-md-3 col-lg-2">
-          <div class="form-group">
-            <button class="btn-success col-12" id="js-add-data-submit">Save</button>
+        <div class="col-12 d-flex">
+          <div class="col-4 col-md-3 col-lg-2">
+            <div class="form-group">
+              <button class="btn-success col-12" id="js-add-data-submit">Save</button>
+            </div>
           </div>
-        </div>
-        <div class="col-8 col-md-5 col-lg-4">
-          <div class="form-group">
-            <a href="#" class="btn-primary col-12">Overview</a>
+          <div class="col-8 col-md-5 col-lg-4">
+            <div class="form-group">
+              <a href="./layout-admin.html" class="btn-primary col-12">Overview</a>
+            </div>
           </div>
         </div>
         <!-- end btn group category -->

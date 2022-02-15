@@ -9,10 +9,6 @@
   margin: 2rem 0;
 }
 
-.justify-content-center {
-  justify-content: center;
-}
-
 @media only screen and (max-width: 1199.98px) {
   .row {
     margin: 1.5rem 0;

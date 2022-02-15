@@ -6,9 +6,6 @@ inputImgList.forEach(input => {
 
     let imgFile = e.target.files[0];
 
-    let fileReader = new FileReader();
-    fileReader.readAsDataURL(imgFile);
-
     fileReader.onload = function () {
       let previewImgElement = inputImgFormGroup.querySelector('.js-preview-img');
       previewImgElement.classList.remove('d-none');
