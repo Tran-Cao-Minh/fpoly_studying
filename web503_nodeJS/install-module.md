@@ -38,3 +38,6 @@ npm i bcrypt
 
 # session storage
 npm i express-session
+
+# send mail 
+npm i nodemailer

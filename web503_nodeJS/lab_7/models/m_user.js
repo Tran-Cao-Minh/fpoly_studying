@@ -51,10 +51,10 @@ exports.readById = function (
         UserName,
         UserPassword,
         UserEmail,
-        FkUserGender_Id,
+        UserGender,
         UserAddress,
         FkUserRole_Id,
-        FkUserStatus_Id,
+        UserStatus,
         UserImage
       FROM
           user
@@ -72,18 +72,43 @@ exports.readById = function (
   );
 }
 
-exports.getUserPassword = function (
+exports.checkLogin = function (
   userName = String(),
   callbackFn = Function(data = Object()),
 ) {
   db.query(
     `
       SELECT 
+        PkUser_Id,
         UserPassword
       FROM 
         user
       WHERE 
         UserName = '${userName}'
+      LIMIT 
+        1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
+exports.getIdByEmail = function (
+  userEmail = String(),
+  callbackFn = Function(data = Object()),
+) {
+  db.query(
+    `
+      SELECT 
+        PkUser_Id
+      FROM 
+        user
+      WHERE 
+        UserEmail = '${userEmail}'
       LIMIT 
         1
     `,

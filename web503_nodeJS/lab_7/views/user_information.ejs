@@ -1,0 +1,173 @@
+<!-- bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet"
+  integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+<!-- font awsome -->
+<script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+<!-- bootstrap validate -->
+<script src="../../javascripts/bootstrap-validate.js"></script>
+
+<main class="row bg-dark py-4 py-5 m-0">
+  <form id="updateUserForm"
+    class="bg-light col-12 col-sm-11 col-md-9 col-lg-8 col-xl-7 col-xxl-6 rounded-2 pt-4 px-3 pb-3 m-auto">
+    <h5 class="text-center text-uppercase mb-4 mt-1 text-success">
+      User Information
+    </h5>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group mb-3">
+          <label class="mb-1" for="userFullName">Full name</label>
+          <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="userFullName"
+            name="userFullName" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+          <div class="invalid-feedback">
+            Please fill this input that is start with alphanumeric,
+            less than 200 characters and contains only alphanumeric
+            or underscore or some specials characters include , ' " : - ; _ + . |
+          </div>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mb-3">
+          <label class="mb-1">Gender</label>
+          <select class="form-select" name="userGender">
+            <option value="0">Female</option>
+            <option value="1">Male</option>
+            <option value="2">Unisex</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label class="mb-1" for="userEmail">User email</label>
+      <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="userEmail"
+        name="userEmail" pattern="^[a-z][a-z0-9_\.]{4,32}@{1}[a-z0-9]{2,}(\.[a-z0-9]{2,4}){1,2}$">
+      <div class="invalid-feedback">
+        Please fill this input with right Email format
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label class="mb-1" for="userAddress">Address</label>
+      <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="userAddress"
+        name="userAddress" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+      <div class="invalid-feedback">
+        Please fill this input that is start with alphanumeric,
+        less than 200 characters and contains only alphanumeric
+        or underscore or some specials characters include , ' " : - ; _ + . |
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group mb-3">
+          <label class="mb-1">Role</label>
+          <select class="form-select" name="userRole">
+            <option value="0">User</option>
+            <option value="1">Admin</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-6">
+        <div class="form-group mb-3">
+          <label class="mb-1">Status</label>
+          <select class="form-select" name="userStatus">
+            <option value="0">Locked</option>
+            <option value="1">Active</option>
+          </select>
+        </div>
+      </div>
+
+    </div>
+    <div class="form-group mb-3">
+      <label class="mb-1" for="userImage">Avatar</label>
+      <input type="hidden" name="oldImageFileName">
+      <input accept="image/*" type="file" class="form-control js-img-input" id="userImage" name="userImage">
+      <div class="col-12 border border-secondary p-2 mt-1 text-center rounded-1 js-preview-img">
+        <img src="../public/images/" class="img-thumbnail" style="height: calc(100px + 15vw);">
+      </div>
+      <div class="invalid-feedback">
+        Please choose an image smaller than 2MB
+      </div>
+    </div>
+    <div class="form-group mt-4">
+      <input type="hidden" name="userId" value="<%= userId %> ">
+      <button class="btn btn-success py-2 px-4 w-100 text-uppercase">
+        Update
+      </button>
+      <div class="text-primary text-center pt-3 pb-0 text-uppercase d-none" id="update-alert">
+        Update user Information successfully
+      </div>
+    </div>
+    <div class="form-group row mt-4">
+      <div class="col-6">
+        <a href="/user/change-password" class="btn btn-danger py-2 px-4 w-100 text-uppercase">
+          Change password
+        </a>
+      </div>
+      <div class="col-6">
+        <a href="/user/logout" class="btn btn-danger py-2 px-4 w-100 text-uppercase">
+          Logout
+        </a>
+      </div>
+  </form>
+</main>
+
+<!-- preview img -->
+<script src="../../javascripts/preview-img.js"></script>
+<script>
+  let url = 'http://localhost:3000/user';
+  const form = document.querySelector('#updateUserForm');
+
+  let pageUrl = location.href;
+  let id = form.userId.value;
+
+  function getUserInformation(id) {
+    fetch(url + '/' + id, {
+        method: 'GET',
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
+
+        return res.json();
+      })
+      .then(function (data) {
+        form.userFullName.value = data.UserFullName;
+        form.userEmail.value = data.UserEmail;
+        form.userGender.value = data.UserGender;
+        form.userAddress.value = data.UserAddress;
+        form.userRole.value = data.FkUserRole_Id;
+        form.userStatus.value = data.UserStatus;
+        form.userImage.parentElement.querySelector('img').src = '../../images/user/' + data.UserImage;
+        form.oldImageFileName.value = data.UserImage;
+      })
+      .catch(function (error) {
+        console.log('error: ' + error);
+      });
+  }
+  getUserInformation(id);
+
+  form.addEventListener('submit', function (event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+
+    fetch(url + '/' + id, {
+        method: 'PUT',
+        body: formData,
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
+
+        return res.json();
+      })
+      .then(function (data) {
+        console.log(data);
+        getUserInformation(id);
+        document.querySelector('#update-alert').classList.remove('d-none');
+      })
+      .catch(function (error) {
+        console.log('error: ' + error);
+      });
+  });
+</script>
