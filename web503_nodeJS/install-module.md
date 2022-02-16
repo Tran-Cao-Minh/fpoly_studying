@@ -35,3 +35,6 @@ npm i body-parser
 
 # hash password
 npm i bcrypt
+
+# session storage
+npm i express-session

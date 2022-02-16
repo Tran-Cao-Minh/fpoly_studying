@@ -228,16 +228,20 @@
 
 .validate-icon {
   position: absolute;
-
   top: 0;
   right: 0;
 
-  display: flex;
   justify-content: center;
   align-items: center;
 
   width: 2.5rem;
   height: 100%;
+
+  display: none;
+}
+.form-control.is-valid~.validate-icon,
+.form-control.is-valid~.validate-icon {
+  display: flex;
 }
 
 .form-control~.validate-icon::after {
