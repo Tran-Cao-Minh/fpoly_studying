@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 use api events and attributes in jquery</title>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    * {
+      font-weight: bold;
+      font-size: 18px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  Enter username: <input type="text" id="userName">
+  <span style="color: red;" id="errMsg"></span>
+  <br>
+  <button id="validateUser" type="button">Check</button>
+
+  <script>
+    $('#validateUser').click(function () {
+      if ($('#userName').val() === '') {
+        $('#errMsg').text('Username cannot be blank');
+
+      } else if ($('#userName').val().length < 4) {
+        $('#errMsg').text('Username cannot be less than 4 characters');
+
+      } else if ($('#userName').val().length > 30) {
+        $('#errMsg').text('Username cannot be more than 30 characters');
+
+      } else if (!($('#userName').val().includes('poly'))) {
+        $('#errMsg').text('Username must contain “poly”');
+
+      } else {
+        $('#errMsg').empty();
+        alert($('#userName').val());
+      };
+    });
+  </script>
+</body>
+
+</html>

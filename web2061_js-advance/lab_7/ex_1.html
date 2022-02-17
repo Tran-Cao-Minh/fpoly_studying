@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>1 use jquery selector to change the css of tags</title>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    * {
+      font-weight: bold;
+      font-size: 18px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <span>
+    Line 0 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </span>
+  <br>
+  <span>
+    Line 0 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </span>
+  <br>
+  <p id="line1">
+    Line 2 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </p>
+  <p class="line2">
+    Line 3 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </p>
+  <p line-count="line3">
+    Line 4 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </p>
+  <p selectedLine>
+    Line 5 Lorem ipsum dolor sit amet, consectetur adipisicing elit
+  </p>
+  <br>
+  <ul>
+    <li>li 1</li>
+    <li>li 2</li>
+    <li>li 3</li>
+    <li>li 4</li>
+    <li>li 5</li>
+  </ul>
+
+  <script>
+    $('span').css('color', 'hotpink');
+    $('p#line1').css('color', 'blue');
+    $('p.line2').css('color', 'green');
+    $('p[line-count="line3"]').css('color', 'orange');
+    $('p[selectedLine]').css('color', 'red');
+    $('li:first-child').css('color', 'brown');
+    $('li:last-child').css('color', 'darkcyan');
+    $('li:odd').css('color', 'darkslateblue');
+    $('li').hover(function () {
+      $(this).css('color', 'indigo');
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3 use api events and attributes in jquery to change html structure</title>
+  <!-- jquery -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <style>
+    * {
+      font-weight: bold;
+      font-size: 18px;
+      font-family: monospace;
+    }
+  </style>
+</head>
+
+<body>
+  <h3>Student list</h3>
+  <input type="text" id="studentName">
+  <button id="addStudent" type="button">Add student</button>
+  <span id="errMsg" style="color: red;"></span>
+  <ul id="studentList">
+    <li>Tran Cao Minh</li>
+  </ul>
+
+  <script>
+    $('#addStudent').click(function () {
+      if ($('#studentName').val() === '') {
+        $('#errMsg').text('Student name cannot be blank');
+
+      } else if ($('#studentName').val().length > 30) {
+        $('#errMsg').text('Student name cannot be more than 30 characters');
+
+      } else {
+        $('#studentList').append(`<li>${$('#studentName').val()}</li>`);
+        $('#studentName').val('');
+        $('#errMsg').empty();
+      };
+    });
+  </script>
+</body>
+
+</html>
