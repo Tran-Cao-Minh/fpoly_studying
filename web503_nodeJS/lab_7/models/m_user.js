@@ -1,5 +1,4 @@
 const db = require('./database.js');
-const fs = require('fs');
 
 exports.add = function (
   data = Object(),

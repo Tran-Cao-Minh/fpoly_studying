@@ -287,9 +287,17 @@ router.post('/get-new/password', function (req, res) {
         },
         function (data) {
           console.log(data);
+
+          const mailer = require('../utils/mailer.js');
+          mailer.sendMail(
+            UserEmail,
+            'Update new password',
+            `Your new password is: ${userPassword}`,
+          );
+
           req.session.destroy();
           res.redirect('/user/change-password-by-email-successfully');
-        }
+        },
       );
     };
   });
