@@ -44,10 +44,6 @@ export function FormValidator(
     };
   };
 
-  this.escapeRegExp = function (str = String()) {
-    return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-  };
-
   this.addTextInputValidator = function (
     input = Node(),
     inputName = String(),
@@ -84,7 +80,6 @@ export function FormValidator(
         };
 
       } else if (pattern.test(inputValue) === false) {
-        console.log(inputValue);
         messageContainer.innerHTML = patternErrorMessage;
 
       } else {
@@ -170,7 +165,7 @@ export function FormValidator(
       });
 
       if (checkFileType === false) {
-        let errMessage = 
+        let errMessage =
           `The ${inputName} file extension must be a value in the list:`;
         fileTypeList.forEach(type => {
           errMessage += ` ${type.split('/').pop().toUpperCase()},`;
@@ -197,6 +192,181 @@ export function FormValidator(
       );
       that.changeButtonStatus();
     });
+  };
+
+  this.addDateInputValidator = function (
+    input = Node(),
+    inputName = String(),
+    messageContainer = Node(),
+    min = {
+      day: Number(),
+      month: Number(),
+      year: Number(), // >= 100 - recommend
+    },
+    max = {
+      day: Number(),
+      month: Number(),
+      year: Number(),
+    },
+  ) {
+    this.inputList.push(input);
+    const that = this;
+
+    let minDateTime = new Date(min.year, (min.month - 1), min.day).getTime();
+    let maxDateTime = new Date(max.year, (max.month - 1), max.day).getTime();
+
+    function validateDate() {
+      let inputValue = input.value;
+      let check = false;
+
+      if (inputValue === '') {
+        messageContainer.innerHTML = `The ${inputName} must be a valid date`;
+
+      } else {
+        let inputDate = inputValue.split(/\D/);
+        let inputYear = Number(inputDate[0]);
+        let inputMonth = Number(inputDate[1]) - 1;
+        let inputDay = Number(inputDate[2]);
+
+        let inputDateTime = new Date(inputYear, inputMonth, inputDay).getTime();
+
+        if (inputDateTime < minDateTime || (inputYear < 100 && min.year >= 100)) {
+          let minDate = `${min.day}/${min.month}/${min.year}`;
+          messageContainer.innerHTML = `The ${inputName} must greater than ${minDate}`;
+
+        } else if (inputDateTime > maxDateTime) {
+          let maxDate = `${max.day}/${max.month}/${max.year}`;
+          messageContainer.innerHTML = `The ${inputName} must lesser than ${maxDate}`;
+
+        } else {
+          check = true;
+        };
+      };
+
+      that.changeInputStatus(
+        input,
+        messageContainer,
+        check,
+      );
+      that.changeButtonStatus();
+    }
+
+    input.addEventListener('blur', function () {
+      validateDate();
+    });
+    input.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        validateDate();
+      };
+    });
+  };
+
+  this.addRetypeInputValidator = function (
+    modelInput = Node(),
+    modelInputName = String(),
+    input = Node(),
+    inputName = String(),
+    messageContainer = Node(),
+  ) {
+    this.inputList.push(input);
+    const that = this;
+    let startCheck = false;
+
+    let check;
+    function checkRetype () {
+      check = (input.value === modelInput.value);
+
+      if (check === false) {
+        messageContainer.innerHTML =
+          `The ${inputName} must be like the ${modelInputName}`;
+      };
+      
+      that.changeInputStatus(
+        input,
+        messageContainer,
+        check,
+      );
+      that.changeButtonStatus();
+    }
+
+    modelInput.addEventListener('change', function () {
+      if (startCheck === true) {
+        checkRetype();
+      };
+    });
+
+    input.addEventListener('change', function () {
+      startCheck = true;
+      checkRetype();
+    });
+  };
+
+  this.checkDuplicateValidator = function (
+    input = Node(),
+    inputName = String(),
+    messageContainer = Node(),
+    data = [String()],
+    expectedResult = Boolean(),
+    ignoreCase = Boolean(),
+    validateOverride = Boolean(),
+  ) {
+    const that = this;
+
+    function checkDuplicate(inputValue = String()) {
+      if (ignoreCase === true) {
+        inputValue = inputValue.toLowerCase();
+        data.forEach((value, index, data) => {
+          data[index] = value.toLowerCase();
+        });
+      };
+
+      let check;
+      if (expectedResult === true) {
+        check = false;
+        data.forEach(value => {
+          if (inputValue === value) {
+            check = true;
+          };
+        });
+
+      } else if (expectedResult === false) {
+        check = true;
+        data.forEach(value => {
+          if (inputValue === value) {
+            check = false;
+          };
+        });
+      };
+
+      if (check === false && expectedResult === false) {
+        messageContainer.innerHTML = `The ${inputName} is exist`;
+
+      } else if (check === false && expectedResult === true) {
+        messageContainer.innerHTML = `The ${inputName} is not exist`;
+      };
+
+      that.changeInputStatus(
+        input,
+        messageContainer,
+        check,
+      );
+      that.changeButtonStatus();
+    }
+
+    if (validateOverride === false) {
+      this.inputList.push(input);
+      input.addEventListener('change', function () {
+        checkDuplicate(input.value);
+      });
+
+    } else {
+      input.addEventListener('change', function () {
+        console.log(input.getAttribute('class'));
+        if (input.classList.contains(that.inputValidClass)) {
+          checkDuplicate(input.value);
+        };
+      });
+    };
   };
 
   this.createSubmitButtonEvent = function (

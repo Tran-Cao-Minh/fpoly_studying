@@ -239,7 +239,7 @@
 
   display: none;
 }
-.form-control.is-valid~.validate-icon,
+.form-control.is-invalid~.validate-icon,
 .form-control.is-valid~.validate-icon {
   display: flex;
 }
