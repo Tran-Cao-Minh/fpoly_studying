@@ -1,50 +1,115 @@
-<aside class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark aside">
-  <a href="/" class="d-flex align-items-center text-primary text-decoration-none">
-    <span class="fs-1 logo-font text-center w-100 bg-light pt-1 rounded-3">TCM</span>
-  </a>
-  <hr>
-  <ul class="nav nav-pills flex-column mb-auto">
-    <li class="nav-item">
-      <a href="#" class="nav-link active" aria-current="page">
-        Categories
+<aside id="sidebar" class="active bg-white">
+  <div class="sidebar__tablet-overlay js-sidebar-toggle"></div>
+
+  <header class="sidebar__header">
+    <div class="sidebar__logo">
+      <a href="#">
+        <img src="../images/base/logo.png" alt="logo">
       </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-light">
-        Products
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-light">
-        Orders
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-light">
-        Users
-      </a>
-    </li>
-    <li>
-      <a href="#" class="nav-link text-light">
-        Comments
-      </a>
-    </li>
-  </ul>
-  <hr>
-  <div class="dropdown">
-    <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1"
-      data-bs-toggle="dropdown" aria-expanded="false">
-      <img src="" alt="" width="32" height="32" class="rounded-circle me-2">
-      <strong>Tran Cao Minh</strong>
-    </a>
-    <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
-      <li><a class="dropdown-item" href="#">New project...</a></li>
-      <li><a class="dropdown-item" href="#">Settings</a></li>
-      <li><a class="dropdown-item" href="#">Profile</a></li>
-      <li>
-        <hr class="dropdown-divider">
+    </div>
+    <button type="button" class="sidebar__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+      <i class="fa-solid fa-times sidebar__close-icon text-icon"></i>
+    </button>
+  </header>
+
+  <section class="sidebar__body">
+    <ul class="sidebar__menu">
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Category</span>
+        </a>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+        </ul>
       </li>
-      <li><a class="dropdown-item" href="#">Sign out</a></li>
+      <li class="sidebar__item">
+        <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Category</span>
+        </a>
+      </li>
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Category</span>
+        </a>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Category</span>
+        </a>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+        </ul>
+      </li>
     </ul>
-  </div>
+  </section>
 </aside>

@@ -94,19 +94,10 @@ export function searchAssistantCreator(
         },
         function updateSearchSuggestData(result) {
           let data = result.data;
-          data.forEach((dataObject, index) => {
-            let currentValue = dataObject[searchColumnSelectValue];
-            let currentIndex = index;
 
-            data.forEach((dataObject, index) => {
-              if (
-                currentValue === dataObject[searchColumnSelectValue] &&
-                currentIndex !== index
-              ) {
-                data.splice(index, 1);
-              }
-            });
-          });
+          data = [
+            ...new Map(data.map((item) => [item[searchColumnSelectValue], item])).values(),
+          ];
 
           searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
           searchSuggester.suggestData = data;

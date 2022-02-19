@@ -55,6 +55,37 @@ export function DataReader(
   };
 }
 
+export function DataDeleter(
+  fetchLink = String(),
+) {
+  DataInteractor.call(this, fetchLink, 'DELETE');
+
+  this.deleteData = function (
+    id = String(),
+    callbackFn = Function(data = Object()),
+  ) {
+    let fetchMethod = this.fetchMethod;
+    let fetchLink = this.fetchLink + id;
+
+    fetch(fetchLink, {
+        method: fetchMethod,
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
+
+        return res.json();
+
+      }).then(function (data) {
+        callbackFn(data);
+      })
+    // .catch(function (error) {
+    //   console.log('error: ' + error);
+    // });
+  };
+}
+
 export function DataAdder(
   fetchLink = String(),
 ) {

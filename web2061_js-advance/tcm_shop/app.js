@@ -29,9 +29,12 @@ app.use(cookieParser());
 // static resources
 app.use(express.static(path.join(__dirname, 'public')));
 
-// declare and use router
+// DECLARE AND USE ROUTER
 const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
+
+const adminRouter = require('./routes/admin');
+app.use('/admin', adminRouter);
 
 const usersRouter = require('./routes/users');
 app.use('/users', usersRouter);
@@ -41,6 +44,7 @@ app.use('/category', categoryRouter);
 
 const displayStatusRouter = require('./routes/display-status');
 app.use('/display-status', displayStatusRouter);
+// END DECLARE AND USE ROUTER
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

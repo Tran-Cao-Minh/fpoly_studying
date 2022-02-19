@@ -45,10 +45,10 @@ export function Suggester(
       let keyList = that.keyList;
 
       selectOptionContainer.innerHTML = '';
-      let searchValue = input.value;
+      let searchValue = input.value.trim();
 
       if (searchValue !== '') {
-        let searchValueList = escapeRegExp(searchValue).toLowerCase().trim().split(/\s+/);
+        let searchValueList = escapeRegExp(searchValue).toLowerCase().split(/\s+/);
 
         searchValueList.forEach((value, index) => {
           let currentValue = value;
@@ -108,7 +108,7 @@ export function Suggester(
                   index: index,
                   length: value.length,
                 });
-              }
+              };
             });
 
             let openHightlightTag = `<span class="${highlightClass}">`;
@@ -136,7 +136,7 @@ export function Suggester(
 
           } else if (checkContain === true) {
             hidedSuggestQuantity++;
-          }
+          };
         });
 
       } else {
@@ -156,7 +156,9 @@ export function Suggester(
             listItem.innerHTML = listItemContent;
             selectOptionContainer.appendChild(listItem);
             suggestResultQuantity++;
-          }
+          } else {
+            hidedSuggestQuantity++;
+          };
         });
       }
 

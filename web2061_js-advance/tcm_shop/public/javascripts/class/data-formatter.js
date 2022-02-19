@@ -86,10 +86,17 @@ export function ButtonFormatter(
   this.getClassValue();
 
   this.formatButton = function (
-    id = String(),
+    dataList = [{
+      key: String(),
+      value: String(),
+    }],
   ) {
+    let dataAttribute = '';
+    dataList.forEach(data => {
+      dataAttribute += ` data-${data.key}="${data.value}"`
+    });
     return `<button class="${this.classValue}" ` +
-      `type="button" data-id="${id}"> ` +
+      `type="button"${dataAttribute}> ` +
       `${this.icon}` +
       `</button>`
   };

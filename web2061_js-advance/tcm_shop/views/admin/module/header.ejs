@@ -1,8 +1,22 @@
-<header class="container-fluid bg-white p-2 d-flex align-items-center">
-  <button class="btn btn-primary text-light fs-3 btn-square">
-    <i class="fas fa-caret-left"></i>
+<header class="main__header bg-white">
+  <button type="button" class="main__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+    <i class="fa-solid fa-bars main__collapse-icon text-icon"></i>
   </button>
-  <h1 class="fs-5 mb-0 text-center" style="width: calc(100% - 6rem);">
-    Categories
-  </h1>
+  <div class="main__page-name text-truncate">
+    Category Overview
+  </div>
+  <div class="main__user-interaction">
+    <div class="main__user-avatar hover-pointer bg-body">
+      <img src="https://avatars.githubusercontent.com/u/78601445?v=4" alt="">
+    </div>
+    <div class="main__user-dashboard bg-body">
+      <div class="main__username rounded-2 bg-white text-truncate text col-12">
+        Hi, Tran Cao Minh
+      </div>
+      <button type="button" class="col-12 btn-primary">
+        <i class="fa-solid fa-sign-out-alt"></i>&nbsp;
+        Log Out
+      </button>
+    </div>
+  </div>
 </header>

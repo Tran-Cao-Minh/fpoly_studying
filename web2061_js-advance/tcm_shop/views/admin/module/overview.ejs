@@ -1,0 +1,123 @@
+<!-- filter form -->
+<section class="row bg-white rounded-2">
+  <!-- change search mode area -->
+  <div class="col-12">
+    <div class="form-group">
+      <div class="input-group">
+        <label class="input-group-text">
+          <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-value" checked>
+          <label for="js-search-by-value"></label>
+          <span class="ms-2">
+            Search by Value
+          </span>
+        </label>
+        <label class="input-group-text">
+          <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-min-max">
+          <label for="js-search-by-min-max"></label>
+          <span class="ms-2">
+            Search by Min - Max
+          </span>
+        </label>
+      </div>
+    </div>
+  </div>
+  <!-- end change search mode area -->
+
+  <!-- search form -->
+  <div class="col-12 col-lg-8">
+    <div class="form-group">
+      <div class="input-group" id="js-search-input-container">
+        <input autocomplete="off" type="text" class="form-control custom-select" id="js-overview-search-value"
+          placeholder="Search value">
+        <ul class="custom-select-list">
+          <!-- add by overview.js -->
+        </ul>
+        <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min"
+          placeholder="Min value">
+        <input type="text" class="form-control" id="js-overview-search-max" placeholder="Max value">
+        <button class="btn-primary" id="js-confirm-search-button">
+          <i class="fa-solid fa-search"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <!-- end search form -->
+
+  <!-- search by min value input -->
+
+  <!-- search column -->
+  <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="form-group">
+      <div class="input-group">
+        <label for="js-overview-search-column" class="input-group-text">Search by</label>
+        <div class="form-control custom-select" id="js-overview-search-column">
+          <span class="custom-select-text">
+            <!-- add by overview.js -->
+          </span>
+          <ul class="custom-select-list">
+            <!-- add by overview.js -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end search column -->
+
+  <!-- order column -->
+  <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+    <div class="form-group">
+      <div class="input-group">
+        <label for="js-overview-order-column" class="input-group-text">Order by</label>
+        <div class="form-control custom-select" id="js-overview-order-column">
+          <span class="custom-select-text">
+            <!-- add by overview.js -->
+          </span>
+          <ul class="custom-select-list">
+            <!-- add by overview.js -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end order column -->
+
+  <!-- order column -->
+  <div class="col-12 col-sm-6 col-md-4">
+    <div class="form-group">
+      <div class="input-group">
+        <div class="form-control custom-select" id="js-overview-order-rule">
+          <span class="custom-select-text">
+            <!-- add by overview.js -->
+          </span>
+          <ul class="custom-select-list">
+            <!-- add by overview.js -->
+          </ul>
+        </div>
+        <div class="form-control custom-select" id="js-overview-rows">
+          <span class="custom-select-text">
+            <!-- add by overview.js -->
+          </span>
+          <ul class="custom-select-list">
+            <!-- add by overview.js -->
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end order column -->
+</section>
+<!-- end filter form -->
+
+<!-- data table -->
+<section id="js-table-container" class="row rounded-2 justify-content-center bg-light-blue">
+  <div class="table-container">
+    <table id="js-data-table">
+      <!-- add by overview.js -->
+    </table>
+  </div>
+
+  <ul class="mt-1" id="js-table-paging-link-list">
+    <!-- add by overview.js -->
+  </ul>
+</section>
+<!-- end data table -->

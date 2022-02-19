@@ -80,13 +80,13 @@ export function TableCreator(
 
         tableBody.appendChild(tableRow);
       });
-
-      if (this.addTableButtonEvent !== null) {
-        this.addTableButtonEvent();
-      }
     };
 
     this.tableContainer.appendChild(tableHeader);
     this.tableContainer.appendChild(tableBody);
+
+    if (this.addTableButtonEvent !== null) {
+      this.addTableButtonEvent();
+    };
   }
 };

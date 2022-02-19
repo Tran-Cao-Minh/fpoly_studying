@@ -3,6 +3,15 @@ const router = express.Router();
 const modelCategory = require('../models/m-category.js');
 const validator = require('../utils/validator.js');
 
+
+
+
+
+
+// NHAP
+// NHAP
+// NHAP
+// NHAP
 // View
 router.get('/', function (req, res) {
   let filter = req.query;
@@ -75,8 +84,7 @@ router.post('/', function (req, res, next) {
                 console.log(data);
                 res.json({
                   'result': 'success',
-                  'notification': 
-                    `Add category completed \n Category name: ${productCategory.CategoryName}`,
+                  'notification': `Add category completed \n Category name: ${productCategory.CategoryName}`,
                 });
               });
             };
@@ -162,21 +170,10 @@ router.post('/update', function (req, res, next) {
   // )
 })
 
-router.get('/delete/:id', function (req, res) {
-  // let id = req.params.id;
-
-  // db.query(
-  //   `
-  //     DELETE FROM product_category
-  //     WHERE PkCategory_Id = ${id}
-  //   `,
-  //   function (err, data) {
-  //     if (data.affectedRows === 0) {
-  //       console.log(`Do not have category with ID ${PkCategory_Id} to delete`);
-  //     };
-  //     res.redirect('/category');
-  //   }
-  // )
+router.delete('/:id', function (req, res) {
+  modelCategory.delete(req.params.id, function (result) {
+    res.json(result);
+  });
 })
 
 module.exports = router;

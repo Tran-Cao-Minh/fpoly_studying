@@ -25,18 +25,16 @@ exports.search = function (
   let dataTable = `
     FROM (
       SELECT
-          PkProductCategory_Id AS CategoryId,
-          CategoryName,
-          CategoryOrder,
-          StatusName AS CategoryDisplay,
-          COUNT(*) AS CategoryProductQuantity
+        PkProductCategory_Id AS CategoryId,
+        CategoryName,
+        CategoryOrder,
+        StatusName AS CategoryDisplay,
+        COUNT(PkProduct_Id) AS CategoryProductQuantity
       FROM
-          product_category pc
-      INNER JOIN 
-        display_status ds ON
+        product_category pc
+      INNER JOIN display_status ds ON
         pc.FkDisplayStatus_Id = ds.PkDisplayStatus_Id
-      INNER JOIN 
-        product p ON
+      LEFT JOIN product p ON
         p.FkProductCategory_Id = pc.PkProductCategory_Id
       GROUP BY
         PkProductCategory_Id
@@ -113,82 +111,6 @@ exports.search = function (
   );
 };
 
-// exports.searchByMinMax = function (
-//   filter = {
-//     columnList: Array(String()),
-//     searchMinValue: String(),
-//     searchMaxValue: String(),
-//     searchColumn: String(),
-//     orderRule: String(),
-//     orderColumn: String(),
-//     resultQuantity: Number(),
-//     pageNum: Number(),
-//   },
-//   callbackFn = Function(data = Object()),
-// ) {
-//   filter.columnList = filter.columnList.join(', ');
-//   let offset = filter.resultQuantity * (filter.pageNum - 1);
-//   let rowCount = filter.resultQuantity;
-
-//   let sql = `
-//     SELECT ${filter.columnList}
-//     FROM (
-//       SELECT
-//           PkProductCategory_Id AS CategoryId,
-//           CategoryName,
-//           CategoryOrder,
-//           StatusName AS CategoryDisplay,
-//           COUNT(*) AS CategoryProductQuantity
-//       FROM
-//           product_category pc
-//       INNER JOIN 
-//         display_status ds ON
-//         pc.FkDisplayStatus_Id = ds.PkDisplayStatus_Id
-//       INNER JOIN 
-//         product p ON
-//         p.FkProductCategory_Id = pc.PkProductCategory_Id
-//       GROUP BY
-//         PkProductCategory_Id
-//     ) AS category
-//   `;
-
-//   if (
-//     filter.searchMinValue !== '' &&
-//     filter.searchMaxValue !== ''
-//   ) {
-//     sql += `WHERE ${filter.searchColumn} 
-//             BETWEEN '${filter.searchMinValue}' AND '${filter.searchMaxValue}' `;
-//   } else if (
-//     filter.searchMinValue !== '' &&
-//     filter.searchMaxValue === ''
-//   ) {
-//     sql += `WHERE ${filter.searchColumn} >= '${filter.searchMinValue}' `;
-
-//   } else if (
-//     filter.searchMinValue === '' &&
-//     filter.searchMaxValue !== ''
-//   ) {
-//     sql += `WHERE ${filter.searchColumn} <= '${filter.searchMaxValue}' `;
-//   }
-
-//   sql += `
-//     ORDER BY
-//       ${filter.orderColumn} ${filter.orderRule}
-//     LIMIT 
-//       ${offset}, ${rowCount}
-//   `;
-//   console.log(sql);
-
-//   db.query(sql,
-//     function (err, data) {
-//       if (err) {
-//         throw err;
-//       };
-//       callbackFn(data);
-//     }
-//   );
-// };
-
 exports.add = function (
   data = Object(),
   callbackFn = Function(),
@@ -261,5 +183,66 @@ exports.checkFkDisplayStatus = function (
         callbackFn(true);
       };
     }
+  );
+}
+
+exports.delete = function (
+  id = String(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        COUNT(*) AS CategoryProductQuantity,
+        CategoryName
+      FROM
+        product_category pc
+      RIGHT JOIN product p ON
+        pc.PkProductCategory_Id = p.FkProductCategory_Id
+      WHERE
+        PkProductCategory_Id = '${id}'
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+
+      let category = data[0];
+      if (category.CategoryProductQuantity === 0) {
+        db.query(
+          `
+            DELETE FROM 
+              product_category
+            WHERE 
+              PkProductCategory_Id = '${id}'
+          `,
+          function (err, data) {
+            if (err) {
+              throw err;
+            };
+
+            if (data.affectedRows === 0) {
+              callbackFn({
+                result: 'warning',
+                notification: 
+                  `Do not have Category with ID ${id} to delete`,
+              });
+            } else {
+              callbackFn({
+                result: 'success',
+                notification: 
+                  `Delete Category - ${category.CategoryName} successfully`,
+              });
+            };
+          },
+        );
+      } else {
+        callbackFn({
+          result: 'fail',
+          notification: 
+            `The number of products in Category - ${category.CategoryName} must be 0 to be deleted`,
+        });
+      };
+    },
   );
 }
