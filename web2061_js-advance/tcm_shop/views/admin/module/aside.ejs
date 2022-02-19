@@ -3,9 +3,9 @@
 
   <header class="sidebar__header">
     <div class="sidebar__logo">
-      <a href="#">
+      <span>
         <img src="../images/base/logo.png" alt="logo">
-      </a>
+      </span>
     </div>
     <button type="button" class="sidebar__toggle hover-bg-white hover-pointer js-sidebar-toggle">
       <i class="fa-solid fa-times sidebar__close-icon text-icon"></i>
@@ -15,28 +15,24 @@
   <section class="sidebar__body">
     <ul class="sidebar__menu">
       <li class="sidebar__item--has-sub js-menu-item-collapse">
-        <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+        <span class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
           <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
             --font-size: 1.2rem;
             --margin: 0 0 0 0;
           "></i>
           <span class="sidebar__item-text text text-truncate">Category</span>
-        </a>
+        </span>
         <ul class="sidebar__sub-menu">
           <li class="sidebar__sub-menu-item">
-            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+            <a href="/admin/category-overview" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Category Overview">
               <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
               <span class="sidebar__sub-item-text text text-truncate">Overview</span>
             </a>
           </li>
           <li class="sidebar__sub-menu-item">
-            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
-              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
-              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
-            </a>
-          </li>
-          <li class="sidebar__sub-menu-item">
-            <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+            <a href="/admin/add-category" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Add Category">
               <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
               <span class="sidebar__sub-item-text text text-truncate">Add</span>
             </a>

@@ -22,3 +22,16 @@ let menuItemActivator = new MultipleActivator('active', menuItemList);
 menuItemList.forEach(menuItem => {
   menuItemActivator.createEvent(menuItem, 'click');
 });
+
+// set link by page name
+let pageName = document.querySelector('#page-name').innerText;
+let asidePageLinkList = document.querySelector('#sidebar').querySelectorAll('a');
+asidePageLinkList.forEach(link => {
+  if (link.dataset.pageName === pageName) {
+    link.classList.add('active');
+    link.removeAttribute('href');
+    
+    let linkContainer = link.parentElement.parentElement.parentElement;
+    linkContainer.classList.add('active');
+  };
+});

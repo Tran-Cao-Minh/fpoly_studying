@@ -129,6 +129,27 @@ exports.add = function (
   );
 }
 
+exports.update = function (
+  id = String(),
+  data = Object(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      UPDATE product_category SET ?
+      WHERE
+        PkProductCategory_Id = '${id}'
+    `,
+    data,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
 exports.findOne = function (
   columnKey = String(),
   value = String(),
@@ -148,12 +169,7 @@ exports.findOne = function (
       if (err) {
         throw err;
       };
-      if (data.length <= 0) {
-        callbackFn(false);
-
-      } else {
-        callbackFn(true);
-      };
+      callbackFn(data);
     }
   );
 }

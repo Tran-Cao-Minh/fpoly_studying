@@ -99,6 +99,7 @@ window.addEventListener('load', function createFormValidator() {
     categoryOrder: document.querySelector('#categoryOrder'),
     categoryDisplay: document.querySelector('#categoryDisplay'),
     submitButton: document.querySelector('#js-add-data-submit'),
+    ###
   };
 
   const formValidator = new FormValidator(

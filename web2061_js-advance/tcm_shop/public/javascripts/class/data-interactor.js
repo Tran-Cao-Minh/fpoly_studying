@@ -131,3 +131,49 @@ export function DataAdder(
     // });
   };
 }
+
+export function DataUpdater(
+  fetchLink = String(),
+) {
+  DataInteractor.call(this, fetchLink, 'PUT');
+
+  this.updateDate = function (
+    formData = Object(),
+    multipartFormData = Boolean(),
+    callbackFn = Function(data = Object()),
+  ) {
+    let fetchMethod = this.fetchMethod;
+    let fetchLink = this.fetchLink;
+
+    let putObject;
+    if (multipartFormData === false) {
+      const searchParams = new URLSearchParams();
+      for (const pair of formData) {
+        searchParams.append(pair[0], pair[1]);
+      };
+
+      putObject = searchParams;
+
+    } else if (multipartFormData === true) {
+      putObject = formData;
+    };
+
+    fetch(fetchLink, {
+        method: fetchMethod,
+        body: putObject,
+      })
+      .then(function (res) {
+        if (!res.ok) {
+          throw new Error('error = ' + res.status);
+        };
+
+        return res.json();
+
+      }).then(function (data) {
+        callbackFn(data);
+      })
+    // .catch(function (error) {
+    //   console.log('error: ' + error);
+    // });
+  };
+}

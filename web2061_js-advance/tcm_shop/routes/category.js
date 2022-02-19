@@ -3,16 +3,6 @@ const router = express.Router();
 const modelCategory = require('../models/m-category.js');
 const validator = require('../utils/validator.js');
 
-
-
-
-
-
-// NHAP
-// NHAP
-// NHAP
-// NHAP
-// View
 router.get('/', function (req, res) {
   let filter = req.query;
   filter.resultQuantity = Number(filter.resultQuantity);
@@ -29,8 +19,7 @@ router.get('/', function (req, res) {
   );
 })
 
-// API
-router.post('/', function (req, res, next) {
+router.post('/', function (req, res) {
   let productCategory = {
     CategoryName: req.body.categoryName,
     CategoryOrder: Number(req.body.categoryOrder),
@@ -72,8 +61,8 @@ router.post('/', function (req, res, next) {
         modelCategory.findOne(
           'CategoryName',
           productCategory.CategoryName,
-          function (check) {
-            if (check === true) {
+          function (data) {
+            if (data.length > 0) {
               res.json({
                 'result': 'fail',
                 'notification': 'Category name is exist',
@@ -99,75 +88,82 @@ router.post('/', function (req, res, next) {
     });
 })
 
-router.get('/add', function (req, res, next) {
-  // res.render('category-add');
-})
+router.put('/:id', function (req, res) {
+  let productCategory = {
+    CategoryName: req.body.categoryName,
+    CategoryOrder: Number(req.body.categoryOrder),
+    FkDisplayStatus_Id: Number(req.body.categoryDisplay),
+  };
+  console.log(productCategory);
 
-router.post('/store', function (req, res, next) {
-  // get data form add router to add record into database
-  // let categoryName = req.body.categoryName;
-  // let categoryOrder = req.body.categoryOrder;
-  // let categoryDisplay = req.body.categoryDisplay;
+  let checkValidateData = new Promise(function (resolve) {
+    modelCategory.checkFkDisplayStatus(
+      productCategory.FkDisplayStatus_Id,
+      function (checkCategoryDisplay) {
+        let checkCategoryName = validator.checkPattern(
+          productCategory.CategoryName,
+          /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/
+        );
 
-  // let productCategory = {
-  //   CategoryName: categoryName,
-  //   CategoryOrder: categoryOrder,
-  //   CategoryDisplay: categoryDisplay,
-  // };
+        let checkCategoryOrder = validator.checkNumber(
+          productCategory.CategoryOrder,
+          1,
+          99,
+          1
+        );
 
-  // db.query(
-  //   `INSERT INTO product_category SET ?`, productCategory,
-  //   function (err, data) {
-  //     if (err) throw err;
-  //     res.redirect('/category');
-  //   }
-  // )
-})
+        if (checkCategoryName &&
+          checkCategoryOrder &&
+          checkCategoryDisplay
+        ) {
+          resolve(true);
+        } else {
+          resolve(false);
+        };
+      },
+    );
+  });
 
-router.get('/edit/:id', function (req, res, next) {
-  // let id = req.params.id;
+  checkValidateData
+    .then(function (check) {
+      if (check === true) {
+        modelCategory.findOne(
+          'CategoryName',
+          productCategory.CategoryName,
+          function (data) {
+            console.log(data);
+            if (
+              data.length > 0 && 
+              data[0].PkProductCategory_Id !== Number(req.params.id)
+            ) {
+              res.json({
+                'result': 'fail',
+                'notification': 'Category name is exist',
+              });
 
-  // db.query(
-  //   `
-  //     SELECT PkCategory_Id, CategoryName, CategoryOrder, CategoryDisplay
-  //     FROM product_category 
-  //     WHERE PkCategory_Id = ${id}
-  //     LIMIT 1
-  //   `,
-  //   function (err, data) {
-  //     res.render('category-edit', {
-  //       category: data[0]
-  //     });
-  //   }
-  // )
-})
-
-router.post('/update', function (req, res, next) {
-  // get data from edit router to update into database
-  // let PkCategory_Id = req.body.categoryId;
-  // let categoryName = req.body.categoryName;
-  // let categoryOrder = req.body.categoryOrder;
-  // let categoryDisplay = req.body.categoryDisplay;
-
-  // let productCategory = {
-  //   CategoryName: categoryName,
-  //   CategoryOrder: categoryOrder,
-  //   CategoryDisplay: categoryDisplay,
-  // };
-
-  // db.query(
-  //   `
-  //     UPDATE product_category SET ?
-  //     WHERE PkCategory_Id = ${PkCategory_Id}
-  //   `,
-  //   productCategory,
-  //   function (err, data) {
-  //     if (data.affectedRows === 0) {
-  //       console.log(`Do not have category with ID ${PkCategory_Id} to update`);
-  //     };
-  //     res.redirect('/category');
-  //   }
-  // )
+            } else {
+              let categoryId = req.params.id;
+              modelCategory.update(
+                categoryId,
+                productCategory,
+                function (data) {
+                  console.log(data);
+                  res.json({
+                    'result': 'success',
+                    'notification': `Update category completed \n Category name: ${productCategory.CategoryName}`,
+                  });
+                },
+              );
+            };
+          },
+        );
+      } else if (check === false) {
+        res.json({
+          'result': 'fail',
+          'notification': 'Wrong data format',
+        });
+      };
+    });
 })
 
 router.delete('/:id', function (req, res) {

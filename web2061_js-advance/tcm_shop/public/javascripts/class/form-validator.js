@@ -106,7 +106,7 @@ export function FormValidator(
     this.inputList.push(input);
     const that = this;
 
-    input.addEventListener('change', function () {
+    input.addEventListener('input', function () {
       input.value = input.value.trim();
       let inputValue = input.value;
       let check = false;
@@ -361,7 +361,6 @@ export function FormValidator(
 
     } else {
       input.addEventListener('change', function () {
-        console.log(input.getAttribute('class'));
         if (input.classList.contains(that.inputValidClass)) {
           checkDuplicate(input.value);
         };
