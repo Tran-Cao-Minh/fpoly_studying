@@ -2,72 +2,99 @@ import {
   CustomSelectCreator
 } from '../../class/custom-select-creator.js';
 import {
-  DataReader
+  DataReader,
+  DataAdder
 } from '../../class/data-interactor.js';
-
-const fetchLink = 'http://localhost:3000/category/';
-const displayStatusDataReader =
-  new DataReader('http://localhost:3000/display-status/');
-
-const addCategoryForm = document.querySelector('[name=addCategoryForm]');
-
-// window.addEventListener('load', function createCustomDisplayStatusSelect() {
-//   const categoryDisplaySelect = document.querySelector('#categoryDisplay');
-//   const categoryDisplaySelectContainer =
-//     categoryDisplaySelect.querySelector('.custom-select-list');
-//   const categoryDisplaySelectText =
-//     categoryDisplaySelect.querySelector('.custom-select-text');
-//   const categoryDisplaySelectLabelList =
-//     document.querySelectorAll('[for=categoryDisplay]');
-//   const categoryDisplaySelectCreator = new CustomSelectCreator(
-//     categoryDisplaySelect,
-//     'active',
-//     categoryDisplaySelectContainer,
-//     [
-//       'value',
-//     ],
-//   );
-//   categoryDisplaySelectLabelList.forEach(label => {
-//     categoryDisplaySelectCreator.createLabelPointer(label);
-//   });
-
-//   displayStatusDataReader.readData({
-//     'columnList': [
-//       'PkDisplayStatus_Id',
-//       'StatusName',
-//     ],
-//     'searchValue': '',
-//     'searchMode': 'searchByValue',
-//     'searchColumn': 'PkDisplayStatus_Id',
-//     'orderRule': 'ASC',
-//     'orderColumn': 'PkDisplayStatus_Id',
-//     'resultQuantity': 999999999999,
-//     'pageNum': 1
-//   }, function addCategoryDisplaySelectData(data) {
-//     data.forEach(displayStatus => {
-//       categoryDisplaySelectCreator.addOptionItem(
-//         displayStatus.StatusName,
-//         [{
-//           key: 'value',
-//           data: displayStatus.PkDisplayStatus_Id,
-//         }, ]
-//       );
-//     });
-
-//     categoryDisplaySelectCreator.createCustomSelect(
-//       String(data[1].PkDisplayStatus_Id),
-//       categoryDisplaySelectText,
-//       'choosen',
-//     );
-//   });
-// });
-
 import {
   FormValidator
 } from '../../class/form-validator.js';
+import {
+  ToastCreator
+} from '../../class/toast-creator.js';
+
+const formData = new FormData();
+
+const addDataToastify = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16,
+);
+
+function showAddResult(data) {
+  if (data.result === 'success') {
+    addDataToastify.createToast(
+      'success',
+      data.notification,
+      2,
+    );
+
+  } else if (data.result === 'fail') {
+    addDataToastify.createToast(
+      'danger',
+      data.notification,
+      2,
+    );
+  };
+}
+
+window.addEventListener('load', function createCustomDisplayStatusSelect() {
+  const categoryDisplaySelect = document.querySelector('#categoryDisplay');
+  const categoryDisplaySelectContainer =
+    categoryDisplaySelect.querySelector('.custom-select-list');
+  const categoryDisplaySelectText =
+    categoryDisplaySelect.querySelector('.custom-select-text');
+  const categoryDisplaySelectLabelList =
+    document.querySelectorAll('[for=categoryDisplay]');
+  const categoryDisplaySelectCreator = new CustomSelectCreator(
+    categoryDisplaySelect,
+    'active',
+    categoryDisplaySelectContainer,
+    [
+      'value',
+    ],
+  );
+  categoryDisplaySelectLabelList.forEach(label => {
+    categoryDisplaySelectCreator.createLabelPointer(label);
+  });
+
+  const displayStatusDataReader =
+    new DataReader('http://localhost:3000/display-status/');
+
+  displayStatusDataReader.readData({
+    'columnList': [
+      'PkDisplayStatus_Id',
+      'StatusName',
+    ],
+    'searchValue': '',
+    'searchMode': 'searchByValue',
+    'searchColumn': 'PkDisplayStatus_Id',
+    'orderRule': 'ASC',
+    'orderColumn': 'PkDisplayStatus_Id',
+    'resultQuantity': 999999999999,
+    'pageNum': 1
+  }, function addCategoryDisplaySelectData(data) {
+    data.forEach(displayStatus => {
+      categoryDisplaySelectCreator.addOptionItem(
+        displayStatus.StatusName,
+        [{
+          key: 'value',
+          data: displayStatus.PkDisplayStatus_Id,
+        }, ]
+      );
+    });
+
+    categoryDisplaySelectCreator.createCustomSelect(
+      String(data[1].PkDisplayStatus_Id),
+      categoryDisplaySelectText,
+      'choosen',
+    );
+  });
+});
 
 window.addEventListener('load', function createFormValidator() {
   const addCategoryFormObject = {
+    form: document.querySelector('#addCategoryForm'),
     categoryName: document.querySelector('#categoryName'),
     categoryOrder: document.querySelector('#categoryOrder'),
     categoryDisplay: document.querySelector('#categoryDisplay'),
@@ -107,10 +134,33 @@ window.addEventListener('load', function createFormValidator() {
     1,
   );
 
+  const fetchLink = 'http://localhost:3000/category/';
+  const dataAdder = new DataAdder(
+    fetchLink,
+  );
+
   addCategoryFormValidator.createSubmitButtonEvent(
     function () {
-      alert('passed');
+      formData.set(
+        'categoryName',
+        addCategoryFormObject.categoryName.value
+      );
+      formData.set(
+        'categoryOrder',
+        addCategoryFormObject.categoryOrder.value
+      );
+      formData.set(
+        'categoryDisplay',
+        addCategoryFormObject.categoryDisplay.getAttribute('value')
+      );
+
+      dataAdder.addData(
+        formData,
+        false,
+        function (data) {
+          showAddResult(data);
+        },
+      );
     },
   );
 });
-

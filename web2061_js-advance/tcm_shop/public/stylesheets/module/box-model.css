@@ -85,11 +85,31 @@
   margin-bottom: calc(var(--space) * 2) !important;
 }
 
+.ms-4 {
+  margin-left: calc(var(--space) * 4) !important;
+}
+
+.me-4 {
+  margin-right: calc(var(--space) * 4) !important;
+}
+
+.mt-4 {
+  margin-top: calc(var(--space) * 4) !important;
+}
+
+.mb-4 {
+  margin-bottom: calc(var(--space) * 4) !important;
+}
+
 /* end margin */
 
 /* display */
 .d-none {
   display: none !important;
+}
+
+.w-full {
+  width: 100%;
 }
 
 .d-flex {
@@ -105,6 +125,15 @@
 .justify-content-center {
   justify-content: center;
 }
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+
 /* 
 .justify-content-start {
   justify-content: flex-start;

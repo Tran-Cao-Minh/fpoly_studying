@@ -79,7 +79,6 @@ export function DataAdder(
 
     } else if (multipartFormData === true) {
       postObject = formData;
-      #####
     };
 
     fetch(fetchLink, {

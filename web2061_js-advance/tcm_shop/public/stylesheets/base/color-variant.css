@@ -33,6 +33,8 @@
   --btn-success-shadow: rgb(60 153 110 / 50%);
   --btn-white-bg: var(--white);
   --btn-white-shadow: rgb(211 212 213 / 50%);
+  --btn-cancel-bg: var(--icon-color);
+  --btn-cancel-shadow: rgb(124 141 181 / 50%);
 
 
   --border-light-color: #dce7f1;

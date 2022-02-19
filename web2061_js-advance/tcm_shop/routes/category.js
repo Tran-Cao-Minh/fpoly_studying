@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const modelCategory = require('../models/m-category.js');
+const validator = require('../utils/validator.js');
 
 // View
 router.get('/', function (req, res) {
@@ -20,23 +21,75 @@ router.get('/', function (req, res) {
 })
 
 // API
-// router.post('/', function (req, res, next) {
-//   let filter = req.body;
-//   if (filter.searchMode === 'searchByValue') {
-//     res.json(modelCategory.searchByValue(
-//       filter.columnList,
-//       filter.searchValue,
-//       filter.searchColumn,
-//       filter.orderRule,
-//       filter.orderColumn,
-//       filter.offset,
-//       filter.rowCount,
-//     ));
+router.post('/', function (req, res, next) {
+  let productCategory = {
+    CategoryName: req.body.categoryName,
+    CategoryOrder: Number(req.body.categoryOrder),
+    FkDisplayStatus_Id: Number(req.body.categoryDisplay),
+  };
+  console.log(productCategory);
 
-//   } else if (filter.searchMode === 'searchByMinMax') {
+  let checkValidateData = new Promise(function (resolve) {
+    modelCategory.checkFkDisplayStatus(
+      productCategory.FkDisplayStatus_Id,
+      function (checkCategoryDisplay) {
+        let checkCategoryName = validator.checkPattern(
+          productCategory.CategoryName,
+          /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/
+        );
 
-//   };
-// })
+        let checkCategoryOrder = validator.checkNumber(
+          productCategory.CategoryOrder,
+          1,
+          99,
+          1
+        );
+
+        if (checkCategoryName &&
+          checkCategoryOrder &&
+          checkCategoryDisplay
+        ) {
+          resolve(true);
+        } else {
+          resolve(false);
+        };
+      },
+    );
+  });
+
+  checkValidateData
+    .then(function (check) {
+      if (check === true) {
+        modelCategory.findOne(
+          'CategoryName',
+          productCategory.CategoryName,
+          function (check) {
+            if (check === true) {
+              res.json({
+                'result': 'fail',
+                'notification': 'Category name is exist',
+              });
+
+            } else {
+              modelCategory.add(productCategory, function (data) {
+                console.log(data);
+                res.json({
+                  'result': 'success',
+                  'notification': 
+                    `Add category completed \n Category name: ${productCategory.CategoryName}`,
+                });
+              });
+            };
+          }
+        );
+      } else if (check === false) {
+        res.json({
+          'result': 'fail',
+          'notification': 'Wrong data format',
+        });
+      };
+    });
+})
 
 router.get('/add', function (req, res, next) {
   // res.render('category-add');

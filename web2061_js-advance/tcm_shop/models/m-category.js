@@ -188,3 +188,78 @@ exports.search = function (
 //     }
 //   );
 // };
+
+exports.add = function (
+  data = Object(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      INSERT INTO product_category SET ?
+    `,
+    data,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
+exports.findOne = function (
+  columnKey = String(),
+  value = String(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkProductCategory_Id
+      FROM
+        product_category
+      WHERE
+        ${columnKey} = '${value}'
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      if (data.length <= 0) {
+        callbackFn(false);
+
+      } else {
+        callbackFn(true);
+      };
+    }
+  );
+}
+
+exports.checkFkDisplayStatus = function (
+  value = Number(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkDisplayStatus_Id
+      FROM
+        display_status
+      WHERE
+        PkDisplayStatus_Id = ${value}
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      if (data.length <= 0) {
+        callbackFn(false);
+
+      } else {
+        callbackFn(true);
+      };
+    }
+  );
+}

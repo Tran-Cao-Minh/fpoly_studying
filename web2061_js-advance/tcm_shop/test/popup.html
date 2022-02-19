@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>popup test</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
+</head>
+
+<style>
+  .popup {
+    position: fixed;
+    top: -100vh;
+    right: 0;
+    left: 0;
+    z-index: 1000;
+
+    height: 100vh;
+
+    background: var(--black-overlay);
+
+    transition: top .675s ease-in-out;
+  }
+
+  .popup-wrapper {
+    overflow-y: auto;
+
+    display: flex;
+
+    max-width: 36rem;
+    height: 100vh;
+    margin: 0 auto;
+
+    padding: 2rem 1rem;
+    background: transparent;
+  }
+
+  .popup-content {
+    width: 100%;
+    height: auto;
+    margin: auto;
+    padding: 2rem 1rem;
+
+    background: var(--white);
+
+    border-radius: 0.5rem;
+  }
+
+  .popup-body {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .popup-icon-wrapper--danger {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 5.5rem;
+    height: 5.5rem;
+    border-radius: 50%;
+    margin-bottom: 0.25rem;
+
+    border-width: 0.25rem;
+    border-style: solid;
+
+    opacity: 0.8;
+  }
+
+  .popup-icon-wrapper--danger {
+    border-color: var(--red);
+  }
+
+  .popup-icon-wrapper--danger>.popup-icon {
+    color: var(--red);
+
+    font-size: 2.5rem;
+  }
+
+  .popup-actions {
+    display: flex;
+    justify-content: space-around;
+  }
+</style>
+
+<body>
+  <!-- <div class="popup">
+    <div class="popup-wrapper">
+      <div class="popup-content">
+        <div class="popup-body">
+          <div class="popup-icon-wrapper--danger">
+            <i class="fa-solid fa-exclamation popup-icon"></i>
+          </div>
+          <div class="text text-center mt-2 mb-4 w-full">
+            Are you sure to delete category - Business ?
+            <br>
+            (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted
+          </div>
+        </div>
+        <div class="popup-actions">
+          <button class="btn-danger col-5 mt-4 text-uppercase">
+            Confirm
+          </button>
+          <button class="btn-cancel col-5 mt-4 text-uppercase">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script>
+    function PopupCreator() {
+      this.createPopup = function (nodeList = [Node()]) {
+        let popup = document.createElement('div');
+        popup.classList.add('popup');
+        popup.style.top = '-100vh';
+
+        let popupWrapper = document.createElement('div');
+        popupWrapper.classList.add('popup-wrapper');
+        let popupContent = document.createElement('div');
+        popupContent.classList.add('popup-content');
+        nodeList.forEach(node => {
+          popupContent.appendChild(node);
+        });
+
+        popupWrapper.appendChild(popupContent);
+        popup.appendChild(popupWrapper);
+
+        document.body.appendChild(popup);
+
+        setTimeout(function () {
+          popup.style.top = '0';
+        }, 1);
+
+        let that = this;
+        popup.addEventListener('click', function (event) {
+          if (
+            event.target.classList.contains('popup') ||
+            event.target.classList.contains('popup-wrapper')
+          ) {
+            that.removePopup(popup);
+          };
+        });
+      };
+
+      this.removePopup = function (popup = Node()) {
+        popup.style.top = '-100vh';
+        setTimeout(function () {
+          document.body.removeChild(popup);
+        }, 675);
+      };
+    }
+
+    function ConfirmDangerActionPopupCreator(
+      dangerActionContent = String(),
+    ) {
+      PopupCreator.call(this);
+      this.dangerActionContent = dangerActionContent;
+
+      this.initialConfirmDangerActionPopup = function () {
+        this.popupBody = document.createElement('div');
+        this.popupBody.classList.add('popup-body');
+
+        this.icon = `
+          <div class="popup-icon-wrapper--danger">
+            <i class="fa-solid fa-exclamation popup-icon"></i>
+          </div>
+        `;
+
+        this.popupBody.innerHTML += this.icon;
+
+        this.popupActions = document.createElement('div');
+        this.popupActions.classList.add('popup-actions');
+
+        this.dangerActionBtn = document.createElement('button');
+        this.dangerActionBtn
+          .setAttribute('class', 'btn-danger col-5 mt-4 text-uppercase');
+        this.dangerActionBtn.innerHTML = this.dangerActionContent;
+
+        this.cancelBtn = document.createElement('button');
+        this.cancelBtn
+          .setAttribute('class', 'btn-cancel col-5 mt-4 text-uppercase');
+        this.cancelBtn.innerHTML = 'Cancel';
+
+        let that = this;
+        this.cancelBtn.addEventListener('click', function () {
+          let popupList = document.querySelectorAll('.popup');
+          let lastPopup = popupList[popupList.length - 1];
+          that.removePopup(lastPopup);
+        });
+
+        this.popupActions.appendChild(this.dangerActionBtn);
+        this.popupActions.appendChild(this.cancelBtn);
+      }
+
+      this.createConfirmDangerActionPopup = function (
+        notification = String(),
+        dangerAction = Function(),
+      ) {
+        this.initialConfirmDangerActionPopup();
+
+        this.popupBody.innerHTML += `
+          <div class="text text-center mt-2 mb-2 w-full">
+            ${notification}
+          </div>
+        `;
+
+        this.dangerActionBtn.addEventListener('click', function () {
+          dangerAction();
+        });
+
+        this.createPopup([
+          this.popupBody,
+          this.popupActions,
+        ]);
+      };
+    }
+
+    let test = new ConfirmDangerActionPopupCreator('Delete');
+    test.createConfirmDangerActionPopup(
+      `Are you sure to delete category - Business ?
+        <br>
+      (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted`,
+      function () {
+        alert(1);
+      },
+    );
+    test.createConfirmDangerActionPopup(
+      `Are you sure to delete category - Business ?
+        <br>
+      (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted`,
+      function () {
+        alert(11);
+      },
+    );
+  </script>
+</body>
+
+</html>
