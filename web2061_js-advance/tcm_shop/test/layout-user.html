@@ -10,6 +10,7 @@
   <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
   <!-- custom style -->
   <link rel="stylesheet" href="../public/stylesheets/client/client.css">
+  <link rel="stylesheet" href="../public/stylesheets/client/shop.css">
 </head>
 
 <body>
@@ -44,16 +45,282 @@
         </div>
         <nav class="header-nav-bar">
           <a href="#" class="header-nav-item">Home</a>
-          <a href="#" class="header-nav-item">Product</a>
+          <a href="#" class="header-nav-item">Shop</a>
           <a href="#" class="header-nav-item">Cart</a>
+          <a href="#" class="header-nav-item">Account</a>
           <a href="#" class="header-nav-item">About</a>
         </nav>
       </div>
     </div>
+    <div class="paging-link">
+      <a href="#" class="paging-link-item">Home</a>
+      <i class="fa-solid fa-chevron-right paging-next-icon"></i>
+      <a href="#" class="paging-link-item">Detail</a>
+    </div>
   </header>
 
-  <section style="height: 100vh;">
+  <section id="content">
+    <aside id="filter">
+      <div class="filter-group">
+        <div class="filter-title">
+          Special
+        </div>
+        <div class="filter-list">
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
+            <label for="js-search-by-value"></label>
+            <span class="filter-name text-truncate">
+              Hot
+            </span>
+          </label>
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
+            <label for="js-search-by-value"></label>
+            <span class="filter-name text-truncate">
+              New
+            </span>
+          </label>
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">
+          Category
+        </div>
+        <div class="filter-list">
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
+            <label for="js-search-by-value"></label>
+            <span class="filter-name text-truncate">
+              Business
+            </span>
+          </label>
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
+            <label for="js-search-by-value"></label>
+            <span class="filter-name text-truncate">
+              Manga
+            </span>
+          </label>
+        </div>
+      </div>
+    </aside>
 
+    <main id="product-list">
+      <div class="product-list-interaction bg-light-blue rounded-1 d-flex justify-content-space-between">
+        <button class="btn-primary btn-square filter-toggle">
+          <i class="fa-solid fa-filter"></i>
+        </button>
+        <div class="input-group filter-order">
+          <label for="js-overview-order-column" class="input-group-text">Order</label>
+          <div class="form-control custom-select" id="js-overview-order-column" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">Name</span>
+            <ul class="custom-select-list">
+              <!-- add by overview.js -->
+              <li value="CategoryName" choosen="">Name</li>
+              <li value="CategoryOrder">Order</li>
+              <li value="CategoryDisplay">Display</li>
+              <li value="CategoryProductQuantity">Quantity</li>
+            </ul>
+          </div>
+          <div class="form-control custom-select" id="js-overview-order-column" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">ASC</span>
+            <ul class="custom-select-list">
+              <!-- add by overview.js -->
+              <li value="CategoryName" choosen="">Name</li>
+              <li value="CategoryOrder">Order</li>
+              <li value="CategoryDisplay">Display</li>
+              <li value="CategoryProductQuantity">Quantity</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-container">
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/hot.svg" alt="">
+            <!-- <img src="../public/images/tags/new.svg" alt="" style="background: blue;"> -->
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </main>
   </section>
 
   <footer id="footer">
