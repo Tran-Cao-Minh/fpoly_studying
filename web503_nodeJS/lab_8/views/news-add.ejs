@@ -7,15 +7,15 @@
 <script src="../javascripts/bootstrap-validate.js"></script>
 
 <main class="row bg-dark py-4 h-100 p-0 m-0">
-  <form action="http://localhost:3000/category/" method="POST"
+  <form action="http://localhost:3000/news/" method="POST"
     class="bg-light col-12 col-sm-11 col-md-9 col-lg-8 col-xl-7 col-xxl-6 rounded-2 pt-4 px-3 pb-3 m-auto">
     <h4 class="text-center text-uppercase mb-3">
-      Add Category
+      Add News
     </h4>
     <div class="form-group mb-3">
-      <label class="mb-1" for="categoryName">Category name</label>
-      <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="categoryName"
-        name="categoryName" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
+      <label class="mb-1" for="newsName">News name</label>
+      <input required type="text" maxlength="201" class="form-control js-bootstrap-validate" id="newsName"
+        name="newsName" pattern="^([A-Za-z0-9]{1})([\w\s&apos;&quot;:,.&+|-]{0,199})$">
       <div class="invalid-feedback">
         Please fill this input that is start with alphanumeric,
         less than 200 characters and contains only alphanumeric
@@ -23,17 +23,36 @@
       </div>
     </div>
     <div class="form-group mb-3">
-      <label class="mb-1" for="categoryOrder">Category order</label>
+      <label class="mb-1" for="newsCategoryId">News category</label>
+      <select name="newsCategoryId" id="newsCategoryId"  class="form-control">
+        <% categoryList.forEach(category => { %>
+          <option value="<%= category._id %>">
+            <%= category.CategoryName %> 
+          </option>
+        <% }) %>
+      </select>
+    </div>
+    <div class="form-group mb-3">
+      <label class="mb-1" for="newsContent">News content</label>
+      <textarea name="newsContent" id="newsContent" rows="4" required minlength="100" maxlength="1000"
+        class="form-control js-bootstrap-validate" pattern="^([A-Za-z0-9]{1})([\s\S]{99,999})$"></textarea>
+      <div class="invalid-feedback">
+        Please fill this input that is start with alphanumeric,
+        less than 1000 characters and greater than 100 characters
+      </div>
+    </div>
+    <div class="form-group mb-3">
+      <label class="mb-1" for="newsOrder">News order</label>
       <input required type="number" min="1" max="99999" step="1" class="js-bootstrap-validate form-control"
-        id="categoryOrder" name="categoryOrder" pattern="^([1-9]{1})([0-9]{0,4})$">
+        id="newsOrder" name="newsOrder" pattern="^([1-9]{1})([0-9]{0,4})$">
       <div class="invalid-feedback">
         Please fill this input with an integer number that is start with a number greater than 0 and
         less than 100000
       </div>
     </div>
     <div class="form-group mb-3">
-      <label class="mb-1">Category display</label>
-      <select class="form-select" name="categoryDisplay">
+      <label class="mb-1">News display</label>
+      <select class="form-select" name="newsDisplay">
         <option value="0">Hide</option>
         <option value="1" selected>Show</option>
       </select>

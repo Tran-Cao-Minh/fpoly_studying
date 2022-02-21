@@ -25,8 +25,8 @@ const indexRouter = require('./routes/index');
 app.use('/', indexRouter);
 const categoryRouter = require('./routes/category');
 app.use('/category', categoryRouter);
-// const productRouter = require('./routes/product');
-// app.use('/product', productRouter);
+const newsRouter = require('./routes/news');
+app.use('/news', newsRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
