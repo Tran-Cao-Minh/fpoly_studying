@@ -41,3 +41,6 @@ npm i express-session
 
 # send mail 
 npm i nodemailer
+
+# database NoSQL - MongoDB
+npm i mongodb

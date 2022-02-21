@@ -3,6 +3,12 @@ const router = express.Router();
 const modelCategory = require('../models/m-category.js');
 const validator = require('../utils/validator.js');
 
+router.get('/shop', function (req, res) {
+  modelCategory.getShopCategory(function (data) {
+    res.json(data);
+  });
+})
+
 router.get('/', function (req, res) {
   let filter = req.query;
   filter.resultQuantity = Number(filter.resultQuantity);

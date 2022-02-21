@@ -1,5 +1,33 @@
 var db = require('./database');
 
+exports.getShopCategory = function (
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkProductCategory_Id,
+        CategoryName
+      FROM
+        product_category pc
+      INNER JOIN product p ON
+        pc.PkProductCategory_Id = p.FkProductCategory_Id
+      WHERE
+        pc.FkDisplayStatus_Id = 1
+      GROUP BY
+        PkProductCategory_Id
+      ORDER BY
+        CategoryOrder
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
 exports.search = function (
   filter = {
     columnList: Array(String()),

@@ -42,6 +42,9 @@ app.use('/users', usersRouter);
 const categoryRouter = require('./routes/category');
 app.use('/category', categoryRouter);
 
+const productRouter = require('./routes/product');
+app.use('/product', productRouter);
+
 const displayStatusRouter = require('./routes/display-status');
 app.use('/display-status', displayStatusRouter);
 // END DECLARE AND USE ROUTER

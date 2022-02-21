@@ -65,42 +65,16 @@
         <div class="filter-title">
           Special
         </div>
-        <div class="filter-list">
-          <label class="filter-item">
-            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
-            <label for="js-search-by-value"></label>
-            <span class="filter-name text-truncate">
-              Hot
-            </span>
-          </label>
-          <label class="filter-item">
-            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
-            <label for="js-search-by-value"></label>
-            <span class="filter-name text-truncate">
-              New
-            </span>
-          </label>
+        <div class="filter-list" id="filter-special">
+          <!-- add by shop.js -->
         </div>
       </div>
       <div class="filter-group">
         <div class="filter-title">
           Category
         </div>
-        <div class="filter-list">
-          <label class="filter-item">
-            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
-            <label for="js-search-by-value"></label>
-            <span class="filter-name text-truncate">
-              Business
-            </span>
-          </label>
-          <label class="filter-item">
-            <input class="form-check-input" type="checkbox" name="searchMode" id="js-search-by-value" checked="">
-            <label for="js-search-by-value"></label>
-            <span class="filter-name text-truncate">
-              Manga
-            </span>
-          </label>
+        <div class="filter-list" id="filter-category">
+          <!-- add by shop.js -->
         </div>
       </div>
     </aside>
@@ -111,31 +85,27 @@
           <i class="fa-solid fa-filter"></i>
         </button>
         <div class="input-group filter-order">
-          <label for="js-overview-order-column" class="input-group-text">Order</label>
-          <div class="form-control custom-select" id="js-overview-order-column" tabindex="0" value="CategoryName">
-            <span class="custom-select-text">Name</span>
+          <label for="js-shop-order-by" class="input-group-text">Order</label>
+          <div class="form-control custom-select" id="js-shop-order-by" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
             <ul class="custom-select-list">
-              <!-- add by overview.js -->
-              <li value="CategoryName" choosen="">Name</li>
-              <li value="CategoryOrder">Order</li>
-              <li value="CategoryDisplay">Display</li>
-              <li value="CategoryProductQuantity">Quantity</li>
+              <!-- add by shop.js -->
             </ul>
           </div>
-          <div class="form-control custom-select" id="js-overview-order-column" tabindex="0" value="CategoryName">
-            <span class="custom-select-text">ASC</span>
+          <div class="form-control custom-select" id="js-shop-order-rule" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
             <ul class="custom-select-list">
-              <!-- add by overview.js -->
-              <li value="CategoryName" choosen="">Name</li>
-              <li value="CategoryOrder">Order</li>
-              <li value="CategoryDisplay">Display</li>
-              <li value="CategoryProductQuantity">Quantity</li>
+              <!-- add by shop.js -->
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="product-container">
+      <div class="product-container" id="product-list-container">
         <div class="product-item">
           <div class="product-item-tag">
             <img src="../public/images/tags/hot.svg" alt="">
@@ -366,6 +336,7 @@
   </footer>
 
   <script type="module" src="../public/javascripts/client/layout.js"></script>
+  <script type="module" src="../public/javascripts/client/shop/shop.js"></script>
 </body>
 
 </html>
