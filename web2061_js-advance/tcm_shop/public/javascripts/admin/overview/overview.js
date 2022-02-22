@@ -28,7 +28,7 @@ import {
   ButtonFormatter,
 } from '../../class/data-formatter.js';
 const tableUpdateLinkFormatter = new LinkFormatter(
-  './update/',
+  './update-category/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
@@ -56,6 +56,16 @@ const tableDataToastify = new ToastCreator(
   'right',
   16,
 );
+
+import {
+  Suggester
+} from '../../class/suggester.js';
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
+
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+const tableDataReader = new DataReader(dataFetchLink);
 
 function addTableButtonEvent() {
   let deleteButtonList = document.querySelectorAll('.js-delete-data');
@@ -125,6 +135,33 @@ function addTableButtonEvent() {
                 );
               };
               changeTableData();
+
+              function updateSearchSuggestData() {
+                tableDataReader.readData({
+                    'columnList': [
+                      searchColumnSelect.getAttribute('value'),
+                    ],
+                    'searchValue': '',
+                    'searchMode': 'searchByValue',
+                    'searchColumn': searchColumnSelect.getAttribute('value'),
+                    'orderRule': 'ASC',
+                    'orderColumn': searchColumnSelect.getAttribute('value'),
+                    'resultQuantity': 999999999999,
+                    'pageNum': 1
+                  },
+                  function (result) {
+                    let data = result.data;
+  
+                    data = [
+                      ...new Map(data.map((item) => [item[searchColumnSelect.getAttribute('value')], item])).values(),
+                    ];
+  
+                    searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
+                    searchSuggester.suggestData = data;
+                  },
+                );
+              }
+              updateSearchSuggestData();
             },
           );
         }
@@ -192,13 +229,11 @@ import {
 } from './create-search-assistant.js';
 searchAssistantCreator(
   defaultColumnOptionValue,
-  dataFetchLink
+  dataFetchLink,
+  searchSuggester,
 );
 
 // TABLE INTERACTION
-import {
-  DataReader
-} from '../../class/data-interactor.js';
 import {
   TableCreator
 } from '../../class/table-creator.js';
@@ -220,7 +255,6 @@ let orderRuleSelect = document.querySelector('#js-overview-order-rule');
 let resultQuantitySelect = document.querySelector('#js-overview-rows');
 let dataTable = document.querySelector('#js-data-table');
 
-let tableDataReader = new DataReader(dataFetchLink);
 let filterInformation = {
   'columnList': tableColumnKeyList,
   'searchValue': searchByValueInput.value,

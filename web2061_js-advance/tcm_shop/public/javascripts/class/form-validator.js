@@ -370,8 +370,17 @@ export function FormValidator(
 
   this.createSubmitButtonEvent = function (
     passedEvent = Function(),
+    lockSubmitBtn = Boolean(),
   ) {
-    this.submitButton.setAttribute('disabled', 'true');
+    if (lockSubmitBtn === true) {
+      this.submitButton.setAttribute('disabled', 'true');
+    } else {
+      this.checkValidate = true;
+
+      this.inputList.forEach(input => {
+        input.classList.add(this.inputValidClass);
+      });
+    };
 
     const that = this;
     this.submitButton.addEventListener('click', function (event) {
@@ -381,5 +390,15 @@ export function FormValidator(
         passedEvent();
       };
     });
+  };
+
+  this.resetForm = function (form = Node()) {
+    form.reset();
+
+    this.inputList.forEach(input => {
+      input.classList.remove(this.inputValidClass);
+    });
+
+    this.changeButtonStatus();
   };
 }

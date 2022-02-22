@@ -14,8 +14,8 @@
       <%- include('../module/header.ejs') %>
 
       <!-- BODY CONTENT -->
-      <!-- add form -->
-      <form class="row bg-white rounded-2" id="addCategoryForm">
+      <!-- update form -->
+      <form class="row bg-white rounded-2" id="updateCategoryForm">
         <!-- category name -->
         <div class="col-12 col-md-6">
           <div class="form-group">
@@ -77,7 +77,7 @@
         <div class="col-12 d-flex">
           <div class="col-4 col-md-3 col-lg-2">
             <div class="form-group">
-              <button class="btn-success col-12" id="js-add-data-submit">Save</button>
+              <button class="btn-success col-12" id="js-update-data-submit">Save</button>
             </div>
           </div>
           <div class="col-8 col-md-5 col-lg-4">
@@ -88,13 +88,13 @@
         </div>
         <!-- end btn group category -->
       </form>
-      <!-- end add form -->
+      <!-- end update form -->
       <!-- end BODY CONTENT -->
     </div>
   </main>
 
-  <script type="module" src="../javascripts/admin/layout.js"></script>
-  <script type="module" src="../javascripts/admin/update/update-category.js"></script>
+  <script type="module" src="../../javascripts/admin/layout.js"></script>
+  <script type="module" src="../../javascripts/admin/update/update-category.js"></script>
 </body>
 
 </html>

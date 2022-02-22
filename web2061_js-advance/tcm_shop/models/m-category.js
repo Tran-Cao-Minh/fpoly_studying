@@ -157,79 +157,6 @@ exports.add = function (
   );
 }
 
-exports.update = function (
-  id = String(),
-  data = Object(),
-  callbackFn = Function(),
-) {
-  db.query(
-    `
-      UPDATE product_category SET ?
-      WHERE
-        PkProductCategory_Id = '${id}'
-    `,
-    data,
-    function (err, data) {
-      if (err) {
-        throw err;
-      };
-      callbackFn(data);
-    }
-  );
-}
-
-exports.findOne = function (
-  columnKey = String(),
-  value = String(),
-  callbackFn = Function(),
-) {
-  db.query(
-    `
-      SELECT
-        PkProductCategory_Id
-      FROM
-        product_category
-      WHERE
-        ${columnKey} = '${value}'
-      LIMIT 1
-    `,
-    function (err, data) {
-      if (err) {
-        throw err;
-      };
-      callbackFn(data);
-    }
-  );
-}
-
-exports.checkFkDisplayStatus = function (
-  value = Number(),
-  callbackFn = Function(),
-) {
-  db.query(
-    `
-      SELECT
-        PkDisplayStatus_Id
-      FROM
-        display_status
-      WHERE
-        PkDisplayStatus_Id = ${value}
-      LIMIT 1
-    `,
-    function (err, data) {
-      if (err) {
-        throw err;
-      };
-      if (data.length <= 0) {
-        callbackFn(false);
-
-      } else {
-        callbackFn(true);
-      };
-    }
-  );
-}
-
 exports.delete = function (
   id = String(),
   callbackFn = Function(),
@@ -268,14 +195,12 @@ exports.delete = function (
             if (data.affectedRows === 0) {
               callbackFn({
                 result: 'warning',
-                notification: 
-                  `Do not have Category with ID ${id} to delete`,
+                notification: `Do not have Category with ID ${id} to delete`,
               });
             } else {
               callbackFn({
                 result: 'success',
-                notification: 
-                  `Delete Category - ${category.CategoryName} successfully`,
+                notification: `Delete Category - ${category.CategoryName} successfully`,
               });
             };
           },
@@ -283,10 +208,108 @@ exports.delete = function (
       } else {
         callbackFn({
           result: 'fail',
-          notification: 
-            `The number of products in Category - ${category.CategoryName} must be 0 to be deleted`,
+          notification: `The number of products in Category - ${category.CategoryName} must be 0 to be deleted`,
         });
       };
     },
+  );
+}
+
+exports.readById = function (
+  id = String(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT 
+        CategoryName,
+        CategoryOrder,
+        FkDisplayStatus_Id
+      FROM 
+        product_category
+      WHERE 
+        PkProductCategory_Id = '${id}'
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+
+      callbackFn(data[0]);
+    },
+  );
+}
+
+exports.update = function (
+  id = String(),
+  data = Object(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      UPDATE product_category SET ?
+      WHERE
+        PkProductCategory_Id = '${id}'
+    `,
+    data,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
+exports.findOne = function (
+  columnKey = String(),
+  value = String(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkProductCategory_Id
+      FROM
+        product_category
+      WHERE
+        BINARY ${columnKey} = '${value}'
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data);
+    }
+  );
+}
+
+exports.checkFkDisplayStatus = function (
+  value = Number(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkDisplayStatus_Id
+      FROM
+        display_status
+      WHERE
+        PkDisplayStatus_Id = ${value}
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      if (data.length <= 0) {
+        callbackFn(false);
+
+      } else {
+        callbackFn(true);
+      };
+    }
   );
 }

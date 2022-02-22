@@ -1,5 +1,5 @@
 export function Suggester(
-  suggestData = Object(),
+  suggestData = [Object()],
   keyList = Array(),
 ) {
   this.suggestData = suggestData;

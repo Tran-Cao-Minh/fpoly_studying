@@ -21,24 +21,7 @@ const toastCreator = new ToastCreator(
   16,
 );
 
-function showResult(data) {
-  if (data.result === 'success') {
-    toastCreator.createToast(
-      'success',
-      data.notification,
-      2,
-    );
-
-  } else if (data.result === 'fail') {
-    toastCreator.createToast(
-      'danger',
-      data.notification,
-      2,
-    );
-  };
-}
-
-window.addEventListener('load', function createCustomDisplayStatusSelect() {
+function createCustomDisplayStatusSelect() {
   const categoryDisplaySelect = document.querySelector('#categoryDisplay');
   const categoryDisplaySelectContainer =
     categoryDisplaySelect.querySelector('.custom-select-list');
@@ -90,9 +73,9 @@ window.addEventListener('load', function createCustomDisplayStatusSelect() {
       'choosen',
     );
   });
-});
+}
 
-window.addEventListener('load', function createFormValidator() {
+function createFormValidator() {
   const formObject = {
     form: document.querySelector('#addCategoryForm'),
     categoryName: document.querySelector('#categoryName'),
@@ -171,7 +154,7 @@ window.addEventListener('load', function createFormValidator() {
   );
 
   formValidator.createSubmitButtonEvent(
-    function () {
+    function () {      
       formData.set(
         'categoryName',
         formObject.categoryName.value
@@ -189,9 +172,30 @@ window.addEventListener('load', function createFormValidator() {
         formData,
         false,
         function (data) {
-          showResult(data);
+          if (data.result === 'success') {
+            toastCreator.createToast(
+              'success',
+              data.notification,
+              2,
+            );
+        
+          } else if (data.result === 'fail') {
+            toastCreator.createToast(
+              'danger',
+              data.notification,
+              2,
+            );
+          };
         },
       );
+
+      formValidator.resetForm(formObject.form);
     },
+    true,
   );
+}
+
+window.addEventListener('load', function () {
+  createCustomDisplayStatusSelect();
+  createFormValidator();
 });

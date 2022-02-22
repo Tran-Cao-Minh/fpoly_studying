@@ -1,0 +1,29 @@
+[{
+  "_id": {
+    "$oid": "6213455564446ccb4b9ce1ce"
+  },
+  "CategoryName": "Art of Living",
+  "CategoryOrder": 1,
+  "CategoryDisplay": true
+},{
+  "_id": {
+    "$oid": "62135b026015d7e14e6495a9"
+  },
+  "CategoryName": "Culture",
+  "CategoryOrder": 2,
+  "CategoryDisplay": true
+},{
+  "_id": {
+    "$oid": "62135f3bdb056359536d0468"
+  },
+  "CategoryName": "Sport",
+  "CategoryOrder": 3,
+  "CategoryDisplay": false
+},{
+  "_id": {
+    "$oid": "62139ebf28ebd07d9ecafa5c"
+  },
+  "CategoryName": "Music",
+  "CategoryOrder": 4,
+  "CategoryDisplay": true
+}]

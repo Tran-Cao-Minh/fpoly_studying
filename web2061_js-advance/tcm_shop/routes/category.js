@@ -94,6 +94,18 @@ router.post('/', function (req, res) {
     });
 })
 
+router.delete('/:id', function (req, res) {
+  modelCategory.delete(req.params.id, function (result) {
+    res.json(result);
+  });
+})
+
+router.get('/:id', function (req, res) {
+  modelCategory.readById(req.params.id, function (data) {
+    res.json(data);
+  });
+})
+
 router.put('/:id', function (req, res) {
   let productCategory = {
     CategoryName: req.body.categoryName,
@@ -170,12 +182,6 @@ router.put('/:id', function (req, res) {
         });
       };
     });
-})
-
-router.delete('/:id', function (req, res) {
-  modelCategory.delete(req.params.id, function (result) {
-    res.json(result);
-  });
 })
 
 module.exports = router;

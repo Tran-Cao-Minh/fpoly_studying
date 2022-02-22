@@ -140,13 +140,14 @@ export function DataUpdater(
 ) {
   DataInteractor.call(this, fetchLink, 'PUT');
 
-  this.updateDate = function (
+  this.updateData = function (
+    id = String(),
     formData = Object(),
     multipartFormData = Boolean(),
     callbackFn = Function(data = Object()),
   ) {
     let fetchMethod = this.fetchMethod;
-    let fetchLink = this.fetchLink;
+    let fetchLink = this.fetchLink + id;
 
     let putObject;
     if (multipartFormData === false) {

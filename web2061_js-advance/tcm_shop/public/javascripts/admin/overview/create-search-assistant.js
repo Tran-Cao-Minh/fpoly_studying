@@ -11,6 +11,7 @@ import {
 export function searchAssistantCreator(
   defaultColumnOptionValue = String(),
   dataFetchLink = String(),
+  searchSuggester,
 ) {
 
   let searchInputContainer = document.querySelector('#js-search-input-container');
@@ -25,9 +26,8 @@ export function searchAssistantCreator(
   let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
   let searchInputList = document.querySelectorAll('[id*="js-overview-search-"]');
 
-  let tableDataReader = new DataReader(dataFetchLink);
+  const tableDataReader = new DataReader(dataFetchLink);
 
-  let searchSuggester;
   tableDataReader.readData({
       'columnList': [
         defaultColumnOptionValue
@@ -56,7 +56,9 @@ export function searchAssistantCreator(
         });
       });
 
-      searchSuggester = new Suggester(data, [defaultColumnOptionValue]);
+      // searchSuggester = new Suggester(data, [defaultColumnOptionValue]);
+      // searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
+      searchSuggester.suggestData = data;
 
       let searchByValueInput = document.querySelector('#js-overview-search-value');
       let searchByValueSuggestContainer = searchByValueInput.parentElement.querySelector('.custom-select-list');

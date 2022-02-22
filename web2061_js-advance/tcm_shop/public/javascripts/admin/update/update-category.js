@@ -3,7 +3,7 @@ import {
 } from '../../class/custom-select-creator.js';
 import {
   DataReader,
-  DataAdder
+  DataUpdater
 } from '../../class/data-interactor.js';
 import {
   FormValidator
@@ -21,25 +21,21 @@ const toastCreator = new ToastCreator(
   16,
 );
 
-function showResult(data) {
-  if (data.result === 'success') {
-    toastCreator.createToast(
-      'success',
-      data.notification,
-      2,
-    );
+const pageUrl = location.href;
+const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
-  } else if (data.result === 'fail') {
-    toastCreator.createToast(
-      'danger',
-      data.notification,
-      2,
-    );
-  };
-}
+const formObject = {
+  form: document.querySelector('#updateCategoryForm'),
+  categoryName: document.querySelector('#categoryName'),
+  categoryOrder: document.querySelector('#categoryOrder'),
+  categoryDisplay: document.querySelector('#categoryDisplay'),
+  submitButton: document.querySelector('#js-update-data-submit'),
+};
 
-window.addEventListener('load', function createCustomDisplayStatusSelect() {
-  const categoryDisplaySelect = document.querySelector('#categoryDisplay');
+function createCustomDisplayStatusSelect(
+  categoryDisplay = String(),
+) {
+  const categoryDisplaySelect = formObject.categoryDisplay;
   const categoryDisplaySelectContainer =
     categoryDisplaySelect.querySelector('.custom-select-list');
   const categoryDisplaySelectText =
@@ -85,23 +81,18 @@ window.addEventListener('load', function createCustomDisplayStatusSelect() {
     });
 
     categoryDisplaySelectCreator.createCustomSelect(
-      String(data[1].PkDisplayStatus_Id),
+      categoryDisplay,
       categoryDisplaySelectText,
       'choosen',
     );
   });
-});
+}
 
-window.addEventListener('load', function createFormValidator() {
-  const formObject = {
-    form: document.querySelector('#addCategoryForm'),
-    categoryName: document.querySelector('#categoryName'),
-    categoryOrder: document.querySelector('#categoryOrder'),
-    categoryDisplay: document.querySelector('#categoryDisplay'),
-    submitButton: document.querySelector('#js-add-data-submit'),
-    ###
-  };
-
+function createFormValidator(
+  categoryName = String(),
+  categoryOrder = String(),
+  FkDisplayStatus_Id = String(),
+) {
   const formValidator = new FormValidator(
     formObject.submitButton,
     'd-none',
@@ -136,7 +127,7 @@ window.addEventListener('load', function createFormValidator() {
       'resultQuantity': 999999999999,
       'pageNum': 1
     },
-    function addCategoryNameCheckExist (result) {
+    function updateCategoryNameCheckExist(result) {
       let data = [];
 
       result.data.forEach(valueObject => {
@@ -167,32 +158,79 @@ window.addEventListener('load', function createFormValidator() {
   );
 
   const fetchLink = 'http://localhost:3000/category/';
-  const dataAdder = new DataAdder(
+  const dataUpdater = new DataUpdater(
     fetchLink,
   );
 
   formValidator.createSubmitButtonEvent(
     function () {
-      formData.set(
-        'categoryName',
-        formObject.categoryName.value
-      );
-      formData.set(
-        'categoryOrder',
-        formObject.categoryOrder.value
-      );
-      formData.set(
-        'categoryDisplay',
-        formObject.categoryDisplay.getAttribute('value')
-      );
+      if (
+        formObject.categoryName.value === categoryName &&
+        formObject.categoryOrder.value === categoryOrder &&
+        formObject.categoryDisplay.getAttribute('value') === FkDisplayStatus_Id
+      ) {
+        toastCreator.createToast(
+          'warning',
+          'Please change at least one field before updating',
+          2,
+        );
 
-      dataAdder.addData(
-        formData,
-        false,
-        function (data) {
-          showResult(data);
-        },
-      );
+      } else {
+        categoryName = formObject.categoryName.value;
+        categoryOrder = formObject.categoryOrder.value;
+        FkDisplayStatus_Id = formObject.categoryDisplay.getAttribute('value');
+
+        formData.set(
+          'categoryName',
+          formObject.categoryName.value
+        );
+        formData.set(
+          'categoryOrder',
+          formObject.categoryOrder.value
+        );
+        formData.set(
+          'categoryDisplay',
+          formObject.categoryDisplay.getAttribute('value')
+        );
+
+        dataUpdater.updateData(
+          id,
+          formData,
+          false,
+          function (data) {
+            if (data.result === 'success') {
+              toastCreator.createToast(
+                'success',
+                data.notification,
+                2,
+              );
+
+            } else if (data.result === 'fail') {
+              toastCreator.createToast(
+                'danger',
+                data.notification,
+                2,
+              );
+            };
+          },
+        );
+      };
     },
+    false
   );
+}
+
+window.addEventListener('load', function () {
+  const categoryInformationReader = new DataReader('http://localhost:3000/category/' + id);
+  categoryInformationReader.readData(null, function (category) {
+    formObject.categoryName.value = category.CategoryName;
+    formObject.categoryOrder.value = category.CategoryOrder;
+
+    createCustomDisplayStatusSelect(category.FkDisplayStatus_Id.toString());
+    createFormValidator(
+      category.CategoryName,
+      String(category.CategoryOrder),
+      String(category.FkDisplayStatus_Id)
+    );
+  });
 });
