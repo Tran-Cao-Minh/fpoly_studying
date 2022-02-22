@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./module/website-info.ejs') %>
+  <%- include('./module/general-link.ejs') %>
+
+  <link rel="stylesheet" href="/stylesheets/client/shop.css">
+</head>
+
+<body>
+  <%- include('./module/header.ejs') %>
+
+  <section id="content">
+    <aside id="filter" class="active">
+      <div class="filter-group">
+        <div class="filter-title">
+          Special
+        </div>
+        <div class="filter-list" id="filter-special">
+          <!-- add by shop.js -->
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">
+          Category
+        </div>
+        <div class="filter-list" id="filter-category">
+          <!-- add by shop.js -->
+        </div>
+      </div>
+      <div class="filter-tablet-overlay js-aside-filter-toggle"></div>
+      <button class="filter-tablet-cancel-btn btn-cancel btn-square js-aside-filter-toggle">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </aside>
+
+    <main id="product-list">
+      <div class="product-list-interaction rounded-1 d-flex justify-content-space-between">
+        <button class="btn-cancel btn-square filter-toggle js-aside-filter-toggle">
+          <i class="fa-solid fa-filter"></i>
+        </button>
+        <div class="input-group filter-order">
+          <label for="js-shop-order-by" class="input-group-text">Order</label>
+          <div class="form-control custom-select" id="js-shop-order-by" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
+            <ul class="custom-select-list">
+              <!-- add by shop.js -->
+            </ul>
+          </div>
+          <div class="form-control custom-select" id="js-shop-order-rule" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
+            <ul class="custom-select-list">
+              <!-- add by shop.js -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-container" id="product-list-container">
+        <!-- add by shop.js -->
+      </div>
+    </main>
+  </section>
+
+  <%- include('./module/footer.ejs') %>
+
+  <script type="module" src="/javascripts/client/shop/shop.js"></script>
+</body>
+
+</html>

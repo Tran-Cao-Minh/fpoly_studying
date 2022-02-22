@@ -7,7 +7,7 @@
 
   <link rel="stylesheet" href="/stylesheets/client/product-detail.css">
 </head>
- 
+
 <body>
   <%- include('./module/header.ejs') %>
 
@@ -16,34 +16,35 @@
       <div class="product-img rounded-1">
         <div class="product-tag">
           <img id="product-tag-img">
+          <!-- set img by product-detail.js -->
         </div>
         <img id="product-img" class="rounded-2">
+        <!-- set img by product-detail.js -->
       </div>
       <div class="product-overview">
         <div class="product-overview-top">
           <div id="product-name" class="product-name large-primary-hightlight">
-            Plantyou: 140+ Ridiculously Easy, Amazingly Delicious
-            Plant-Based Oil-Free Recipes
+            <!-- add by product-detail.js -->
           </div>
           <div class="product-information">
-            <div class="product-information-item large-primary-hightlight">
-              Category: Business
+            <div id="product-category" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
             </div>
-            <div class="product-information-item large-primary-hightlight">
-              Publish: Hachette Go - February 15, 2022
+            <div id="product-publish" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
             </div>
-            <div class="product-information-item large-primary-hightlight">
-              Dimensions: 7.6 X 9.2 X 0.9 inches | 2.25 pounds
+            <div id="product-dimensions" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
             </div>
-            <div class="product-information-item large-primary-hightlight">
-              Pages: 401
+            <div id="product-pages" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
             </div>
             <div class="product-view">
               <div class="product-view-icon">
                 <i class="fa-solid fa-eye"></i>
               </div>
-              <div class="product-view-data">
-                25
+              <div id="product-views" class="product-view-data">
+                <!-- add by product-detail.js -->
               </div>
             </div>
           </div>
@@ -65,8 +66,8 @@
             </div>
           </div>
           <div class="product-quantity-notification large-primary-hightlight">
-            <span class="product-quantity fw-bold">
-              5
+            <span id="product-quantity" class="product-quantity fw-bold">
+              <!-- add by product-detail.js -->
             </span>
             products left
           </div>
@@ -74,14 +75,14 @@
         <hr class="break-line">
         <div class="product-overview-bottom">
           <div class="product-price-group">
-            <div class="product-price">
-              $27.60
+            <div id="product-price" class="product-price">
+              <!-- add by product-detail.js -->
             </div>
-            <div class="product-sale">
-              15%
+            <div id="product-sale-percent" class="product-sale">
+              <!-- add by product-detail.js -->
             </div>
-            <div class="product-old-price">
-              $27.60
+            <div id="product-old-price" class="product-old-price">
+              <!-- add by product-detail.js -->
             </div>
           </div>
           <div class="product-interaction">
@@ -100,22 +101,8 @@
       <div class="product-description-title">
         Description
       </div>
-      <div class="product-description-content">
-        Plant-based eating doesn't have to be complicated! The delicious recipes in this easy-to-follow cookbook are
-        guaranteed to keep you inspired and motivated.
-
-        Enter PlantYou, the ridiculously easy plant-based, oil-free cookbook with over 140+ healthy vegan recipes for
-        breakfast, lunch, dinner, cheese sauces, salad dressings, dessert and more!
-        In her eagerly anticipated debut cookbook, Carleigh Bodrug, the Founder of the wildly popular social media
-        community PlantYou, provides readers with the ultimate full color guidebook that makes plant-based meal
-        planning, grocery shopping and cooking a breeze. With every single recipe, you will find a visual infographic
-        marking the ingredients you need, making it easy to shop, determine portion sizes, and dive into the delicious
-        and nutritious dishes.
-        Get ready for mouthwatering dishes like Chocolate Chip Banana Bread Breakfast Cookies, Best Ever Cauli Wings,
-        and the Big BOSS Burrito that you simply won't believe are made from plants.
-        "An instant kitchen classic...In your quest to find delicious food that also promotes health, both human health
-        and the health of the planet and the animals we share our world with, you've come to the right place."
-        --from the foreword by Dr. Will Bulsiewicz
+      <div id="product-description" class="product-description-content">
+        <!-- add by product-detail.js -->
       </div>
     </section>
   </section>

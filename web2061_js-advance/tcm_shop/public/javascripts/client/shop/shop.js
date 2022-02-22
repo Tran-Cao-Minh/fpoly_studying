@@ -39,13 +39,13 @@ function ProductListReader () {
         productListContainer.innerHTML += `
           <div class="product-item">
             <div class="product-item-tag">
-              <img src="../public/images/tags/${product.TagImage}" alt="Product Tag">
+              <img src="/images/tags/${product.TagImage}" alt="Product Tag">
             </div>
-            <a href="./user-product-detail.html?id=${product.PkProduct_Id}" class="product-item-img">
-              <img src="../public/images/products/${product.ProductImage}" alt="${product.ProductName}">
+            <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-img">
+              <img src="/images/products/${product.ProductImage}" alt="${product.ProductName}">
             </a>
             <div class="product-information">
-              <a href="./user-product-detail.html?id=${product.PkProduct_Id}" class="product-item-name">
+              <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-name">
                 ${product.ProductName}
               </a>
               <div class="product-item-price-group">
@@ -268,3 +268,8 @@ window.addEventListener('load', function createFilterInput() {
     });
   });
 });
+
+import {
+  createFlexibleAside
+} from './flexible-aside.js';
+createFlexibleAside();

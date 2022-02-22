@@ -13,6 +13,28 @@ export function CurrencyFormatter(
   };
 };
 
+export function DateFormatter(
+  locales = String(),
+  options = {
+    year: String(),
+    month: String(),
+    day: String(),
+  },
+) {
+  this.locales = locales;
+  this.options = options;
+
+  this.formatDate = function (
+    date = Date(),
+  ) {
+    return date.toLocaleDateString(this.locales, {
+      year: this.options.year,
+      month: this.options.month,
+      day: this.options.day,
+    });
+  };
+}
+
 export function ImageFormatter(
   linkPrefix = String(),
   classList = Array(),

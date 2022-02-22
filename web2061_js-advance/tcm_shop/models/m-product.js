@@ -100,7 +100,7 @@ exports.getShopProductById = function (
         ProductDescription,
         ProductImage,
         ProductPrice,
-        CategoryName,
+        CategoryName, 
         ProductPublisher,
         ProductPublishDate,
         ProductDimensions,
