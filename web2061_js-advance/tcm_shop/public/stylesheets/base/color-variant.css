@@ -1,5 +1,6 @@
 :root {
   --primary-color: #435ebe;
+  --primary-color-blur: #435ebe10;
 
   --bg-body: #f2f7ff;
   --bg-hover: #f0f1f5;
@@ -17,6 +18,7 @@
 
   --blue: #435ebe;
   --red: #dc3545; 
+  --red-blur: #dc354510;
   --yellow: #F7BE16;
   --green: #198754; 
   --light: #f9fafb;

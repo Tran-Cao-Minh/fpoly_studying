@@ -273,14 +273,15 @@ export function FormValidator(
     let startCheck = false;
 
     let check;
-    function checkRetype () {
+
+    function checkRetype() {
       check = (input.value === modelInput.value);
 
       if (check === false) {
         messageContainer.innerHTML =
           `The ${inputName} must be like the ${modelInputName}`;
       };
-      
+
       that.changeInputStatus(
         input,
         messageContainer,
@@ -305,14 +306,21 @@ export function FormValidator(
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
-    data = [String()],
+    dataList = [String()],
     expectedResult = Boolean(),
     ignoreCase = Boolean(),
     validateOverride = Boolean(),
   ) {
     const that = this;
 
+    input.setAttribute(
+      'data-duplicate',
+      JSON.stringify(dataList)
+    );
+
     function checkDuplicate(inputValue = String()) {
+      let data = JSON.parse(input.dataset.duplicate);
+
       if (ignoreCase === true) {
         inputValue = inputValue.toLowerCase();
         data.forEach((value, index, data) => {
@@ -366,6 +374,25 @@ export function FormValidator(
         };
       });
     };
+  };
+  this.changeDuplicateValue = function (
+    input = Node(),
+    value = String(),
+    exist = Boolean(),
+  ) {
+    let dataList = JSON.parse(input.dataset.duplicate);
+
+    if (exist === true) {
+      dataList.push(value);
+
+    } else {
+      dataList.splice(dataList.indexOf(value), 1);
+    };
+
+    input.setAttribute(
+      'data-duplicate',
+      JSON.stringify(dataList)
+    );
   };
 
   this.createSubmitButtonEvent = function (

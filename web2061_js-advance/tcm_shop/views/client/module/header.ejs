@@ -1,0 +1,53 @@
+<header id="header">
+  <div class="header-top-banner">
+    TCM BOOK
+  </div>
+  <div class="header-top">
+    <div class="header-top-container">
+      <button class="header-mobile-open btn-primary js-mobile-menu-toggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+      <a href="#" class="header-desktop-logo">
+        <img src="/images/base/logo.png" alt="TCM Shop">
+      </a>
+      <div class="header-search-bar">
+        <input type="text" class="form-control header-search-input" placeholder="Search desired product">
+        <button class="header-search-btn btn-primary">
+          <i class="header-search-icon fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="header-sub js-mobile-menu">
+    <div class="header-mobile-menu-close-area js-mobile-menu-toggle"></div>
+    <div class="header-sub-container">
+      <button class="header-mobile-close btn-primary btn-square js-mobile-menu-toggle">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <div class="header-mobile-logo">
+        <img src="/images/base/logo.png" alt="TCM Shop">
+      </div>
+      <nav class="header-nav-bar">
+        <a href="#" class="header-nav-item">Home</a>
+        <a href="#" class="header-nav-item">Shop</a>
+        <a href="#" class="header-nav-item">Cart</a>
+        <a href="#" class="header-nav-item">Account</a>
+        <a href="#" class="header-nav-item">About</a>
+      </nav>
+    </div>
+  </div>
+  <div class="paging-link">
+    <% pageLinkList.forEach((pageLink, index) => { %>
+      <% if (index > 0) { %>
+        <i class="fa-solid fa-chevron-right paging-next-icon"></i>
+      <% } %>
+      <a class="paging-link-item"
+        <% if (pageLink.link !== null) { %>
+          href="<%= pageLink.link %> "
+        <% } %>
+      >
+        <%= pageLink.name %> 
+      </a>
+    <% }) %>
+  </div>
+</header>

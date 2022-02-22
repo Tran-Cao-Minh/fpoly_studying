@@ -108,6 +108,7 @@ exports.getShopProductById = function (
         ProductViews,
         ProductSalePercent,
         TagImage,
+        TagName,
         ProductQuantity
       FROM
         product p
@@ -123,7 +124,7 @@ exports.getShopProductById = function (
       if (err) {
         throw err;
       };
-      callbackFn(data);
+      callbackFn(data[0]);
     }
   );
 }

@@ -30,8 +30,8 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 // DECLARE AND USE ROUTER
-const indexRouter = require('./routes/index');
-app.use('/', indexRouter);
+const clientRouter = require('./routes/client');
+app.use('/', clientRouter);
 
 const adminRouter = require('./routes/admin');
 app.use('/admin', adminRouter);

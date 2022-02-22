@@ -16,7 +16,7 @@ router.get('/shop', function (req, res) {
     res.json(data);
   });
 })
-
+ 
 router.get('/shop/:id', function (req, res) {
   let id = req.params.id;
 

@@ -22,6 +22,7 @@ const toastCreator = new ToastCreator(
 );
 
 const pageUrl = location.href;
+const fetchLinkPrefix = 'http://localhost:3000/category/';
 const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 const formObject = {
@@ -143,6 +144,12 @@ function createFormValidator(
         false,
         true,
       );
+
+      formValidator.changeDuplicateValue(
+        formObject.categoryName,
+        categoryName,
+        false,
+      );
     },
   );
 
@@ -176,9 +183,6 @@ function createFormValidator(
         );
 
       } else {
-        categoryName = formObject.categoryName.value;
-        categoryOrder = formObject.categoryOrder.value;
-        FkDisplayStatus_Id = formObject.categoryDisplay.getAttribute('value');
 
         formData.set(
           'categoryName',
@@ -205,6 +209,10 @@ function createFormValidator(
                 2,
               );
 
+              categoryName = formObject.categoryName.value;
+              categoryOrder = formObject.categoryOrder.value;
+              FkDisplayStatus_Id = formObject.categoryDisplay.getAttribute('value');
+
             } else if (data.result === 'fail') {
               toastCreator.createToast(
                 'danger',
@@ -221,7 +229,7 @@ function createFormValidator(
 }
 
 window.addEventListener('load', function () {
-  const categoryInformationReader = new DataReader('http://localhost:3000/category/' + id);
+  const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
   categoryInformationReader.readData(null, function (category) {
     formObject.categoryName.value = category.CategoryName;
     formObject.categoryOrder.value = category.CategoryOrder;

@@ -86,7 +86,7 @@ body {
   width: 15.875rem;
   height: 2.5rem;
   border-radius: 3rem;
-  padding: 0 3.75rem 0 1.25rem;
+  padding: 0 3.675rem 0 1.125rem;
 
   transition:
     width .25s ease-in-out,
@@ -97,8 +97,7 @@ body {
 
 .header-search-input:focus {
   width: 40rem;
-  border-top-left-radius: 0.25rem;
-  border-bottom-left-radius: 0.25rem;
+  border-radius: 0.25rem;
 }
 
 .header-search-btn {
@@ -113,12 +112,17 @@ body {
   padding-bottom: 1px;
 
   font-size: 1.25rem;
+  transition: all 0.675s ease-in-out;
+}
+
+.header-search-input:focus + .header-search-btn {
+  border-radius: 0.25rem;
 }
 
 .header-sub {
   width: 100%;
   padding-top: 0.125rem;
-  background: var(--bg-light-blue);
+  background: var(--primary-color-blur);
 }
 
 .header-sub-container {

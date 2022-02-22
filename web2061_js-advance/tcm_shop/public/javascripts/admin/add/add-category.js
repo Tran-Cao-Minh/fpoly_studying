@@ -118,18 +118,25 @@ function createFormValidator() {
       'resultQuantity': 999999999999,
       'pageNum': 1
     },
-    function addCategoryNameCheckExist (result) {
-      let data = [];
+    function addCategoryNameCheckExist(result) {
+      let dataList = [];
 
       result.data.forEach(valueObject => {
-        data.push(valueObject.CategoryName);
+        dataList.push(valueObject.CategoryName);
       });
+
+      // formObject.categoryName.setAttribute(
+      //   'data-duplicate',
+      //   JSON.stringify(data)
+      // );
+
+      // console.log(JSON.parse(formObject.categoryName.dataset.duplicate));
 
       formValidator.checkDuplicateValidator(
         formObject.categoryName,
         'category name',
         categoryNameMessageContainer,
-        data,
+        dataList,
         false,
         false,
         true,
@@ -154,7 +161,7 @@ function createFormValidator() {
   );
 
   formValidator.createSubmitButtonEvent(
-    function () {      
+    function () {
       formData.set(
         'categoryName',
         formObject.categoryName.value
@@ -178,7 +185,14 @@ function createFormValidator() {
               data.notification,
               2,
             );
-        
+            
+            formValidator.changeDuplicateValue(
+              formObject.categoryName,
+              formObject.categoryName.value,
+              true,
+            );
+            formValidator.resetForm(formObject.form);
+
           } else if (data.result === 'fail') {
             toastCreator.createToast(
               'danger',
@@ -188,8 +202,6 @@ function createFormValidator() {
           };
         },
       );
-
-      formValidator.resetForm(formObject.form);
     },
     true,
   );
