@@ -1,21 +1,26 @@
 var db = require('./database');
 
 exports.getTags = function (
+  shop = Boolean(),
   callbackFn = Function(data = Object()),
 ) {
-  db.query(
-    `
-      SELECT
-        PkProductTag_Id,
-        TagName
-      FROM
-        product_tag pt
+  let sql = `
+    SELECT
+      PkProductTag_Id,
+      TagName
+    FROM
+      product_tag pt
+  `;
+  if (shop === true) {
+    sql += `
       INNER JOIN product p ON
         pt.PkProductTag_Id = p.FkProductTag_Id
       GROUP BY
         PkProductTag_Id
-    `,
-    function (err, data) {
+    `;
+  };
+
+  db.query(sql, function (err, data) {
       if (err) {
         throw err;
       };
@@ -153,116 +158,113 @@ exports.increaseViews = function (
   );
 }
 
-// exports.search = function (
-//   filter = {
-//     columnList: Array(String()),
-//     searchValue: String(),
-//     searchMinValue: String(),
-//     searchMaxValue: String(),
-//     searchMode: 'searchByValue' || 'searchByMinMax',
-//     searchColumn: String(),
-//     orderRule: String(),
-//     orderColumn: String(),
-//     resultQuantity: Number(),
-//     pageNum: Number(),
-//   },
-//   callbackFn = Function(data = Array(Object()), total = Number()),
-// ) {
-//   filter.columnList = filter.columnList.join(', ');
-//   let offset = filter.resultQuantity * (filter.pageNum - 1);
-//   let rowCount = filter.resultQuantity;
+exports.search = function (
+  filter = {
+    columnList: Array(String()),
+    searchValue: String(),
+    searchMinValue: String(),
+    searchMaxValue: String(),
+    searchMode: 'searchByValue' || 'searchByMinMax',
+    searchColumn: String(),
+    orderRule: String(),
+    orderColumn: String(),
+    resultQuantity: Number(),
+    pageNum: Number(),
+  },
+  callbackFn = Function(data = Array(Object()), total = Number()),
+) {
+  filter.columnList = filter.columnList.join(', ');
+  let offset = filter.resultQuantity * (filter.pageNum - 1);
+  let rowCount = filter.resultQuantity;
 
-//   let dataSql = `SELECT ${filter.columnList} `;
-//   let countSql = `SELECT COUNT(*) AS total `;
+  let dataSql = `SELECT ${filter.columnList} `;
+  let countSql = `SELECT COUNT(*) AS total `;
 
-//   let dataTable = `
-//     FROM (
-//       SELECT
-//         PkProductCategory_Id AS CategoryId,
-//         CategoryName,
-//         CategoryOrder,
-//         StatusName AS CategoryDisplay,
-//         COUNT(PkProduct_Id) AS CategoryProductQuantity
-//       FROM
-//         product_category pc
-//       INNER JOIN display_status ds ON
-//         pc.FkDisplayStatus_Id = ds.PkDisplayStatus_Id
-//       LEFT JOIN product p ON
-//         p.FkProductCategory_Id = pc.PkProductCategory_Id
-//       GROUP BY
-//         PkProductCategory_Id
-//     ) AS category
-//   `;
+  let dataTable = `
+    FROM (
+      SELECT
+        ProductImage,
+        ProductName,
+        ProductPrice,
+        ProductViews,
+        ProductQuantity,
+        StatusName AS ProductDisplay
+      FROM
+        product p
+      INNER JOIN display_status ds ON
+        p.FkDisplayStatus_Id = ds.PkDisplayStatus_Id
+    ) AS product
+  `;
 
-//   let baseSql = dataTable;
+  let baseSql = dataTable;
 
-//   switch (filter.searchMode) {
-//     case 'searchByValue':
-//       if (filter.searchValue === '') {
-//         baseSql += `WHERE ${filter.searchColumn} LIKE '%%' `;
+  switch (filter.searchMode) {
+    case 'searchByValue':
+      if (filter.searchValue === '') {
+        baseSql += `WHERE ${filter.searchColumn} LIKE '%%' `;
 
-//       } else {
-//         let searchValueList = filter.searchValue.trim().split(/\s+/);
-//         let searchSql = 'WHERE ';
-//         searchValueList.forEach(searchValue => {
-//           searchSql += `LOWER(${filter.searchColumn}) LIKE LOWER('%${searchValue}%') OR `;
-//         });
+      } else {
+        let searchValueList = filter.searchValue.trim().split(/\s+/);
+        let searchSql = 'WHERE ';
+        searchValueList.forEach(searchValue => {
+          searchSql += `LOWER(${filter.searchColumn}) LIKE LOWER('%${searchValue}%') OR `;
+        });
 
-//         baseSql += searchSql.slice(0, -4);
-//       }
-//       break;
+        baseSql += searchSql.slice(0, -4);
+      }
+      break;
 
-//     case 'searchByMinMax':
-//       if (
-//         filter.searchMinValue !== '' &&
-//         filter.searchMaxValue !== ''
-//       ) {
-//         baseSql += `WHERE ${filter.searchColumn} 
-//                 BETWEEN '${filter.searchMinValue}' AND '${filter.searchMaxValue}' `;
-//       } else if (
-//         filter.searchMinValue !== '' &&
-//         filter.searchMaxValue === ''
-//       ) {
-//         baseSql += `WHERE ${filter.searchColumn} >= '${filter.searchMinValue}' `;
+    case 'searchByMinMax':
+      if (
+        filter.searchMinValue !== '' &&
+        filter.searchMaxValue !== ''
+      ) {
+        baseSql += `WHERE ${filter.searchColumn} 
+                BETWEEN '${filter.searchMinValue}' AND '${filter.searchMaxValue}' `;
+      } else if (
+        filter.searchMinValue !== '' &&
+        filter.searchMaxValue === ''
+      ) {
+        baseSql += `WHERE ${filter.searchColumn} >= '${filter.searchMinValue}' `;
 
-//       } else if (
-//         filter.searchMinValue === '' &&
-//         filter.searchMaxValue !== ''
-//       ) {
-//         baseSql += `WHERE ${filter.searchColumn} <= '${filter.searchMaxValue}' `;
-//       }
-//       break;
-//   }
+      } else if (
+        filter.searchMinValue === '' &&
+        filter.searchMaxValue !== ''
+      ) {
+        baseSql += `WHERE ${filter.searchColumn} <= '${filter.searchMaxValue}' `;
+      }
+      break;
+  }
 
-//   dataSql += baseSql;
-//   dataSql += `
-//     ORDER BY
-//       ${filter.orderColumn} ${filter.orderRule}
-//     LIMIT 
-//       ${offset}, ${rowCount}
-//   `;
+  dataSql += baseSql;
+  dataSql += `
+    ORDER BY
+      ${filter.orderColumn} ${filter.orderRule}
+    LIMIT 
+      ${offset}, ${rowCount}
+  `;
 
-//   countSql += baseSql;
+  countSql += baseSql;
 
-//   // console.log(dataSql);
-//   // console.log(countSql);
+  // console.log(dataSql);
+  // console.log(countSql);
 
-//   db.query(dataSql,
-//     function (err, data) {
-//       if (err) {
-//         throw err;
-//       };
-//       db.query(countSql,
-//         function (err, total) {
-//           if (err) {
-//             throw err;
-//           };
-//           callbackFn(data, total[0].total);
-//         }
-//       );
-//     }
-//   );
-// };
+  db.query(dataSql,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      db.query(countSql,
+        function (err, total) {
+          if (err) {
+            throw err;
+          };
+          callbackFn(data, total[0].total);
+        }
+      );
+    }
+  );
+};
 
 // exports.add = function (
 //   data = Object(),

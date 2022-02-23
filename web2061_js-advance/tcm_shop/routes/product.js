@@ -4,7 +4,7 @@ const modelProduct = require('../models/m-product.js');
 const validator = require('../utils/validator.js');
 
 router.get('/shop/tags', function (req, res) {
-  modelProduct.getTags(function (data) {
+  modelProduct.getTags(true, function (data) {
     res.json(data);
   });
 })
@@ -34,21 +34,27 @@ router.put('/shop/increase-view/:id', function (req, res) {
   });
 })
 
-// router.get('/', function (req, res) {
-//   let filter = req.query;
-//   filter.resultQuantity = Number(filter.resultQuantity);
-//   filter.pageNum = Number(filter.pageNum);
+router.get('/tags', function (req, res) {
+  modelProduct.getTags(false, function (data) {
+    res.json(data);
+  });
+})
 
-//   modelProduct.search(
-//     filter,
-//     function (data, total) {
-//       res.json({
-//         data: data,
-//         total: total,
-//       });
-//     },
-//   );
-// })
+router.get('/', function (req, res) {
+  let filter = req.query;
+  filter.resultQuantity = Number(filter.resultQuantity);
+  filter.pageNum = Number(filter.pageNum);
+
+  modelProduct.search(
+    filter,
+    function (data, total) {
+      res.json({
+        data: data,
+        total: total,
+      });
+    },
+  );
+})
 
 // router.post('/', function (req, res) {
 //   let productProduct = {
