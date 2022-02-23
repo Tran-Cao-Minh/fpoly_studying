@@ -25,6 +25,15 @@ router.get('/shop/:id', function (req, res) {
   });
 })
 
+router.put('/shop/increase-view/:id', function (req, res) {
+  let id = req.params.id;
+  let newViews = Number(req.body.ProductViews);
+
+  modelProduct.increaseViews(id, newViews, function (data) {
+    res.json(data);
+  });
+})
+
 // router.get('/', function (req, res) {
 //   let filter = req.query;
 //   filter.resultQuantity = Number(filter.resultQuantity);

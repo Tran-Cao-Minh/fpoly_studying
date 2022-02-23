@@ -72,6 +72,25 @@ function fillProductDetailPageValue(product = Object()) {
   // set product description
   document.querySelector('#product-description').innerHTML =
     product.ProductDescription;
+
+  // update product view
+  const updateViewLinkPrefix = 'http://localhost:3000/product/shop/increase-view/';
+  const productViewUpdater = new DataUpdater(updateViewLinkPrefix);
+
+  const updateViewFormData = new FormData();
+  updateViewFormData.set(
+    'ProductViews',
+    product.ProductViews + 1
+  );
+
+  productViewUpdater.updateData(
+    id,
+    updateViewFormData,
+    false,
+    function (data) {
+      console.log(data);
+    },
+  );
 }
 
 const productInformationReader = new DataReader(fetchLinkPrefix + id);

@@ -79,4 +79,22 @@
   "NewsContent": "With so much good music being released all the time, it can be hard to determine what to listen to first. Every week, Pitchfork offers a run-down of significant new releases available on streaming services. This week’s batch includes new albums and mixtapes from Beach House, Hurray for the Riff Raff, Bad Boy Chiller Crew, Yeat, Debit, and Lavender Country. Subscribe to Pitchfork’s New Music Friday newsletter to get our recommendations in your inbox every week. (All releases featured here are independently selected by our editors. When you buy something through our affiliate links, however, Pitchfork earns an affiliate commission.)\n\nBeach House: Once Twice Melody [Sub Pop]\n\nThe rollout of the new Beach House album happened gradually over the span of four months—a hefty 18-song collection that was shared in four multi-song chapters leading up to today’s release. The band will soon tour behind the follow-up to 2018’s 7. Read Pitchfork’s new feature about the album, “Beach House Are Still ",
   "NewsOrder": 3,
   "NewsDisplay": true
+},{
+  "_id": {
+    "$oid": "62158bf6455b1e62fda0a063"
+  },
+  "NewsName": "Love everyone",
+  "NewsCategoryId": "62158b59865d0c0ff51db729",
+  "NewsContent": "sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf safdsdkfjkj sadfdsaf",
+  "NewsOrder": 2,
+  "NewsDisplay": false
+},{
+  "_id": {
+    "$oid": "62158c07865d0c0ff51db72c"
+  },
+  "NewsName": "Love everyone",
+  "NewsCategoryId": "62158b59865d0c0ff51db729",
+  "NewsContent": "sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf sadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdfsadsdfsdffadfsdf safdsdkfjkj sadfdsaf",
+  "NewsOrder": 2,
+  "NewsDisplay": false
 }]

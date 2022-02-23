@@ -129,6 +129,30 @@ exports.getShopProductById = function (
   );
 }
 
+exports.increaseViews = function (
+  id = String(),
+  newViews = Number(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      UPDATE
+        product
+      SET
+        ProductViews = ${newViews}
+      WHERE
+        PkProduct_Id = ${id}
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) {
+        throw err;
+      };
+      callbackFn(data[0]);
+    }
+  );
+}
+
 // exports.search = function (
 //   filter = {
 //     columnList: Array(String()),

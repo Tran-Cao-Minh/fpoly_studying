@@ -26,4 +26,11 @@
   "CategoryName": "Music",
   "CategoryOrder": 4,
   "CategoryDisplay": true
+},{
+  "_id": {
+    "$oid": "62158b59865d0c0ff51db729"
+  },
+  "CategoryName": "Will delete test",
+  "CategoryOrder": 10,
+  "CategoryDisplay": true
 }]
