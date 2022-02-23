@@ -107,11 +107,10 @@ export function FormValidator(
     const that = this;
 
     input.addEventListener('input', function () {
-      input.value = input.value.trim();
       let inputValue = input.value;
       let check = false;
 
-      if (isNaN(inputValue)) {
+      if (isNaN(inputValue) || inputValue === '') {
         messageContainer.innerHTML = `The ${inputName} must be a number`;
 
       } else if (inputValue < min) {

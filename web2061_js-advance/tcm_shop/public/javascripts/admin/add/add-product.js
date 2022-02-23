@@ -124,7 +124,7 @@ function createCustomCategorySelect() {
     });
 
     productCategorySelectCreator.createCustomSelect(
-      String(data[1].CategoryId),
+      String(data[0].CategoryId),
       productCategorySelectText,
       'choosen',
     );
@@ -198,10 +198,10 @@ function createFormValidator() {
     'is-valid',
   );
 
-  (function validateProductName () {
+  (function validateProductName() {
     const productNameMessageContainer =
       formObject.productName.parentElement.parentElement.querySelector('.invalid-feedback');
-  
+
     formValidator.addTextInputValidator(
       formObject.productName,
       'product name',
@@ -228,11 +228,11 @@ function createFormValidator() {
       },
       function addProductNameCheckExist(result) {
         let dataList = [];
-  
+
         result.data.forEach(valueObject => {
           dataList.push(valueObject.ProductName);
         });
-  
+
         formValidator.checkDuplicateValidator(
           formObject.productName,
           'product name',
@@ -246,9 +246,105 @@ function createFormValidator() {
     );
   })();
 
-  (function validateProductOrder () {
+  (function validateProductPublisher() {
+    const productPublisherMessageContainer =
+      formObject.productPublisher.parentElement.parentElement.querySelector('.invalid-feedback');
+
+    formValidator.addTextInputValidator(
+      formObject.productPublisher,
+      'product publisher',
+      productPublisherMessageContainer,
+      4,
+      200,
+      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
+      `Product publisher must be start with alphanumeric and 
+      contains only alphanumeric, underscore or some specials 
+      characters include , ' " : - ; _ + . |`,
+    );
+  })();
+
+  (function validateProductDimensions() {
+    const productDimensionsMessageContainer =
+      formObject.productDimensions.parentElement.parentElement.querySelector('.invalid-feedback');
+
+    formValidator.addTextInputValidator(
+      formObject.productDimensions,
+      'product dimensions',
+      productDimensionsMessageContainer,
+      4,
+      200,
+      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
+      `Product dimensions must be start with alphanumeric and 
+      contains only alphanumeric, underscore or some specials 
+      characters include , ' " : - ; _ + . |`,
+    );
+  })();
+
+  (function validateProductPublishDate() {
+    const productPublishDateMessageContainer =
+      formObject.productPublishDate.parentElement.parentElement.querySelector('.invalid-feedback');
+
+    formValidator.addDateInputValidator(
+      formObject.productPublishDate,
+      'product publish date',
+      productPublishDateMessageContainer, {
+        day: 1,
+        month: 1,
+        year: 1800
+      }, {
+        day: 31,
+        month: 12,
+        year: 3000
+      },
+    );
+  })();
+
+  (function validateProductPrice() {
+    const productPriceMessageContainer =
+      formObject.productPrice.parentElement.parentElement.querySelector('.invalid-feedback');
+
+    formValidator.addNumberInputValidator(
+      formObject.productPrice,
+      'product price',
+      productPriceMessageContainer,
+      0,
+      999999999.99,
+      0.01,
+    );
+  })();
+
+  (function validateProductSalePercent() {
+    const productSalePercentMessageContainer =
+      formObject.productSalePercent.parentElement.parentElement.querySelector('.invalid-feedback');
+    
+    formValidator.addNumberInputValidator(
+      formObject.productSalePercent,
+      'product sale percent',
+      productSalePercentMessageContainer,
+      0,
+      100,
+      1,
+    );
+  })();
+
+  (function validateProductQuantity() {
+    const productQuantityMessageContainer =
+      formObject.productQuantity.parentElement.parentElement.querySelector('.invalid-feedback');
+    
+    formValidator.addNumberInputValidator(
+      formObject.productQuantity,
+      'product quantity',
+      productQuantityMessageContainer,
+      0,
+      999999999,
+      1,
+    );
+  })();
+
+  (function validateProductOrder() {
     const productOrderMessageContainer =
       formObject.productOrder.parentElement.parentElement.querySelector('.invalid-feedback');
+    
     formValidator.addNumberInputValidator(
       formObject.productOrder,
       'product order',
@@ -259,56 +355,154 @@ function createFormValidator() {
     );
   })();
 
-  const fetchLink = 'http://localhost:3000/product/';
-  const dataAdder = new DataAdder(
-    fetchLink,
-  );
+  (function validateProductPages() {
+    const productPagesMessageContainer =
+      formObject.productPages.parentElement.parentElement.querySelector('.invalid-feedback');
+    
+    formValidator.addNumberInputValidator(
+      formObject.productPages,
+      'product pages',
+      productPagesMessageContainer,
+      1,
+      99999,
+      1,
+    );
+  })();
 
-  formValidator.createSubmitButtonEvent(
-    function () {
-      formData.set(
-        'productName',
-        formObject.productName.value
-      );
-      formData.set(
-        'productOrder',
-        formObject.productOrder.value
-      );
-      formData.set(
-        'productDisplay',
-        formObject.productDisplay.getAttribute('value')
-      );
+  (function validateProductImage() {
+    const productImageMessageContainer =
+      formObject.productImage.parentElement.parentElement.querySelector('.invalid-feedback');
 
-      dataAdder.addData(
-        formData,
-        false,
-        function (data) {
-          if (data.result === 'success') {
-            toastCreator.createToast(
-              'success',
-              data.notification,
-              2,
-            );
+    formValidator.addFileInputValidator(
+      formObject.productImage,
+      'product image',
+      productImageMessageContainer,
+      ['image/jpeg', 'image/webp', ],
+      0,
+      2,
+    );
+  })();
 
-            formValidator.changeDuplicateValue(
-              formObject.productName,
-              formObject.productName.value,
-              true,
-            );
-            formValidator.resetForm(formObject.form);
+  (function validateProductDescription() {
+    const productDescriptionMessageContainer =
+      formObject.productDescription.parentElement.parentElement.querySelector('.invalid-feedback');
 
-          } else if (data.result === 'fail') {
-            toastCreator.createToast(
-              'danger',
-              data.notification,
-              2,
-            );
-          };
-        },
-      );
-    },
-    true,
-  );
+    formValidator.addFileInputValidator(
+      formObject.productDescription,
+      'product description',
+      productDescriptionMessageContainer,
+      ['image/jpeg', 'image/webp', ],
+      0,
+      2,
+    );
+
+    formValidator.addTextInputValidator(
+      formObject.productDescription,
+      'product description',
+      productDescriptionMessageContainer,
+      50,
+      2000,
+      /^([A-Za-z0-9]{1})([\s\S]{49,1999})$/,
+      `Product description must be start with alphanumeric`,
+    );
+  })();
+
+  (function createSubmitAddProductEvent () {
+    const fetchLink = 'http://localhost:3000/product/';
+    const dataAdder = new DataAdder(
+      fetchLink,
+    );
+  
+    formValidator.createSubmitButtonEvent(
+      function () {
+        formData.set(
+          'productName',
+          formObject.productName.value
+        );
+        formData.set(
+          'productPublisher',
+          formObject.productPublisher.value
+        );
+        formData.set(
+          'productDimensions',
+          formObject.productDimensions.value
+        );
+        formData.set(
+          'productPublishDate',
+          formObject.productPublishDate.value
+        );
+        formData.set(
+          'productCategory',
+          formObject.productCategory.getAttribute('value')
+        );
+        formData.set(
+          'productTag',
+          formObject.productTag.getAttribute('value')
+        );
+        formData.set(
+          'productDisplay',
+          formObject.productDisplay.getAttribute('value')
+        );
+        formData.set(
+          'productPrice',
+          formObject.productPrice.value
+        );  
+        formData.set(
+          'productSalePercent',
+          formObject.productSalePercent.value
+        );  
+        formData.set(
+          'productQuantity',
+          formObject.productQuantity.value
+        );  
+        formData.set(
+          'productOrder',
+          formObject.productOrder.value
+        );  
+        formData.set(
+          'productPages',
+          formObject.productPages.value
+        );  
+        formData.set(
+          'productImage',
+          formObject.productImage.files[0]
+        );  
+        formData.set(
+          'productDescription',
+          formObject.productDescription.value
+        );  
+  
+        dataAdder.addData(
+          formData,
+          true,
+          function (data) {
+            // if (data.result === 'success') {
+            //   toastCreator.createToast(
+            //     'success',
+            //     data.notification,
+            //     2,
+            //   );
+  
+            //   formValidator.changeDuplicateValue(
+            //     formObject.productName,
+            //     formObject.productName.value,
+            //     true,
+            //   );
+            //   formValidator.resetForm(formObject.form);
+  
+            // } else if (data.result === 'fail') {
+            //   toastCreator.createToast(
+            //     'danger',
+            //     data.notification,
+            //     2,
+            //   );
+            // };
+          },
+        );
+      },
+      true,
+    );
+  })();
 }
 
 window.addEventListener('load', function () {

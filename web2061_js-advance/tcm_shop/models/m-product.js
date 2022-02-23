@@ -329,33 +329,87 @@ exports.search = function (
 //   );
 // }
 
-// exports.checkFkDisplayStatus = function (
-//   value = Number(),
-//   callbackFn = Function(),
-// ) {
-//   db.query(
-//     `
-//       SELECT
-//         PkDisplayStatus_Id
-//       FROM
-//         display_status
-//       WHERE
-//         PkDisplayStatus_Id = ${value}
-//       LIMIT 1
-//     `,
-//     function (err, data) {
-//       if (err) {
-//         throw err;
-//       };
-//       if (data.length <= 0) {
-//         callbackFn(false);
+exports.checkFk = function (
+  FkProductCategory_Id = Number(),
+  FkProductTag_Id = Number(),
+  FkDisplayStatus_Id = Number(),
+  callbackFn = Function(),
+) {
+  (function checkFkProductCategory () {
+    db.query(
+      `
+      SELECT
+        PkProductCategory_Id
+      FROM
+        product_category
+      WHERE
+        PkProductCategory_Id = ${FkProductCategory_Id}
+      LIMIT 1
+      `,
+      function (err, data) {
+        if (err) {
+          throw err;
+        };
+        if (data.length <= 0) {
+          callbackFn(false);
+  
+        } else {
+          checkFkProductTags();
+        };
+      }
+    );
+  })();
 
-//       } else {
-//         callbackFn(true);
-//       };
-//     }
-//   );
-// }
+  function checkFkProductTags() {
+    db.query(
+      `
+        SELECT
+          PkProductTag_Id
+        FROM
+          product_tag
+        WHERE
+          PkProductTag_Id = ${FkProductTag_Id}
+        LIMIT 1
+      `,
+      function (err, data) {
+        if (err) {
+          throw err;
+        };
+        if (data.length <= 0) {
+          callbackFn(false);
+  
+        } else {
+          checkFkDisplayStatus();
+        };
+      }
+    );
+  }
+
+  function checkFkDisplayStatus () {
+    db.query(
+      `
+        SELECT
+          PkDisplayStatus_Id
+        FROM
+          display_status
+        WHERE
+          PkDisplayStatus_Id = ${FkDisplayStatus_Id}
+        LIMIT 1
+      `,
+      function (err, data) {
+        if (err) {
+          throw err;
+        };
+        if (data.length <= 0) {
+          callbackFn(false);
+  
+        } else {
+          callbackFn(true);
+        };
+      }
+    );
+  }
+}
 
 // exports.delete = function (
 //   id = String(),

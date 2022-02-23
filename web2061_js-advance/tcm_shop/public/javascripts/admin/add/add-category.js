@@ -91,120 +91,119 @@ function createFormValidator() {
     'is-valid',
   );
 
-  const categoryNameMessageContainer =
-    formObject.categoryName.parentElement.parentElement.querySelector('.invalid-feedback');
+  (function validateCategoryName () {
+    const categoryNameMessageContainer =
+      formObject.categoryName.parentElement.parentElement.querySelector('.invalid-feedback');
+  
+    formValidator.addTextInputValidator(
+      formObject.categoryName,
+      'category name',
+      categoryNameMessageContainer,
+      4,
+      200,
+      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
+      `Category name must be start with alphanumeric and 
+      contains only alphanumeric, underscore or some specials 
+      characters include , ' " : - ; _ + . |`,
+    );
+    const categoryNameReader = new DataReader('http://localhost:3000/category/');
+    categoryNameReader.readData({
+        'columnList': [
+          'CategoryName'
+        ],
+        'searchValue': '',
+        'searchMode': 'searchByValue',
+        'searchColumn': 'CategoryName',
+        'orderRule': 'ASC',
+        'orderColumn': 'CategoryName',
+        'resultQuantity': 999999999999,
+        'pageNum': 1
+      },
+      function addCategoryNameCheckExist(result) {
+        let dataList = [];
+  
+        result.data.forEach(valueObject => {
+          dataList.push(valueObject.CategoryName);
+        });
+  
+        formValidator.checkDuplicateValidator(
+          formObject.categoryName,
+          'category name',
+          categoryNameMessageContainer,
+          dataList,
+          false,
+          false,
+          true,
+        );
+      },
+    );
+  })();
 
-  formValidator.addTextInputValidator(
-    formObject.categoryName,
-    'category name',
-    categoryNameMessageContainer,
-    4,
-    200,
-    /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
-    `Category name must be start with alphanumeric and 
-    contains only alphanumeric, underscore or some specials 
-    characters include , ' " : - ; _ + . |`,
-  );
-  const categoryNameReader = new DataReader('http://localhost:3000/category/');
-  categoryNameReader.readData({
-      'columnList': [
-        'CategoryName'
-      ],
-      'searchValue': '',
-      'searchMode': 'searchByValue',
-      'searchColumn': 'CategoryName',
-      'orderRule': 'ASC',
-      'orderColumn': 'CategoryName',
-      'resultQuantity': 999999999999,
-      'pageNum': 1
-    },
-    function addCategoryNameCheckExist(result) {
-      let dataList = [];
+  (function validateCategoryOrder () {
+    const categoryOrderMessageContainer =
+      formObject.categoryOrder.parentElement.parentElement.querySelector('.invalid-feedback');
+    formValidator.addNumberInputValidator(
+      formObject.categoryOrder,
+      'category order',
+      categoryOrderMessageContainer,
+      1,
+      99,
+      1,
+    );
+  })();
 
-      result.data.forEach(valueObject => {
-        dataList.push(valueObject.CategoryName);
-      });
-
-      // formObject.categoryName.setAttribute(
-      //   'data-duplicate',
-      //   JSON.stringify(data)
-      // );
-
-      // console.log(JSON.parse(formObject.categoryName.dataset.duplicate));
-
-      formValidator.checkDuplicateValidator(
-        formObject.categoryName,
-        'category name',
-        categoryNameMessageContainer,
-        dataList,
-        false,
-        false,
-        true,
-      );
-    },
-  );
-
-  const categoryOrderMessageContainer =
-    formObject.categoryOrder.parentElement.parentElement.querySelector('.invalid-feedback');
-  formValidator.addNumberInputValidator(
-    formObject.categoryOrder,
-    'category order',
-    categoryOrderMessageContainer,
-    1,
-    99,
-    1,
-  );
-
-  const fetchLink = 'http://localhost:3000/category/';
-  const dataAdder = new DataAdder(
-    fetchLink,
-  );
-
-  formValidator.createSubmitButtonEvent(
-    function () {
-      formData.set(
-        'categoryName',
-        formObject.categoryName.value
-      );
-      formData.set(
-        'categoryOrder',
-        formObject.categoryOrder.value
-      );
-      formData.set(
-        'categoryDisplay',
-        formObject.categoryDisplay.getAttribute('value')
-      );
-
-      dataAdder.addData(
-        formData,
-        false,
-        function (data) {
-          if (data.result === 'success') {
-            toastCreator.createToast(
-              'success',
-              data.notification,
-              2,
-            );
-            
-            formValidator.changeDuplicateValue(
-              formObject.categoryName,
-              formObject.categoryName.value,
-              true,
-            );
-            formValidator.resetForm(formObject.form);
-
-          } else if (data.result === 'fail') {
-            toastCreator.createToast(
-              'danger',
-              data.notification,
-              2,
-            );
-          };
-        },
-      );
-    },
-    true,
-  );
+  (function createSubmitAddCategoryEvent () {
+    const fetchLink = 'http://localhost:3000/category/';
+    const dataAdder = new DataAdder(
+      fetchLink,
+    );
+  
+    formValidator.createSubmitButtonEvent(
+      function () {
+        formData.set(
+          'categoryName',
+          formObject.categoryName.value
+        );
+        formData.set(
+          'categoryOrder',
+          formObject.categoryOrder.value
+        );
+        formData.set(
+          'categoryDisplay',
+          formObject.categoryDisplay.getAttribute('value')
+        );
+  
+        dataAdder.addData(
+          formData,
+          false,
+          function (data) {
+            if (data.result === 'success') {
+              toastCreator.createToast(
+                'success',
+                data.notification,
+                2,
+              );
+              
+              formValidator.changeDuplicateValue(
+                formObject.categoryName,
+                formObject.categoryName.value,
+                true,
+              );
+              formValidator.resetForm(formObject.form);
+  
+            } else if (data.result === 'fail') {
+              toastCreator.createToast(
+                'danger',
+                data.notification,
+                2,
+              );
+            };
+          },
+        );
+      },
+      true,
+    );
+  })();
 }
 
 window.addEventListener('load', function () {
