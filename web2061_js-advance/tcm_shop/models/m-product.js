@@ -21,12 +21,11 @@ exports.getTags = function (
   };
 
   db.query(sql, function (err, data) {
-      if (err) {
-        throw err;
-      };
-      callbackFn(data);
-    }
-  );
+    if (err) {
+      throw err;
+    };
+    callbackFn(data);
+  });
 }
 
 exports.getProductList = function (
@@ -51,11 +50,11 @@ exports.getProductList = function (
     INNER JOIN product_tag pt ON
       p.FkProductTag_Id = pt.PkProductTag_Id
     WHERE
-      ProductDisplay = 1
+      FkDisplayStatus_Id = 1
   `;
 
   if (filter.tagList !== undefined) {
-    if (filter.tagList.length > 0 && typeof(filter.tagList) === 'object') {
+    if (filter.tagList.length > 0 && typeof (filter.tagList) === 'object') {
       sql += 'AND FkProductTag_Id IN (';
       let tagList = '';
       filter.tagList.forEach(tag => {
@@ -66,7 +65,7 @@ exports.getProductList = function (
   };
 
   if (filter.categoryList !== undefined) {
-    if (filter.categoryList.length > 0 && typeof(filter.categoryList) === 'object') {
+    if (filter.categoryList.length > 0 && typeof (filter.categoryList) === 'object') {
       sql += 'AND FkProductCategory_Id IN (';
       let categoryList = '';
       filter.categoryList.forEach(category => {
@@ -266,23 +265,21 @@ exports.search = function (
   );
 };
 
-// exports.add = function (
-//   data = Object(),
-//   callbackFn = Function(),
-// ) {
-//   db.query(
-//     `
-//       INSERT INTO product_category SET ?
-//     `,
-//     data,
-//     function (err, data) {
-//       if (err) {
-//         throw err;
-//       };
-//       callbackFn(data);
-//     }
-//   );
-// }
+exports.add = function (
+  data = Object(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      INSERT INTO product SET ?
+    `,
+    data,
+    function (err, data) {
+      if (err) throw err;
+      callbackFn(data);
+    }
+  );
+}
 
 // exports.update = function (
 //   id = String(),
@@ -305,29 +302,27 @@ exports.search = function (
 //   );
 // }
 
-// exports.findOne = function (
-//   columnKey = String(),
-//   value = String(),
-//   callbackFn = Function(),
-// ) {
-//   db.query(
-//     `
-//       SELECT
-//         PkProductCategory_Id
-//       FROM
-//         product_category
-//       WHERE
-//         ${columnKey} = '${value}'
-//       LIMIT 1
-//     `,
-//     function (err, data) {
-//       if (err) {
-//         throw err;
-//       };
-//       callbackFn(data);
-//     }
-//   );
-// }
+exports.findOne = function (
+  columnKey = String(),
+  value = String(),
+  callbackFn = Function(),
+) {
+  db.query(
+    `
+      SELECT
+        PkProduct_Id
+      FROM
+        product
+      WHERE
+        BINARY ${columnKey} = '${value}'
+      LIMIT 1
+    `,
+    function (err, data) {
+      if (err) throw err;
+      callbackFn(data);
+    }
+  );
+}
 
 exports.checkFk = function (
   FkProductCategory_Id = Number(),
@@ -335,7 +330,7 @@ exports.checkFk = function (
   FkDisplayStatus_Id = Number(),
   callbackFn = Function(),
 ) {
-  (function checkFkProductCategory () {
+  (function checkFkProductCategory() {
     db.query(
       `
       SELECT
@@ -352,7 +347,7 @@ exports.checkFk = function (
         };
         if (data.length <= 0) {
           callbackFn(false);
-  
+
         } else {
           checkFkProductTags();
         };
@@ -377,7 +372,7 @@ exports.checkFk = function (
         };
         if (data.length <= 0) {
           callbackFn(false);
-  
+
         } else {
           checkFkDisplayStatus();
         };
@@ -385,7 +380,7 @@ exports.checkFk = function (
     );
   }
 
-  function checkFkDisplayStatus () {
+  function checkFkDisplayStatus() {
     db.query(
       `
         SELECT
@@ -402,7 +397,7 @@ exports.checkFk = function (
         };
         if (data.length <= 0) {
           callbackFn(false);
-  
+
         } else {
           callbackFn(true);
         };

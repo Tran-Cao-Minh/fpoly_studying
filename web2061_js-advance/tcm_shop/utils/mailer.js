@@ -27,9 +27,7 @@ exports.sendMail = function (
   };
 
   transporter.sendMail(mainOptions, function (err, info) {
-    if (err) {
-      throw err;
-    };
+    if (err) throw err;
 
     console.log(`Send mail to ${email} successfully`);
     console.log(info);

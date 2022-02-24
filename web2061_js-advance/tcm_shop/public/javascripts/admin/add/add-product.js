@@ -208,7 +208,7 @@ function createFormValidator() {
       productNameMessageContainer,
       4,
       200,
-      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
+      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{3,199})$/,
       `Product name must be start with alphanumeric and 
       contains only alphanumeric, underscore or some specials 
       characters include , ' " : - ; _ + . |`,
@@ -256,7 +256,7 @@ function createFormValidator() {
       productPublisherMessageContainer,
       4,
       200,
-      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
+      /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{3,199})$/,
       `Product publisher must be start with alphanumeric and 
       contains only alphanumeric, underscore or some specials 
       characters include , ' " : - ; _ + . |`,
@@ -309,7 +309,7 @@ function createFormValidator() {
       productPriceMessageContainer,
       0,
       999999999.99,
-      0.01,
+      0.01
     );
   })();
 
@@ -323,7 +323,7 @@ function createFormValidator() {
       productSalePercentMessageContainer,
       0,
       100,
-      1,
+      1
     );
   })();
 
@@ -337,7 +337,7 @@ function createFormValidator() {
       productQuantityMessageContainer,
       0,
       999999999,
-      1,
+      1
     );
   })();
 
@@ -365,7 +365,7 @@ function createFormValidator() {
       productPagesMessageContainer,
       1,
       99999,
-      1,
+      1
     );
   })();
 
@@ -386,15 +386,6 @@ function createFormValidator() {
   (function validateProductDescription() {
     const productDescriptionMessageContainer =
       formObject.productDescription.parentElement.parentElement.querySelector('.invalid-feedback');
-
-    formValidator.addFileInputValidator(
-      formObject.productDescription,
-      'product description',
-      productDescriptionMessageContainer,
-      ['image/jpeg', 'image/webp', ],
-      0,
-      2,
-    );
 
     formValidator.addTextInputValidator(
       formObject.productDescription,
@@ -476,27 +467,27 @@ function createFormValidator() {
           formData,
           true,
           function (data) {
-            // if (data.result === 'success') {
-            //   toastCreator.createToast(
-            //     'success',
-            //     data.notification,
-            //     2,
-            //   );
+            if (data.result === 'success') {
+              toastCreator.createToast(
+                'success',
+                data.notification,
+                2,
+              );
   
-            //   formValidator.changeDuplicateValue(
-            //     formObject.productName,
-            //     formObject.productName.value,
-            //     true,
-            //   );
-            //   formValidator.resetForm(formObject.form);
+              formValidator.changeDuplicateValue(
+                formObject.productName,
+                formObject.productName.value,
+                true,
+              );
+              formValidator.resetForm(formObject.form);
   
-            // } else if (data.result === 'fail') {
-            //   toastCreator.createToast(
-            //     'danger',
-            //     data.notification,
-            //     2,
-            //   );
-            // };
+            } else if (data.result === 'fail') {
+              toastCreator.createToast(
+                'danger',
+                data.notification,
+                2,
+              );
+            };
           },
         );
       },

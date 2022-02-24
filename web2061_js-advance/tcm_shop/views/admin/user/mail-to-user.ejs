@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../module/website-info.ejs') %>
+  <%- include('../module/general-link.ejs') %>
+</head>
+
+<body>
+  <%- include('../module/aside.ejs') %>
+
+  <main id="main">
+    <div class="main__wrapper">
+      <%- include('../module/header.ejs') %>
+
+      <!-- BODY CONTENT -->
+      <!-- add form -->
+      <form class="row bg-white rounded-2" id="sendMailForm">
+        <!-- recipient email -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="userEmail">
+              To
+            </label>
+            <div class="input-with-icon-group">
+              <input type="text" class="form-control" id="userEmail" placeholder="Recipient email">
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end recipient email -->
+
+        <!-- email subject -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="emailSubject">
+              Subject
+            </label>
+            <div class="input-with-icon-group">
+              <input type="text" class="form-control" id="emailSubject" placeholder="Email subject">
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end email subject -->
+
+        <!-- email content -->
+        <div class="col-12">
+          <div class="form-group">
+            <label for="emailContent">
+              Content
+            </label>
+            <div class="input-with-icon-group">
+              <textarea rows="11" class="form-control" id="emailContent"></textarea>
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end email content -->
+
+        <!-- btn group category -->
+        <div class="col-12 d-flex">
+          <div class="col-4 col-md-3 col-lg-2">
+            <div class="form-group">
+              <button class="btn-success col-12" id="js-send-data-submit">Send</button>
+            </div>
+          </div>
+          <div class="col-8 col-md-5 col-lg-4">
+            <div class="form-group">
+              <a href="/admin/user-overview" class="btn-cancel col-12">Overview</a>
+            </div>
+          </div>
+        </div>
+        <!-- end btn group category -->
+      </form>
+      <!-- end add form -->
+      <!-- end BODY CONTENT -->
+    </div>
+  </main>
+
+  <script type="module" src="../javascripts/admin/layout.js"></script>
+  <script type="module" src="../javascripts/admin/send-mail.js"></script>
+</body>
+
+</html>

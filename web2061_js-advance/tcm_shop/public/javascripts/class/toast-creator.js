@@ -3,7 +3,7 @@ export function ToastCreator(
   verticalOffset = Number(), // px
   horizontalAlign = 'left' || 'right',
   horizontalOffset = Number(), // px
-) {
+) { 
   this.verticalAlign = verticalAlign;
   this.verticalOffset = verticalOffset;
   this.horizontalAlign = horizontalAlign;

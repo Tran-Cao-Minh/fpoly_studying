@@ -36,8 +36,8 @@ app.use('/', clientRouter);
 const adminRouter = require('./routes/admin');
 app.use('/admin', adminRouter);
 
-const usersRouter = require('./routes/users');
-app.use('/users', usersRouter);
+const userRouter = require('./routes/user');
+app.use('/user', userRouter);
 
 const categoryRouter = require('./routes/category');
 app.use('/category', categoryRouter);

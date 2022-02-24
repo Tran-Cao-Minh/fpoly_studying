@@ -63,7 +63,7 @@ export function ImageFormatter(
 
 export function LinkFormatter(
   linkPrefix = String(),
-  classList = Array(),
+  classList = Array(String()),
   icon = String(),
 ) {
   this.linkPrefix = linkPrefix;

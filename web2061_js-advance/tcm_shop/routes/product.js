@@ -19,7 +19,7 @@ router.get('/shop', function (req, res) {
     res.json(data);
   });
 })
- 
+
 router.get('/shop/:id', function (req, res) {
   let id = req.params.id;
 
@@ -62,16 +62,13 @@ router.get('/', function (req, res) {
 router.post('/', function (req, res) {
   const form = new formidable.IncomingForm();
 
-  form.parse(req, function(err, fields, files) {
-    fs.unlink(files.productImage.filepath, () => {
-      console.log('Temp file is deleted ' + files.productImage.filepath);
-    });
-
+  form.parse(req, function (err, fields, files) {
+    const productImage = files.productImage;
     const product = {
       ProductName: fields.productName,
       ProductPublisher: fields.productPublisher,
       ProductDimensions: fields.productDimensions,
-      ProductPublishDate: new Date(fields.productPublishDate),
+      ProductPublishDate: fields.productPublishDate,
       FkProductCategory_Id: Number(fields.productCategory),
       FkProductTag_Id: Number(fields.productTag),
       FkDisplayStatus_Id: Number(fields.productDisplay),
@@ -80,7 +77,7 @@ router.post('/', function (req, res) {
       ProductQuantity: Number(fields.productQuantity),
       ProductOrder: Number(fields.productOrder),
       ProductPages: Number(fields.productPages),
-      ProductImage: files.productImage,
+      ProductImage: '',
       ProductDescription: fields.productDescription,
     };
 
@@ -92,24 +89,92 @@ router.post('/', function (req, res) {
         product.FkProductTag_Id,
         product.FkDisplayStatus_Id,
         function (checkFk) {
-          let checkProductName = validator.checkPattern(
-            productProduct.ProductName,
-            /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/
+          const checkProductName = validator.checkPattern(
+            product.ProductName,
+            /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{3,199})$/
           );
-  
-          let checkProductOrder = validator.checkNumber(
-            productProduct.ProductOrder,
+
+          const checkProductPublisher = validator.checkPattern(
+            product.ProductPublisher,
+            /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{3,199})$/
+          );
+
+          const checkProductDimensions = validator.checkPattern(
+            product.ProductDimensions,
+            /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{3,199})$/
+          );
+
+          const checkProductPublishDate = validator.checkDate(
+            product.ProductPublishDate, {
+              day: 1,
+              month: 1,
+              year: 1800
+            }, {
+              day: 31,
+              month: 12,
+              year: 3000
+            }
+          );
+
+          const checkProductPrice = validator.checkNumber(
+            product.ProductPrice,
+            0,
+            999999999.99,
+            0.01
+          );
+
+          const checkProductSalePercent = validator.checkNumber(
+            product.ProductSalePercent,
+            0,
+            100,
+            1
+          );
+
+          const checkProductQuantity = validator.checkNumber(
+            product.ProductQuantity,
+            0,
+            999999999,
+            1
+          );
+
+          const checkProductOrder = validator.checkNumber(
+            product.ProductOrder,
             1,
             99,
             1
           );
 
-          #
-  
+          const checkProductPages = validator.checkNumber(
+            product.ProductPages,
+            1,
+            99999,
+            1
+          );
+
+          const checkProductImage = validator.checkFile(
+            productImage,
+            ['image/jpeg', 'image/webp'],
+            0,
+            2
+          );
+
+          const checkProductDescription = validator.checkPattern(
+            product.ProductDescription,
+            /^([A-Za-z0-9]{1})([\s\S]{49,1999})$/
+          );
+
           if (
             checkProductName &&
+            checkProductPublisher &&
+            checkProductDimensions &&
+            checkProductPublishDate &&
+            checkProductPrice &&
+            checkProductSalePercent &&
+            checkProductQuantity &&
             checkProductOrder &&
-            checkProductDisplay &&
+            checkProductPages &&
+            checkProductImage &&
+            checkProductDescription &&
             checkFk
           ) {
             resolve(true);
@@ -120,63 +185,83 @@ router.post('/', function (req, res) {
       );
     });
 
+    checkValidateData
+      .then(function (check) {
+        if (check === true) {
+          modelProduct.findOne(
+            'ProductName',
+            product.ProductName,
+            function (data) {
+              if (data.length > 0) {
+                res.json({
+                  'result': 'fail',
+                  'notification': 'Product name is exist',
+                });
 
+              } else {
+                const pathFile = productImage.filepath;
+                const fileExtension = productImage.mimetype.split('/').pop();
 
+                const date = new Date().getTime();
+                const slug = product.ProductName.toLowerCase().replace(/[^A-Za-z0-9\ ]/g, '').replace(/[\ ]+/g, '-');
+                const prefixFileName = `${slug}_${date}`;
+                const fileName = `${prefixFileName}.${fileExtension}`;
+                product.ProductImage = fileName;
+
+                product.ProductPublishDate = new Date(product.ProductPublishDate);
+                modelProduct.add(product, function (data) {
+                  console.log(data);
+                  res.json({
+                    'result': 'success',
+                    'notification': `Add product completed \n Product name: ${product.ProductName}`,
+                  });
+
+                  (function uploadImage() {
+                    const destPath = __dirname.replace('\\routes', '') + '\\public\\images\\products\\' + fileName;
+                    console.log(destPath);
+
+                    fs.copyFile(pathFile, destPath, (err) => {
+                      if (err) throw err;
+
+                      fs.unlink(pathFile, () => {
+                        console.log('Temp file is deleted ' + pathFile);
+                      });
+                      console.log('Uploaded file ' + fileName);
+                    });
+                  })();
+                });
+              };
+            }
+          );
+        } else if (check === false) {
+          res.json({
+            'result': 'fail',
+            'notification': 'Wrong data format',
+          });
+        };
+      });
   });
-
-
-  // checkValidateData
-  //   .then(function (check) {
-  //     if (check === true) {
-  //       modelProduct.findOne(
-  //         'ProductName',
-  //         productProduct.ProductName,
-  //         function (data) {
-  //           if (data.length > 0) {
-  //             res.json({
-  //               'result': 'fail',
-  //               'notification': 'Product name is exist',
-  //             });
-
-  //           } else {
-  //             modelProduct.add(productProduct, function (data) {
-  //               console.log(data);
-  //               res.json({
-  //                 'result': 'success',
-  //                 'notification': `Add category completed \n Product name: ${productProduct.ProductName}`,
-  //               });
-  //             });
-  //           };
-  //         }
-  //       );
-  //     } else if (check === false) {
-  //       res.json({
-  //         'result': 'fail',
-  //         'notification': 'Wrong data format',
-  //       });
-  //     };
-  //   });
 })
 
 // router.put('/:id', function (req, res) {
-//   let productProduct = {
+//   let product = {
 //     ProductName: req.body.categoryName,
 //     ProductOrder: Number(req.body.categoryOrder),
 //     FkDisplayStatus_Id: Number(req.body.categoryDisplay),
 //   };
-//   console.log(productProduct);
+//   console.log(product);
 
 //   let checkValidateData = new Promise(function (resolve) {
 //     modelProduct.checkFkDisplayStatus(
-//       productProduct.FkDisplayStatus_Id,
+//       product.FkDisplayStatus_Id,
 //       function (checkProductDisplay) {
 //         let checkProductName = validator.checkPattern(
-//           productProduct.ProductName,
+//           product.ProductName,
 //           /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/
 //         );
 
 //         let checkProductOrder = validator.checkNumber(
-//           productProduct.ProductOrder,
+//           product.ProductOrder,
 //           1,
 //           99,
 //           1
@@ -199,7 +284,7 @@ router.post('/', function (req, res) {
 //       if (check === true) {
 //         modelProduct.findOne(
 //           'ProductName',
-//           productProduct.ProductName,
+//           product.ProductName,
 //           function (data) {
 //             console.log(data);
 //             if (
@@ -215,12 +300,12 @@ router.post('/', function (req, res) {
 //               let categoryId = req.params.id;
 //               modelProduct.update(
 //                 categoryId,
-//                 productProduct,
+//                 product,
 //                 function (data) {
 //                   console.log(data);
 //                   res.json({
 //                     'result': 'success',
-//                     'notification': `Update category completed \n Product name: ${productProduct.ProductName}`,
+//                     'notification': `Update category completed \n Product name: ${product.ProductName}`,
 //                   });
 //                 },
 //               );

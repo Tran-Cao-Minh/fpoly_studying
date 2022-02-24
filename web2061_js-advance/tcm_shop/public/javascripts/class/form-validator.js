@@ -142,7 +142,7 @@ export function FormValidator(
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
-    fileTypeList = [String()],
+    fileMIMETypeList = [String()],
     minMbSize = Number(),
     maxMbSize = Number(),
   ) {
@@ -157,8 +157,8 @@ export function FormValidator(
       // console.log(file);
 
       let checkFileType = false;
-      fileTypeList.forEach(type => {
-        if (fileType === type) {
+      fileMIMETypeList.forEach(MIMEType => {
+        if (fileType === MIMEType) {
           checkFileType = true;
         };
       });
@@ -166,8 +166,8 @@ export function FormValidator(
       if (checkFileType === false) {
         let errMessage =
           `The ${inputName} file extension must be a value in the list:`;
-        fileTypeList.forEach(type => {
-          errMessage += ` ${type.split('/').pop().toUpperCase()},`;
+        fileMIMETypeList.forEach(MIMEType => {
+          errMessage += ` ${MIMEType.split('/').pop().toUpperCase()},`;
         });
 
         messageContainer.innerHTML = errMessage.slice(0, -2);
@@ -207,7 +207,7 @@ export function FormValidator(
       month: Number(),
       year: Number(),
     },
-  ) {
+  ) { 
     this.inputList.push(input);
     const that = this;
 

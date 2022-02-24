@@ -11,7 +11,7 @@ function PopupCreator() {
     popupContent.classList.add('popup-content');
     nodeList.forEach(node => {
       popupContent.appendChild(node);
-    });
+    }); 
 
     popupWrapper.appendChild(popupContent);
     popup.appendChild(popupWrapper);

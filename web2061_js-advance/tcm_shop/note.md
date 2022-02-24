@@ -1,1 +1,1 @@
-# continue validate route product.js
+# continue user in admin.js

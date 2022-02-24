@@ -41,5 +41,13 @@ router.get('/update-product/:id', function (req, res) {
 })
 // end product
 
+// user
+router.get('/mail-to-user', function (req, res) {
+  res.render('admin/user/mail-to-user.ejs', {
+    pageName: 'Mail to User',
+  });
+})
+// end user
+
 
 module.exports = router;
