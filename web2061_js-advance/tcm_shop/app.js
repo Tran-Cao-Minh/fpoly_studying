@@ -29,6 +29,17 @@ app.use(cookieParser());
 // static resources
 app.use(express.static(path.join(__dirname, 'public')));
 
+// set up session
+const session = require('express-session');
+app.use(session({
+  secret: 'minhtcps18817',
+  resave: true,
+  saveUninitialized: true,
+  cookie: {
+    maxAge: 60000,
+  },
+}));
+
 // DECLARE AND USE ROUTER
 const clientRouter = require('./routes/client');
 app.use('/', clientRouter);

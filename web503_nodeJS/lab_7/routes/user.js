@@ -5,7 +5,7 @@ const fs = require('fs');
 const bcrypt = require('bcrypt');
 
 const modelUser = require('../models/m_user.js');
-
+ 
 // render view
 router.get('/register', function (req, res) {
   res.render('user_register');
@@ -29,7 +29,7 @@ router.get('/download', function (req, res) {
     req.session.back = '/user/download';
     res.redirect('/user/login');
   };
-})
+}) 
 
 router.get('/detail', function (req, res) {
   if (req.session.logged === true) {

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./module/website-info.ejs') %>
+  <%- include('./module/general-link.ejs') %>
+
+  <link rel="stylesheet" href="/stylesheets/client/shop.css">
+</head>
+
+<body>
+  <%- include('./module/header.ejs') %>
+
+  <section id="content">
+  </section>
+
+  <%- include('./module/footer.ejs') %>
+
+  <script type="module" src="/javascripts/client/shop/shop.js"></script>
+</body>
+
+</html>
