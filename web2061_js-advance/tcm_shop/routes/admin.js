@@ -47,49 +47,6 @@ router.get('/mail-to-user', function (req, res) {
     pageName: 'Mail to User',
   });
 })
-
-router.get('/register', function (req, res) {
-  res.render('user_register.ejs');
-})
-
-router.get('/login', function (req, res) {
-  res.render('user_login.ejs', {
-    userName: req.query.userName,
-    userPassword: req.query.userPassword,
-    notification: req.query.notification,
-  });
-})
-router.get('/detail', function (req, res) {
-  if (req.session.logged === true) {
-    res.render('user_information.ejs', {
-      userId: req.session.userId,
-    });
-
-  } else {
-    res.redirect('/user/login');
-  };
-})
-
-router.get('/change-password', function (req, res) {
-  if (req.session.logged === true) {
-    res.render('user_change_password.ejs', {
-      userId: req.session.userId,
-    });
-
-  } else {
-    res.redirect('/user/login');
-  };
-})
-
-router.get('/forget-password', function (req, res) {
-  res.render('forget-password.ejs', {
-    notification: req.query.notification,
-  });
-})
-
-router.get('/change-password-by-email-successfully', function (req, res) {
-  res.render('change_password_by_email_successfully.ejs');
-})
 // end user
 
 

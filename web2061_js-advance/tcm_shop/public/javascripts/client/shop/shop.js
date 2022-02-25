@@ -17,8 +17,9 @@ const productListDataReader = new DataReader(productListFetchLink);
 
 const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
 
-function ProductListReader () {
+function ProductListReader() {
   this.filter = {
+    searchProductKeyWord: '',
     tagList: [],
     categoryList: [],
     orderBy: defaultOrderBy,
@@ -30,7 +31,7 @@ function ProductListReader () {
 
     productListDataReader.readData(this.filter, function (data) {
       data.forEach(product => {
-        let productOldPrice = 
+        let productOldPrice =
           (product.ProductPrice / (100 - product.ProductSalePercent)) * 100;
 
         let productPrice = currencyFormatter.formatCurrency(product.ProductPrice);
@@ -69,9 +70,29 @@ function ProductListReader () {
   };
 }
 let productListReader = new ProductListReader();
+const searchProductInput = document.querySelector('#js-search-product');
+if (sessionStorage.getItem('searchProductKeyWord') !== null) {
+  productListReader.filter.searchProductKeyWord =
+    sessionStorage.getItem('searchProductKeyWord');
+  searchProductInput.value = sessionStorage.getItem('searchProductKeyWord');
+  
+  sessionStorage.removeItem('searchProductKeyWord');
+} else {
+  productListReader.filter.searchProductKeyWord = 
+    searchProductInput.value;
+};
 productListReader.getProductList();
 
 window.addEventListener('load', function createOrderFilter() {
+  // product key word
+  searchProductInput.addEventListener('change', function () {
+    productListReader.filter.searchProductKeyWord =
+      searchProductInput.value;
+
+    productListReader.getProductList();
+  });
+  // end product key word
+
   // order by 
   let orderBySelect =
     document.querySelector('#js-shop-order-by');
@@ -208,7 +229,7 @@ window.addEventListener('load', function createFilterInput() {
         </label>
       `;
     });
-    
+
     let filterSpecialInputList = filterSpecialList.querySelectorAll('input');
 
     filterSpecialInputList.forEach(input => {
@@ -248,7 +269,7 @@ window.addEventListener('load', function createFilterInput() {
         </label>
       `;
     });
-        
+
     let filterCategoryInputList = filterCategoryList.querySelectorAll('input');
 
     filterCategoryInputList.forEach(input => {

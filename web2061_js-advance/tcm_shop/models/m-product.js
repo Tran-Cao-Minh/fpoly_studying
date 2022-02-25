@@ -30,6 +30,7 @@ exports.getTags = function (
 
 exports.getProductList = function (
   filter = {
+    searchProductKeyWord: String(),
     tagList: [String()],
     categoryList: [String()],
     orderBy: String(),
@@ -51,6 +52,8 @@ exports.getProductList = function (
       p.FkProductTag_Id = pt.PkProductTag_Id
     WHERE
       FkDisplayStatus_Id = 1
+    AND 
+      ProductName LIKE '%${filter.searchProductKeyWord}%'
   `;
 
   if (filter.tagList !== undefined) {
@@ -152,7 +155,7 @@ exports.increaseViews = function (
       if (err) {
         throw err;
       };
-      callbackFn(data[0]);
+      callbackFn(data);
     }
   );
 }

@@ -490,3 +490,11 @@ textarea.form-control {
 }
 
 /* end custom input file - image */
+
+.is-invalid + .invalid-feedback {
+  display: block;
+}
+
+.invalid-feedback {
+  display: none;
+}

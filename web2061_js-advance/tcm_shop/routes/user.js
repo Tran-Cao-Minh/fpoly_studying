@@ -7,6 +7,8 @@ const formidable = require('formidable');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
+
+
 router.post('/mail', function (req, res) {
   const userEmail = req.body.userEmail;
   const emailSubject = req.body.emailSubject;
@@ -88,7 +90,7 @@ router.post('/check-login', function (req, res) {
     if (data.length <= 0) {
       let notification = 'User name does not exist';
       res.redirect(
-        `/user/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
+        `/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
       );
 
     } else {
@@ -109,14 +111,14 @@ router.post('/check-login', function (req, res) {
           res.redirect(session.back);
 
         } else {
-          res.redirect('/user/detail');
+          res.redirect('/account-detail');
         };
 
       } else {
         console.log('Login failed');
         let notification = 'You entered the wrong password';
         res.redirect(
-          `/user/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
+          `/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
         );
       };
     };
@@ -125,7 +127,7 @@ router.post('/check-login', function (req, res) {
 
 router.get('/logout', function (req, res) {
   req.session.destroy();
-  res.redirect('/user/login');
+  res.redirect('/login');
 })
 
 router.get('/:id', function (req, res, next) {
@@ -229,7 +231,7 @@ router.post('/get-new/password', function (req, res) {
     if (data.length <= 0) {
       let notification = 'User email does not exist';
       res.redirect(
-        `/user/forget-password?notification=${notification}`
+        `/forget-password?notification=${notification}`
       );
 
     } else {
@@ -254,7 +256,7 @@ router.post('/get-new/password', function (req, res) {
           );
 
           req.session.destroy();
-          res.redirect('/user/change-password-by-email-successfully');
+          res.redirect('/change-password-by-email-successfully');
         },
       );
     };

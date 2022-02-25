@@ -23,50 +23,6 @@ let columnList = [{
 let defaultColumnOptionValue = 'CategoryName';
 let dataFetchLink = 'http://localhost:3000/category/';
 
-import {
-  LinkFormatter,
-  ButtonFormatter,
-} from '../../class/data-formatter.js';
-const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
-  ['btn-warning', 'btn-square'],
-  '<i class="fas fa-file-alt"></i>',
-);
-const tableDeleteButtonFormatter = new ButtonFormatter(
-  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
-  '<i class="fas fa-trash"></i>',
-);
-
-import {
-  ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
-
-import {
-  DataDeleter
-} from '../../class/data-interactor.js';
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-
-import {
-  ToastCreator
-} from '../../class/toast-creator.js';
-const tableDataToastify = new ToastCreator(
-  'bottom',
-  16,
-  'right',
-  16,
-);
-
-import {
-  Suggester
-} from '../../class/suggester.js';
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
-
-import {
-  DataReader
-} from '../../class/data-interactor.js';
-const tableDataReader = new DataReader(dataFetchLink);
-
 function addTableButtonEvent() {
   let deleteButtonList = document.querySelectorAll('.js-delete-data');
 
@@ -151,11 +107,11 @@ function addTableButtonEvent() {
                   },
                   function (result) {
                     let data = result.data;
-  
+
                     data = [
                       ...new Map(data.map((item) => [item[searchColumnSelect.getAttribute('value')], item])).values(),
                     ];
-  
+
                     searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
                     searchSuggester.suggestData = data;
                   },
@@ -169,6 +125,20 @@ function addTableButtonEvent() {
     });
   });
 };
+
+import {
+  LinkFormatter,
+  ButtonFormatter,
+} from '../../class/data-formatter.js';
+const tableUpdateLinkFormatter = new LinkFormatter(
+  './update-category/',
+  ['btn-warning', 'btn-square'],
+  '<i class="fas fa-file-alt"></i>',
+);
+const tableDeleteButtonFormatter = new ButtonFormatter(
+  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
+  '<i class="fas fa-trash"></i>',
+);
 
 let tableColumnList = [{
     name: 'Name',
@@ -215,6 +185,38 @@ let tableColumnList = [{
     ],
   },
 ];
+
+import {
+  ToastCreator
+} from '../../class/toast-creator.js';
+const tableDataToastify = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16,
+);
+
+import {
+  DataDeleter
+} from '../../class/data-interactor.js';
+const tableDataDeleter = new DataDeleter(dataFetchLink);
+
+import {
+  ConfirmDangerActionPopupCreator
+} from '../../class/popup-creator.js';
+const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
+
+
+
+import {
+  Suggester
+} from '../../class/suggester.js';
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
+
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+const tableDataReader = new DataReader(dataFetchLink);
 
 import {
   adminFilterCustomSelectCreator
