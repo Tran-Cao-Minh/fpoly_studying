@@ -488,13 +488,4 @@ textarea.form-control {
   margin: 3.75rem auto;
   border: none;
 }
-
 /* end custom input file - image */
-
-.is-invalid + .invalid-feedback {
-  display: block;
-}
-
-.invalid-feedback {
-  display: none;
-}

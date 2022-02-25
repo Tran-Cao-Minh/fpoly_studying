@@ -97,7 +97,7 @@ exports.getProductList = function (
 
 exports.getShopProductById = function (
   id = Number,
-  callbackFn = Function(data = Object()),
+  callbackFn = Function(),
 ) {
   db.query(
     `
@@ -131,7 +131,32 @@ exports.getShopProductById = function (
       if (err) {
         throw err;
       };
-      callbackFn(data[0]);
+      const product = data[0];
+
+      db.query(
+        `
+          SELECT
+            PkProduct_Id,
+            ProductName,
+            ProductImage,
+            ProductPrice,
+            ProductSalePercent,
+            TagImage
+          FROM
+            product p
+          INNER JOIN product_tag pt ON
+            p.FkProductTag_Id = pt.PkProductTag_Id
+          WHERE
+            ProductPublisher = '${product.ProductPublisher}'
+          LIMIT 5
+        `,
+        function (err, data) {
+          const similarProductList = data.filter(object => {
+            return object.PkProduct_Id !== product.PkProduct_Id;
+          });
+          callbackFn(product, similarProductList);
+        }
+      );
     }
   );
 }

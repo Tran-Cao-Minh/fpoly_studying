@@ -93,7 +93,55 @@ function fillProductDetailPageValue(product = Object()) {
   );
 }
 
+function showSimilarProduct(similarProductList = [Object()]) {
+  const similarProductContainer = document.querySelector('#product-similar');
+
+  if (similarProductList.length > 0) {
+    const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+
+    similarProductContainer.classList.remove('d-none');
+
+    similarProductList.forEach(product => {
+      let productOldPrice =
+        (product.ProductPrice / (100 - product.ProductSalePercent)) * 100;
+
+      let productPrice = currencyFormatter.formatCurrency(product.ProductPrice);
+      productOldPrice = currencyFormatter.formatCurrency(productOldPrice);
+
+      similarProductContainer.querySelector('.product-similar-list').innerHTML += `
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="/images/tags/${product.TagImage}" alt="Product Tag">
+          </div>
+          <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-img">
+            <img src="/images/products/${product.ProductImage}" alt="${product.ProductName}">
+          </a>
+          <div class="product-information">
+            <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-name">
+              ${product.ProductName}
+            </a>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                ${productPrice}
+              </span>
+              <span class="product-item-old-price">
+                ${productOldPrice}
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary"
+            data-id="${product.PkProduct_Id}"
+          >
+            Add to cart
+          </button>
+        </div>
+      `;
+    });
+  };
+}
+
 const productInformationReader = new DataReader(fetchLinkPrefix + id);
-productInformationReader.readData(null, function (product) {
-  fillProductDetailPageValue(product);
+productInformationReader.readData(null, function (data) {
+  fillProductDetailPageValue(data.product);
+  showSimilarProduct(data.similarProductList);
 });

@@ -7,8 +7,6 @@ const formidable = require('formidable');
 const fs = require('fs');
 const bcrypt = require('bcrypt');
 
-
-
 router.post('/mail', function (req, res) {
   const userEmail = req.body.userEmail;
   const emailSubject = req.body.emailSubject;
@@ -119,6 +117,56 @@ router.post('/check-login', function (req, res) {
         let notification = 'You entered the wrong password';
         res.redirect(
           `/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
+        );
+      };
+    };
+  });
+})
+
+router.post('/check-admin-login', function (req, res) {
+  let userName = req.body.userName;
+  let userPassword = req.body.userPassword;
+
+  modelUser.checkLogin(userName, function (data) {
+    if (data.length <= 0) {
+      let notification = 'User name does not exist';
+      res.redirect(
+        `/admin/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
+      );
+
+    } else {
+      let user = data[0];
+      let passwordFromDatabase = user.UserPassword;
+
+      let result = bcrypt.compareSync(userPassword, passwordFromDatabase);
+      if (result === true && user.FkUserRole_Id === 1) {
+        console.log('Login successfully');
+
+        let session = req.session;
+        session.logged = true;
+        session.userName = userName;
+        session.userId = user.PkUser_Id;
+
+        if (session.back !== undefined) {
+          console.log(session.back);
+          res.redirect(session.back);
+
+        } else {
+          res.redirect('/admin/mail-to-user');
+        };
+
+      } else if (result === true) {
+        console.log('Login failed');
+        let notification = 'Your role is not admin';
+        res.redirect(
+          `/admin/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
+        );
+        
+      }else {
+        console.log('Login failed');
+        let notification = 'You entered the wrong password';
+        res.redirect(
+          `/admin/login?userName=${userName}&userPassword=${userPassword}&notification=${notification}`
         );
       };
     };

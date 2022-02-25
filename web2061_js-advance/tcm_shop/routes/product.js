@@ -23,8 +23,11 @@ router.get('/shop', function (req, res) {
 router.get('/shop/:id', function (req, res) {
   let id = req.params.id;
 
-  modelProduct.getShopProductById(id, function (data) {
-    res.json(data);
+  modelProduct.getShopProductById(id, function (product, similarProductList) {
+    res.json({
+      product: product,
+      similarProductList: similarProductList
+    });
   });
 })
 

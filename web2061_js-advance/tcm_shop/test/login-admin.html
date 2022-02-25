@@ -2,18 +2,23 @@
 <html lang="en">
 
 <head>
-  <%- include('./module/website-info.ejs') %>
-  <%- include('./module/general-link.ejs') %>
-  <link rel="stylesheet" href="/stylesheets/admin/login.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM Shop</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/login.css">
 </head>
 
 <body>
   <main class="login">
-    <form class="login-form rounded-2" id="loginForm" method="POST"
-      action="http://localhost:3000/user/check-admin-login">
+    <form class="login-form rounded-2" id="loginForm">
       <div class="form-group mb-2">
         <div class="login-logo rounded-1">
-          <img src="/images/base/logo.png" alt="Logo">
+          <img src="../public/images/base/logo.png" alt="">
         </div>
       </div>
 
@@ -24,8 +29,7 @@
             Username
           </label>
           <div class="input-with-icon-group">
-            <input type="text" class="form-control" name="userName" id="userName" placeholder="User name"
-              <% if (typeof(userName) !== 'undefined') { %> value="<%= userName %>" <% } %>>
+            <input type="text" class="form-control" id="userName" placeholder="User name">
             <div class="validate-icon"></div>
           </div>
           <span class="invalid-feedback d-none">
@@ -42,8 +46,7 @@
             Password
           </label>
           <div class="input-with-icon-group">
-            <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="User password"
-              <% if (typeof(userPassword) !== 'undefined') { %> value="<%= userPassword %>" <% } %>>
+            <input type="password" class="form-control" id="userPassword" placeholder="User password">
             <div class="validate-icon"></div>
           </div>
           <span class="invalid-feedback d-none">
@@ -54,19 +57,13 @@
       <!-- end user password -->
 
       <div class="form-group">
-        <button class="btn-primary col-12 text-uppercase" id="submitLogin">
+        <button class="btn-primary col-12 text-uppercase" id="submitLogin" disabled>
           Verify admin
         </button>
-        <% if (typeof(notification) !== 'undefined') { %>
-        <div class="invalid-feedback text-center mt-2">
-          <%= notification %>
-        </div>
-        <% } %>
       </div>
     </form>
   </main>
-
-  <script type="module" src="../javascripts/admin/login.js"></script>
+  <script type="module" src="../public/javascripts/admin/login.js"></script>
 </body>
 
 </html>

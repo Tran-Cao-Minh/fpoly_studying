@@ -8,7 +8,8 @@ exports.checkLogin = function (
     `
       SELECT 
         PkUser_Id,
-        UserPassword
+        UserPassword,
+        FkUserRole_Id
       FROM 
         user
       WHERE 
