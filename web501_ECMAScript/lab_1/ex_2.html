@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2 Use ES6 Object Literal to optimal code</title>
+</head>
+<body>
+  <script>
+    const Person = {
+      createInformation (
+        name = String(),
+        age = Number()
+      ) {
+        this.name = name;
+        this.age = age;
+      },
+      sayHello() {
+        console.log(`I'm ${this.name}. I'm ${this.age}.`);
+      }
+    };
+
+    const Hung = Object.create(Person);
+    Hung.createInformation('Hung', 36);
+    Hung.sayHello();
+
+    const Tuan = Object.create(Person);
+    Tuan.createInformation('Tuan', 27);
+    Tuan.sayHello();
+  </script>
+</body>
+</html>
