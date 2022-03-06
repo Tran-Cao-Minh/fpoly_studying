@@ -16,7 +16,7 @@ db.connect(function () {
 
 // render view
 router.get('/test-view', function (req, res) {
-  res.render();
+  res.render('test-view');
 })
 
 // create API
