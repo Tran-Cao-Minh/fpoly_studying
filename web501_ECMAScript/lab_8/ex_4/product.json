@@ -1,0 +1,21 @@
+{
+  "products": [{
+      "id": 1,
+      "productName": "iPhone 12 mini",
+      "price": "900",
+      "description": "iPhone 12 mini smartphone was launched on 13th October 2020. The phone comes with something"
+    },
+    {
+      "id": 2,
+      "productName": "Galaxy Note 20 Ultra",
+      "price": "1200",
+      "description": "The Galaxy Note 20 Ultra boasts a huge 6.9-inch display with a dynamic 120hx refresh"
+    },
+    {
+      "id": 3,
+      "productName": "Huawei Mate 30 Pro",
+      "price": "1400",
+      "description": "Huawei Mate 30 Pro is powered by a 1.86GHz octa-core HiSilicon Kirin 990 processor"
+    }
+  ]
+}
