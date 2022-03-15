@@ -28,7 +28,7 @@ const getPokemonDetailList = (pokemonData) => __awaiter(this, void 0, void 0, fu
             id: data.id,
             name: data.name.toUpperCase(),
             image: data.sprites.other.dream_world.front_default,
-            type: data.types[0].type.name
+            type: data.types[0].type.name.toUpperCase()
         };
         return Pokemon;
     })));
@@ -43,6 +43,7 @@ const suffleArray = (array) => {
         [array[currentIndex], array[randomIndex]]
             = [array[randomIndex], array[currentIndex]];
     }
+    ;
     return array;
 };
 (function showPokemonData(quantity) {
