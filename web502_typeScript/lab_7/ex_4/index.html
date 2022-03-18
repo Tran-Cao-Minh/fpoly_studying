@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./style.css">
+
+  <title>Learning TypeScript</title>
+</head>
+
+<body>
+  <main>
+    <h1 class="text rounded">Typed Pokedex</h1>
+    <form id="login">
+      <h2 class="text">
+        Login
+      </h2>
+      <div class="form-group">
+        <label class="text" for="userName">Username</label>
+        <input required type="text" name="userName" id="userName">
+      </div>
+      <button type="submit" class="text mt-1">
+        Start
+      </button>
+    </form>
+    <div id="app" class="pokemon-list d-none">
+      <div class="userNameContainer text">
+        User name: <span id="userNameText"></span>
+      </div>
+      <!-- add content by js -->
+    </div>
+  </main>
+  <script type="module" src="./dist/src/app.js"></script>
+</body>
+
+</html>
