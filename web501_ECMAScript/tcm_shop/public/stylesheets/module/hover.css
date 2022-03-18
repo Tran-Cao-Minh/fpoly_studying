@@ -1,0 +1,7 @@
+.hover-bg-white:hover {
+  background-color: var(--bg-hover);
+}
+
+.hover-pointer {
+  cursor: pointer;
+}

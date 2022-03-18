@@ -1,0 +1,150 @@
+/* background */
+.bg-white {
+  background-color: var(--white);
+}
+
+.bg-body {
+  background-color: var(--bg-body);
+}
+
+.bg-primary {
+  background-color: var(--primary-color);
+}
+
+.bg-white-blur {
+  background-color: var(--white-blur);
+}
+
+.bg-light-blue {
+  background-color: var(--bg-light-blue);
+}
+
+/* end background */
+
+/* border-radius */
+.rounded-1 {
+  border-radius: 0.25rem !important;
+}
+
+.rounded-2 {
+  border-radius: 0.5rem !important;
+}
+
+.rounded-top {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.rounded-bottom {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+.rounded-end {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+}
+
+.rounded-start {
+  border-top-right-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+/* end border-radius */
+
+/* margin */
+[class*='m'] {
+  --space: 0.25rem;
+}
+
+.ms-1 {
+  margin-left: var(--space) !important;
+}
+
+.me-1 {
+  margin-right: var(--space) !important;
+}
+
+.mt-1 {
+  margin-top: var(--space) !important;
+}
+
+.mb-1 {
+  margin-bottom: var(--space) !important;
+}
+
+.ms-2 {
+  margin-left: calc(var(--space) * 2) !important;
+}
+
+.me-2 {
+  margin-right: calc(var(--space) * 2) !important;
+}
+
+.mt-2 {
+  margin-top: calc(var(--space) * 2) !important;
+}
+
+.mb-2 {
+  margin-bottom: calc(var(--space) * 2) !important;
+}
+
+.ms-4 {
+  margin-left: calc(var(--space) * 4) !important;
+}
+
+.me-4 {
+  margin-right: calc(var(--space) * 4) !important;
+}
+
+.mt-4 {
+  margin-top: calc(var(--space) * 4) !important;
+}
+
+.mb-4 {
+  margin-bottom: calc(var(--space) * 4) !important;
+}
+
+/* end margin */
+
+/* display */
+.d-none {
+  display: none !important;
+}
+
+.w-full {
+  width: 100% !important;
+}
+
+.d-flex {
+  display: flex !important;
+}
+
+/* .flex-strecth-full-width {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+} */
+
+.justify-content-center {
+  justify-content: center;
+}
+
+.justify-content-space-between {
+  justify-content: space-between;
+}
+.justify-content-space-around {
+  justify-content: space-around;
+}
+
+
+/* 
+.justify-content-start {
+  justify-content: flex-start;
+}
+
+.justify-content-end {
+  justify-content: flex-end;
+} */
+
+/* end display */

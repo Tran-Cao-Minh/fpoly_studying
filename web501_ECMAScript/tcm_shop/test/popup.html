@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>popup test</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
+</head>
+
+<body>
+  <!-- <div class="popup">
+    <div class="popup-wrapper">
+      <div class="popup-content">
+        <div class="popup-body">
+          <div class="popup-icon-wrapper--danger">
+            <i class="fa-solid fa-exclamation popup-icon"></i>
+          </div>
+          <div class="text text-center mt-2 mb-4 w-full">
+            Are you sure to delete category - Business ?
+            <br>
+            (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted
+          </div>
+        </div>
+        <div class="popup-actions">
+          <button class="btn-danger col-5 mt-4 text-uppercase">
+            Confirm
+          </button>
+          <button class="btn-cancel col-5 mt-4 text-uppercase">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <script type="module">
+    import {
+      ConfirmDangerActionPopupCreator
+    } from '../public/javascripts/class/popup-creator.js';
+ 
+    let test = new ConfirmDangerActionPopupCreator('Delete');
+    test.createConfirmDangerActionPopup(
+      `Are you sure to delete category - Business ?
+        <br>
+      (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted`,
+      function () {
+        console.log(1);
+      },
+    );
+    test.createConfirmDangerActionPopup(
+      `Are you sure to delete category - Business ?
+        <br>
+      (<span class="text-danger fw-bold">*</span>) Category quantity must be 0 to deleted`,
+      function () {
+        console.log(1);
+      },
+    );
+  </script>
+</body>
+
+</html>

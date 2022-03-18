@@ -1,0 +1,109 @@
+<aside id="sidebar" class="active bg-white">
+  <div class="sidebar__tablet-overlay js-sidebar-toggle"></div>
+
+  <header class="sidebar__header">
+    <div class="sidebar__logo">
+      <span>
+        <img src="/images/base/logo.png" alt="logo">
+      </span>
+    </div>
+    <button type="button" class="sidebar__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+      <i class="fa-solid fa-times sidebar__close-icon text-icon"></i>
+    </button>
+  </header>
+
+  <section class="sidebar__body">
+    <ul class="sidebar__menu">
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <span class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+            --font-size: 1.15rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Category</span>
+        </span>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/category-overview" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Category Overview">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/add-category" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Add Category">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <span class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-book sidebar__item-icon text-icon" style="
+            --font-size: 1.1rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Product</span>
+        </span>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/product-overview" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Product Overview">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/add-product" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Add Product">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li class="sidebar__item">
+        <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-receipt sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Order</span>
+        </a>
+      </li>
+      <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-user sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">User</span>
+        </a>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Add</span>
+            </a>
+          </li>
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/mail-to-user" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Mail to User"
+            >
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Mail</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </section>
+</aside>
