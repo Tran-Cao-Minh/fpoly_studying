@@ -1,4 +1,43 @@
-function DataInteractor(
+class DataInteractor {
+  constructor(
+    fetchLink = String(),
+    fetchMethod = String()
+  ) {
+    this.fetchLink = fetchLink;
+    this.fetchMethod = fetchMethod;
+  }
+}
+
+export class DataReader extends DataInteractor {
+  constructor(
+    fetchLink = String()
+  ) {
+    super(fetchLink, 'GET');
+  }
+
+  readData = (
+    callbackFn = Function(data = Object()),
+  ) => {
+    fetch(this.fetchLink, {
+        method: this.fetchMethod,
+      })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error('Error = ' + res.status);
+        };
+
+        return res.json();
+
+      }).then((data) => {
+        callbackFn(data);
+      })
+    // .catch((error) => {
+    //   console.log('error: ' + error);
+    // });
+  };
+}
+
+function DataInteractorFunction(
   fetchLink = String(),
   fetchMethod = String(),
 ) {
@@ -6,62 +45,10 @@ function DataInteractor(
   this.fetchMethod = fetchMethod;
 }
 
-export function DataReader(
-  fetchLink = String(),
-) {
-  DataInteractor.call(this, fetchLink, 'GET');
-
-  this.readData = function (
-    fetchBody = Object(),
-    callbackFn = Function(data = Object()),
-  ) {
-    let fetchMethod = this.fetchMethod;
-
-    let fetchLink = this.fetchLink;
-
-    if (fetchBody !== null) {
-      let getMethodPrameter = '';
-      Object.entries(fetchBody).forEach(parameter => {
-        let key = parameter[0];
-        let value = parameter[1];
-  
-        if (typeof (value) !== 'object') {
-          getMethodPrameter += `&${key}=${value}`;
-  
-        } else {
-          value.forEach(item => {
-            getMethodPrameter += `&${key}[]=${item}`;
-          });
-        };
-      });
-      getMethodPrameter =
-        getMethodPrameter.replace(/&/, '?'); // replace first '&' character with '?'
-      fetchLink += getMethodPrameter;
-    };
-
-    fetch(fetchLink, {
-        method: fetchMethod,
-      })
-      .then(function (res) {
-        if (!res.ok) {
-          throw new Error('error = ' + res.status);
-        };
-
-        return res.json();
-
-      }).then(function (data) {
-        callbackFn(data);
-      })
-    // .catch(function (error) {
-    //   console.log('error: ' + error);
-    // });
-  };
-}
-
 export function DataDeleter(
   fetchLink = String(),
 ) {
-  DataInteractor.call(this, fetchLink, 'DELETE');
+  DataInteractorFunction.call(this, fetchLink, 'DELETE');
 
   this.deleteData = function (
     id = String(),
@@ -92,7 +79,7 @@ export function DataDeleter(
 export function DataAdder(
   fetchLink = String(),
 ) {
-  DataInteractor.call(this, fetchLink, 'POST');
+  DataInteractorFunction.call(this, fetchLink, 'POST');
 
   this.addData = function (
     formData = Object(),
@@ -138,7 +125,7 @@ export function DataAdder(
 export function DataUpdater(
   fetchLink = String(),
 ) {
-  DataInteractor.call(this, fetchLink, 'PUT');
+  DataInteractorFunction.call(this, fetchLink, 'PUT');
 
   this.updateData = function (
     id = String(),

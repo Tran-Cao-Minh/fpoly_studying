@@ -1,86 +1,115 @@
-export function TableCreator(
-  tableContainer = Node(),
-  addTableButtonEvent = Function() || null,
-  tableColumnList = [{
-    name: String(),
-    key: String(),
-    width: String(),
-    formatFunction: Function() || undefined,
-    formatPrameterKeyList: Array(String()) || undefined,
-  }],
-  widthUnit = String(),
-) {
-  this.tableContainer = tableContainer;
-  this.addTableButtonEvent = addTableButtonEvent;
-  this.tableColumnList = tableColumnList;
-  this.widthUnit = widthUnit;
+export class TableCreator {
+  constructor (
+    tableContainer = Node(),
+    addTableButtonEvent = Function() || null,
+    tableColumnList = [{
+      name: String(), 
+      key: String(),
+      width: String(),
+      formatFunction: Function() || undefined,
+      formatPrameterKeyList: Array(String()) || undefined,
+    }],
+    widthUnit = String()
+  ) {
+    this.tableContainer = tableContainer;
+    this.addTableButtonEvent = addTableButtonEvent;
+    this.tableColumnList = tableColumnList;
+    this.widthUnit = widthUnit;
+  }
 
-  this.convertData = function (data) {
+  convertData = (data) => {
     this.tableContainer.innerHTML = '';
+    const tableColumnList = this.tableColumnList;
+    const widthUnit = this.widthUnit;
 
-    let tableRow = document.createElement('tr');
-    this.tableColumnList.forEach(column => {
-      let th = document.createElement('th');
-      th.style.width = column.width + this.widthUnit;
-      th.innerHTML = column.name;
-
-      tableRow.appendChild(th);
-    });
-    let tableHeader = document.createElement('thead');
-    tableHeader.appendChild(tableRow);
-
-    let tableBody = document.createElement('tbody');
-    if (data.length === 0) {
-      let tableRow = document.createElement('tr');
-      let td = document.createElement('td');
-      let fullWidth = 0;
+    const tableHeader = (() => {
+      const tableRow = document.createElement('tr');
       tableColumnList.forEach(column => {
-        fullWidth += column.width;
+        const th = document.createElement('th');
+        th.style.width = column.width + this.widthUnit;
+        th.innerHTML = column.name;
+  
+        tableRow.appendChild(th);
       });
-      td.style.width = fullWidth + this.widthUnit;
-      td.style.textAlign = 'center';
-      td.innerHTML = 'NO DATA MATCHES THE FILTER CONDITION ~';
+      const tableHeader = document.createElement('thead');
+      tableHeader.appendChild(tableRow);
 
-      tableRow.appendChild(td);
-      tableBody.appendChild(tableRow);
+      return tableHeader;
+    })();
 
-    } else {
-      data.forEach((row, index, data) => {
-        this.tableColumnList.forEach(column => {
-          if (
-            column.formatFunction !== undefined &&
-            column.formatPrameterKeyList.length === 1
-          ) {
-            data[index][column.key] =
-              column.formatFunction(row[column.formatPrameterKeyList[0]]);
+    const tableBody = (() => {
+      const tableBody = document.createElement('tbody');
 
-          } else if (
-            column.formatFunction !== undefined &&
-            column.formatPrameterKeyList.length > 1
-          ) {
-            let parameterList = [];
-            column.formatPrameterKeyList.forEach(formatPrameterKey => {
-              parameterList.push(row[formatPrameterKey]);
-            });
-            data[index][column.key] = column.formatFunction(parameterList);
-          };
-        });
-      });
-
-      data.forEach(row => {
-        let tableRow = document.createElement('tr');
-
+      const rowQuantity = Object.keys(data).length;
+      if (rowQuantity === 0) {
+        const tableRow = document.createElement('tr');
+  
+        const td = document.createElement('td');
+        let fullWidth = 0;
         tableColumnList.forEach(column => {
-          let td = document.createElement('td');
-          td.style.width = column.width + this.widthUnit;
-          td.innerHTML = row[column.key];
-
-          tableRow.appendChild(td);
+          fullWidth += column.width;
         });
-
+        td.style.width = fullWidth + widthUnit;
+        td.style.textAlign = 'center';
+        td.innerHTML = 'NO DATA MATCHES THE FILTER CONDITION ~';
+  
+        tableRow.appendChild(td);
         tableBody.appendChild(tableRow);
-      });
-    };
+  
+      } else if (rowQuantity > 0) {
+        const rowKeyList = Object.keys(data);
+  
+        (function changeDataWithFormat() {
+          rowKeyList.forEach(key => {
+            const row = data[key];
+    
+            tableColumnList.forEach(column => {
+              if (
+                column.formatFunction !== undefined &&
+                column.formatPrameterKeyList.length === 1
+              ) {
+                const columnFormatKey = column.formatPrameterKeyList[0];
+                const columnWithFormat =
+                  column.formatFunction(row[columnFormatKey]);
+    
+                row[column.key] = columnWithFormat;
+    
+              } else if (
+                column.formatFunction !== undefined &&
+                column.formatPrameterKeyList.length > 1
+              ) {
+                const parameterList = [];
+                column.formatPrameterKeyList.forEach(formatPrameterKey => {
+                  parameterList.push(row[formatPrameterKey]);
+                });
+    
+                row[column.key] = column.formatFunction(parameterList);
+              };
+            });
+          });
+        })();
+  
+        (function addTableBodyData () {
+          rowKeyList.forEach(key => {
+            const row = data[key];
+    
+            const tableRow = document.createElement('tr');
+    
+            tableColumnList.forEach(column => {
+              const td = document.createElement('td');
+              td.style.width = column.width + widthUnit;
+              td.innerHTML = row[column.key];
+    
+              tableRow.appendChild(td);
+            });
+    
+            tableBody.appendChild(tableRow);
+          });
+        })();
+      };
+
+      return tableBody;
+    })();
 
     this.tableContainer.appendChild(tableHeader);
     this.tableContainer.appendChild(tableBody);
@@ -88,5 +117,7 @@ export function TableCreator(
     if (this.addTableButtonEvent !== null) {
       this.addTableButtonEvent();
     };
+
+    // console.log(data);
   }
 };

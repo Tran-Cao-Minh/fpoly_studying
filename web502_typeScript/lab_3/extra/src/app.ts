@@ -59,44 +59,74 @@ class ManageEmployee {
     form.addEventListener('submit', (ev: SubmitEvent) => {
       ev.preventDefault();
 
-      const employee: Employee = {
-        'employeeID': form.employeeID.value,
-        'fullName': form.fullName.value,
-        'club': form.club.value,
-        'salary': Number(form.salary.value),
-        'bonus': Number(form.bonus.value),
-        'subsidize': Number(form.subsidize.value),
-        'note': form.note.value,
-      };
-      const formData = JSON.stringify(employee);
-
       fetch(this.empoloyeesDataURL, {
-        method: 'POST',
-        body: formData
+        method: 'GET'
       })
         .then(response => {
           if (response.status === 200) {
-            console.log('Add data completed');
-            alert('Add data completed');
-
-            const tr = document.createElement('tr');
-            tr.innerHTML = `
-                <td>${employee.employeeID}</td>
-                <td>${employee.fullName}</td>
-                <td>${employee.salary}</td>
-                <td>${employee.bonus}</td>
-                <td>${employee.subsidize}</td>
-            `;
+            return response.json();
   
-            this.employeesTableBody.appendChild(tr);
-
-            form.reset();
-
           } else {
-            console.log(`Add data failed - Error: ${response.status}`);
-            alert('Add data failed');
+            throw new Error(`${response.status}`);
           };
-        });
+        })
+        .then(data => {
+          let checkExist: boolean;
+
+          Object.keys(data).forEach(key => {
+            const row = data[key];
+
+            if (row.fullName === form.fullName.value) {
+              checkExist = true;
+            };
+          });
+
+          if (checkExist === true) {
+            alert('Add data failed - duplicate employee full name');
+            
+          } else {
+
+            const employee: Employee = {
+              'employeeID': form.employeeID.value,
+              'fullName': form.fullName.value,
+              'club': form.club.value,
+              'salary': Number(form.salary.value),
+              'bonus': Number(form.bonus.value),
+              'subsidize': Number(form.subsidize.value),
+              'note': form.note.value,
+            };
+            const formData = JSON.stringify(employee);
+      
+            fetch(this.empoloyeesDataURL, {
+              method: 'POST',
+              body: formData
+            })
+              .then(response => {
+                if (response.status === 200) {
+                  console.log('Add data completed');
+                  alert('Add data completed');
+      
+                  const tr = document.createElement('tr');
+                  tr.innerHTML = `
+                      <td>${employee.employeeID}</td>
+                      <td>${employee.fullName}</td>
+                      <td>${employee.salary}</td>
+                      <td>${employee.bonus}</td>
+                      <td>${employee.subsidize}</td>
+                  `;
+        
+                  this.employeesTableBody.appendChild(tr);
+      
+                  form.reset();
+      
+                } else {
+                  console.log(`Add data failed - Error: ${response.status}`);
+                  alert('Add data failed');
+                };
+              });
+          };
+        })
+        .catch(console.log);
     });
   }
 

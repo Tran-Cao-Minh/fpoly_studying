@@ -1,18 +1,17 @@
 ;
-var ManageEmployee = /** @class */ (function () {
-    function ManageEmployee(areaList, swapAreaBtnList, addEmployeeForm, employeesTableBody) {
-        var _this = this;
+class ManageEmployee {
+    constructor(areaList, swapAreaBtnList, addEmployeeForm, employeesTableBody) {
         this.empoloyeesDataURL = 'https://lab-3-ts-default-rtdb.firebaseio.com/employees.json';
-        this.swapArea = function () {
-            _this.swapAreaBtnList.forEach(function (btn) {
-                btn.addEventListener('click', function () {
-                    _this.swapAreaBtnList.forEach(function (btn) {
+        this.swapArea = () => {
+            this.swapAreaBtnList.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    this.swapAreaBtnList.forEach(btn => {
                         btn.classList.add('btn-light');
                         btn.classList.remove('btn-primary');
                     });
                     btn.classList.add('btn-primary');
                     btn.classList.remove('btn-light');
-                    _this.areaList.forEach(function (area) {
+                    this.areaList.forEach(area => {
                         if (area.dataset.name === btn.dataset.name) {
                             area.classList.remove('d-none');
                         }
@@ -24,62 +23,104 @@ var ManageEmployee = /** @class */ (function () {
                 });
             });
         };
-        this.createAddEmployeeEvent = function () {
-            var form = _this.addEmployeeForm;
-            form.addEventListener('submit', function (ev) {
+        this.createAddEmployeeEvent = () => {
+            const form = this.addEmployeeForm;
+            form.addEventListener('submit', (ev) => {
                 ev.preventDefault();
-                var employee = {
-                    'employeeID': form.employeeID.value,
-                    'fullName': form.fullName.value,
-                    'club': form.club.value,
-                    'salary': Number(form.salary.value),
-                    'bonus': Number(form.bonus.value),
-                    'subsidize': Number(form.subsidize.value),
-                    'note': form.note.value
-                };
-                var formData = JSON.stringify(employee);
-                fetch(_this.empoloyeesDataURL, {
-                    method: 'POST',
-                    body: formData
+                fetch(this.empoloyeesDataURL, {
+                    method: 'GET'
                 })
-                    .then(function (response) {
+                    .then(response => {
                     if (response.status === 200) {
-                        console.log('Add data completed');
-                        alert('Add data completed');
-                        var tr = document.createElement('tr');
-                        tr.innerHTML = "\n                <td>".concat(employee.employeeID, "</td>\n                <td>").concat(employee.fullName, "</td>\n                <td>").concat(employee.salary, "</td>\n                <td>").concat(employee.bonus, "</td>\n                <td>").concat(employee.subsidize, "</td>\n            ");
-                        _this.employeesTableBody.appendChild(tr);
-                        form.reset();
+                        return response.json();
                     }
                     else {
-                        console.log("Add data failed - Error: ".concat(response.status));
-                        alert('Add data failed');
+                        throw new Error(`${response.status}`);
                     }
                     ;
-                });
+                })
+                    .then(data => {
+                    let checkExist;
+                    Object.keys(data).forEach(key => {
+                        const row = data[key];
+                        if (row.fullName === form.fullName.value) {
+                            checkExist = true;
+                        }
+                        ;
+                    });
+                    if (checkExist === true) {
+                        alert('Add data failed - duplicate employee full name');
+                    }
+                    else {
+                        const employee = {
+                            'employeeID': form.employeeID.value,
+                            'fullName': form.fullName.value,
+                            'club': form.club.value,
+                            'salary': Number(form.salary.value),
+                            'bonus': Number(form.bonus.value),
+                            'subsidize': Number(form.subsidize.value),
+                            'note': form.note.value,
+                        };
+                        const formData = JSON.stringify(employee);
+                        fetch(this.empoloyeesDataURL, {
+                            method: 'POST',
+                            body: formData
+                        })
+                            .then(response => {
+                            if (response.status === 200) {
+                                console.log('Add data completed');
+                                alert('Add data completed');
+                                const tr = document.createElement('tr');
+                                tr.innerHTML = `
+                      <td>${employee.employeeID}</td>
+                      <td>${employee.fullName}</td>
+                      <td>${employee.salary}</td>
+                      <td>${employee.bonus}</td>
+                      <td>${employee.subsidize}</td>
+                  `;
+                                this.employeesTableBody.appendChild(tr);
+                                form.reset();
+                            }
+                            else {
+                                console.log(`Add data failed - Error: ${response.status}`);
+                                alert('Add data failed');
+                            }
+                            ;
+                        });
+                    }
+                    ;
+                })
+                    .catch(console.log);
             });
         };
-        this.showEmployeeList = function () {
-            fetch(_this.empoloyeesDataURL, {
+        this.showEmployeeList = () => {
+            fetch(this.empoloyeesDataURL, {
                 method: 'GET'
             })
-                .then(function (response) {
+                .then(response => {
                 if (response.status === 200) {
                     return response.json();
                 }
                 else {
-                    throw new Error("".concat(response.status));
+                    throw new Error(`${response.status}`);
                 }
                 ;
             })
-                .then(function (data) {
-                Object.keys(data).forEach(function (key) {
-                    var row = data[key];
-                    var tr = document.createElement('tr');
-                    tr.innerHTML = "\n              <td>".concat(row.employeeID, "</td>\n              <td>").concat(row.fullName, "</td>\n              <td>").concat(row.salary, "</td>\n              <td>").concat(row.bonus, "</td>\n              <td>").concat(row.subsidize, "</td>\n          ");
-                    _this.employeesTableBody.appendChild(tr);
+                .then(data => {
+                Object.keys(data).forEach(key => {
+                    const row = data[key];
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+              <td>${row.employeeID}</td>
+              <td>${row.fullName}</td>
+              <td>${row.salary}</td>
+              <td>${row.bonus}</td>
+              <td>${row.subsidize}</td>
+          `;
+                    this.employeesTableBody.appendChild(tr);
                 });
-            })["catch"](console.log);
+            })
+                .catch(console.log);
         };
         this.areaList = areaList;
         this.swapAreaBtnList = swapAreaBtnList;
@@ -89,9 +130,8 @@ var ManageEmployee = /** @class */ (function () {
         this.employeesTableBody = employeesTableBody;
         this.showEmployeeList();
     }
-    return ManageEmployee;
-}());
-var manageEmployee = new ManageEmployee([
+}
+const manageEmployee = new ManageEmployee([
     document.querySelector('#updateArea'),
     document.querySelector('#listArea')
 ], [

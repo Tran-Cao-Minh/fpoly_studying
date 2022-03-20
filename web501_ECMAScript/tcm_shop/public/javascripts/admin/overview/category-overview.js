@@ -21,15 +21,15 @@ let columnList = [{
 ];
 
 let defaultColumnOptionValue = 'CategoryName';
-let dataFetchLink = 'http://localhost:3000/category/';
+let dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories.json';
 
 function addTableButtonEvent() {
-  let deleteButtonList = document.querySelectorAll('.js-delete-data');
+  const deleteButtonList = document.querySelectorAll('.js-delete-data');
 
   deleteButtonList.forEach(deleteButton => {
     deleteButton.addEventListener('click', function () {
-      let categoryName = deleteButton.dataset.name;
-      let categoryId = deleteButton.dataset.id;
+      const categoryName = deleteButton.dataset.name;
+      const categoryId = deleteButton.dataset.id;
       confirmDeletePopupCreator.createConfirmDangerActionPopup(
         `
           Are you sure to delete Category - ${categoryName} ?
@@ -162,12 +162,12 @@ let tableColumnList = [{
   },
   {
     name: 'Handle',
-    key: 'CategoryId',
+    key: 'CategoryKey',
     width: 7,
-    formatFunction: function (
+    formatFunction: (
       [id = String(), name = String()]
-    ) {
-      let deleteBtn = tableDeleteButtonFormatter.formatButton(
+    ) => {
+      const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
           key: 'id',
           value: id
@@ -176,11 +176,11 @@ let tableColumnList = [{
           value: name
         }]
       );
-      let updateBtn = tableUpdateLinkFormatter.formatLink(id);
+      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
       return deleteBtn + updateBtn;
     },
     formatPrameterKeyList: [
-      'CategoryId',
+      'CategoryKey',
       'CategoryName'
     ],
   },
@@ -270,7 +270,7 @@ let filterInformation = {
   'pageNum': 1
 };
 
-let tableCreator = new TableCreator(
+const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
@@ -289,59 +289,63 @@ const tablePagingLinkCreator = new PagingLinkCreator(
   5,
 );
 
-function changeTableData(
+const changeTableData = (
   filterInformation = Object(),
   changePageNum = Boolean(),
-) {
-  tableDataReader.readData(
-    filterInformation,
-    function (result) {
-      console.log(JSON.stringify(result.data));
-      tableCreator.convertData(result.data);
-      tablePagingLinkCreator.changePagingLink(
-        filterInformation.pageNum,
-        filterInformation.resultQuantity,
-        result.total,
-        function (pageNum) {
-          filterInformation.pageNum = pageNum;
-          changeTableData(filterInformation, true);
+) => {
+  const changeTableDataCallback = (result = Object()) => {
+    // console.log(result);
 
-          document.querySelector('#js-table-container').scrollIntoView();
-        },
-      );
+    tableCreator.convertData(result);
+    tablePagingLinkCreator.changePagingLink(
+      filterInformation.pageNum,
+      filterInformation.resultQuantity,
+      result.total,
+      (pageNum) => {
+        filterInformation.pageNum = pageNum;
+        changeTableData(filterInformation, true);
 
-      let toastifyDisplayTime = 2;
-      if (changePageNum === false) {
-        if (result.total > 1) {
-          tableDataToastify.createToast(
-            'success',
-            `Filter data successully return ${result.total} rows result`,
-            toastifyDisplayTime,
-          );
-        } else if (result.total === 1) {
-          tableDataToastify.createToast(
-            'success',
-            `Filter data successully return 1 row result`,
-            toastifyDisplayTime,
-          );
+        document.querySelector('#js-table-container').scrollIntoView();
+      },
+    );
 
-        } else {
-          tableDataToastify.createToast(
-            'warning',
-            `No suitable data`,
-            toastifyDisplayTime,
-          );
-        };
-      } else {
+    const toastifyDisplayTime = 2;
+    if (changePageNum === false) {
+      const resultQuantity = Object.keys(result).length;
+      // console.log(resultQuantity);
+      if (resultQuantity > 1) {
         tableDataToastify.createToast(
           'success',
-          `Switch to page ${filterInformation.pageNum} completed`,
+          `Filter data successully return ${resultQuantity} rows result`,
+          toastifyDisplayTime,
+        );
+      } else if (resultQuantity === 1) {
+        tableDataToastify.createToast(
+          'success',
+          `Filter data successully return 1 row result`,
+          toastifyDisplayTime,
+        );
+
+      } else {
+        tableDataToastify.createToast(
+          'warning',
+          `No suitable data`,
           toastifyDisplayTime,
         );
       };
-    },
+    } else {
+      tableDataToastify.createToast(
+        'success',
+        `Switch to page ${filterInformation.pageNum} completed`,
+        toastifyDisplayTime,
+      );
+    };
+  };
+
+  tableDataReader.readData(
+    changeTableDataCallback
   );
-}
+};
 changeTableData(filterInformation, false);
 
 let confirmSearchButton = document.querySelector('#js-confirm-search-button');
