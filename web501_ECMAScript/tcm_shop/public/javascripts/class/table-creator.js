@@ -9,7 +9,7 @@ export class TableCreator {
       formatFunction: Function() || undefined,
       formatPrameterKeyList: Array(String()) || undefined,
     }],
-    widthUnit = String()
+    widthUnit = String() // 'rem', 'px'
   ) {
     this.tableContainer = tableContainer;
     this.addTableButtonEvent = addTableButtonEvent;
@@ -40,7 +40,7 @@ export class TableCreator {
     const tableBody = (() => {
       const tableBody = document.createElement('tbody');
 
-      const rowQuantity = Object.keys(data).length;
+      const rowQuantity = data.length;
       if (rowQuantity === 0) {
         const tableRow = document.createElement('tr');
   
@@ -57,12 +57,8 @@ export class TableCreator {
         tableBody.appendChild(tableRow);
   
       } else if (rowQuantity > 0) {
-        const rowKeyList = Object.keys(data);
-  
         (function changeDataWithFormat() {
-          rowKeyList.forEach(key => {
-            const row = data[key];
-    
+          data.forEach(row => {
             tableColumnList.forEach(column => {
               if (
                 column.formatFunction !== undefined &&
@@ -90,9 +86,7 @@ export class TableCreator {
         })();
   
         (function addTableBodyData () {
-          rowKeyList.forEach(key => {
-            const row = data[key];
-    
+          data.forEach(row => {
             const tableRow = document.createElement('tr');
     
             tableColumnList.forEach(column => {

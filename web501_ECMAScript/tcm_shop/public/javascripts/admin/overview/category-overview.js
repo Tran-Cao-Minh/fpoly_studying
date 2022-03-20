@@ -1,4 +1,39 @@
-let columnList = [{
+import {
+  LinkFormatter,
+  ButtonFormatter,
+} from '../../class/data-formatter.js';
+import {
+  ToastCreator
+} from '../../class/toast-creator.js';
+import {
+  DataDeleter
+} from '../../class/data-interactor.js';
+import {
+  ConfirmDangerActionPopupCreator
+} from '../../class/popup-creator.js';
+import {
+  Suggester
+} from '../../class/suggester.js';
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+import {
+  adminFilterCustomSelectCreator
+} from './modules/create-custom-select.js';
+import {
+  searchAssistantCreator
+} from './modules/create-search-assistant.js';
+import {
+  TableCreator
+} from '../../class/table-creator.js';
+import {
+  tablePagingLinkCreator
+} from './modules/tablePagingLinkCreator.js';
+
+// different
+const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories.json';
+
+const columnList = [{
     name: 'Name',
     key: 'CategoryName',
     type: 'text',
@@ -17,19 +52,112 @@ let columnList = [{
     name: 'Quantity',
     key: 'CategoryProductQuantity',
     type: 'number',
-  },
+  }
 ];
+const defaultColumnOptionValue = 'CategoryName';
 
-let defaultColumnOptionValue = 'CategoryName';
-let dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories.json';
+const tableDataDeleter = new DataDeleter(dataFetchLink);
+const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 
-function addTableButtonEvent() {
+const addTableButtonEvent = () => {
   const deleteButtonList = document.querySelectorAll('.js-delete-data');
 
   deleteButtonList.forEach(deleteButton => {
     deleteButton.addEventListener('click', function () {
       const categoryName = deleteButton.dataset.name;
       const categoryId = deleteButton.dataset.id;
+
+      const deleteCategory = () => {
+        tableDataDeleter.deleteData(
+          categoryId,
+          (data) => {
+            if (data === null) {
+              tableDataToastify.createToast(
+                'success',
+                `Delete Category - ${categoryName} completed`,
+                2
+              );
+
+            } else {
+              tableDataToastify.createToast(
+                'danger',
+                `Delete Category - ${categoryName} failed`,
+                2
+              );
+            }
+
+            (function changeTableData() {
+              if (result.data.length > 0) {
+                tableCreator.convertData(result.data);
+
+                tablePagingLinkCreator.changePagingLink(
+                  filterInformation.pageNum,
+                  filterInformation.resultQuantity,
+                  result.total,
+                  (pageNum) => {
+                    filterInformation.pageNum = pageNum;
+                    changeTableData(filterInformation, true);
+                  }
+                );
+
+              } else {
+                --filterInformation.pageNum;
+                changeTableData();
+              };
+
+              // tableDataReader.readData(
+              //   filterInformation,
+              //   (result) => {
+              //     if (result.data.length > 0) {
+              //       tableCreator.convertData(result.data);
+
+              //       tablePagingLinkCreator.changePagingLink(
+              //         filterInformation.pageNum,
+              //         filterInformation.resultQuantity,
+              //         result.total,
+              //         function (pageNum) {
+              //           filterInformation.pageNum = pageNum;
+              //           changeTableData(filterInformation, true);
+              //         },
+              //       );
+
+              //     } else {
+              //       --filterInformation.pageNum;
+              //       changeTableData();
+              //     };
+              //   },
+              // );
+            })();
+
+            // (function updateSearchSuggestData() {
+            //   tableDataReader.readData({
+            //       'columnList': [
+            //         searchColumnSelect.getAttribute('value'),
+            //       ],
+            //       'searchValue': '',
+            //       'searchMode': 'searchByValue',
+            //       'searchColumn': searchColumnSelect.getAttribute('value'),
+            //       'orderRule': 'ASC',
+            //       'orderColumn': searchColumnSelect.getAttribute('value'),
+            //       'resultQuantity': 999999999999,
+            //       'pageNum': 1
+            //     },
+            //     function (result) {
+            //       let data = result.data;
+
+            //       data = [
+            //         ...new Map(data.map((item) => [item[searchColumnSelect.getAttribute('value')], item])).values(),
+            //       ];
+
+            //       searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
+            //       searchSuggester.suggestData = data;
+            //     },
+            //   );
+            // })();
+          }
+        );
+      };
+
       confirmDeletePopupCreator.createConfirmDangerActionPopup(
         `
           Are you sure to delete Category - ${categoryName} ?
@@ -37,110 +165,14 @@ function addTableButtonEvent() {
           (<span class="text-danger fw-bold">*</span>) 
           The number of products in the category must be 0 to be deleted
         `,
-        function () {
-          tableDataDeleter.deleteData(
-            categoryId,
-            function (data) {
-              switch (data.result) {
-                case 'success':
-                  tableDataToastify.createToast(
-                    'success',
-                    data.notification,
-                    2,
-                  );
-                  break;
-
-                case 'fail':
-                  tableDataToastify.createToast(
-                    'danger',
-                    data.notification,
-                    2,
-                  );
-                  break;
-
-                case 'warning':
-                  tableDataToastify.createToast(
-                    'warning',
-                    data.notification,
-                    2,
-                  );
-              };
-
-              function changeTableData() {
-                tableDataReader.readData(
-                  filterInformation,
-                  function (result) {
-                    if (result.data.length > 0) {
-                      tableCreator.convertData(result.data);
-
-                      tablePagingLinkCreator.changePagingLink(
-                        filterInformation.pageNum,
-                        filterInformation.resultQuantity,
-                        result.total,
-                        function (pageNum) {
-                          filterInformation.pageNum = pageNum;
-                          changeTableData(filterInformation, true);
-                        },
-                      );
-
-                    } else {
-                      --filterInformation.pageNum;
-                      changeTableData();
-                    };
-                  },
-                );
-              };
-              changeTableData();
-
-              function updateSearchSuggestData() {
-                tableDataReader.readData({
-                    'columnList': [
-                      searchColumnSelect.getAttribute('value'),
-                    ],
-                    'searchValue': '',
-                    'searchMode': 'searchByValue',
-                    'searchColumn': searchColumnSelect.getAttribute('value'),
-                    'orderRule': 'ASC',
-                    'orderColumn': searchColumnSelect.getAttribute('value'),
-                    'resultQuantity': 999999999999,
-                    'pageNum': 1
-                  },
-                  function (result) {
-                    let data = result.data;
-
-                    data = [
-                      ...new Map(data.map((item) => [item[searchColumnSelect.getAttribute('value')], item])).values(),
-                    ];
-
-                    searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
-                    searchSuggester.suggestData = data;
-                  },
-                );
-              }
-              updateSearchSuggestData();
-            },
-          );
-        }
+        deleteCategory
       );
     });
   });
 };
-
-import {
-  LinkFormatter,
-  ButtonFormatter,
-} from '../../class/data-formatter.js';
-const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
-  ['btn-warning', 'btn-square'],
-  '<i class="fas fa-file-alt"></i>',
-);
-const tableDeleteButtonFormatter = new ButtonFormatter(
-  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
-  '<i class="fas fa-trash"></i>',
-);
-
-let tableColumnList = [{
+// require first
+const dataTable = document.querySelector('#js-data-table');
+const tableColumnList = [{
     name: 'Name',
     key: 'CategoryName',
     width: 12,
@@ -162,7 +194,7 @@ let tableColumnList = [{
   },
   {
     name: 'Handle',
-    key: 'CategoryKey',
+    key: 'CategoryHandle',
     width: 7,
     formatFunction: (
       [id = String(), name = String()]
@@ -180,216 +212,284 @@ let tableColumnList = [{
       return deleteBtn + updateBtn;
     },
     formatPrameterKeyList: [
-      'CategoryKey',
+      'FireBaseKey',
       'CategoryName'
-    ],
-  },
+    ]
+  }
 ];
-
-import {
-  ToastCreator
-} from '../../class/toast-creator.js';
-const tableDataToastify = new ToastCreator(
-  'bottom',
-  16,
-  'right',
-  16,
-);
-
-import {
-  DataDeleter
-} from '../../class/data-interactor.js';
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-
-import {
-  ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
-
-
-
-import {
-  Suggester
-} from '../../class/suggester.js';
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
-
-import {
-  DataReader
-} from '../../class/data-interactor.js';
-const tableDataReader = new DataReader(dataFetchLink);
-
-import {
-  adminFilterCustomSelectCreator
-} from './create-custom-select.js';
-adminFilterCustomSelectCreator(
-  columnList,
-  defaultColumnOptionValue
-);
-
-import {
-  searchAssistantCreator
-} from './create-search-assistant.js';
-searchAssistantCreator(
-  defaultColumnOptionValue,
-  dataFetchLink,
-  searchSuggester,
-);
-
-// TABLE INTERACTION
-import {
-  TableCreator
-} from '../../class/table-creator.js';
-import {
-  PagingLinkCreator
-} from '../../class/paging-link-creator.js';
-
-let tableColumnKeyList = [];
-tableColumnList.forEach(column => {
-  tableColumnKeyList.push(column.key);
-});
-
-let searchByValueInput = document.querySelector('#js-overview-search-value');
-let searchByMinInput = document.querySelector('#js-overview-search-min');
-let searchByMaxInput = document.querySelector('#js-overview-search-max');
-let searchColumnSelect = document.querySelector('#js-overview-search-column');
-let orderColumnSelect = document.querySelector('#js-overview-order-column');
-let orderRuleSelect = document.querySelector('#js-overview-order-rule');
-let resultQuantitySelect = document.querySelector('#js-overview-rows');
-let dataTable = document.querySelector('#js-data-table');
-
-let filterInformation = {
-  'columnList': tableColumnKeyList,
-  'searchValue': searchByValueInput.value,
-  'searchMinValue': searchByMinInput.value,
-  'searchMaxValue': searchByMaxInput.value,
-  'searchMode': 'searchByValue',
-  'searchColumn': searchColumnSelect.getAttribute('value'),
-  'orderColumn': orderColumnSelect.getAttribute('value'),
-  'orderRule': orderRuleSelect.getAttribute('value'),
-  'resultQuantity': resultQuantitySelect.getAttribute('value'),
-  'pageNum': 1
-};
-
-const tableCreator = new TableCreator(
+const tableCreator = new TableCreator( 
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
 
-let pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
-const tablePagingLinkCreator = new PagingLinkCreator(
-  ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
-  ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
-  '<i class="fa-solid fa-step-backward"></i>',
-  '<i class="fa-solid fa-step-forward"></i>',
-  pagingLinkContainer,
-  'd-none',
-  'disabled',
-  5,
+// TABLE FORMAT
+const tableUpdateLinkFormatter = new LinkFormatter(
+  './update-category/',
+  ['btn-warning', 'btn-square'],
+  '<i class="fas fa-file-alt"></i>',
+);
+const tableDeleteButtonFormatter = new ButtonFormatter(
+  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
+  '<i class="fas fa-trash"></i>',
+);
+// end TABLE FORMAT
+// end different
+
+
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
+
+adminFilterCustomSelectCreator(
+  columnList,
+  defaultColumnOptionValue
+);
+searchAssistantCreator(
+  defaultColumnOptionValue,
+  dataFetchLink,
+  searchSuggester,
 );
 
-const changeTableData = (
-  filterInformation = Object(),
-  changePageNum = Boolean(),
-) => {
-  const changeTableDataCallback = (result = Object()) => {
+const tableDataReader = new DataReader(dataFetchLink);
+
+tableDataReader.readData(fullData => {
+  const tableColumnKeyList = [];
+  tableColumnList.forEach(column => {
+    tableColumnKeyList.push(column.key);
+  });
+
+  const data =
+    Object.keys(fullData).map((key) => {
+      Object.keys(fullData[key]).map((column) => {
+        let isDeleted = true;
+
+        tableColumnKeyList.forEach(columnKey => {
+          if (columnKey === column) {
+            isDeleted = false;
+          };
+        });
+
+        if (isDeleted) {
+          delete fullData[key][column];
+        };
+      });
+
+      fullData[key].FireBaseKey = key;
+      return fullData[key];
+    });
+  // console.log(data);
+
+  const tableDataToastify = new ToastCreator(
+    'bottom',
+    16,
+    'right',
+    16
+  );
+
+  const searchByValueInput = document.querySelector('#js-overview-search-value');
+  const searchByMinInput = document.querySelector('#js-overview-search-min');
+  const searchByMaxInput = document.querySelector('#js-overview-search-max');
+  const searchColumnSelect = document.querySelector('#js-overview-search-column');
+  const orderColumnSelect = document.querySelector('#js-overview-order-column');
+  const orderRuleSelect = document.querySelector('#js-overview-order-rule');
+  const resultQuantitySelect = document.querySelector('#js-overview-rows');
+
+  const filterInformation = {
+    'columnList': tableColumnKeyList,
+    'searchValue': '',
+    'searchMinValue': 'S',
+    'searchMaxValue': 'H',
+    'searchMode': 'searchByValue',
+    'searchColumn': 'CategoryOrder',
+    'orderColumn': 'CategoryOrder',
+    'orderRule': 'DESC',
+    'resultQuantity': resultQuantitySelect.getAttribute('value'),
+    'pageNum': 1
+  };
+
+  const changeTableData = (
+    filterInformation = Object(),
+    changePageNum = Boolean(),
+  ) => {
+    const filterDataBySearch = (item) => {
+      const searchMode = filterInformation.searchMode;
+      const searchColumn = filterInformation.searchColumn;
+      let columnValue;
+      if (isNaN(item[searchColumn])) {
+        columnValue = item[searchColumn].toLowerCase();
+
+      } else {
+        columnValue = item[searchColumn]
+      };
+
+      let isPassed = true;
+
+      if (searchMode === 'searchByValue') {
+        const searchValue = filterInformation.searchValue.toLowerCase();
+        columnValue = columnValue.toString();
+
+        if (searchValue !== '') {
+          const searchValueList = searchValue.trim().split(/\s+/);
+          isPassed = false;
+
+          searchValueList.forEach(searchValue => {
+            if (columnValue.includes(searchValue)) {
+              isPassed = true;
+            };
+          });
+        };
+      } else if (searchMode === 'searchByMinMax') {
+        const searchMin = filterInformation.searchMinValue.toLowerCase();
+        const searchMax = filterInformation.searchMaxValue.toLowerCase();
+
+        if (
+          (
+            searchMin !== '' &&
+            searchMax !== '' &&
+            (
+              columnValue > searchMax ||
+              columnValue < searchMin
+            )
+          ) ||
+          (
+            searchMin !== '' &&
+            columnValue < searchMin
+          ) ||
+          (
+            searchMax !== '' &&
+            columnValue > searchMax
+          )
+        ) {
+          isPassed = false;
+        };
+      };
+
+      return isPassed;
+    };
+
+    const result = (() => {
+      const result = data.filter(filterDataBySearch);
+      result.sort((a, b) => {
+        const orderRule = filterInformation.orderRule;
+        const orderColumn = filterInformation.orderColumn;
+
+        if (orderRule === 'ASC') {
+          return (a[orderColumn] < b[orderColumn]) ? 1 : -1;
+
+        } else if (orderRule === 'DESC') {
+          return (a[orderColumn] > b[orderColumn]) ? 1 : -1;
+        };
+      });
+
+      return result;
+    })();
+
+    // console.log(filterInformation);
     // console.log(result);
 
-    tableCreator.convertData(result);
+    (function showTableData() {
+      const startIndex =
+        (filterInformation.pageNum - 1) * filterInformation.resultQuantity;
+      const endIndex = startIndex + filterInformation.resultQuantity;
+      const tableResult = result.slice(
+        startIndex,
+        endIndex
+      );
+      tableCreator.convertData(tableResult);
+    })();
+
     tablePagingLinkCreator.changePagingLink(
       filterInformation.pageNum,
       filterInformation.resultQuantity,
-      result.total,
+      result.length,
       (pageNum) => {
         filterInformation.pageNum = pageNum;
         changeTableData(filterInformation, true);
 
         document.querySelector('#js-table-container').scrollIntoView();
-      },
+      }
     );
 
-    const toastifyDisplayTime = 2;
-    if (changePageNum === false) {
-      const resultQuantity = Object.keys(result).length;
-      // console.log(resultQuantity);
-      if (resultQuantity > 1) {
-        tableDataToastify.createToast(
-          'success',
-          `Filter data successully return ${resultQuantity} rows result`,
-          toastifyDisplayTime,
-        );
-      } else if (resultQuantity === 1) {
-        tableDataToastify.createToast(
-          'success',
-          `Filter data successully return 1 row result`,
-          toastifyDisplayTime,
-        );
+    (function createToastify() {
+      const toastifyDisplayTime = 2;
+      if (changePageNum === false) {
+        const resultQuantity = result.length;
 
+        if (resultQuantity > 1) {
+          tableDataToastify.createToast(
+            'success',
+            `Filter data successully return ${resultQuantity} rows result`,
+            toastifyDisplayTime,
+          );
+        } else if (resultQuantity === 1) {
+          tableDataToastify.createToast(
+            'success',
+            `Filter data successully return 1 row result`,
+            toastifyDisplayTime,
+          );
+
+        } else {
+          tableDataToastify.createToast(
+            'warning',
+            `No suitable data`,
+            toastifyDisplayTime,
+          );
+        };
       } else {
         tableDataToastify.createToast(
-          'warning',
-          `No suitable data`,
+          'success',
+          `Switch to page ${filterInformation.pageNum} completed`,
           toastifyDisplayTime,
         );
       };
-    } else {
-      tableDataToastify.createToast(
-        'success',
-        `Switch to page ${filterInformation.pageNum} completed`,
-        toastifyDisplayTime,
-      );
-    };
+    })();
   };
-
-  tableDataReader.readData(
-    changeTableDataCallback
-  );
-};
-changeTableData(filterInformation, false);
-
-let confirmSearchButton = document.querySelector('#js-confirm-search-button');
-let searchByValueModeRadio = document.querySelector('#js-search-by-value');
-let searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
-confirmSearchButton.addEventListener('click', function () {
-  if (searchByValueModeRadio.checked === true) {
-    filterInformation.searchMode = 'searchByValue';
-    filterInformation.searchValue = searchByValueInput.value;
-
-  } else if (searchByMinMaxModeRadio.checked === true) {
-    filterInformation.searchMode = 'searchByMinMax';
-    filterInformation.searchMinValue = searchByMinInput.value;
-    filterInformation.searchMaxValue = searchByMaxInput.value;
-  };
-
-  let searchColumnValue = searchColumnSelect.getAttribute('value');
-  filterInformation.searchColumn = searchColumnValue;
-
-  filterInformation.pageNum = 1;
   changeTableData(filterInformation, false);
+
+  (function createFilterEvent() {
+    const confirmSearchButton = document.querySelector('#js-confirm-search-button');
+    const searchByValueModeRadio = document.querySelector('#js-search-by-value');
+    const searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
+    confirmSearchButton.addEventListener('click', function () {
+      if (searchByValueModeRadio.checked === true) {
+        filterInformation.searchMode = 'searchByValue';
+        filterInformation.searchValue = searchByValueInput.value;
+
+      } else if (searchByMinMaxModeRadio.checked === true) {
+        filterInformation.searchMode = 'searchByMinMax';
+        filterInformation.searchMinValue = searchByMinInput.value;
+        filterInformation.searchMaxValue = searchByMaxInput.value;
+      };
+
+      const searchColumnValue = searchColumnSelect.getAttribute('value');
+      filterInformation.searchColumn = searchColumnValue;
+
+      filterInformation.pageNum = 1;
+      changeTableData(filterInformation, false);
+    });
+    orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
+      const orderColumnValue = orderColumnSelect.getAttribute('value');
+      if (orderColumnValue !== filterInformation.orderColumn) {
+        filterInformation.pageNum = 1;
+        filterInformation.orderColumn = orderColumnValue;
+        changeTableData(filterInformation, false);
+      };
+    });
+    orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
+      const orderRuleValue = orderRuleSelect.getAttribute('value');
+      if (orderRuleValue !== filterInformation.orderRule) {
+        filterInformation.pageNum = 1;
+        filterInformation.orderRule = orderRuleValue;
+        changeTableData(filterInformation, false);
+      };
+    });
+    resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
+      const resultQuantityValue = resultQuantitySelect.getAttribute('value');
+      if (resultQuantityValue !== filterInformation.resultQuantity) {
+        filterInformation.pageNum = 1;
+        filterInformation.resultQuantity = resultQuantityValue;
+        changeTableData(filterInformation, false);
+      };
+    });
+  })();
 });
-orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
-  let orderColumnValue = orderColumnSelect.getAttribute('value');
-  if (orderColumnValue !== filterInformation.orderColumn) {
-    filterInformation.pageNum = 1;
-    filterInformation.orderColumn = orderColumnValue;
-    changeTableData(filterInformation, false);
-  };
-});
-orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
-  let orderRuleValue = orderRuleSelect.getAttribute('value');
-  if (orderRuleValue !== filterInformation.orderRule) {
-    filterInformation.pageNum = 1;
-    filterInformation.orderRule = orderRuleValue;
-    changeTableData(filterInformation, false);
-  };
-});
-resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
-  let resultQuantityValue = resultQuantitySelect.getAttribute('value');
-  if (resultQuantityValue !== filterInformation.resultQuantity) {
-    filterInformation.pageNum = 1;
-    filterInformation.resultQuantity = resultQuantityValue;
-    changeTableData(filterInformation, false);
-  };
-});
-// END TABLE INTERACTION

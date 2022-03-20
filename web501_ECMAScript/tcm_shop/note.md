@@ -1,1 +1,1 @@
-# continue user in admin.js
+# check add table button event and optimize code

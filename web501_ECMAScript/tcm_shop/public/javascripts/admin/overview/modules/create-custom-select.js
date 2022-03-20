@@ -1,14 +1,14 @@
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../../class/custom-select-creator.js';
 
 export function adminFilterCustomSelectCreator(
   columnList = [{
     name: String(),
     key: String(),
-    type: String(),
+    type: String()
   }, ],
-  defaultColumnOptionValue = String(),
+  defaultColumnOptionValue = String()
 ) {
   // search column 
   let searchColumnSelect =

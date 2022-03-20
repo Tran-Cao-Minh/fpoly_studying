@@ -7,14 +7,18 @@ function checkAdmin (
   viewName = String(),
   pageName = String()
 ) {
-  if (req.session.logged === true) {
-    res.render(viewName, {
-      pageName: pageName,
-    });
+  res.render(viewName, {
+    pageName: pageName,
+  });
 
-  } else {
-    res.redirect('/admin/login');
-  };
+  // if (req.session.logged === true) {
+  //   res.render(viewName, {
+  //     pageName: pageName,
+  //   });
+
+  // } else {
+  //   res.redirect('/admin/login');
+  // };
 }
 
 // login
