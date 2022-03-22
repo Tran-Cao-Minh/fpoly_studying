@@ -1,0 +1,49 @@
+:root {
+  --primary-color: #435ebe;
+  --primary-color-blur: #435ebe10;
+
+  --bg-body: #f2f7ff;
+  --bg-hover: #f0f1f5;
+  --bg-light-blue: #DBE6FD;
+
+  --link-color: var(--primary-color);
+  --text-color: #25396f;
+  --icon-color: #7c8db5;
+  --text-blur-color: #607080;
+
+  --white: #fff;
+  --white-blur: #fff4;
+  --light-gray: #ccc;
+  --black-overlay: #0002;
+
+  --blue: #435ebe;
+  --red: #dc3545; 
+  --red-blur: #dc354510;
+  --yellow: #F7BE16;
+  --green: #198754; 
+  --light: #f9fafb;
+
+  --text-danger: var(--red);
+  --text-success: var(--green);
+
+  --btn-primary-bg: var(--blue);
+  --btn-primary-shadow: rgb(95 118 200 / 50%);
+  --btn-danger-bg: var(--red);
+  --btn-danger-shadow: rgb(225 83 97 / 50%);
+  --btn-warning-bg: var(--yellow);
+  --btn-warning-shadow: rgb(217 164 6 / 50%);
+  --btn-success-bg: var(--green);
+  --btn-success-shadow: rgb(60 153 110 / 50%);
+  --btn-white-bg: var(--white);
+  --btn-white-shadow: rgb(211 212 213 / 50%);
+  --btn-cancel-bg: var(--icon-color);
+  --btn-cancel-shadow: rgb(124 141 181 / 50%);
+
+  --border-light-color: #dce7f1;
+  --border-light-focus-color: #a1afdf;
+  --input-focus-shadow: rgba(67, 94, 190, 0.25);
+  --input-invalid-shadow: rgb(220 53 69 / 25%);
+  --input-valid-shadow: rgb(25 135 84 / 25%);
+
+  --input-checked-color: #4c66c1;
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM Shop</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/login.css">
+</head>
+
+<body>
+  <main class="login">
+    <form class="login-form rounded-2" id="loginForm">
+      <div class="form-group mb-2">
+        <div class="login-logo rounded-1">
+          <img src="../public/images/base/logo.png" alt="">
+        </div>
+      </div>
+
+      <!-- user name -->
+      <div class="col-12 mb-2">
+        <div class="form-group">
+          <label for="userName">
+            Username
+          </label>
+          <div class="input-with-icon-group">
+            <input type="text" class="form-control" id="userName" placeholder="User name">
+            <div class="validate-icon"></div>
+          </div>
+          <span class="invalid-feedback d-none">
+            <!-- message by js -->
+          </span>
+        </div>
+      </div>
+      <!-- end user name -->
+
+      <!-- user password -->
+      <div class="col-12 mb-4">
+        <div class="form-group">
+          <label for="userPassword">
+            Password
+          </label>
+          <div class="input-with-icon-group">
+            <input type="password" class="form-control" id="userPassword" placeholder="User password">
+            <div class="validate-icon"></div>
+          </div>
+          <span class="invalid-feedback d-none">
+            <!-- message by js -->
+          </span>
+        </div>
+      </div>
+      <!-- end user password -->
+
+      <div class="form-group">
+        <button class="btn-primary col-12 text-uppercase" id="submitLogin" disabled>
+          Verify admin
+        </button>
+      </div>
+    </form>
+  </main>
+  <script type="module" src="../public/javascripts/admin/login.js"></script>
+</body>
+
+</html>

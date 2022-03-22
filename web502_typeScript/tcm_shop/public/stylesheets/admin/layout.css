@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Shrikhand&display=swap');
+.logo-font {
+  font-family: 'Shrikhand', cursive;
+}
+
+body {
+  position: relative;
+}
+
+.aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+
+  width: 280px;
+
+  overflow-y: auto;
+}
+
+.main {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  width: calc(100% - 280px);
+  min-height: 100vh;
+}

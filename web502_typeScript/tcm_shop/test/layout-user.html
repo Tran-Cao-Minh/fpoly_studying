@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TCM Shop</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/client/client.css">
+  <link rel="stylesheet" href="../public/stylesheets/client/shop.css">
+</head>
+
+<body>
+  <header id="header">
+    <div class="header-top-banner">
+      TCM BOOK
+    </div>
+    <div class="header-top">
+      <div class="header-top-container">
+        <button class="header-mobile-open btn-primary js-mobile-menu-toggle">
+          <i class="fa-solid fa-bars"></i>
+        </button>
+        <a href="#" class="header-desktop-logo">
+          <img src="../public/images/base/logo.png" alt="TCM Shop">
+        </a>
+        <div class="header-search-bar">
+          <input type="text" class="form-control header-search-input" placeholder="Search desired product">
+          <button class="header-search-btn btn-primary">
+            <i class="header-search-icon fa-solid fa-magnifying-glass"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="header-sub js-mobile-menu">
+      <div class="header-mobile-menu-close-area js-mobile-menu-toggle"></div>
+      <div class="header-sub-container">
+        <button class="header-mobile-close btn-primary btn-square js-mobile-menu-toggle">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="header-mobile-logo">
+          <img src="../public/images/base/logo.png" alt="TCM Shop">
+        </div>
+        <nav class="header-nav-bar">
+          <a href="#" class="header-nav-item">Home</a>
+          <a href="#" class="header-nav-item">Shop</a>
+          <a href="#" class="header-nav-item">Cart</a>
+          <a href="#" class="header-nav-item">Account</a>
+          <a href="#" class="header-nav-item">About</a>
+        </nav>
+      </div>
+    </div>
+    <div class="paging-link">
+      <a href="#" class="paging-link-item">Home</a>
+      <i class="fa-solid fa-chevron-right paging-next-icon"></i>
+      <a href="#" class="paging-link-item">Detail</a>
+    </div>
+  </header>
+
+  <section id="content">
+    <aside id="filter">
+      <div class="filter-group">
+        <div class="filter-title">
+          Special
+        </div>
+        <div class="filter-list" id="filter-special">
+          <!-- add by shop.js -->
+        </div>
+      </div>
+      <div class="filter-group">
+        <div class="filter-title">
+          Category
+        </div>
+        <div class="filter-list" id="filter-category">
+          <!-- add by shop.js -->
+        </div>
+      </div>
+    </aside>
+
+    <main id="product-list">
+      <div class="product-list-interaction bg-light-blue rounded-1 d-flex justify-content-space-between">
+        <button class="btn-primary btn-square filter-toggle">
+          <i class="fa-solid fa-filter"></i>
+        </button>
+        <div class="input-group filter-order">
+          <label for="js-shop-order-by" class="input-group-text">Order</label>
+          <div class="form-control custom-select" id="js-shop-order-by" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
+            <ul class="custom-select-list">
+              <!-- add by shop.js -->
+            </ul>
+          </div>
+          <div class="form-control custom-select" id="js-shop-order-rule" tabindex="0" value="CategoryName">
+            <span class="custom-select-text">
+              <!-- add by shop.js -->
+            </span>
+            <ul class="custom-select-list">
+              <!-- add by shop.js -->
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="product-container" id="product-list-container">
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/hot.svg" alt="">
+            <!-- <img src="../public/images/tags/new.svg" alt="" style="background: blue;"> -->
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+        <div class="product-item">
+          <div class="product-item-tag">
+            <img src="../public/images/tags/new.svg" alt="">
+          </div>
+          <div class="product-item-img">
+            <img src="../public/images/products/circe_1642254165871.webp" alt="">
+          </div>
+          <div class="product-information">
+            <div class="product-item-name">
+              While We Were Dating
+              While We Were Dating
+              While We Were Dating
+            </div>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                $14.72
+              </span>
+              <span class="product-item-old-price">
+                $14.72
+              </span>
+            </div>
+          </div>
+          <button class="product-item-add-to-cart btn-primary">
+            Add to cart
+          </button>
+        </div>
+      </div>
+    </main>
+  </section>
+
+  <footer id="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <div class="footer-col-title">Support</div>
+        <a class="footer-link" href="#">
+          Return policy
+        </a>
+        <a class="footer-link" href="#">
+          Security policy
+        </a>
+        <a class="footer-link" href="#">
+          Payment policy
+        </a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Connect</div>
+        <a class="footer-link" href="#">
+          Facebook
+        </a>
+        <a class="footer-link" href="#">
+          Youtube
+        </a>
+        <a class="footer-link" href="#">
+          Twitter
+        </a>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Contact</div>
+        <a class="footer-link" href="#">
+          Azusa New York 303
+        </a>
+        <a class="footer-link" href="#">
+          033.333.0303
+        </a>
+        <a class="footer-link" href="#">
+          tcm@bookshop.com
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <script type="module" src="../public/javascripts/client/layout.js"></script>
+  <script type="module" src="../public/javascripts/client/shop/shop.js"></script>
+</body>
+
+</html>

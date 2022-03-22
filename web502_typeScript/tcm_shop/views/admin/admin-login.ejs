@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./module/website-info.ejs') %>
+  <%- include('./module/general-link.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/admin/login.css">
+</head>
+
+<body>
+  <main class="login">
+    <form class="login-form rounded-2" id="loginForm" method="POST"
+      action="http://localhost:3000/user/check-admin-login">
+      <div class="form-group mb-2">
+        <div class="login-logo rounded-1">
+          <img src="/images/base/logo.png" alt="Logo">
+        </div>
+      </div>
+
+      <!-- user name -->
+      <div class="col-12 mb-2">
+        <div class="form-group">
+          <label for="userName">
+            Username
+          </label>
+          <div class="input-with-icon-group">
+            <input type="text" class="form-control" name="userName" id="userName" placeholder="User name"
+              <% if (typeof(userName) !== 'undefined') { %> value="<%= userName %>" <% } %>>
+            <div class="validate-icon"></div>
+          </div>
+          <span class="invalid-feedback d-none">
+            <!-- message by js -->
+          </span>
+        </div>
+      </div>
+      <!-- end user name -->
+
+      <!-- user password -->
+      <div class="col-12 mb-4">
+        <div class="form-group">
+          <label for="userPassword">
+            Password
+          </label>
+          <div class="input-with-icon-group">
+            <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="User password"
+              <% if (typeof(userPassword) !== 'undefined') { %> value="<%= userPassword %>" <% } %>>
+            <div class="validate-icon"></div>
+          </div>
+          <span class="invalid-feedback d-none">
+            <!-- message by js -->
+          </span>
+        </div>
+      </div>
+      <!-- end user password -->
+
+      <div class="form-group">
+        <button class="btn-primary col-12 text-uppercase" id="submitLogin">
+          Verify admin
+        </button>
+        <% if (typeof(notification) !== 'undefined') { %>
+        <div class="invalid-feedback text-center mt-2">
+          <%= notification %>
+        </div>
+        <% } %>
+      </div>
+    </form>
+  </main>
+
+  <script type="module" src="../javascripts/admin/login.js"></script>
+</body>
+
+</html>

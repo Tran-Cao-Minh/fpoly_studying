@@ -1,0 +1,14 @@
+#js-search-input-container:not(.active)>#js-overview-search-min,
+#js-search-input-container:not(.active)>#js-overview-search-max {
+  display: none;
+}
+
+#js-search-input-container.active>#js-overview-search-value {
+  display: none;
+}
+
+#js-overview-search-value + .custom-select-list{
+  left: -0.25rem;
+  
+  width: calc(100% - 2.5rem);
+}

@@ -1,0 +1,69 @@
+.table-container {
+  overflow-x: auto;
+
+  width: 100%;
+}
+
+table {
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+  
+  border-radius: 0.25rem;
+  border-collapse: collapse;
+
+  color: var(--text-color);
+
+  font-size: 1rem;
+}
+
+table thead {
+  text-align: left;
+  font-weight: bold;
+}
+
+table>:not(caption)>* {
+  display: flex;
+
+  background: var(--white);
+  transition: background .15s ease-in-out;
+}
+
+table>:not(caption)>*:nth-child(odd) {
+  background: var(--light);
+}
+
+table>:not(caption)>*:hover {
+  background: var(--bg-hover);
+}
+
+table>:not(caption)>*>* {
+  display: inline-block;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  height: 4rem;
+  /* set width when create table by js with inline css */
+  padding: 0 0.75rem;
+
+  line-height: 4rem;
+}
+
+table>thead>*>* {
+  background-color: var(--primary-color);
+  color: var(--white);
+
+  height: 3rem;
+  padding: 0 0.75rem;
+  line-height: 3rem;
+}
+
+table>:not(caption)>*>* img {
+  height: 3.5rem;
+  margin-top: 0.25rem;
+
+  border: 1px solid var(--text-color);
+  border-radius: 0.25rem;
+}

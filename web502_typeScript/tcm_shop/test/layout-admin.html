@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
+  <style>
+
+  </style>
+</head>
+
+<body>
+  <aside id="sidebar" class="active bg-white">
+    <div class="sidebar__tablet-overlay js-sidebar-toggle"></div>
+
+    <header class="sidebar__header">
+      <div class="sidebar__logo">
+        <a href="#">
+          <img src="../public/images/base/logo.png" alt="logo">
+        </a>
+      </div>
+      <button type="button" class="sidebar__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+        <i class="fa-solid fa-times sidebar__close-icon text-icon"></i>
+      </button>
+    </header>
+
+    <section class="sidebar__body">
+      <ul class="sidebar__menu">
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+            <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar__item">
+          <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+            <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+        </li>
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+            <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+        <li class="sidebar__item--has-sub js-menu-item-collapse">
+          <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+            <i class="fa-solid fa-cubes sidebar__item-icon text-icon" style="
+              --font-size: 1.2rem;
+              --margin: 0 0 0 0;
+            "></i>
+            <span class="sidebar__item-text text text-truncate">Category</span>
+          </a>
+          <ul class="sidebar__sub-menu">
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+            <li class="sidebar__sub-menu-item">
+              <a href="#" class="sidebar__sub-item-title active hover-bg-white hover-pointer rounded-2">
+                <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+                <span class="sidebar__sub-item-text text text-truncate">Add</span>
+              </a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </section>
+  </aside>
+
+  <main id="main">
+    <div class="main__wrapper">
+      <header class="main__header bg-white">
+        <button type="button" class="main__toggle hover-bg-white hover-pointer js-sidebar-toggle">
+          <i class="fa-solid fa-bars main__collapse-icon text-icon"></i>
+        </button>
+        <div class="main__page-name text-truncate">
+          Category Overview
+        </div>
+        <div class="main__user-interaction">
+          <div class="main__user-avatar hover-pointer bg-body">
+            <img src="https://avatars.githubusercontent.com/u/78601445?v=4" alt="">
+          </div>
+          <div class="main__user-dashboard bg-body">
+            <div class="main__username rounded-2 bg-white text-truncate text col-12">
+              Hi, Tran Cao Minh
+            </div>
+            <button type="button" class="col-12 btn-primary">
+              <i class="fa-solid fa-sign-out-alt"></i>&nbsp;
+              Log Out
+            </button>
+          </div>
+        </div>
+      </header>
+
+      <!-- BODY CONTENT -->
+      <!-- filter form -->
+      <section class="row bg-white rounded-2">
+        <!-- change search mode area -->
+        <div class="col-12">
+          <div class="form-group">
+            <div class="input-group">
+              <label class="input-group-text">
+                <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-value" checked>
+                <label for="js-search-by-value"></label>
+                <span class="ms-2">
+                  Search by Value
+                </span>
+              </label>
+              <label class="input-group-text">
+                <input class="form-check-input" type="radio" name="searchMode" id="js-search-by-min-max">
+                <label for="js-search-by-min-max"></label>
+                <span class="ms-2">
+                  Search by Min - Max
+                </span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <!-- end change search mode area -->
+
+        <!-- search form -->
+        <div class="col-12 col-lg-8">
+          <div class="form-group">
+            <div class="input-group" id="js-search-input-container">
+              <input autocomplete="off" type="text" class="form-control custom-select" id="js-overview-search-value"
+                placeholder="Search value">
+              <ul class="custom-select-list">
+                <!-- add by overview.js -->
+              </ul>
+              <input type="text" class="form-control rounded-1 rounded-start" id="js-overview-search-min"
+                placeholder="Min value">
+              <input type="text" class="form-control" id="js-overview-search-max" placeholder="Max value">
+              <button class="btn-primary" id="js-confirm-search-button">
+                <i class="fa-solid fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!-- end search form -->
+
+        <!-- search by min value input -->
+
+        <!-- search column -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="form-group">
+            <div class="input-group">
+              <label for="js-overview-search-column" class="input-group-text">Search by</label>
+              <div class="form-control custom-select" id="js-overview-search-column">
+                <span class="custom-select-text">
+                  <!-- add by overview.js -->
+                </span>
+                <ul class="custom-select-list">
+                  <!-- add by overview.js -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end search column -->
+
+        <!-- order column -->
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <div class="form-group">
+            <div class="input-group">
+              <label for="js-overview-order-column" class="input-group-text">Order by</label>
+              <div class="form-control custom-select" id="js-overview-order-column">
+                <span class="custom-select-text">
+                  <!-- add by overview.js -->
+                </span>
+                <ul class="custom-select-list">
+                  <!-- add by overview.js -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end order column -->
+
+        <!-- order column -->
+        <div class="col-12 col-sm-6 col-md-4">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="form-control custom-select" id="js-overview-order-rule">
+                <span class="custom-select-text">
+                  <!-- add by overview.js -->
+                </span>
+                <ul class="custom-select-list">
+                  <!-- add by overview.js -->
+                </ul>
+              </div>
+              <div class="form-control custom-select" id="js-overview-rows">
+                <span class="custom-select-text">
+                  <!-- add by overview.js -->
+                </span>
+                <ul class="custom-select-list">
+                  <!-- add by overview.js -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end order column -->
+      </section>
+      <!-- end filter form -->
+
+      <!-- data table -->
+      <section id="js-table-container" class="row rounded-2 justify-content-center" 
+        style="background-color: var(--input-focus-shadow);">
+        <div class="table-container">
+          <table id="js-data-table">
+            <!-- add by overview.js -->
+          </table>
+        </div>
+
+        <ul class="mt-1" id="js-table-paging-link-list">
+          <!-- <li class="btn-white fw-bold ms-1 me-1 mt-2">
+            1
+          </li>
+          <li class="btn-white fw-bold ms-1 me-1 mt-2">
+            2
+          </li>
+          <li class="btn-white fw-bold ms-1 me-1 mt-2">
+            3
+          </li>
+          <li class="btn-white fw-bold ms-1 me-1 mt-2">
+            4
+          </li>
+          <li class="btn-white ms-1 me-1 mt-2">
+            <i class="fa-solid fa-step-forward"></i>
+          </li> -->
+        </ul>
+      </section>
+      <!-- end data table -->
+
+      <!-- end BODY CONTENT -->
+    </div>
+  </main>
+
+  <script type="module" src="../public/javascripts/admin/layout.js"></script>
+
+  <script type="module" src="../public/javascripts/admin/overview/overview.js"></script>
+</body>
+
+</html>

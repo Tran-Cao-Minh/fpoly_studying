@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./module/website-info.ejs') %>
+  <%- include('./module/general-link.ejs') %>
+
+  <link rel="stylesheet" href="/stylesheets/client/product-detail.css">
+</head>
+
+<body>
+  <%- include('./module/header.ejs') %>
+
+  <section id="content">
+    <section class="product bg-white rounded-1">
+      <div class="product-img rounded-1">
+        <div class="product-tag">
+          <img id="product-tag-img">
+          <!-- set img by product-detail.js -->
+        </div>
+        <img id="product-img" class="rounded-2">
+        <!-- set img by product-detail.js -->
+      </div>
+      <div class="product-overview">
+        <div class="product-overview-top">
+          <div id="product-name" class="product-name large-primary-hightlight">
+            <!-- add by product-detail.js -->
+          </div>
+          <div class="product-information">
+            <div id="product-category" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
+            </div>
+            <div id="product-publish" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
+            </div>
+            <div id="product-dimensions" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
+            </div>
+            <div id="product-pages" class="product-information-item large-primary-hightlight">
+              <!-- add by product-detail.js -->
+            </div>
+            <div class="product-view">
+              <div class="product-view-icon">
+                <i class="fa-solid fa-eye"></i>
+              </div>
+              <div id="product-views" class="product-view-data">
+                <!-- add by product-detail.js -->
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr class="break-line">
+        <div class="product-handle">
+          <div class="product-choose-quantity-group">
+            <div class="product-choose-quantity-title">
+              Quantity
+            </div>
+            <div class="product-choose-quantity input-group">
+              <button class="btn-square btn-primary">
+                <i class="fa-solid fa-minus"></i>
+              </button>
+              <input type="number" class="form-control" value="1">
+              <button class="btn-square btn-primary">
+                <i class="fa-solid fa-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="product-quantity-notification large-primary-hightlight">
+            <span id="product-quantity" class="product-quantity fw-bold">
+              <!-- add by product-detail.js -->
+            </span>
+            products left
+          </div>
+        </div>
+        <hr class="break-line">
+        <div class="product-overview-bottom">
+          <div class="product-price-group">
+            <div id="product-price" class="product-price">
+              <!-- add by product-detail.js -->
+            </div>
+            <div id="product-sale-percent" class="product-sale">
+              <!-- add by product-detail.js -->
+            </div>
+            <div id="product-old-price" class="product-old-price">
+              <!-- add by product-detail.js -->
+            </div>
+          </div>
+          <div class="product-interaction">
+            <button class="btn-primary text-uppercase ms-2 me-2">
+              Add to cart
+            </button>
+            <button class="btn-success text-uppercase ms-2 me-2">
+              Buy now
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="product-description bg-white rounded-2">
+      <div class="product-description-title">
+        Description
+      </div>
+      <div id="product-description" class="product-description-content">
+        <!-- add by product-detail.js -->
+      </div>
+    </section>
+
+    <!-- decision show by js -->
+    <section class="product-similar d-none" id="product-similar">
+      <div class="product-similar-title">
+        Similar product
+      </div>
+      <div class="product-similar-list">
+        <!-- add by js -->
+      </div>
+    </section>
+
+  </section>
+
+
+  <%- include('./module/footer.ejs') %>
+
+  <script type="module" src="/javascripts/client/product-detail.js"></script>
+</body>
+
+</html>

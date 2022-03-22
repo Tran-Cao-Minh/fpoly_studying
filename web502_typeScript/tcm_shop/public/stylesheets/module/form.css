@@ -1,0 +1,491 @@
+/* form-group include label, input elements, alert message */
+.form-group {
+  padding: 0.5rem 0.75rem;
+}
+
+.form-group>label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  display: block;
+  margin-bottom: 0.3rem;
+
+  color: var(--text-blur-color);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+/* form-group */
+
+/* form-control for input, text-area */
+.form-control {
+  position: relative;
+  display: block;
+
+  width: 100%;
+  padding: 0.375rem 0.75rem;
+
+  color: var(--text-color);
+  background-color: var(--white);
+  background-clip: padding-box;
+
+  border: 1px solid var(--border-light-color);
+  border-radius: 0.25rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: border .15s ease-in-out, box-shadow .15s ease-in-out;
+}
+
+
+.form-control:not(:disabled):focus,
+.form-control:not(:disabled):hover {
+  box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
+  outline: 0;
+}
+
+.form-control:focus {
+  border-color: var(--border-light-focus-color);
+}
+
+.form-control:disabled {
+  background: var(--light);
+  color: var(--text-blur-color);
+}
+
+textarea.form-control {
+  resize: none;
+  line-height: 1.75;
+}
+/* end form control */
+
+/* custom select */
+
+.custom-select .custom-select-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  display: block;
+  width: 100%;
+  padding-right: 1rem;
+}
+
+.custom-select::after {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f078';
+  font-weight: 600;
+
+  position: absolute;
+  right: 0.75rem;
+  top: 0.4rem;
+
+  color: var(--light-gray);
+}
+
+.custom-select:focus,
+.custom-select:hover {
+  border-bottom-left-radius: 0 !important;
+  border-bottom-right-radius: 0 !important;
+}
+
+.custom-select-list {
+  overflow: hidden;
+
+  position: absolute;
+  top: calc(100% + 1px);
+  left: calc(-1px - 0.25rem);
+  z-index: 4;
+
+  width: calc(100% + 2px + 0.5rem);
+  max-height: 0;
+
+  transition: max-height 0.4s ease-in-out;
+}
+
+.custom-select.active>.custom-select-list,
+.custom-select-list.active {
+  max-height: 50rem;
+}
+
+.custom-select-list li {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  padding: 0.5rem 0.75rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  background: var(--white);
+  color: var(--text-color);
+
+  border: 0.25rem solid var(--input-focus-shadow);
+  border-top-width: 0;
+  border-bottom-width: 1px;
+
+  transition: background 0.15s ease-in-out;
+}
+
+.custom-select-list li:first-child {
+  border-top-width: 0.25rem;
+}
+
+.custom-select-list li:last-child {
+  border-bottom-width: 0.25rem;
+  border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.custom-select-list li[choosen] {
+  background: var(--bg-body);
+}
+
+/* end custom select */
+
+/* input group to group with button, text-label, ... */
+.input-group {
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: stretch;
+
+  width: 100%;
+}
+
+.input-group>.form-control {
+  position: relative;
+  flex: 1 1 auto;
+  width: 1%;
+}
+
+.input-group>*:not(:first-child):not(:last-child) {
+  border-radius: 0;
+}
+
+.input-group>*:first-child {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.input-group>*:last-child {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+.input-group>*:focus,
+.input-group>*:hover {
+  z-index: 3;
+}
+
+.input-group-text {
+  display: flex;
+  align-items: center;
+
+  padding: 0.375rem 0.75rem;
+  margin: 0 -1px;
+
+  background-color: var(--bg-body);
+  color: var(--icon-color);
+
+  border: 1px solid var(--border-light-color);
+  border-radius: 0.25rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+/* end input group */
+
+/* validate input */
+.input-with-icon-group {
+  position: relative;
+}
+
+.form-control.is-invalid,
+.form-control.is-valid {
+  padding-right: 2.25rem;
+}
+
+.form-control.is-invalid {
+  border-color: var(--red);
+}
+
+.form-control.is-invalid:focus,
+.form-control.is-invalid:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-invalid-shadow);
+}
+
+.form-control.is-valid {
+  border-color: var(--green);
+}
+
+.form-control.is-valid:focus,
+.form-control.is-valid:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-valid-shadow);
+}
+
+.validate-icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 2.5rem;
+  height: 100%;
+
+  display: none;
+}
+.form-control.is-invalid~.validate-icon,
+.form-control.is-valid~.validate-icon {
+  display: flex;
+}
+
+.form-control~.validate-icon::after {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 1.25rem;
+  height: 1.25rem;
+
+  border-width: 2px;
+  border-style: solid;
+  border-radius: 50%;
+}
+
+.form-control.is-invalid~.validate-icon::after {
+  color: var(--red);
+
+  border-color: var(--red);
+
+  font: var(--fa-font-solid);
+  content: '\21';
+
+  font-size: 0.75rem;
+}
+
+.form-control.is-valid~.validate-icon::after {
+  padding-top: 0.05rem;
+  color: var(--green);
+
+  border-color: var(--green);
+
+  font: var(--fa-font-solid);
+  content: '\f00c';
+
+  font-size: 0.75rem;
+}
+
+.invalid-feedback {
+  display: block;
+  width: 100%;
+  margin-top: 0.25rem;
+
+  color: var(--red);
+
+  font-size: 0.75rem;
+}
+
+/* end validate input */
+
+/* custom input radio, checkbox */
+.form-check-input {
+  position: fixed;
+  z-index: -1;
+
+  width: 0;
+  height: 0;
+}
+
+.form-check-input[type=checkbox]+label,
+.form-check-input[type=radio]+label {
+  position: relative;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  background: transparent;
+}
+
+.form-check-input[type=checkbox]+label::after,
+.form-check-input[type=radio]+label::after {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 1.4rem;
+  height: 1.4rem;
+
+  background: var(--white);
+  color: transparent;
+
+  border: 0.2rem solid var(--border-light-color);
+
+  line-height: 1rem;
+  text-align: center;
+
+  transition: all .15s ease-in-out;
+}
+
+.form-check-input[type=radio]+label::after {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f111';
+  font-weight: 600;
+
+  border-radius: 50%;
+  font-size: 0.5rem;
+}
+
+.form-check-input[type=checkbox]+label::after {
+  font-family: 'Font Awesome 5 Free';
+  content: '\f00c';
+  font-weight: 600;
+
+  padding-top: 1px;
+
+  border-radius: 0.25rem;
+  font-size: 0.75rem;
+}
+
+.form-check-input:checked+label::after {
+  border-color: var(--input-checked-color) !important;
+  background: var(--input-checked-color) !important;
+  color: var(--white) !important;
+}
+
+
+.form-check-input:focus+label::after,
+.form-check-input+label:hover::after {
+  box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
+}
+
+/* end custom input radio, checkbox */
+
+/* custom input file - image */
+
+.input-file-custom {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+
+  position: relative;
+  display: block;
+
+  width: 100%;
+  padding: 0.375rem 0.75rem 0.375rem 7.25rem;
+
+  color: var(--text-color);
+  background-color: var(--white);
+  background-clip: padding-box;
+
+  border: 1px solid var(--border-light-color);
+  border-radius: 0.25rem;
+
+  font-size: 1rem;
+  font-weight: 500;
+
+  transition: box-shadow .15s ease-in-out;
+}
+
+.form-control[type=file].is-invalid+.input-file-custom,
+.form-control[type=file].is-valid+.input-file-custom {
+  padding-right: 2.25rem;
+}
+
+.form-control[type=file].is-invalid+.input-file-custom {
+  border-color: var(--red);
+}
+
+.form-control[type=file].is-invalid+.input-file-custom:focus,
+.form-control[type=file].is-invalid+.input-file-custom:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-invalid-shadow);
+}
+
+.form-control[type=file].is-valid+.input-file-custom {
+  border-color: var(--green);
+}
+
+.form-control[type=file].is-valid+.input-file-custom:focus,
+.form-control[type=file].is-valid+.input-file-custom:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-valid-shadow);
+}
+
+.input-file-custom::after {
+  content: 'Choose file';
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 6.5rem;
+  height: 100%;
+  border-radius: 0;
+
+  background: var(--bg-body);
+  color: var(--icon-color);
+}
+
+.input-file-custom:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
+  outline: 0;
+}
+
+.form-control[type=file] {
+  overflow: hidden;
+
+  position: fixed;
+  top: -99999px;
+  left: -99999px;
+
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.input-preview-image {
+  overflow: hidden;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 0.25rem;
+  padding: 0 0.75rem;
+
+  background: var(--border-light-color);
+
+  border-radius: 0.25rem;
+
+  transition: box-shadow .15s ease-in-out;
+}
+
+.input-preview-image:hover {
+  box-shadow: 0 0 0 0.25rem var(--input-focus-shadow);
+}
+
+.input-preview-image img {
+  height: 16rem;
+  margin: 0.75rem auto;
+
+  border-radius: 0.5rem;
+  border: 0.25rem solid var(--white);
+}
+
+.input-preview-image img[src$='preview-img.svg'] {
+  height: 10rem;
+  margin: 3.75rem auto;
+  border: none;
+}
+/* end custom input file - image */

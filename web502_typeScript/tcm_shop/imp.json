@@ -1,0 +1,26 @@
+[{
+  "CategoryName": "Business",
+  "CategoryOrder": 1,
+  "CategoryDisplay": "Show",
+  "CategoryProductQuantity": 5
+}, {
+  "CategoryName": "History",
+  "CategoryOrder": 1,
+  "CategoryDisplay": "Show",
+  "CategoryProductQuantity": 6
+}, {
+  "CategoryName": "Manga",
+  "CategoryOrder": 5,
+  "CategoryDisplay": "Show",
+  "CategoryProductQuantity": 5
+}, {
+  "CategoryName": "Technology",
+  "CategoryOrder": 4,
+  "CategoryDisplay": "Hide",
+  "CategoryProductQuantity": 4
+}, {
+  "CategoryName": "Travel",
+  "CategoryOrder": 3,
+  "CategoryDisplay": "Show",
+  "CategoryProductQuantity": 6
+}]

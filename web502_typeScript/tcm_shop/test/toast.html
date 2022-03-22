@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+ 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>toast test</title>
+  <!-- font awsome -->
+  <script src="https://kit.fontawesome.com/aeb1173b82.js" crossorigin="anonymous"></script>
+  <!-- custom style -->
+  <link rel="stylesheet" href="../public/stylesheets/admin/admin.css">
+  <link rel="stylesheet" href="../public/stylesheets/admin/overview.css">
+</head>
+
+<body>
+  <button style="width: 10rem; height: 10rem; margin:3rem; background: red;"></button>
+  <!-- <div class="toast toast-success">
+    <div class="toast-icon">
+      <i class="fa-solid fa-check"></i>
+    </div>
+    <div class="toast-message">
+      Filter data success
+    </div>
+    <div class="toast-close">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+  <div class="toast toast-danger">
+    <div class="toast-icon">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+    <div class="toast-message">
+      Some test toast-message a
+      Some test toast-message
+      Some test toast-message
+      Some test toast-message
+    </div>
+    <div class="toast-close">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+  <div class="toast toast-warning">
+    <div class="toast-icon">
+      <i class="fa-solid fa-exclamation"></i>
+    </div>
+    <div class="toast-message">
+      Some test toast-message a
+      Some test toast-message
+      Some test toast-message
+      Some test toast-message
+    </div>
+    <div class="toast-close">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div>
+  <div class="toast toast-info">
+    <div class="toast-icon">
+      <i class="fa-solid fa-question"></i>
+    </div>
+    <div class="toast-message">
+      Some test toast-message a
+      Some test toast-message
+      Some test toast-message
+      Some test toast-message
+    </div>
+    <div class="toast-close">
+      <i class="fa-solid fa-xmark"></i>
+    </div>
+  </div> -->
+  <script type="module">
+    import {
+      ToastCreator
+    } from '../public/javascripts/class/toast-creator.js';
+
+    let test = new ToastCreator(
+      'bottom',
+      16,
+      'right',
+      16,
+    );
+
+    let btn = document.querySelector('button');
+    btn.onclick = function() {
+      let s = Math.random() * 3;
+      let randomType = Math.ceil(Math.random() * 4);
+
+      switch (randomType) {
+        case 1:
+          randomType = 'success';
+          break;
+        case 2:
+          randomType = 'warning';
+          break;
+        case 3:
+          randomType = 'danger';
+          break;
+        case 4:
+          randomType = 'info';
+          break;
+      }
+      test.createToast(
+        randomType,
+        'A Happy Coding Day',
+        s,
+      );
+      // alert(s);
+    }
+  </script>
+</body>
+
+</html>

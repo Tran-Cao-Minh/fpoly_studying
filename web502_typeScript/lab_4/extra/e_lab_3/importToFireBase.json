@@ -1,0 +1,31 @@
+{
+  "employees" : {
+    "-MyLZa_0qPJdk7sEbdEE" : {
+      "bonus" : 500000,
+      "club" : "Dragon",
+      "employeeID" : "E100",
+      "fullName" : "Moussa Saïb",
+      "note" : "",
+      "salary" : 5000000,
+      "subsidize" : 0
+    },
+    "-MyLZaj5qPJkk7yEbWYd" : {
+      "bonus" : 600000,
+      "club" : "Turtle",
+      "employeeID" : "E101",
+      "fullName" : "Armando Maradona",
+      "note" : "Top 2",
+      "salary" : 9000000,
+      "subsidize" : 100000
+    },
+    "-MyL_8jP1Smt6wdM_WZs" : {
+      "bonus" : 300000,
+      "club" : "Phoenix",
+      "employeeID" : "E103",
+      "fullName" : "Ronaldo Luis",
+      "note" : "Many fan",
+      "salary" : 7000000,
+      "subsidize" : 200000
+    }
+  }
+}

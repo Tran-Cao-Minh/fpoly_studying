@@ -1,0 +1,48 @@
+/* text color */
+.text-link {
+  color: var(--link-color);
+}
+
+.text {
+  color: var(--text-color);
+}
+
+.text-icon {
+  color: var(--icon-color);
+}
+
+.text-blur {
+  color: var(--text-blur-color);
+}
+
+.text-light {
+  color: var(--light);
+}
+
+/* end text color */
+
+.text-truncate {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-uppercase {
+  text-transform: uppercase;
+}
+
+.text-danger {
+  color: var(--red);
+}
+
+.highlight {
+  background: #F12B6B30;
+}
+
+.fw-bold {
+  font-weight: 700;
+}
