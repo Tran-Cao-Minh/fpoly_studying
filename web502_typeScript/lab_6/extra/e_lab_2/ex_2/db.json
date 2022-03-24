@@ -1,0 +1,21 @@
+{
+  "students": [{
+    "image": "minhtc.jpg",
+    "name": "Tran Cao Minh",
+    "birthday": "14-08-2002",
+    "gender": "Male",
+    "score": 10
+  }, { 
+    "image": "kddm.jpg",
+    "name": "Dao Duc Minh Khoi",
+    "birthday": "12-04-2002",
+    "gender": "Male",
+    "score": 9.5
+  }, {
+    "image": "thanhnd.jpg",
+    "name": "Nguyen Dang Thanh",
+    "birthday": "10-10-2002",
+    "gender": "Male",
+    "score": 9.5
+  }]
+}

@@ -1,0 +1,45 @@
+{
+  "products": [{
+    "name": "Trà Ô Long Mãng Cầu",
+    "price": "54.000 đ",
+    "special": true,
+    "tag": "Món mới",
+    "image": "traolongmangcau.png"
+  }, {
+    "name": "Caramen Chảy",
+    "price": "49.091 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "camenchay.png"
+  }, {
+    "name": "Cappuchino - Vietnamo",
+    "price": "44.182 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "caphuchinovietnam.png"
+  }, {
+    "name": "Latte Latte",
+    "price": "44.182 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "lattelatte.png"
+  }, {
+    "name": "Ngọc Viễn Đông",
+    "price": "44.182 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "ngocviendong.png"
+  }, {
+    "name": "Phin Bọt Biển",
+    "price": "44.182 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "phinbotbien.png"
+  }, {
+    "name": "Phin Sữa Đá - Năng Lượng",
+    "price": "34.363 đ",
+    "special": false,
+    "tag": "Món mới",
+    "image": "phinsuadanangluon.png"
+  }]
+}

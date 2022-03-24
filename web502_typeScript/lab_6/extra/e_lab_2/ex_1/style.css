@@ -1,0 +1,212 @@
+/* font Nunito */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+.text {
+  font-family: 'Nunito';
+}
+
+/* end font Nunito */
+
+/* color variants */
+:root {
+  --green: #0c713d;
+  --white: #fff;
+  --gray: #6c757d66;
+  --dark: #343a40;
+}
+
+/* end color variants */
+
+/* reset css */
+* {
+  margin: 0;
+  border: 0;
+  padding: 0;
+
+  box-sizing: border-box;
+}
+
+:root {
+  font-size: 16px;
+}
+
+@media only screen and (max-width: 1199.98px) {
+  :root {
+    font-size: 15px;
+  }
+}
+
+@media only screen and (max-width: 767.98px) {
+  :root {
+    font-size: 14px;
+  }
+}
+/* end reset css */
+
+/* custom */
+
+/* custom css */
+.wrapper {
+  padding: 3rem 0;
+  margin: 0 auto;
+  background-image: url(./images/bg_tealeaf.svg);
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: 20% auto;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  max-width: 1320px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-item {
+  position: relative;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 25%;
+  min-width: 17rem;
+  height: 23rem;
+  padding: 2rem 1rem;
+
+  background: var(--white);
+
+  border-radius: 0.5rem;
+
+  transition: all .1s ease-in-out;
+}
+
+.product-item:hover {
+  z-index: 1;
+  box-shadow: 0 0 0.375rem var(--gray);
+}
+
+.product-item.special {
+  width: 50%;
+  min-width: 34rem;
+  flex-direction: row-reverse;
+  flex-wrap: nowrap;
+
+  background-image: url(./images/hotBg.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.product-item .product-tag {
+  position: absolute;
+  top: 1.25rem;
+  right: 2.5rem;
+
+  padding: 0.25rem 0.5rem;
+  border-radius: 0.25rem;
+
+  background: var(--green);
+  color: var(--white);
+
+  font-weight: bold;
+  font-size: 0.75rem;
+}
+
+.product-item.special .product-img {
+  display: block;
+  width: auto;
+}
+
+.product-item.special .product-img img {
+  width: 19rem;
+  margin-left: 1rem;
+}
+
+.product-item .product-img {
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.product-item .product-img img {
+  width: 11rem;
+  margin-bottom: 1rem;
+}
+
+.product-item .product-inf {
+  width: 100%;
+
+  text-align: center;
+}
+
+.product-item.special .product-inf {
+  display: block;
+  
+  width: calc(100% - 21rem);
+  padding-top: 0.75rem;
+  padding-left: 2rem;
+
+  text-align: left;
+
+
+  /* background: red; */
+}
+
+.product-item.special .product-name {
+  color: var(--green);
+
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-word;
+
+  font-size: 1.375rem;
+  font-weight: bold;
+}
+.product-item .product-name {
+  color: var(--dark);
+
+  font-size: 1.125rem;
+  font-weight: bold;
+}
+
+.product-item .product-price {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+
+  color: var(--green);
+
+  font-size: 1.25rem;
+  font-weight: bolder;
+}
+
+.product-item .product-order {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+
+  border: 1px solid var(--green);
+  border-radius: 0.25rem;
+
+  background: var(--white);
+  color: var(--green);
+
+  text-transform: uppercase;
+  font-size: 0.875rem;
+  font-weight: 600;
+
+  transition: all .25s ease-in-out;
+  cursor: pointer;
+}
+
+.product-item .product-order:hover {
+  background: var(--green);
+  color: var(--white);
+}
+
+/* end custom css */
