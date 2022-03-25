@@ -30,32 +30,68 @@ import {
   tablePagingLinkCreator
 } from './modules/tablePagingLinkCreator.js';
 
-// different
+// api, default option key for filter
 const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories.json';
-
-const columnList = [{
-    name: 'Name',
-    key: 'CategoryName',
-    type: 'text',
-  },
-  {
-    name: 'Order',
-    key: 'CategoryOrder',
-    type: 'number',
-  },
-  {
-    name: 'Display',
-    key: 'CategoryDisplay',
-    type: 'text',
-  },
-  {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
-    type: 'number',
-  }
-];
 const defaultColumnOptionValue = 'CategoryName';
 
+// SEARCH SUGGESTER, FILTER
+// todo: fix
+const filterInformation = {
+  'columnList': tableColumnKeyList,
+  'searchValue': '',
+  'searchMinValue': 'S',
+  'searchMaxValue': 'H',
+  'searchMode': 'searchByValue',
+  'searchColumn': 'CategoryOrder',
+  'orderColumn': 'CategoryOrder',
+  'orderRule': 'DESC',
+  'resultQuantity': resultQuantitySelect.getAttribute('value'),
+  'pageNum': 1
+};
+
+(function createAdminFilterCustomSelectCreator() {
+  const columnList = [{
+      name: 'Name',
+      key: 'CategoryName',
+      type: 'text',
+    },
+    {
+      name: 'Order',
+      key: 'CategoryOrder',
+      type: 'number',
+    },
+    {
+      name: 'Display',
+      key: 'CategoryDisplay',
+      type: 'text',
+    },
+    {
+      name: 'Quantity',
+      key: 'CategoryProductQuantity',
+      type: 'number',
+    }
+  ];
+  adminFilterCustomSelectCreator(
+    columnList,
+    defaultColumnOptionValue
+  );
+})();
+
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
+searchAssistantCreator(
+  defaultColumnOptionValue,
+  dataFetchLink,
+  searchSuggester,
+);
+// end SEARCH SUGGESTER, FILTER
+
+// TABLE BUTTON EVENT
+const tableDataToastify = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16
+);
 const tableDataDeleter = new DataDeleter(dataFetchLink);
 const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 
@@ -170,7 +206,21 @@ const addTableButtonEvent = () => {
     });
   });
 };
-// require first
+// end TABLE BUTTON EVENT
+
+// TABLE FORMAT for tableColumnList
+const tableUpdateLinkFormatter = new LinkFormatter(
+  './update-category/',
+  ['btn-warning', 'btn-square'],
+  '<i class="fas fa-file-alt"></i>',
+);
+const tableDeleteButtonFormatter = new ButtonFormatter(
+  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
+  '<i class="fas fa-trash"></i>',
+);
+// end TABLE FORMAT for tableColumnList
+
+// CREATE TABLE CREATOR
 const dataTable = document.querySelector('#js-data-table');
 const tableColumnList = [{
     name: 'Name',
@@ -217,47 +267,22 @@ const tableColumnList = [{
     ]
   }
 ];
-const tableCreator = new TableCreator( 
+const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
-
-// TABLE FORMAT
-const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
-  ['btn-warning', 'btn-square'],
-  '<i class="fas fa-file-alt"></i>',
-);
-const tableDeleteButtonFormatter = new ButtonFormatter(
-  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
-  '<i class="fas fa-trash"></i>',
-);
-// end TABLE FORMAT
-// end different
-
-
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
-
-adminFilterCustomSelectCreator(
-  columnList,
-  defaultColumnOptionValue
-);
-searchAssistantCreator(
-  defaultColumnOptionValue,
-  dataFetchLink,
-  searchSuggester,
-);
+// end CREATE TABLE CREATOR
 
 const tableDataReader = new DataReader(dataFetchLink);
-
 tableDataReader.readData(fullData => {
   const tableColumnKeyList = [];
   tableColumnList.forEach(column => {
     tableColumnKeyList.push(column.key);
   });
 
+  // *** can optimize
   const data =
     Object.keys(fullData).map((key) => {
       Object.keys(fullData[key]).map((column) => {
@@ -279,13 +304,6 @@ tableDataReader.readData(fullData => {
     });
   // console.log(data);
 
-  const tableDataToastify = new ToastCreator(
-    'bottom',
-    16,
-    'right',
-    16
-  );
-
   const searchByValueInput = document.querySelector('#js-overview-search-value');
   const searchByMinInput = document.querySelector('#js-overview-search-min');
   const searchByMaxInput = document.querySelector('#js-overview-search-max');
@@ -294,23 +312,11 @@ tableDataReader.readData(fullData => {
   const orderRuleSelect = document.querySelector('#js-overview-order-rule');
   const resultQuantitySelect = document.querySelector('#js-overview-rows');
 
-  const filterInformation = {
-    'columnList': tableColumnKeyList,
-    'searchValue': '',
-    'searchMinValue': 'S',
-    'searchMaxValue': 'H',
-    'searchMode': 'searchByValue',
-    'searchColumn': 'CategoryOrder',
-    'orderColumn': 'CategoryOrder',
-    'orderRule': 'DESC',
-    'resultQuantity': resultQuantitySelect.getAttribute('value'),
-    'pageNum': 1
-  };
-
   const changeTableData = (
     filterInformation = Object(),
     changePageNum = Boolean(),
   ) => {
+    // *** can optimize
     const filterDataBySearch = (item) => {
       const searchMode = filterInformation.searchMode;
       const searchColumn = filterInformation.searchColumn;
@@ -410,24 +416,18 @@ tableDataReader.readData(fullData => {
       }
     );
 
+    // *** can optimize
     (function createToastify() {
       const toastifyDisplayTime = 2;
       if (changePageNum === false) {
         const resultQuantity = result.length;
 
-        if (resultQuantity > 1) {
+        if (resultQuantity > 0) {
           tableDataToastify.createToast(
             'success',
-            `Filter data successully return ${resultQuantity} rows result`,
+            `Filter data successully return ${resultQuantity} ${(resultQuantity === 1) ? 'row' : 'rows'} result`,
             toastifyDisplayTime,
           );
-        } else if (resultQuantity === 1) {
-          tableDataToastify.createToast(
-            'success',
-            `Filter data successully return 1 row result`,
-            toastifyDisplayTime,
-          );
-
         } else {
           tableDataToastify.createToast(
             'warning',
@@ -446,11 +446,12 @@ tableDataReader.readData(fullData => {
   };
   changeTableData(filterInformation, false);
 
+  // *** can optimize
   (function createFilterEvent() {
     const confirmSearchButton = document.querySelector('#js-confirm-search-button');
     const searchByValueModeRadio = document.querySelector('#js-search-by-value');
     const searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
-    confirmSearchButton.addEventListener('click', function () {
+    confirmSearchButton.addEventListener('click', () => {
       if (searchByValueModeRadio.checked === true) {
         filterInformation.searchMode = 'searchByValue';
         filterInformation.searchValue = searchByValueInput.value;
@@ -467,7 +468,7 @@ tableDataReader.readData(fullData => {
       filterInformation.pageNum = 1;
       changeTableData(filterInformation, false);
     });
-    orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
+    orderColumnSelect.addEventListener('DOMSubtreeModified', () => {
       const orderColumnValue = orderColumnSelect.getAttribute('value');
       if (orderColumnValue !== filterInformation.orderColumn) {
         filterInformation.pageNum = 1;
@@ -475,7 +476,7 @@ tableDataReader.readData(fullData => {
         changeTableData(filterInformation, false);
       };
     });
-    orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
+    orderRuleSelect.addEventListener('DOMSubtreeModified', () => {
       const orderRuleValue = orderRuleSelect.getAttribute('value');
       if (orderRuleValue !== filterInformation.orderRule) {
         filterInformation.pageNum = 1;
@@ -483,7 +484,7 @@ tableDataReader.readData(fullData => {
         changeTableData(filterInformation, false);
       };
     });
-    resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
+    resultQuantitySelect.addEventListener('DOMSubtreeModified', () => {
       const resultQuantityValue = resultQuantitySelect.getAttribute('value');
       if (resultQuantityValue !== filterInformation.resultQuantity) {
         filterInformation.pageNum = 1;
