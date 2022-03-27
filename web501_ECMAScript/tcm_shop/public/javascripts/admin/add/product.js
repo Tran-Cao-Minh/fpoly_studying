@@ -57,7 +57,7 @@ function createCustomDisplayStatusSelect() {
   });
 
   const displayStatusDataReader =
-    new DataReader('http://localhost:3000/display-status/');
+    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
 
   displayStatusDataReader.readData(null, function addProductDisplaySelectData(data) {
     data.forEach(displayStatus => {
@@ -97,7 +97,7 @@ function createCustomCategorySelect() {
   productCategorySelectCreator.createLabelPointer(productCategorySelectLabel);
 
   const categoryDataReader =
-    new DataReader('http://localhost:3000/category/');
+    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
 
   categoryDataReader.readData({
     'columnList': [
@@ -150,7 +150,7 @@ function createCustomTagSelect() {
   productTagSelectCreator.createLabelPointer(productTagSelectLabel);
 
   const tagsDataReader =
-    new DataReader('http://localhost:3000/product/tags');
+    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
 
   tagsDataReader.readData(null, function addProductDisplaySelectData(data) {
     data.forEach(tag => {
@@ -213,7 +213,7 @@ function createFormValidator() {
       contains only alphanumeric, underscore or some specials 
       characters include , ' " : - ; _ + . |`,
     );
-    const productNameReader = new DataReader('http://localhost:3000/product/');
+    const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
     productNameReader.readData({
         'columnList': [
           'ProductName'
@@ -399,7 +399,7 @@ function createFormValidator() {
   })();
 
   (function createSubmitAddProductEvent () {
-    const fetchLink = 'http://localhost:3000/product/';
+    const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/product.json';
     const dataAdder = new DataAdder(
       fetchLink,
     );

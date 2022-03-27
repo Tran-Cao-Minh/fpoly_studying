@@ -1,20 +1,22 @@
-export function FormValidator(
-  submitButton = Node(),
-  hideMessageContainerClass = String(),
-  inputInvalidClass = String(),
-  inputValidClass = String(),
-) {
-  this.submitButton = submitButton;
-  this.hideMessageContainerClass = hideMessageContainerClass;
-  this.inputInvalidClass = inputInvalidClass;
-  this.inputValidClass = inputValidClass;
-  this.inputList = [];
-  this.checkValidate = false;
+export class FormValidator {
+  constructor (
+    submitButton = Node(),
+    hideMessageContainerClass = String(),
+    inputInvalidClass = String(),
+    inputValidClass = String(),
+  ) {
+    this.submitButton = submitButton;
+    this.hideMessageContainerClass = hideMessageContainerClass;
+    this.inputInvalidClass = inputInvalidClass;
+    this.inputValidClass = inputValidClass;
+    this.inputList = [];
+    this.checkValidate = false;
+  }
 
-  this.changeInputStatus = function (
+  changeInputStatus (
     input = Node(),
     messageContainer = Node(),
-    check = Boolean(),
+    check = Boolean()
   ) {
     if (check === true) {
       messageContainer.classList.add(this.hideMessageContainerClass);
@@ -26,9 +28,9 @@ export function FormValidator(
       input.classList.remove(this.inputValidClass);
       input.classList.add(this.inputInvalidClass);
     };
-  };
+  }
 
-  this.changeButtonStatus = function () {
+  changeButtonStatus () {
     this.checkValidate = true;
     this.inputList.forEach(input => {
       if (input.classList.contains(this.inputValidClass) === false) {
@@ -42,23 +44,22 @@ export function FormValidator(
     } else {
       this.submitButton.setAttribute('disabled', '');
     };
-  };
+  }
 
-  this.addTextInputValidator = function (
+  addTextInputValidator (
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
     minLength = Number(),
     maxLength = Number(),
     pattern = RegExp(),
-    patternErrorMessage = String(),
+    patternErrorMessage = String()
   ) {
     this.inputList.push(input);
-    const that = this;
 
-    input.addEventListener('change', function () {
+    input.addEventListener('change', () => {
       input.value = input.value.trim();
-      let inputValue = input.value;
+      const inputValue = input.value;
       let check = false;
 
       if (inputValue.length < minLength) {
@@ -86,28 +87,27 @@ export function FormValidator(
         check = true;
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
         check,
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     });
-  };
+  }
 
-  this.addNumberInputValidator = function (
+  addNumberInputValidator (
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
     min = Number(),
     max = Number(),
-    step = Number(),
+    step = Number()
   ) {
     this.inputList.push(input);
-    const that = this;
 
-    input.addEventListener('input', function () {
-      let inputValue = input.value;
+    input.addEventListener('input', () => {
+      const inputValue = input.value;
       let check = false;
 
       if (isNaN(inputValue) || inputValue === '') {
@@ -129,31 +129,30 @@ export function FormValidator(
         check = true;
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
         check,
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     });
-  };
+  }
 
-  this.addFileInputValidator = function (
+  addFileInputValidator (
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
     fileMIMETypeList = [String()],
     minMbSize = Number(),
-    maxMbSize = Number(),
+    maxMbSize = Number()
   ) {
     this.inputList.push(input);
-    const that = this;
     const bytesPerMegabyte = 1048576;
 
-    input.addEventListener('change', function (event) {
+    input.addEventListener('change', (event) => {
       let check = false;
-      let file = event.target.files[0];
-      let fileType = file.type;
+      const file = event.target.files[0];
+      const fileType = file.type;
       // console.log(file);
 
       let checkFileType = false;
@@ -184,16 +183,16 @@ export function FormValidator(
         check = true;
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
-        check,
+        check
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     });
-  };
+  }
 
-  this.addDateInputValidator = function (
+  addDateInputValidator (
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
@@ -209,32 +208,31 @@ export function FormValidator(
     },
   ) { 
     this.inputList.push(input);
-    const that = this;
 
-    let minDateTime = new Date(min.year, (min.month - 1), min.day).getTime();
-    let maxDateTime = new Date(max.year, (max.month - 1), max.day).getTime();
+    const minDateTime = new Date(min.year, (min.month - 1), min.day).getTime();
+    const maxDateTime = new Date(max.year, (max.month - 1), max.day).getTime();
 
-    function validateDate() {
-      let inputValue = input.value;
+    const validateDate = () => {
+      const inputValue = input.value;
       let check = false;
 
       if (inputValue === '') {
         messageContainer.innerHTML = `The ${inputName} must be a valid date`;
 
       } else {
-        let inputDate = inputValue.split(/\D/);
-        let inputYear = Number(inputDate[0]);
-        let inputMonth = Number(inputDate[1]) - 1;
-        let inputDay = Number(inputDate[2]);
+        const inputDate = inputValue.split(/\D/);
+        const inputYear = Number(inputDate[0]);
+        const inputMonth = Number(inputDate[1]) - 1;
+        const inputDay = Number(inputDate[2]);
 
-        let inputDateTime = new Date(inputYear, inputMonth, inputDay).getTime();
+        const inputDateTime = new Date(inputYear, inputMonth, inputDay).getTime();
 
         if (inputDateTime < minDateTime || (inputYear < 100 && min.year >= 100)) {
-          let minDate = `${min.day}/${min.month}/${min.year}`;
+          const minDate = `${min.day}/${min.month}/${min.year}`;
           messageContainer.innerHTML = `The ${inputName} must greater than ${minDate}`;
 
         } else if (inputDateTime > maxDateTime) {
-          let maxDate = `${max.day}/${max.month}/${max.year}`;
+          const maxDate = `${max.day}/${max.month}/${max.year}`;
           messageContainer.innerHTML = `The ${inputName} must lesser than ${maxDate}`;
 
         } else {
@@ -242,38 +240,35 @@ export function FormValidator(
         };
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
-        check,
+        check
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     }
 
-    input.addEventListener('blur', function () {
-      validateDate();
-    });
-    input.addEventListener('keypress', function (event) {
+    input.addEventListener('blur', validateDate);
+    input.addEventListener('keypress', (event) => {
       if (event.key === 'Enter') {
         validateDate();
       };
     });
-  };
+  }
 
-  this.addRetypeInputValidator = function (
+  addRetypeInputValidator (
     modelInput = Node(),
     modelInputName = String(),
     input = Node(),
     inputName = String(),
-    messageContainer = Node(),
+    messageContainer = Node()
   ) {
     this.inputList.push(input);
-    const that = this;
     let startCheck = false;
 
     let check;
 
-    function checkRetype() {
+    const checkRetype = () => {
       check = (input.value === modelInput.value);
 
       if (check === false) {
@@ -281,44 +276,42 @@ export function FormValidator(
           `The ${inputName} must be like the ${modelInputName}`;
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
         check,
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     }
 
-    modelInput.addEventListener('change', function () {
+    modelInput.addEventListener('change', () => {
       if (startCheck === true) {
         checkRetype();
       };
     });
 
-    input.addEventListener('change', function () {
+    input.addEventListener('change', () => {
       startCheck = true;
       checkRetype();
     });
-  };
+  }
 
-  this.checkDuplicateValidator = function (
+  checkDuplicateValidator (
     input = Node(),
     inputName = String(),
     messageContainer = Node(),
     dataList = [String()],
     expectedResult = Boolean(),
     ignoreCase = Boolean(),
-    validateOverride = Boolean(),
+    validateOverride = Boolean()
   ) {
-    const that = this;
-
     input.setAttribute(
       'data-duplicate',
       JSON.stringify(dataList)
     );
 
-    function checkDuplicate(inputValue = String()) {
-      let data = JSON.parse(input.dataset.duplicate);
+    const checkDuplicate = (inputValue = String()) => {
+      const data = JSON.parse(input.dataset.duplicate);
 
       if (ignoreCase === true) {
         inputValue = inputValue.toLowerCase();
@@ -352,34 +345,34 @@ export function FormValidator(
         messageContainer.innerHTML = `The ${inputName} is not exist`;
       };
 
-      that.changeInputStatus(
+      this.changeInputStatus(
         input,
         messageContainer,
-        check,
+        check
       );
-      that.changeButtonStatus();
+      this.changeButtonStatus();
     }
 
     if (validateOverride === false) {
       this.inputList.push(input);
-      input.addEventListener('change', function () {
+      input.addEventListener('change', () => {
         checkDuplicate(input.value);
       });
 
     } else {
-      input.addEventListener('change', function () {
-        if (input.classList.contains(that.inputValidClass)) {
+      input.addEventListener('change', () => {
+        if (input.classList.contains(this.inputValidClass)) {
           checkDuplicate(input.value);
         };
       });
     };
-  };
-  this.changeDuplicateValue = function (
+  }
+  changeDuplicateValue (
     input = Node(),
     value = String(),
-    exist = Boolean(),
+    exist = Boolean()
   ) {
-    let dataList = JSON.parse(input.dataset.duplicate);
+    const dataList = JSON.parse(input.dataset.duplicate);
 
     if (exist === true) {
       dataList.push(value);
@@ -392,39 +385,38 @@ export function FormValidator(
       'data-duplicate',
       JSON.stringify(dataList)
     );
-  };
+  }
 
-  this.createSubmitButtonEvent = function (
+  createSubmitButtonEvent (
     passedEvent = Function(),
-    lockSubmitBtn = Boolean(),
+    lockSubmitBtn = Boolean()
   ) {
     if (lockSubmitBtn === true) {
       this.submitButton.setAttribute('disabled', 'true');
     } else {
       this.checkValidate = true;
 
-      this.inputList.forEach(input => {
+      this.inputList.forEach((input) => {
         input.classList.add(this.inputValidClass);
       });
     };
 
-    const that = this;
-    this.submitButton.addEventListener('click', function (event) {
+    this.submitButton.addEventListener('click', (event) => {
       event.preventDefault();
 
-      if (that.checkValidate === true) {
+      if (this.checkValidate === true) {
         passedEvent();
       };
     });
-  };
+  }
 
-  this.resetForm = function (form = Node()) {
+  resetForm (form = Node()) {
     form.reset();
 
-    this.inputList.forEach(input => {
+    this.inputList.forEach((input) => {
       input.classList.remove(this.inputValidClass);
     });
 
     this.changeButtonStatus();
-  };
+  }
 }

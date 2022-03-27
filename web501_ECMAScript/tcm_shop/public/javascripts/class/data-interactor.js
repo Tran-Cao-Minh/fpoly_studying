@@ -54,119 +54,81 @@ export class DataDeleter extends DataInteractor {
     fetch(fetchLink, {
         method: this.fetchMethod,
       })
-      .then(function (res) {
+      .then((res) => {
         if (!res.ok) {
           throw new Error('error = ' + res.status);
         };
 
         return res.json();
 
-      }).then(function (data) {
+      }).then((data) => {
         callbackFn(data);
       })
-    // .catch(function (error) {
+    // .catch((error) => {
     //   console.log('error: ' + error);
     // });
   }
 }
 
-function DataInteractorFunction(
-  fetchLink = String(),
-  fetchMethod = String(),
-) {
-  this.fetchLink = fetchLink;
-  this.fetchMethod = fetchMethod;
-}
+export class DataAdder extends DataInteractor {
+  constructor(fetchLink = String()) {
+    super(fetchLink, 'POST');
+  }
 
-export function DataAdder(
-  fetchLink = String(),
-) {
-  DataInteractorFunction.call(this, fetchLink, 'POST');
-
-  this.addData = function (
+  addData (
     formData = Object(),
-    multipartFormData = Boolean(),
-    callbackFn = Function(data = Object()),
+    successFn = Function(),
+    failedFn = Function()
   ) {
-    let fetchMethod = this.fetchMethod;
-    let fetchLink = this.fetchLink;
-
-    let postObject;
-    if (multipartFormData === false) {
-      const searchParams = new URLSearchParams();
-      for (const pair of formData) {
-        searchParams.append(pair[0], pair[1]);
-      };
-
-      postObject = searchParams;
-
-    } else if (multipartFormData === true) {
-      postObject = formData;
-    };
-
-    fetch(fetchLink, {
-        method: fetchMethod,
-        body: postObject,
-      })
-      .then(function (res) {
+    fetch(this.fetchLink, {
+      method: this.fetchMethod,
+      body: formData
+    })
+      .then((res) => {
         if (!res.ok) {
+          failedFn();
           throw new Error('error = ' + res.status);
         };
 
         return res.json();
 
-      }).then(function (data) {
-        callbackFn(data);
-      })
-    // .catch(function (error) {
+      }).then(() => {
+        successFn();
+      });
+    // .catch((error) => {
     //   console.log('error: ' + error);
     // });
-  };
+  }
 }
 
-export function DataUpdater(
-  fetchLink = String(),
-) {
-  DataInteractorFunction.call(this, fetchLink, 'PUT');
+export class DataUpdater extends DataInteractor {
+  constructor(fetchLink = String()) {
+    super(fetchLink, 'PUT');
+  }
 
-  this.updateData = function (
+  updateData (
     id = String(),
     formData = Object(),
-    multipartFormData = Boolean(),
-    callbackFn = Function(data = Object()),
+    successFn = Function(),
+    failedFn = Function()
   ) {
-    let fetchMethod = this.fetchMethod;
-    let fetchLink = this.fetchLink + id;
-
-    let putObject;
-    if (multipartFormData === false) {
-      const searchParams = new URLSearchParams();
-      for (const pair of formData) {
-        searchParams.append(pair[0], pair[1]);
-      };
-
-      putObject = searchParams;
-
-    } else if (multipartFormData === true) {
-      putObject = formData;
-    };
-
-    fetch(fetchLink, {
-        method: fetchMethod,
-        body: putObject,
-      })
-      .then(function (res) {
+    fetch(`${this.fetchLink + id}.json`, {
+      method: this.fetchMethod,
+      body: formData,
+    })
+      .then((res) => {
         if (!res.ok) {
+          failedFn();
           throw new Error('error = ' + res.status);
         };
 
         return res.json();
 
-      }).then(function (data) {
-        callbackFn(data);
-      })
-    // .catch(function (error) {
+      }).then(() => {
+        successFn();
+      });
+    // .catch((error) => {
     //   console.log('error: ' + error);
     // });
-  };
+  }
 }

@@ -1,22 +1,23 @@
-export function Suggester(
-  suggestData = [Object()],
-  keyList = Array(),
-) {
-  this.suggestData = suggestData;
-  this.keyList = keyList;
+export class Suggester {
+  constructor (
+    suggestData = [Object()],
+    keyList = Array(),
+  ) {
+    this.suggestData = suggestData;
+    this.keyList = keyList;
+  }
 
-  this.createSuggester = function (
+  createSuggester (
     input = Node(),
     selectOptionContainer = Node(),
     optionActiveAttribute = String(),
     activeClass = String(),
-    highlightClass = String(),
+    highlightClass = String()
   ) {
-    let that = this;
     let currentOptionIndex = 0;
     let optionList = selectOptionContainer.querySelectorAll('li:not([not-access])');
 
-    function changeCustomSelectStatus(status = Boolean()) {
+    const changeCustomSelectStatus = (status = Boolean()) => {
       if (status) {
         selectOptionContainer.classList.add(activeClass);
 
@@ -25,34 +26,32 @@ export function Suggester(
       }
     };
 
-    input.addEventListener('focusout', function () {
+    input.addEventListener('focusout', () => {
       changeCustomSelectStatus(false);
     });
 
-    function escapeRegExp(str = String()) {
+    const escapeRegExp = (str = String()) => {
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     }
 
-    function inputEvent() {
+    const inputEvent = () => {
       changeCustomSelectStatus(true);
 
       let suggestResultQuantity = 0;
       let hidedSuggestQuantity = 0;
-      let maxSuggestResult = 5;
+      const maxSuggestResult = 5;
 
       currentOptionIndex = -1;
-      let suggestData = that.suggestData;
-      let keyList = that.keyList;
 
       selectOptionContainer.innerHTML = '';
-      let searchValue = input.value.trim();
+      const searchValue = input.value.trim();
 
       if (searchValue !== '') {
-        let searchValueList = escapeRegExp(searchValue).toLowerCase().split(/\s+/);
+        const searchValueList = escapeRegExp(searchValue).toLowerCase().split(/\s+/);
 
         searchValueList.forEach((value, index) => {
-          let currentValue = value;
-          let currentIndex = index;
+          const currentValue = value;
+          const currentIndex = index;
 
           searchValueList.forEach((value, index) => {
             if (
@@ -71,11 +70,11 @@ export function Suggester(
           });
         });
 
-        suggestData.forEach(dataObject => {
-          let checkContain = keyList.some(key => {
+        this.suggestData.forEach((dataObject) => {
+          const checkContain = this.keyList.some((key) => {
             dataObject[key] = String(dataObject[key]);
 
-            return searchValueList.some(value => {
+            return searchValueList.some((value) => {
               return dataObject[key].toLowerCase().match(value);
             });
           });
@@ -85,18 +84,18 @@ export function Suggester(
             suggestResultQuantity < maxSuggestResult
           ) {
             let listItemContent = '';
-            keyList.forEach((key, index) => {
+            this.keyList.forEach((key, index) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
               listItemContent += `${dataObject[key]}`;
             });
-            let listItem = document.createElement('li');
+            const listItem = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
             listItem.setAttribute('index', suggestResultQuantity);
 
             let index, startIndex;
-            let replacePositionList = [];
+            const replacePositionList = [];
 
             searchValueList.forEach(value => {
               startIndex = 0;
@@ -111,16 +110,16 @@ export function Suggester(
               };
             });
 
-            let openHightlightTag = `<span class="${highlightClass}">`;
-            let closeHightlightTag = '</span>';
+            const openHightlightTag = `<span class="${highlightClass}">`;
+            const closeHightlightTag = '</span>';
             let tagLength = 0;
 
             replacePositionList.sort((a, b) => {
               return a.index - b.index;
             })
-            replacePositionList.forEach(replacePosition => {
-              let index = replacePosition.index + tagLength;
-              let length = replacePosition.length;
+            replacePositionList.forEach((replacePosition) => {
+              const index = replacePosition.index + tagLength;
+              const length = replacePosition.length;
 
               listItemContent =
                 listItemContent.substring(0, index) +
@@ -139,23 +138,24 @@ export function Suggester(
           };
         });
 
-      } else {
-        suggestData.forEach(dataObject => {
+      } else if (searchValue === '') {
+        this.suggestData.forEach((dataObject) => {
           if (suggestResultQuantity < maxSuggestResult) {
             let listItemContent = '';
-            keyList.forEach((key, index) => {
+            this.keyList.forEach((key, index) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
               listItemContent += `${dataObject[key]}`;
             });
-            let listItem = document.createElement('li');
+            const listItem = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
             listItem.setAttribute('index', suggestResultQuantity);
 
             listItem.innerHTML = listItemContent;
             selectOptionContainer.appendChild(listItem);
             suggestResultQuantity++;
+
           } else {
             hidedSuggestQuantity++;
           };
@@ -163,7 +163,7 @@ export function Suggester(
       }
 
       if (hidedSuggestQuantity > 0) {
-        let listItem = document.createElement('li');
+        const listItem = document.createElement('li');
         listItem.innerHTML = `+ ${hidedSuggestQuantity} More`;
         listItem.classList.add('text-center');
         listItem.setAttribute('not-access', '');
@@ -171,7 +171,7 @@ export function Suggester(
       };
 
       optionList = selectOptionContainer.querySelectorAll('li:not([not-access])');
-      optionList.forEach(option => {
+      optionList.forEach((option) => {
         createOptionEvent(option);
       });
     };
@@ -179,29 +179,29 @@ export function Suggester(
     input.addEventListener('input', inputEvent);
     input.addEventListener('focus', inputEvent);
 
-    function changeOptionStatus(option = Node()) {
+    const changeOptionStatus = (option = Node()) => {
       optionList.forEach(option => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
     };
 
-    function changeInputValue(option = Node()) {
+    const changeInputValue = (option = Node()) => {
       input.value = option.getAttribute('value');
     };
 
-    function createOptionEvent(option = Node()) {
-      option.addEventListener('mouseenter', function () {
+    const createOptionEvent = (option = Node()) => {
+      option.addEventListener('mouseenter', () => {
         currentOptionIndex = option.getAttribute('index');
         changeOptionStatus(option);
       });
 
-      option.addEventListener('click', function () {
+      option.addEventListener('click', () => {
         changeInputValue(option);
       });
     };
 
-    input.addEventListener('keydown', function (event) {
+    input.addEventListener('keydown', (event) => {
       if (event.key === 'ArrowDown') {
         if (currentOptionIndex < (optionList.length - 1)) {
           currentOptionIndex++;
@@ -225,8 +225,8 @@ export function Suggester(
         ) {
           changeInputValue(optionList[currentOptionIndex]);
           changeCustomSelectStatus(false);
-        }
-      }
+        };
+      };
     });
-  };
+  }
 }

@@ -11,72 +11,114 @@ import {
 import {
   ConfirmDangerActionPopupCreator
 } from '../../class/popup-creator.js';
+import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
+
+import {
+  filterData,
+  sliceData
+} from './modules/filter-data.js';
 import {
   Suggester
 } from '../../class/suggester.js';
 import {
-  DataReader
-} from '../../class/data-interactor.js';
-import {
   TableCreator
 } from '../../class/table-creator.js';
-import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
-import searchAssistantCreator from './modules/create-search-assistant.js';
-import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
-import {
-  filterData,
-  sliceData,
-  filterDataToastify
-} from './modules/filter-data.js';
-import getDataArrayFormat from './modules/convert-data-to-array.js';
-import createFilterEvent from './modules/create-filter-event.js';
-import createFilterInformation from './modules/filter-information.js';
 
-
-
-// api, default option key for filter
+// FETCH LINK, DEFAULT OPTION
 const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
 const defaultColumnOptionValue = 'CategoryName';
+// end FETCH LINK, DEFAULT OPTION
 
-// SEARCH SUGGESTER
-(function createAdminFilterCustomSelectCreator() {
-  const columnList = [{
-      name: 'Name',
-      key: 'CategoryName',
-      type: 'text',
-    },
-    {
-      name: 'Order',
-      key: 'CategoryOrder',
-      type: 'number',
-    },
-    {
-      name: 'Display',
-      key: 'CategoryDisplay',
-      type: 'text',
-    },
-    {
-      name: 'Quantity',
-      key: 'CategoryProductQuantity',
-      type: 'number',
-    }
-  ];
-  adminFilterCustomSelectCreator(
-    columnList,
-    defaultColumnOptionValue
-  );
-})();
+// GLOBAL
+let data = []; // must here
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
+let filterInformation; // must here
+// end GLOBAL
 
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
-searchAssistantCreator(
-  defaultColumnOptionValue,
-  dataFetchLink,
-  searchSuggester,
+// CONFIG COLUMN
+const optionColumnList = [{
+    name: 'Name',
+    key: 'CategoryName',
+    type: 'text',
+  },
+  {
+    name: 'Order',
+    key: 'CategoryOrder',
+    type: 'number',
+  },
+  {
+    name: 'Display',
+    key: 'CategoryDisplay',
+    type: 'text',
+  },
+  {
+    name: 'Quantity',
+    key: 'CategoryProductQuantity',
+    type: 'number',
+  }
+];
+
+const tableUpdateLinkFormatter = new LinkFormatter(
+  './update-category/',
+  ['btn-warning', 'btn-square'],
+  '<i class="fas fa-file-alt"></i>',
 );
-// end SEARCH SUGGESTER
+const tableDeleteButtonFormatter = new ButtonFormatter(
+  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
+  '<i class="fas fa-trash"></i>',
+);
+const tableColumnList = [{
+    name: 'Name',
+    key: 'CategoryName',
+    width: 12,
+  },
+  {
+    name: 'Order',
+    key: 'CategoryOrder',
+    width: 6,
+  },
+  {
+    name: 'Display',
+    key: 'CategoryDisplay',
+    width: 7,
+  },
+  {
+    name: 'Quantity',
+    key: 'CategoryProductQuantity',
+    width: 7,
+  },
+  {
+    name: 'Handle',
+    key: 'CategoryHandle',
+    width: 7,
+    formatFunction: (
+      [id = String(), name = String(), productQuantity = Number()]
+    ) => {
+      const deleteBtn = tableDeleteButtonFormatter.formatButton(
+        [{
+          key: 'id',
+          value: id
+        }, {
+          key: 'name',
+          value: name
+        }, {
+          key: 'product-quantity',
+          value: productQuantity
+        }]
+      );
+      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
+      return deleteBtn + updateBtn;
+    },
+    formatPrameterKeyList: [
+      'FireBaseKey',
+      'CategoryName',
+      'CategoryProductQuantity'
+    ]
+  }
+];
+// end CONFIG COLUMN
 
-// TABLE BUTTON EVENT
-let data; // must here
+// ADD TABLE EVENT
 const tableDataToastify = new ToastCreator(
   'bottom',
   16,
@@ -168,90 +210,52 @@ const addTableButtonEvent = () => {
     });
   });
 };
-// end TABLE BUTTON EVENT
+// end ADD TABLE EVENT
 
-// TABLE FORMAT for tableColumnList
-const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
-  ['btn-warning', 'btn-square'],
-  '<i class="fas fa-file-alt"></i>',
-);
-const tableDeleteButtonFormatter = new ButtonFormatter(
-  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
-  '<i class="fas fa-trash"></i>',
-);
-// end TABLE FORMAT for tableColumnList
-
-// CREATE TABLE CREATOR
+// TABLE CREATOR
 const dataTable = document.querySelector('#js-data-table');
-const tableColumnList = [{
-    name: 'Name',
-    key: 'CategoryName',
-    width: 12,
-  },
-  {
-    name: 'Order',
-    key: 'CategoryOrder',
-    width: 6,
-  },
-  {
-    name: 'Display',
-    key: 'CategoryDisplay',
-    width: 7,
-  },
-  {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
-    width: 7,
-  },
-  {
-    name: 'Handle',
-    key: 'CategoryHandle',
-    width: 7,
-    formatFunction: (
-      [id = String(), name = String(), productQuantity = Number()]
-    ) => {
-      const deleteBtn = tableDeleteButtonFormatter.formatButton(
-        [{
-          key: 'id',
-          value: id
-        }, {
-          key: 'name',
-          value: name
-        }, {
-          key: 'product-quantity',
-          value: productQuantity
-        }]
-      );
-      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
-      return deleteBtn + updateBtn;
-    },
-    formatPrameterKeyList: [
-      'FireBaseKey',
-      'CategoryName',
-      'CategoryProductQuantity'
-    ]
-  }
-];
 const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
-// end CREATE TABLE CREATOR
-
-// FILTER
 const tableColumnKeyList = [];
 tableColumnList.forEach(column => {
   tableColumnKeyList.push(column.key);
 });
-const filterInformation = createFilterInformation(tableColumnKeyList);
-// end FILTER
+// end TABLE CREATOR
+
+// GENERAL
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
+import searchAssistantCreator from './modules/create-search-assistant.js';
+import {
+  filterDataToastify
+} from './modules/filter-data.js';
+import getDataArrayFormat from './modules/convert-data-to-array.js';
+import createFilterEvent from './modules/create-filter-event.js';
+import createFilterInformation from './modules/filter-information.js';
+
+(function createAdminFilterCustomSelectCreator() {
+  adminFilterCustomSelectCreator(
+    optionColumnList,
+    defaultColumnOptionValue
+  );
+})();
+filterInformation = createFilterInformation(tableColumnKeyList);
+
+searchAssistantCreator(
+  defaultColumnOptionValue,
+  dataFetchLink,
+  searchSuggester,
+);
 
 const tableDataReader = new DataReader(dataFetchLink);
-tableDataReader.readData(fullData => {
-  data = getDataArrayFormat(fullData, tableColumnKeyList);
+tableDataReader.readData((fullData) => {
+  getDataArrayFormat(fullData, data, tableColumnKeyList);
   // console.log(data);
 
   const changeTableData = (
@@ -282,3 +286,4 @@ tableDataReader.readData(fullData => {
 
   createFilterEvent(filterInformation, changeTableData);
 });
+// end GENERAL

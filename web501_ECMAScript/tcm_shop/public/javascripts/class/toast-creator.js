@@ -17,7 +17,7 @@ export class ToastCreator {
     displayTime = Number() // seconds
   ) {
     const documentBody = document.body;
-    const colorClass = 'toast-' + type;
+    const colorClass = `toast-${type}`;
 
     let icon;
     switch (type) {
@@ -64,7 +64,7 @@ export class ToastCreator {
     documentBody.appendChild(toast);
 
     const removeToast = () => {
-      toast.style[this.horizontalAlign] = '-' + toast.offsetWidth + 'px';
+      toast.style[this.horizontalAlign] = `-${toast.offsetWidth}px`;
       toast.style.opacity = 0.2;
 
       setTimeout(() => {
@@ -74,7 +74,7 @@ export class ToastCreator {
 
           const nextToastVerticalOffset = Number(nextToast.style[this.verticalAlign].slice(0, -2));
           nextToast.style[this.verticalAlign] =
-            (nextToastVerticalOffset - toast.offsetHeight - this.verticalOffset) + 'px';
+            `${nextToastVerticalOffset - toast.offsetHeight - this.verticalOffset}px`;
 
           nextToast = nextToast.nextElementSibling;
         };

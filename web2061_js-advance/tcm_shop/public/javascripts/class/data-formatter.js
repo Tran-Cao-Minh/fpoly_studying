@@ -47,7 +47,7 @@ export function ImageFormatter(
       classList.forEach(item => {
         classValue += ` ${item}`;
       });
-      classList.slice(0, 1);
+      classValue.slice(0, 1);
     };
   };
   this.getClassValue();

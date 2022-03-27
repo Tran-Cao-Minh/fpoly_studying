@@ -9,7 +9,7 @@ export const filterData = (
     'searchColumn': String(),
     'orderColumn': String(),
     'orderRule': String(),
-  },
+  }
 ) => {
   const filterDataBySearch = (item) => {
     const searchMode = filterInformation.searchMode;

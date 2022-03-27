@@ -1,8 +1,9 @@
 const getDataArrayFormat = (
   fullData = Object(),
+  data = [],
   tableColumnKeyList = [String()]
 ) => {
-  const data = Object.keys(fullData).map((key) => {
+  Object.keys(fullData).map((key) => {
     Object.keys(fullData[key]).map((column) => {
       let isDeleted = true;
 
@@ -18,10 +19,8 @@ const getDataArrayFormat = (
     });
 
     fullData[key].FireBaseKey = key;
-    return fullData[key];
+    data.push(fullData[key]);
   });
-
-  return data;
 };
 
 export default getDataArrayFormat;
