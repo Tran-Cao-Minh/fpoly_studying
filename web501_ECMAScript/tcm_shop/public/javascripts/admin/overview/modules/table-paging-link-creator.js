@@ -3,7 +3,7 @@ import {
 } from '../../../class/paging-link-creator.js';
 
 const pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
-export const tablePagingLinkCreator = new PagingLinkCreator(
+const tablePagingLinkCreator = new PagingLinkCreator(
   ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
   ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
   '<i class="fa-solid fa-step-backward"></i>',
@@ -13,3 +13,5 @@ export const tablePagingLinkCreator = new PagingLinkCreator(
   'disabled',
   5
 );
+
+export default tablePagingLinkCreator;

@@ -1,140 +1,141 @@
-export function CustomSelectCreator(
-  selectElement = Node(),
-  activeClass = String(),
-  selectOptionContainer = Node(),
-  attributeList = [
-    String(),
-  ],
-) {
-  this.selectElement = selectElement;
-  this.activeClass = activeClass;
-  this.selectOptionContainer = selectOptionContainer;
-  this.attributeList = attributeList;
+export class CustomSelectCreator {
+  constructor(
+    selectElement = Node(),
+    activeClass = String(),
+    selectOptionContainer = Node(),
+    attributeList = [String()]
+  ) {
+    this.selectElement = selectElement;
+    this.activeClass = activeClass;
+    this.selectOptionContainer = selectOptionContainer;
+    this.attributeList = attributeList;
+  }
 
-  this.addOptionItem = function (
+  addOptionItem(
     displayValue = String(),
     attributeObjects = [{
       key: String(),
       data: String(),
-    }, ],
+    }]
   ) {
-    let optionItem = document.createElement('li');
+    const optionItem = document.createElement('li');
     attributeObjects.forEach(attribute => {
       optionItem.setAttribute(attribute.key, attribute.data);
     });
     optionItem.innerText = displayValue;
 
     this.selectOptionContainer.appendChild(optionItem);
-  };
+  }
 
-  this.createLabelPointer = function (element = Node()) {
-    element.addEventListener('click', function () {
-      selectElement.focus();
-    })
-  };
+  createLabelPointer(element = Node()) {
+    element.addEventListener('click', () => {
+      this.selectElement.focus();
+    });
+  }
 
-  this.createCustomSelect = function (
+  createCustomSelect(
     defaultOptionValue = String(),
     selectTextContainer = Node(),
-    optionActiveAttribute = String(),
+    optionActiveAttribute = String()
   ) {
-    let selectElement = this.selectElement;
-    selectElement.setAttribute('tabindex', '0');
-    let activeClass = this.activeClass;
+    this.selectElement.setAttribute('tabindex', '0');
 
-    function changeCustomSelectStatus(status = Boolean()) {
+    const changeCustomSelectStatus = (status = Boolean()) => {
       if (status) {
-        selectElement.classList.add(activeClass);
+        this.selectElement.classList.add(this.activeClass);
 
       } else {
-        selectElement.classList.remove(activeClass);
+        this.selectElement.classList.remove(this.activeClass);
       };
     };
 
-    selectElement.addEventListener('focus', function () {
-      changeCustomSelectStatus(true);
-      changeOptionStatus(optionList[currentOptionIndex]);
-    });
-    selectElement.addEventListener('focusout', function () {
-      changeCustomSelectStatus(false);
-    });
-    selectElement.addEventListener('mouseenter', function () {
-      changeCustomSelectStatus(true);
-      changeOptionStatus(optionList[currentOptionIndex]);
-    });
-    selectElement.addEventListener('mouseleave', function () {
-      changeCustomSelectStatus(false);
-    });
-    selectElement.addEventListener('click', function () {
-      changeCustomSelectStatus(showCustomSelect);
-      showCustomSelect = true;
-    });
-
-    let attributeList = this.attributeList;
-    let optionList = selectElement.querySelectorAll('li');
-    let showCustomSelect;
-    let currentOptionIndex = 0;
-
-    function setSelectElementAttr(option) {
-      attributeList.forEach(attribute => {
-        selectElement.setAttribute(attribute, option.getAttribute(attribute))
-      });
-      selectTextContainer.innerHTML = option.innerHTML;
-
-      showCustomSelect = false;
-    }
-
-    function changeOptionStatus(option) {
+    const changeOptionStatus = (option) => {
       optionList.forEach(option => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
-    }
+    };
 
-    optionList.forEach((option, index) => {
-      if (option.getAttribute('value') === defaultOptionValue) {
-        setSelectElementAttr(option);
-        showCustomSelect = true;
-        currentOptionIndex = index;
-        changeOptionStatus(option);
-      }
+    const optionList = this.selectElement.querySelectorAll('li');
+    let currentOptionIndex = 0;
+    let showCustomSelect;
 
-      option.addEventListener('click', function () {
-        setSelectElementAttr(option);
-        currentOptionIndex = index;
-        changeOptionStatus(option);
+    (() => { // addSelectEvent
+      this.selectElement.addEventListener('focus', () => {
+        changeCustomSelectStatus(true);
+        changeOptionStatus(optionList[currentOptionIndex]);
+      });
+      this.selectElement.addEventListener('focusout', () => {
         changeCustomSelectStatus(false);
       });
-
-      option.addEventListener('mouseenter', function () {
-        changeOptionStatus(option);
+      this.selectElement.addEventListener('mouseenter', () => {
+        changeCustomSelectStatus(true);
+        changeOptionStatus(optionList[currentOptionIndex]);
       });
-    });
+      this.selectElement.addEventListener('mouseleave', () => {
+        changeCustomSelectStatus(false);
+      });
+      this.selectElement.addEventListener('click', () => {
+        changeCustomSelectStatus(showCustomSelect);
+        showCustomSelect = true;
+      });
 
-    selectElement.addEventListener('keydown', function (event) {
-      if (event.key === 'ArrowDown') {
-        if (currentOptionIndex < (optionList.length - 1)) {
-          currentOptionIndex++;
-        } else {
-          currentOptionIndex = 0;
-        }
-        changeOptionStatus(optionList[currentOptionIndex]);
+      this.selectElement.addEventListener('keydown', (event) => {
+        if (event.key === 'ArrowDown') {
+          if (currentOptionIndex < (optionList.length - 1)) {
+            currentOptionIndex++;
+          } else {
+            currentOptionIndex = 0;
+          };
+          changeOptionStatus(optionList[currentOptionIndex]);
 
-      } else if (event.key === 'ArrowUp') {
-        if (currentOptionIndex > 0) {
-          currentOptionIndex--;
-        } else {
-          currentOptionIndex = optionList.length - 1;
-        }
-        changeOptionStatus(optionList[currentOptionIndex]);
+        } else if (event.key === 'ArrowUp') {
+          if (currentOptionIndex > 0) {
+            currentOptionIndex--;
+          } else {
+            currentOptionIndex = optionList.length - 1;
+          };
+          changeOptionStatus(optionList[currentOptionIndex]);
 
-      } else if (event.key === 'Enter') {
-        if (selectElement.classList.contains(activeClass)) {
-          optionList[currentOptionIndex].click();
-        } else {
-          changeCustomSelectStatus(true);
+        } else if (event.key === 'Enter') {
+          if (this.selectElement.classList.contains(this.activeClass)) {
+            optionList[currentOptionIndex].click();
+          } else {
+            changeCustomSelectStatus(true);
+          };
+        };
+      });
+    })();
+
+    (() => { // addOptionEvent
+      const setSelectElementAttr = (option) => {
+        this.attributeList.forEach(attribute => {
+          this.selectElement.setAttribute(attribute, option.getAttribute(attribute))
+        });
+        selectTextContainer.innerHTML = option.innerHTML;
+
+        showCustomSelect = false;
+      };
+
+      optionList.forEach((option, index) => {
+        if (option.getAttribute('value') === defaultOptionValue) {
+          setSelectElementAttr(option);
+          showCustomSelect = true;
+          currentOptionIndex = index;
+          changeOptionStatus(option);
         }
-      }
-    });
+
+        option.addEventListener('click', () => {
+          setSelectElementAttr(option);
+          currentOptionIndex = index;
+          changeOptionStatus(option);
+          changeCustomSelectStatus(false);
+        });
+
+        option.addEventListener('mouseenter', () => {
+          changeOptionStatus(option);
+        });
+      });
+    })();
   }
 };

@@ -1,35 +1,161 @@
-let columnList = [{
-    name: 'Name',
-    key: 'CategoryName',
-    type: 'text',
-  },
-  {
-    name: 'Order',
-    key: 'CategoryOrder',
-    type: 'number',
-  },
-  {
-    name: 'Display',
-    key: 'CategoryDisplay',
-    type: 'text',
-  },
-  {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
-    type: 'number',
-  },
-];
+import {
+  LinkFormatter,
+  ButtonFormatter,
+} from '../../class/data-formatter.js';
+import {
+  ToastCreator
+} from '../../class/toast-creator.js';
+import {
+  DataDeleter
+} from '../../class/data-interactor.js';
+import {
+  ConfirmDangerActionPopupCreator
+} from '../../class/popup-creator.js';
+import {
+  Suggester
+} from '../../class/suggester.js';
+import {
+  DataReader
+} from '../../class/data-interactor.js';
+import {
+  TableCreator
+} from '../../class/table-creator.js';
+import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
+import searchAssistantCreator from './modules/create-search-assistant.js';
+import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
+import {
+  filterData,
+  sliceData,
+  filterDataToastify
+} from './modules/filter-data.js';
+import getDataArrayFormat from './modules/convert-data-to-array.js';
+import createFilterEvent from './modules/create-filter-event.js';
+import createFilterInformation from './modules/filter-information.js';
 
-let defaultColumnOptionValue = 'CategoryName';
-let dataFetchLink = 'http://localhost:3000/category/';
 
-function addTableButtonEvent() {
-  let deleteButtonList = document.querySelectorAll('.js-delete-data');
+
+// api, default option key for filter
+const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+const defaultColumnOptionValue = 'CategoryName';
+
+// SEARCH SUGGESTER
+(function createAdminFilterCustomSelectCreator() {
+  const columnList = [{
+      name: 'Name',
+      key: 'CategoryName',
+      type: 'text',
+    },
+    {
+      name: 'Order',
+      key: 'CategoryOrder',
+      type: 'number',
+    },
+    {
+      name: 'Display',
+      key: 'CategoryDisplay',
+      type: 'text',
+    },
+    {
+      name: 'Quantity',
+      key: 'CategoryProductQuantity',
+      type: 'number',
+    }
+  ];
+  adminFilterCustomSelectCreator(
+    columnList,
+    defaultColumnOptionValue
+  );
+})();
+
+const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
+searchAssistantCreator(
+  defaultColumnOptionValue,
+  dataFetchLink,
+  searchSuggester,
+);
+// end SEARCH SUGGESTER
+
+// TABLE BUTTON EVENT
+let data; // must here
+const tableDataToastify = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16
+);
+const tableDataDeleter = new DataDeleter(dataFetchLink);
+const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
+
+const addTableButtonEvent = () => {
+  const deleteButtonList = document.querySelectorAll('.js-delete-data');
 
   deleteButtonList.forEach(deleteButton => {
-    deleteButton.addEventListener('click', function () {
-      let categoryName = deleteButton.dataset.name;
-      let categoryId = deleteButton.dataset.id;
+    deleteButton.addEventListener('click', () => {
+      const categoryName = deleteButton.dataset.name;
+      const categoryId = deleteButton.dataset.id;
+      // console.log(categoryId);
+      const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
+
+      const afterDeleteHandle = (deleteResult) => {
+        if (deleteResult === null) {
+          tableDataToastify.createToast(
+            'success',
+            `Delete Category - ${categoryName} completed`,
+            2
+          );
+          data.splice(data.findIndex((item) => {
+            item.FireBaseKey === categoryId
+          }), 1);
+          searchSuggester.suggestData = data;
+
+          (function changeTableData() {
+            const result = filterData(data, filterInformation);
+            const displayedData = sliceData(result, filterInformation);
+
+            if (displayedData.length > 0) {
+              tableCreator.convertData(displayedData);
+
+              tablePagingLinkCreator.changePagingLink(
+                filterInformation.pageNum,
+                filterInformation.resultQuantity,
+                result.length,
+                (pageNum) => {
+                  filterInformation.pageNum = pageNum;
+                  changeTableData(filterInformation, true);
+                }
+              );
+
+            } else {
+              --filterInformation.pageNum;
+              changeTableData();
+            };
+          })();
+
+        } else {
+          tableDataToastify.createToast(
+            'danger',
+            `Delete Category - ${categoryName} failed`,
+            2
+          );
+        };
+      };
+
+      const deleteCategory = () => {
+        if (categoryProductQuantity === 0) {
+          tableDataDeleter.deleteData(
+            categoryId,
+            afterDeleteHandle
+          );
+
+        } else {
+          tableDataToastify.createToast(
+            'warning',
+            `The number of products in Category - ${categoryName} must be 0 to be deleted`,
+            2,
+          );
+        };
+      };
+
       confirmDeletePopupCreator.createConfirmDangerActionPopup(
         `
           Are you sure to delete Category - ${categoryName} ?
@@ -37,99 +163,14 @@ function addTableButtonEvent() {
           (<span class="text-danger fw-bold">*</span>) 
           The number of products in the category must be 0 to be deleted
         `,
-        function () {
-          tableDataDeleter.deleteData(
-            categoryId,
-            function (data) {
-              switch (data.result) {
-                case 'success':
-                  tableDataToastify.createToast(
-                    'success',
-                    data.notification,
-                    2,
-                  );
-                  break;
-
-                case 'fail':
-                  tableDataToastify.createToast(
-                    'danger',
-                    data.notification,
-                    2,
-                  );
-                  break;
-
-                case 'warning':
-                  tableDataToastify.createToast(
-                    'warning',
-                    data.notification,
-                    2,
-                  );
-              };
-
-              function changeTableData() {
-                tableDataReader.readData(
-                  filterInformation,
-                  function (result) {
-                    if (result.data.length > 0) {
-                      tableCreator.convertData(result.data);
-
-                      tablePagingLinkCreator.changePagingLink(
-                        filterInformation.pageNum,
-                        filterInformation.resultQuantity,
-                        result.total,
-                        function (pageNum) {
-                          filterInformation.pageNum = pageNum;
-                          changeTableData(filterInformation, true);
-                        },
-                      );
-
-                    } else {
-                      --filterInformation.pageNum;
-                      changeTableData();
-                    };
-                  },
-                );
-              };
-              changeTableData();
-
-              function updateSearchSuggestData() {
-                tableDataReader.readData({
-                    'columnList': [
-                      searchColumnSelect.getAttribute('value'),
-                    ],
-                    'searchValue': '',
-                    'searchMode': 'searchByValue',
-                    'searchColumn': searchColumnSelect.getAttribute('value'),
-                    'orderRule': 'ASC',
-                    'orderColumn': searchColumnSelect.getAttribute('value'),
-                    'resultQuantity': 999999999999,
-                    'pageNum': 1
-                  },
-                  function (result) {
-                    let data = result.data;
-
-                    data = [
-                      ...new Map(data.map((item) => [item[searchColumnSelect.getAttribute('value')], item])).values(),
-                    ];
-
-                    searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
-                    searchSuggester.suggestData = data;
-                  },
-                );
-              }
-              updateSearchSuggestData();
-            },
-          );
-        }
+        deleteCategory
       );
     });
   });
 };
+// end TABLE BUTTON EVENT
 
-import {
-  LinkFormatter,
-  ButtonFormatter,
-} from '../../class/data-formatter.js';
+// TABLE FORMAT for tableColumnList
 const tableUpdateLinkFormatter = new LinkFormatter(
   './update-category/',
   ['btn-warning', 'btn-square'],
@@ -139,8 +180,11 @@ const tableDeleteButtonFormatter = new ButtonFormatter(
   ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
   '<i class="fas fa-trash"></i>',
 );
+// end TABLE FORMAT for tableColumnList
 
-let tableColumnList = [{
+// CREATE TABLE CREATOR
+const dataTable = document.querySelector('#js-data-table');
+const tableColumnList = [{
     name: 'Name',
     key: 'CategoryName',
     width: 12,
@@ -162,230 +206,79 @@ let tableColumnList = [{
   },
   {
     name: 'Handle',
-    key: 'CategoryId',
+    key: 'CategoryHandle',
     width: 7,
-    formatFunction: function (
-      [id = String(), name = String()]
-    ) {
-      let deleteBtn = tableDeleteButtonFormatter.formatButton(
+    formatFunction: (
+      [id = String(), name = String(), productQuantity = Number()]
+    ) => {
+      const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
           key: 'id',
           value: id
         }, {
           key: 'name',
           value: name
+        }, {
+          key: 'product-quantity',
+          value: productQuantity
         }]
       );
-      let updateBtn = tableUpdateLinkFormatter.formatLink(id);
+      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
       return deleteBtn + updateBtn;
     },
     formatPrameterKeyList: [
-      'CategoryId',
-      'CategoryName'
-    ],
-  },
+      'FireBaseKey',
+      'CategoryName',
+      'CategoryProductQuantity'
+    ]
+  }
 ];
-
-import {
-  ToastCreator
-} from '../../class/toast-creator.js';
-const tableDataToastify = new ToastCreator(
-  'bottom',
-  16,
-  'right',
-  16,
-);
-
-import {
-  DataDeleter
-} from '../../class/data-interactor.js';
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-
-import {
-  ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
-
-
-
-import {
-  Suggester
-} from '../../class/suggester.js';
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]);
-
-import {
-  DataReader
-} from '../../class/data-interactor.js';
-const tableDataReader = new DataReader(dataFetchLink);
-
-import {
-  adminFilterCustomSelectCreator
-} from './create-custom-select.js';
-adminFilterCustomSelectCreator(
-  columnList,
-  defaultColumnOptionValue
-);
-
-import {
-  searchAssistantCreator
-} from './create-search-assistant.js';
-searchAssistantCreator(
-  defaultColumnOptionValue,
-  dataFetchLink,
-  searchSuggester,
-);
-
-// TABLE INTERACTION
-import {
-  TableCreator
-} from '../../class/table-creator.js';
-import {
-  PagingLinkCreator
-} from '../../class/paging-link-creator.js';
-
-let tableColumnKeyList = [];
-tableColumnList.forEach(column => {
-  tableColumnKeyList.push(column.key);
-});
-
-let searchByValueInput = document.querySelector('#js-overview-search-value');
-let searchByMinInput = document.querySelector('#js-overview-search-min');
-let searchByMaxInput = document.querySelector('#js-overview-search-max');
-let searchColumnSelect = document.querySelector('#js-overview-search-column');
-let orderColumnSelect = document.querySelector('#js-overview-order-column');
-let orderRuleSelect = document.querySelector('#js-overview-order-rule');
-let resultQuantitySelect = document.querySelector('#js-overview-rows');
-let dataTable = document.querySelector('#js-data-table');
-
-let filterInformation = {
-  'columnList': tableColumnKeyList,
-  'searchValue': searchByValueInput.value,
-  'searchMinValue': searchByMinInput.value,
-  'searchMaxValue': searchByMaxInput.value,
-  'searchMode': 'searchByValue',
-  'searchColumn': searchColumnSelect.getAttribute('value'),
-  'orderColumn': orderColumnSelect.getAttribute('value'),
-  'orderRule': orderRuleSelect.getAttribute('value'),
-  'resultQuantity': resultQuantitySelect.getAttribute('value'),
-  'pageNum': 1
-};
-
-let tableCreator = new TableCreator(
+const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
+// end CREATE TABLE CREATOR
 
-let pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
-const tablePagingLinkCreator = new PagingLinkCreator(
-  ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
-  ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
-  '<i class="fa-solid fa-step-backward"></i>',
-  '<i class="fa-solid fa-step-forward"></i>',
-  pagingLinkContainer,
-  'd-none',
-  'disabled',
-  5,
-);
+// FILTER
+const tableColumnKeyList = [];
+tableColumnList.forEach(column => {
+  tableColumnKeyList.push(column.key);
+});
+const filterInformation = createFilterInformation(tableColumnKeyList);
+// end FILTER
 
-function changeTableData(
-  filterInformation = Object(),
-  changePageNum = Boolean(),
-) {
-  tableDataReader.readData(
-    filterInformation,
-    function (result) {
-      console.log(JSON.stringify(result.data));
-      tableCreator.convertData(result.data);
-      tablePagingLinkCreator.changePagingLink(
-        filterInformation.pageNum,
-        filterInformation.resultQuantity,
-        result.total,
-        function (pageNum) {
-          filterInformation.pageNum = pageNum;
-          changeTableData(filterInformation, true);
+const tableDataReader = new DataReader(dataFetchLink);
+tableDataReader.readData(fullData => {
+  data = getDataArrayFormat(fullData, tableColumnKeyList);
+  // console.log(data);
 
-          document.querySelector('#js-table-container').scrollIntoView();
-        },
-      );
+  const changeTableData = (
+    filterInformation = Object(),
+    changePageNum = Boolean(),
+  ) => {
+    const result = filterData(data, filterInformation);
+    const displayedData = sliceData(result, filterInformation);
+    tableCreator.convertData(displayedData);
 
-      let toastifyDisplayTime = 2;
-      if (changePageNum === false) {
-        if (result.total > 1) {
-          tableDataToastify.createToast(
-            'success',
-            `Filter data successully return ${result.total} rows result`,
-            toastifyDisplayTime,
-          );
-        } else if (result.total === 1) {
-          tableDataToastify.createToast(
-            'success',
-            `Filter data successully return 1 row result`,
-            toastifyDisplayTime,
-          );
+    // console.log(filterInformation);
 
-        } else {
-          tableDataToastify.createToast(
-            'warning',
-            `No suitable data`,
-            toastifyDisplayTime,
-          );
-        };
-      } else {
-        tableDataToastify.createToast(
-          'success',
-          `Switch to page ${filterInformation.pageNum} completed`,
-          toastifyDisplayTime,
-        );
-      };
-    },
-  );
-}
-changeTableData(filterInformation, false);
+    tablePagingLinkCreator.changePagingLink(
+      filterInformation.pageNum,
+      filterInformation.resultQuantity,
+      result.length,
+      (pageNum) => {
+        filterInformation.pageNum = pageNum;
+        changeTableData(filterInformation, true);
 
-let confirmSearchButton = document.querySelector('#js-confirm-search-button');
-let searchByValueModeRadio = document.querySelector('#js-search-by-value');
-let searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
-confirmSearchButton.addEventListener('click', function () {
-  if (searchByValueModeRadio.checked === true) {
-    filterInformation.searchMode = 'searchByValue';
-    filterInformation.searchValue = searchByValueInput.value;
+        document.querySelector('#js-table-container').scrollIntoView();
+      }
+    );
 
-  } else if (searchByMinMaxModeRadio.checked === true) {
-    filterInformation.searchMode = 'searchByMinMax';
-    filterInformation.searchMinValue = searchByMinInput.value;
-    filterInformation.searchMaxValue = searchByMaxInput.value;
+    filterDataToastify(result.length, changePageNum, filterInformation.pageNum);
   };
-
-  let searchColumnValue = searchColumnSelect.getAttribute('value');
-  filterInformation.searchColumn = searchColumnValue;
-
-  filterInformation.pageNum = 1;
   changeTableData(filterInformation, false);
+
+  createFilterEvent(filterInformation, changeTableData);
 });
-orderColumnSelect.addEventListener('DOMSubtreeModified', function () {
-  let orderColumnValue = orderColumnSelect.getAttribute('value');
-  if (orderColumnValue !== filterInformation.orderColumn) {
-    filterInformation.pageNum = 1;
-    filterInformation.orderColumn = orderColumnValue;
-    changeTableData(filterInformation, false);
-  };
-});
-orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
-  let orderRuleValue = orderRuleSelect.getAttribute('value');
-  if (orderRuleValue !== filterInformation.orderRule) {
-    filterInformation.pageNum = 1;
-    filterInformation.orderRule = orderRuleValue;
-    changeTableData(filterInformation, false);
-  };
-});
-resultQuantitySelect.addEventListener('DOMSubtreeModified', function () {
-  let resultQuantityValue = resultQuantitySelect.getAttribute('value');
-  if (resultQuantityValue !== filterInformation.resultQuantity) {
-    filterInformation.pageNum = 1;
-    filterInformation.resultQuantity = resultQuantityValue;
-    changeTableData(filterInformation, false);
-  };
-});
-// END TABLE INTERACTION

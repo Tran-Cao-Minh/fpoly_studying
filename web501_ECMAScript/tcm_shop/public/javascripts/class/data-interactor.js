@@ -12,12 +12,12 @@ export class DataReader extends DataInteractor {
   constructor(
     fetchLink = String()
   ) {
-    super(fetchLink, 'GET');
+    super(`${fetchLink}.json`, 'GET');
   }
 
-  readData = (
+  readData(
     callbackFn = Function(data = Object()),
-  ) => {
+  ) {
     fetch(this.fetchLink, {
         method: this.fetchMethod,
       })
@@ -34,31 +34,25 @@ export class DataReader extends DataInteractor {
     // .catch((error) => {
     //   console.log('error: ' + error);
     // });
-  };
+  }
 }
 
-function DataInteractorFunction(
-  fetchLink = String(),
-  fetchMethod = String(),
-) {
-  this.fetchLink = fetchLink;
-  this.fetchMethod = fetchMethod;
-}
+export class DataDeleter extends DataInteractor {
+  constructor(
+    fetchLink = String()
+  ) {
+    super(fetchLink, 'DELETE');
+  }
 
-export function DataDeleter(
-  fetchLink = String(),
-) {
-  DataInteractorFunction.call(this, fetchLink, 'DELETE');
-
-  this.deleteData = function (
+  deleteData(
     id = String(),
     callbackFn = Function(data = Object()),
   ) {
-    let fetchMethod = this.fetchMethod;
-    let fetchLink = this.fetchLink + id;
+    const fetchLink = `${this.fetchLink}/${id}.json`;
+    // console.log(fetchLink);
 
     fetch(fetchLink, {
-        method: fetchMethod,
+        method: this.fetchMethod,
       })
       .then(function (res) {
         if (!res.ok) {
@@ -73,7 +67,15 @@ export function DataDeleter(
     // .catch(function (error) {
     //   console.log('error: ' + error);
     // });
-  };
+  }
+}
+
+function DataInteractorFunction(
+  fetchLink = String(),
+  fetchMethod = String(),
+) {
+  this.fetchLink = fetchLink;
+  this.fetchMethod = fetchMethod;
 }
 
 export function DataAdder(

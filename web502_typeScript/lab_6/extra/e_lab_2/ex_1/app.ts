@@ -36,7 +36,6 @@ class ProductManager {
   @PropertyProductManagerLogger
   private fetchLink: string;
 
-
   constructor(fetchLink: string) {
     this.fetchLink = fetchLink;
   }

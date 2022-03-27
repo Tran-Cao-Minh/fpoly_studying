@@ -17,7 +17,7 @@ const searchColumnSelect =
 let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
 const searchInputList = document.querySelectorAll('[id*="js-overview-search-"]');
 
-export const searchAssistantCreator = (
+const searchAssistantCreator = (
   defaultColumnOptionValue = String(),
   dataFetchLink = String(),
   searchSuggester
@@ -87,3 +87,5 @@ export const searchAssistantCreator = (
     }
   });
 };
+
+export default searchAssistantCreator;

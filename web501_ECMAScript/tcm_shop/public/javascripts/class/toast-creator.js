@@ -1,21 +1,23 @@
-export function ToastCreator(
-  verticalAlign = 'top' || 'bottom',
-  verticalOffset = Number(), // px
-  horizontalAlign = 'left' || 'right',
-  horizontalOffset = Number(), // px
-) { 
-  this.verticalAlign = verticalAlign;
-  this.verticalOffset = verticalOffset;
-  this.horizontalAlign = horizontalAlign;
-  this.horizontalOffset = horizontalOffset;
+export class ToastCreator { 
+  constructor (
+    verticalAlign = 'top' || 'bottom',
+    verticalOffset = Number(), // px
+    horizontalAlign = 'left' || 'right',
+    horizontalOffset = Number(), // px
+  ) {
+    this.verticalAlign = verticalAlign;
+    this.verticalOffset = verticalOffset;
+    this.horizontalAlign = horizontalAlign;
+    this.horizontalOffset = horizontalOffset;
+  }
 
-  this.createToast = function (
+  createToast (
     type = 'success' || 'danger' || 'warning' || 'info',
     message = String(),
-    displayTime = Number(), // seconds
+    displayTime = Number() // seconds
   ) {
-    let documentBody = document.body;
-    let colorClass = 'toast-' + type;
+    const documentBody = document.body;
+    const colorClass = 'toast-' + type;
 
     let icon;
     switch (type) {
@@ -33,7 +35,7 @@ export function ToastCreator(
         break;
     };
 
-    let toast = document.createElement('div');
+    const toast = document.createElement('div');
     toast.setAttribute('class', `toast ${colorClass} js-toastify`);
     toast.innerHTML = `
       <div class="toast-icon">
@@ -47,7 +49,7 @@ export function ToastCreator(
       </div>
     `;
 
-    let currentToastList = document.querySelectorAll('.js-toastify');
+    const currentToastList = document.querySelectorAll('.js-toastify');
     let toastVerticalOffset = this.verticalOffset;
     if (currentToastList.length > 0) {
       currentToastList.forEach(currentToast => {
@@ -61,35 +63,32 @@ export function ToastCreator(
     `);
     documentBody.appendChild(toast);
 
-    let toastVerticalAlign = this.verticalAlign;
-    let verticalOffset = this.verticalOffset;
-
-    function removeToast() {
-      toast.style[horizontalAlign] = '-' + toast.offsetWidth + 'px';
+    const removeToast = () => {
+      toast.style[this.horizontalAlign] = '-' + toast.offsetWidth + 'px';
       toast.style.opacity = 0.2;
 
-      setTimeout(function () {
+      setTimeout(() => {
         let nextToast = toast.nextElementSibling;
         while (nextToast) {
           // console.log(nextToast.style[toastVerticalAlign]);
 
-          let nextToastVerticalOffset = Number(nextToast.style[toastVerticalAlign].slice(0, -2));
-          nextToast.style[toastVerticalAlign] =
-            (nextToastVerticalOffset - toast.offsetHeight - verticalOffset) + 'px';
+          const nextToastVerticalOffset = Number(nextToast.style[this.verticalAlign].slice(0, -2));
+          nextToast.style[this.verticalAlign] =
+            (nextToastVerticalOffset - toast.offsetHeight - this.verticalOffset) + 'px';
 
           nextToast = nextToast.nextElementSibling;
         };
         documentBody.removeChild(toast);
       }, 200);
-    }
+    };
 
-    let removeToastTimeout = setTimeout(function () {
+    const removeToastTimeout = setTimeout(() => {
       removeToast();
     }, (displayTime * 1000));
 
-    toast.querySelector('.toast-close').addEventListener('click', function () {
+    toast.querySelector('.toast-close').addEventListener('click', () => {
       clearTimeout(removeToastTimeout);
       removeToast();
     });
-  };
+  }
 }

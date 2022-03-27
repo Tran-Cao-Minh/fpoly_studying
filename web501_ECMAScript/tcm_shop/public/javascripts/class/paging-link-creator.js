@@ -1,18 +1,30 @@
-export function PagingLinkCreator(
-  iconClass = Array(String()),
-  numberClass = Array(String()),
-  firstPageIcon = String(),
-  lastPageIcon = String(),
-  container = Node(),
-  hideClass = String(),
-  itemChoosenAttribute = String(),
-  maxPage = Number(odd),
-) {
-  this.iconClass = iconClass;
-  this.getIconClass = function () {
-    if (this.iconClass.length > 0) {
+export class PagingLinkCreator {
+  constructor (
+    iconClass = Array(String()),
+    numberClass = Array(String()),
+    firstPageIcon = String(),
+    lastPageIcon = String(),
+    container = Node(),
+    hideClass = String(),
+    itemChoosenAttribute = String(),
+    maxPage = Number(odd)
+  ) {
+    this.iconClass = iconClass;
+    this.numberClass = numberClass;
+
+    this.firstPageIcon = firstPageIcon;
+    this.lastPageIcon = lastPageIcon;
+    this.container = container;
+    this.hideClass = hideClass;
+    this.itemChoosenAttribute = itemChoosenAttribute;
+    this.maxPage = maxPage;
+    this.offset = (maxPage - 1) / 2;
+  }
+
+  getFullClassName (classArray = [String()]) {
+    if (classArray.length > 0) {
       let classValue = '';
-      this.iconClass.forEach(item => {
+      classArray.forEach(item => {
         classValue += ` ${item}`;
       });
       classValue.slice(0, 1);
@@ -21,53 +33,29 @@ export function PagingLinkCreator(
     } else {
       return '';
     };
-  };
-  this.numberClass = numberClass;
-  this.getNumberClass = function () {
-    if (this.numberClass.length > 0) {
-      let classValue = '';
-      this.numberClass.forEach(item => {
-        classValue += ` ${item}`;
-      });
-      classValue.slice(0, 1);
+  }
 
-      return classValue;
-    } else {
-      return '';
-    };
-  };
-
-  this.firstPageIcon = firstPageIcon;
-  this.lastPageIcon = lastPageIcon;
-  this.container = container;
-  this.hideClass = hideClass;
-  this.itemChoosenAttribute = itemChoosenAttribute;
-  this.maxPage = maxPage;
-  this.offset = (maxPage - 1) / 2;
-
-  this.changePagingLink = function (
+  changePagingLink (
     pageNum = Number(),
     resultQuantity = Number(),
     total = Number(),
-    pagingItemEvent = Function(pageNum = Number),
+    pagingItemEvent = Function(pageNum = Number)
   ) {
-    let pageQuantity = Math.ceil(total / resultQuantity);
+    const pageQuantity = Math.ceil(total / resultQuantity);
 
     if (pageQuantity > 1) {
-      this.container.classList.remove(hideClass);
+      this.container.classList.remove(this.hideClass);
       this.container.innerHTML = '';
 
-      let pagingItemClass = this.getNumberClass();
-      let itemChoosenAttribute = this.itemChoosenAttribute;
-      let pagingLinkListContainer = this.container;
-      function createPagingItem(i = Number()) {
-        let pagingItem = document.createElement('li');
+      const pagingItemClass = this.getFullClassName(this.numberClass);
+      const createPagingItem = (i = Number()) => {
+        const pagingItem = document.createElement('li');
         pagingItem.setAttribute('class', pagingItemClass);
         pagingItem.innerHTML = i;
         pagingItem.setAttribute('value', i);
   
         if (i === pageNum) {
-          pagingItem.setAttribute(itemChoosenAttribute, '');
+          pagingItem.setAttribute(this.itemChoosenAttribute, '');
 
         } else {
           pagingItem.addEventListener('click', function() {
@@ -75,27 +63,27 @@ export function PagingLinkCreator(
           });
         };
 
-        pagingLinkListContainer.appendChild(pagingItem);
-      }
+        this.container.appendChild(pagingItem);
+      };
   
       if (pageQuantity <= this.maxPage) {
         for (let i = 1; i <= pageQuantity; i++) {
           createPagingItem(i);
         };
-      } else if (pageQuantity > maxPage) {
-        let pagingItemFirst = document.createElement('li');
-        pagingItemFirst.setAttribute('class', this.getIconClass());
+      } else if (pageQuantity > this.maxPage) {
+        const pagingItemFirst = document.createElement('li');
+        pagingItemFirst.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemFirst.innerHTML = this.firstPageIcon;
         pagingItemFirst.setAttribute('value', 1);
-        pagingItemFirst.addEventListener('click', function() {
+        pagingItemFirst.addEventListener('click', () => {
           pagingItemEvent(1);
         });
   
-        let pagingItemLast = document.createElement('li');
-        pagingItemLast.setAttribute('class', this.getIconClass());
+        const pagingItemLast = document.createElement('li');
+        pagingItemLast.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemLast.innerHTML = this.lastPageIcon;
         pagingItemLast.setAttribute('value', pageQuantity);
-        pagingItemLast.addEventListener('click', function() {
+        pagingItemLast.addEventListener('click', () => {
           pagingItemEvent(pageQuantity);
         });
   
@@ -124,7 +112,7 @@ export function PagingLinkCreator(
       };
 
     } else {
-      this.container.classList.add(hideClass);
+      this.container.classList.add(this.hideClass);
     };
-  };
+  }
 }
