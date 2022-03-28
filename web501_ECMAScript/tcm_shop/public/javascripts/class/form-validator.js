@@ -32,7 +32,7 @@ export class FormValidator {
 
   changeButtonStatus () {
     this.checkValidate = true;
-    this.inputList.forEach(input => {
+    this.inputList.forEach((input) => {
       if (input.classList.contains(this.inputValidClass) === false) {
         this.checkValidate = false;
       };

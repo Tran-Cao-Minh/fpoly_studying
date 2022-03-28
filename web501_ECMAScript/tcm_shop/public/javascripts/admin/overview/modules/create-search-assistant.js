@@ -8,7 +8,7 @@ import {
 const searchInputContainer = document.querySelector('#js-search-input-container');
 const searchInputModeChanger = new SingleActivator('active', searchInputContainer);
 const changeModeInputList = document.querySelectorAll('[name=searchMode]');
-changeModeInputList.forEach(input => {
+changeModeInputList.forEach((input) => {
   searchInputModeChanger.createEvent(input, 'change');
 });
 
@@ -32,24 +32,18 @@ const searchAssistantCreator = (
         row[columnKey] = fullData[key][columnKey];
         return row;
       });
-
-    (function removeDuplicate() {
-      searchData.forEach((row, index) => {
-        const currentValue = row[columnKey];
-        const currentIndex = index;
-
-        searchData.forEach((row, index) => {
-          if (
-            currentValue === row[columnKey] &&
-            currentIndex !== index
-          ) {
-            searchData.splice(index, 1);
-          }
-        });
+    
+    const getUniqueIndex = (uniqueSearchData, uniqueItem) => {
+      return uniqueSearchData.findIndex((item) => {
+        return (item[columnKey] === uniqueItem[columnKey]);
       });
-    })();
+    };
 
-    return searchData;
+    const uniqueSearchData = searchData.filter((uniqueItem, index, uniqueSearchData) => {
+      return getUniqueIndex(uniqueSearchData, uniqueItem) === index;
+    });
+
+    return uniqueSearchData;
   };
 
   (function searchSuggesterInit() {
@@ -77,7 +71,7 @@ const searchAssistantCreator = (
     if (searchColumnSelect.getAttribute('value') !== searchColumnSelectValue) {
       searchColumnSelectValue = searchColumnSelect.getAttribute('value');
 
-      searchInputList.forEach(input => {
+      searchInputList.forEach((input) => {
         input.setAttribute('type', searchColumnSelect.getAttribute('type'));
         input.value = '';
       });

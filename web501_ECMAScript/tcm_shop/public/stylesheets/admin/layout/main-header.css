@@ -26,7 +26,6 @@
 
 @media only screen and (max-width: 1199.98px) {
   .main__wrapper {
-    width: 100vw;
     padding-left: 1rem;
     padding-right: 1rem;
   }

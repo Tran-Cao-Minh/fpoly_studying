@@ -221,7 +221,7 @@ const tableCreator = new TableCreator(
   'rem',
 );
 const tableColumnKeyList = [];
-tableColumnList.forEach(column => {
+tableColumnList.forEach((column) => {
   tableColumnKeyList.push(column.key);
 });
 // end TABLE CREATOR
@@ -255,7 +255,7 @@ searchAssistantCreator(
 
 const tableDataReader = new DataReader(dataFetchLink);
 tableDataReader.readData((fullData) => {
-  getDataArrayFormat(fullData, data, tableColumnKeyList);
+  getDataArrayFormat(fullData, data);
   // console.log(data);
 
   const changeTableData = (
