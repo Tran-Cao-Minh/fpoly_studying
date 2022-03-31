@@ -104,7 +104,7 @@ const optionColumnList = [{
 ];
 
 const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
+  './update-product/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
@@ -114,30 +114,30 @@ const tableDeleteButtonFormatter = new ButtonFormatter(
 );
 const tableColumnList = [{
     name: 'Name',
-    key: 'CategoryName',
+    key: 'ProductName',
     width: 12,
   },
   {
-    name: 'Order',
-    key: 'CategoryOrder',
+    name: 'Price',
+    key: 'ProductPrice',
     width: 6,
   },
   {
-    name: 'Display',
-    key: 'CategoryDisplay',
+    name: 'Quantity',
+    key: 'ProductQuantity',
     width: 7,
   },
   {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
+    name: 'Image',
+    key: 'ProductImage',
     width: 7,
   },
   {
     name: 'Handle',
-    key: 'CategoryHandle',
+    key: 'ProductHandle',
     width: 7,
     formatFunction: (
-      [id = String(), name = String(), productQuantity = Number()]
+      [id = String(), name = String()]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
@@ -146,9 +146,6 @@ const tableColumnList = [{
         }, {
           key: 'name',
           value: name
-        }, {
-          key: 'product-quantity',
-          value: productQuantity
         }]
       );
       const updateBtn = tableUpdateLinkFormatter.formatLink(id);
@@ -156,8 +153,7 @@ const tableColumnList = [{
     },
     formatPrameterKeyList: [
       'FireBaseKey',
-      'CategoryName',
-      'CategoryProductQuantity'
+      'ProductName'
     ]
   }
 ];
