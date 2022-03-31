@@ -1,6 +1,8 @@
 import {
   LinkFormatter,
   ButtonFormatter,
+  ImageFormatter,
+  CurrencyFormatter
 } from '../../class/data-formatter.js';
 import {
   ToastCreator
@@ -12,7 +14,7 @@ import {
   ConfirmDangerActionPopupCreator
 } from '../../class/popup-creator.js';
 import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
- 
+
 import {
   filterData,
   sliceData
@@ -112,15 +114,42 @@ const tableDeleteButtonFormatter = new ButtonFormatter(
   ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
   '<i class="fas fa-trash"></i>',
 );
+const imageFormatter = new ImageFormatter(
+  []
+);
+const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+
 const tableColumnList = [{
     name: 'Name',
     key: 'ProductName',
-    width: 12,
+    width: 15,
+  },
+  {
+    name: 'Image',
+    key: 'ProductImage',
+    width: 4,
+    formatFunction: (
+      [base64 = String(), altText = String()]
+    ) => {
+      const img = imageFormatter.formatImage(base64, altText);
+      return img;
+    },
+    formatPrameterKeyList: [
+      'ProductImage',
+      'ProductName'
+    ]
   },
   {
     name: 'Price',
     key: 'ProductPrice',
     width: 6,
+    formatFunction: (number) => {
+      const price = currencyFormatter.formatCurrency(number);
+      return price;
+    },
+    formatPrameterKeyList: [
+      'ProductPrice'
+    ]
   },
   {
     name: 'Quantity',
@@ -128,8 +157,8 @@ const tableColumnList = [{
     width: 7,
   },
   {
-    name: 'Image',
-    key: 'ProductImage',
+    name: 'Views',
+    key: 'ProductViews',
     width: 7,
   },
   {
@@ -172,22 +201,22 @@ const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 const addTableButtonEvent = () => {
   const deleteButtonList = document.querySelectorAll('.js-delete-data');
 
-  deleteButtonList.forEach(deleteButton => {
+  deleteButtonList.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
-      const categoryName = deleteButton.dataset.name;
-      const categoryId = deleteButton.dataset.id;
-      // console.log(categoryId);
+      const productName = deleteButton.dataset.name;
+      const productId = deleteButton.dataset.id;
+      // console.log(productId);
       const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
 
       const afterDeleteHandle = (deleteResult) => {
         if (deleteResult === null) {
           tableDataToastify.createToast(
             'success',
-            `Delete Category - ${categoryName} completed`,
+            `Delete Category - ${productName} completed`,
             2
           );
           data.splice(data.findIndex((item) => {
-            item.FireBaseKey === categoryId
+            item.FireBaseKey === productId
           }), 1);
           searchSuggester.suggestData = data;
 
@@ -217,7 +246,7 @@ const addTableButtonEvent = () => {
         } else {
           tableDataToastify.createToast(
             'danger',
-            `Delete Category - ${categoryName} failed`,
+            `Delete Category - ${productName} failed`,
             2
           );
         };
@@ -226,14 +255,14 @@ const addTableButtonEvent = () => {
       const deleteCategory = () => {
         if (categoryProductQuantity === 0) {
           tableDataDeleter.deleteData(
-            categoryId,
+            productId,
             afterDeleteHandle
           );
 
         } else {
           tableDataToastify.createToast(
             'warning',
-            `The number of products in Category - ${categoryName} must be 0 to be deleted`,
+            `The number of products in Category - ${productName} must be 0 to be deleted`,
             2,
           );
         };
@@ -241,10 +270,10 @@ const addTableButtonEvent = () => {
 
       confirmDeletePopupCreator.createConfirmDangerActionPopup(
         `
-          Are you sure to delete Category - ${categoryName} ?
+          Are you sure to delete Product - ${productName} ?
           <br>
           (<span class="text-danger fw-bold">*</span>) 
-          The number of products in the category must be 0 to be deleted
+          The product must not be in any order to be deleted
         `,
         deleteCategory
       );

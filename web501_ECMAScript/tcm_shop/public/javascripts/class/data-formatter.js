@@ -39,11 +39,8 @@ export class DateFormatter {
 
 export class ImageFormatter {
   constructor(
-    linkPrefix = String(),
     classList = Array()
   ) {
-    this.linkPrefix = linkPrefix;
-
     this.classValue = (() => {
       let classValue = '';
 
@@ -59,11 +56,11 @@ export class ImageFormatter {
   }
 
   formatImage(
-    fileName = String(),
+    base64 = String(),
     altText = String()
   ) {
     return `<img class="${this.classValue}" ` +
-      `src="${this.linkPrefix + fileName}.jpg" alt="${altText}">`;
+      `src="${base64}" alt="${altText}">`;
   }
 };
 

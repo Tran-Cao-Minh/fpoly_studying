@@ -131,7 +131,7 @@ const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 const addTableButtonEvent = () => {
   const deleteButtonList = document.querySelectorAll('.js-delete-data');
 
-  deleteButtonList.forEach(deleteButton => {
+  deleteButtonList.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
       const categoryName = deleteButton.dataset.name;
       const categoryId = deleteButton.dataset.id;

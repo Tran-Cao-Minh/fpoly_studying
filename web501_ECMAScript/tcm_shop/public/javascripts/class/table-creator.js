@@ -58,8 +58,8 @@ export class TableCreator {
   
       } else if (rowQuantity > 0) {
         (function changeDataWithFormat() {
-          data.forEach(row => {
-            tableColumnList.forEach(column => {
+          data.forEach((row) => {
+            tableColumnList.forEach((column) => {
               if (
                 column.formatFunction !== undefined &&
                 column.formatPrameterKeyList.length === 1
@@ -75,7 +75,7 @@ export class TableCreator {
                 column.formatPrameterKeyList.length > 1
               ) {
                 const parameterList = [];
-                column.formatPrameterKeyList.forEach(formatPrameterKey => {
+                column.formatPrameterKeyList.forEach((formatPrameterKey) => {
                   parameterList.push(row[formatPrameterKey]);
                 });
     
