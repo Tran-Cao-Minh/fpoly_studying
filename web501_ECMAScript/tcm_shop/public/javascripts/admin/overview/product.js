@@ -122,12 +122,12 @@ const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
 const tableColumnList = [{
     name: 'Name',
     key: 'ProductName',
-    width: 15,
+    width: 20,
   },
   {
     name: 'Image',
     key: 'ProductImage',
-    width: 4,
+    width: 6,
     formatFunction: (
       [base64 = String(), altText = String()]
     ) => {
@@ -142,7 +142,7 @@ const tableColumnList = [{
   {
     name: 'Price',
     key: 'ProductPrice',
-    width: 6,
+    width: 7,
     formatFunction: (number) => {
       const price = currencyFormatter.formatCurrency(number);
       return price;
@@ -159,7 +159,7 @@ const tableColumnList = [{
   {
     name: 'Views',
     key: 'ProductViews',
-    width: 7,
+    width: 6,
   },
   {
     name: 'Handle',
@@ -291,7 +291,7 @@ const tableCreator = new TableCreator(
   'rem',
 );
 const tableColumnKeyList = [];
-tableColumnList.forEach(column => {
+tableColumnList.forEach((column) => {
   tableColumnKeyList.push(column.key);
 });
 // end TABLE CREATOR

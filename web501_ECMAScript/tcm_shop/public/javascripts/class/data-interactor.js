@@ -80,7 +80,7 @@ export class DataAdder extends DataInteractor {
     successFn = Function(),
     failedFn = Function()
   ) {
-    fetch(this.fetchLink, {
+    fetch(`${this.fetchLink}.json`, {
       method: this.fetchMethod,
       body: formData
     })
@@ -108,7 +108,7 @@ export class DataUpdater extends DataInteractor {
 
   updateData (
     id = String(),
-    formData = Object(),
+    formData = JSON().stringify(Object()) | `"${String()}"`,
     successFn = Function(),
     failedFn = Function()
   ) {

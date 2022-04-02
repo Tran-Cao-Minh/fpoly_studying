@@ -105,11 +105,11 @@ const createFormValidator = (
       dataReader.readData((fullData) => {
         const dataList = (() => {
           const dataList = [];
-  
+
           Object.keys(fullData).map((key) => {
             dataList.push(fullData[key]['CategoryName']);
           });
-  
+
           const categoryNameIndex = dataList.indexOf(categoryName);
           dataList.splice(categoryNameIndex, 1);
 
@@ -142,9 +142,7 @@ const createFormValidator = (
     );
   })();
 
-  const dataUpdater = new DataUpdater(
-    'https://tcm-shop-default-rtdb.firebaseio.com/categories/'
-  );
+  const dataUpdater = new DataUpdater(fetchLinkPrefix);
 
   const submitUpdateEvent = () => {
     const updateSuccessFn = () => {
@@ -154,11 +152,66 @@ const createFormValidator = (
         2
       );
 
+      const oldCategoryName = categoryName;
       categoryName = formObject.categoryName.value;
       categoryOrder = formObject.categoryOrder.value;
       categoryDisplay = formObject.categoryDisplay.getAttribute('value');
 
-      // TODO: Update overide product
+      let toastSetTimeout;
+      const updateProductCategorySuccessFn = () => {
+        clearTimeout(toastSetTimeout);
+
+        toastSetTimeout = setTimeout(() => {
+          toastCreator.createToast(
+            'success',
+            `Update overide products completed - New category name: ${categoryName}`,
+            2
+          );
+        }, 100);
+      };
+      const updateProductCategoryFailedFn = () => {
+        clearTimeout(toastSetTimeout);
+
+        toastSetTimeout = setTimeout(() => {
+          toastCreator.createToast(
+            'danger',
+            'Update overide product category failed',
+            2
+          );
+        }, 100);
+      };
+
+      (function updateOverideProductsCategory (categoryName = String()) {
+        const productsFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+        const categoryNameColumnKey = 'ProductCategory';
+        const productsInformationReader = new DataReader(productsFetchLink);
+
+        const productCategoryFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
+        const productCategoryDataUpdater = new DataUpdater(productCategoryFetchLinkPrefix);
+
+        const updateProductCategory = (
+          firebaseKey = String(),
+          categoryName = String()
+        ) => {
+          const productCategorySuffixes = firebaseKey + '/' + categoryNameColumnKey;
+          const newCategoryName = `"${categoryName}"`;
+
+          productCategoryDataUpdater.updateData(
+            productCategorySuffixes,
+            newCategoryName,
+            updateProductCategorySuccessFn,
+            updateProductCategoryFailedFn
+          );
+        };
+
+        productsInformationReader.readData((fullData) => {
+          Object.keys(fullData).map((firebaseKey) => {
+            if (fullData[firebaseKey][categoryNameColumnKey] === oldCategoryName) {
+              updateProductCategory(firebaseKey, categoryName);
+            };
+          });
+        });
+      })(categoryName);
     };
 
     const updateFailedFn = () => {

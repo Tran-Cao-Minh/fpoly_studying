@@ -1,24 +1,26 @@
-export function SingleImagePreviewer(
-  input = Node(),
-) {
-  this.input = input;
+export class SingleImagePreviewer {
+  constructor (input = Node()) {
+    this.input = input;
+  }
 
-  this.addShowImageEvent = function (img = Node()) {
-    this.input.addEventListener('change', function (event) {
+  addShowImageEvent (img = Node()) {
+    this.input.addEventListener('change', (event) => {
       let imgFile = event.target.files[0];
 
       let fileReader = new FileReader();
       fileReader.readAsDataURL(imgFile);
 
-      fileReader.addEventListener('load', function () {
+      fileReader.addEventListener('load', () => {
         let imgData = fileReader.result;
         img.src = imgData;
+
+        this.input.setAttribute('data-base64', imgData);
       });
     });
   };
 
-  this.addShowImageFileNameEvent = function (imgNameContainer = Node()) {
-    this.input.addEventListener('change', function (event) {
+  addShowImageFileNameEvent (imgNameContainer = Node()) {
+    this.input.addEventListener('change', (event) => {
       let imgFile = event.target.files[0];
 
       let imgFileName = imgFile.name;

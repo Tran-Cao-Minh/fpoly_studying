@@ -11,6 +11,7 @@ export const filterData = (
     'orderRule': String(),
   }
 ) => {
+  const copyData = JSON.parse(JSON.stringify(data)); // deep clone
   const filterDataBySearch = (item) => {
     const searchMode = filterInformation.searchMode;
     const searchColumn = filterInformation.searchColumn;
@@ -68,7 +69,7 @@ export const filterData = (
   };
 
   const result = (() => {
-    const result = data.filter(filterDataBySearch);
+    const result = copyData.filter(filterDataBySearch);
     result.sort((a, b) => {
       const orderRule = filterInformation.orderRule;
       const orderColumn = filterInformation.orderColumn;

@@ -14,7 +14,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 18
+    "ProductViews" : 18,
+    "ProductSoldQuantity": 0
   },
   "1" : {
     "ProductCategory" : "History",
@@ -31,7 +32,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 12
+    "ProductViews" : 12,
+    "ProductSoldQuantity": 0
   },
   "2" : {
     "ProductCategory" : "History",
@@ -48,7 +50,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 19
+    "ProductViews" : 19,
+    "ProductSoldQuantity": 0
   },
   "3" : {
     "ProductCategory" : "History",
@@ -65,7 +68,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 9
+    "ProductViews" : 9,
+    "ProductSoldQuantity": 0
   },
   "4" : {
     "ProductCategory" : "History",
@@ -82,7 +86,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 11
+    "ProductViews" : 11,
+    "ProductSoldQuantity": 0
   },
   "5" : {
     "ProductCategory" : "Business",
@@ -99,7 +104,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 6
+    "ProductViews" : 6,
+    "ProductSoldQuantity": 0
   },
   "6" : {
     "ProductCategory" : "Business",
@@ -116,7 +122,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 8
+    "ProductViews" : 8,
+    "ProductSoldQuantity": 0
   },
   "7" : {
     "ProductCategory" : "Business",
@@ -133,7 +140,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 98
+    "ProductViews" : 98,
+    "ProductSoldQuantity": 0
   },
   "8" : {
     "ProductCategory" : "Business",
@@ -150,7 +158,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 6
+    "ProductViews" : 6,
+    "ProductSoldQuantity": 0
   },
   "9" : {
     "ProductCategory" : "Business",
@@ -167,7 +176,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 6
+    "ProductViews" : 6,
+    "ProductSoldQuantity": 0
   },
   "10" : {
     "ProductCategory" : "Travel",
@@ -184,7 +194,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 9
+    "ProductViews" : 9,
+    "ProductSoldQuantity": 0
   },
   "11" : {
     "ProductCategory" : "Travel",
@@ -201,7 +212,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 3
+    "ProductViews" : 3,
+    "ProductSoldQuantity": 0
   },
   "12" : {
     "ProductCategory" : "Travel",
@@ -218,7 +230,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 4
+    "ProductViews" : 4,
+    "ProductSoldQuantity": 0
   },
   "13" : {
     "ProductCategory" : "Travel",
@@ -235,7 +248,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 7
+    "ProductViews" : 7,
+    "ProductSoldQuantity": 0
   },
   "14" : {
     "ProductCategory" : "Travel",
@@ -252,7 +266,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 4
+    "ProductViews" : 4,
+    "ProductSoldQuantity": 0
   },
   "15" : {
     "ProductCategory" : "Manga",
@@ -269,7 +284,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 30
+    "ProductViews" : 30,
+    "ProductSoldQuantity": 0
   },
   "16" : {
     "ProductCategory" : "Manga",
@@ -286,7 +302,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 4
+    "ProductViews" : 4,
+    "ProductSoldQuantity": 0
   },
   "17" : {
     "ProductCategory" : "Manga",
@@ -303,7 +320,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 3
+    "ProductViews" : 3,
+    "ProductSoldQuantity": 0
   },
   "18" : {
     "ProductCategory" : "Manga",
@@ -320,7 +338,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 19
+    "ProductViews" : 19,
+    "ProductSoldQuantity": 0
   },
   "19" : {
     "ProductCategory" : "Manga",
@@ -337,7 +356,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 4
+    "ProductViews" : 4,
+    "ProductSoldQuantity": 0
   },
   "20" : {
     "ProductCategory" : "Technology",
@@ -354,7 +374,8 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 13
+    "ProductViews" : 13,
+    "ProductSoldQuantity": 0
   },
   "21" : {
     "ProductCategory" : "Technology",
@@ -371,7 +392,8 @@
     "ProductQuantity" : 100,
     "ProductSalePercent" : 10,
     "ProductTag" : "Hot",
-    "ProductViews" : 3
+    "ProductViews" : 3,
+    "ProductSoldQuantity": 0
   },
   "22" : {
     "ProductCategory" : "Travel",
@@ -388,7 +410,8 @@
     "ProductQuantity" : 125,
     "ProductSalePercent" : 13,
     "ProductTag" : "New",
-    "ProductViews" : 6
+    "ProductViews" : 6,
+    "ProductSoldQuantity": 0
   },
   "23" : {
     "ProductCategory" : "Technology",
@@ -405,7 +428,8 @@
     "ProductQuantity" : 103,
     "ProductSalePercent" : 15,
     "ProductTag" : "New",
-    "ProductViews" : 2
+    "ProductViews" : 2,
+    "ProductSoldQuantity": 0
   },
   "24" : {
     "ProductCategory" : "Technology",
@@ -422,7 +446,8 @@
     "ProductQuantity" : 102,
     "ProductSalePercent" : 14,
     "ProductTag" : "Hot",
-    "ProductViews" : 1
+    "ProductViews" : 1,
+    "ProductSoldQuantity": 0
   },
   "25" : {
     "ProductCategory" : "History",
@@ -439,7 +464,8 @@
     "ProductQuantity" : 102,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 0
+    "ProductViews" : 0,
+    "ProductSoldQuantity": 0
   },
   "-MzJaGzaqc6qP4-5pvsO" : {
     "ProductCategory" : "History",
@@ -456,6 +482,7 @@
     "ProductQuantity" : 105,
     "ProductSalePercent" : 12,
     "ProductTag" : "New",
-    "ProductViews" : 18
+    "ProductViews" : 18,
+    "ProductSoldQuantity": 0
   }
 }

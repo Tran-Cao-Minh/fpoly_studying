@@ -15,8 +15,6 @@ import {
   SingleImagePreviewer
 } from '../../class/image-previewer.js';
 
-const formData = new FormData();
-
 const toastCreator = new ToastCreator(
   'bottom',
   16,
@@ -24,7 +22,7 @@ const toastCreator = new ToastCreator(
   16,
 );
 
-function previewProductImage() {
+const previewProductImage = () => {
   const productImageInput = document.querySelector('#productImage');
   const productImageFileNameContainer =
     productImageInput.parentElement.querySelector('[for=productImage]');
@@ -34,9 +32,9 @@ function previewProductImage() {
   const productImagePreviewer = new SingleImagePreviewer(productImageInput);
   productImagePreviewer.addShowImageFileNameEvent(productImageFileNameContainer);
   productImagePreviewer.addShowImageEvent(productImageElement);
-}
+};
 
-function createCustomDisplayStatusSelect() {
+const createCustomDisplayStatusSelect= () => {
   const productDisplaySelect = document.querySelector('#productDisplay');
   const productDisplaySelectContainer =
     productDisplaySelect.querySelector('.custom-select-list');
@@ -52,33 +50,29 @@ function createCustomDisplayStatusSelect() {
       'value',
     ],
   );
-  productDisplaySelectLabelList.forEach(label => {
+  productDisplaySelectLabelList.forEach((label = Node()) => {
     productDisplaySelectCreator.createLabelPointer(label);
   });
 
-  const displayStatusDataReader =
-    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
-
-  displayStatusDataReader.readData(null, function addProductDisplaySelectData(data) {
-    data.forEach(displayStatus => {
-      productDisplaySelectCreator.addOptionItem(
-        displayStatus.StatusName,
-        [{
-          key: 'value',
-          data: displayStatus.PkDisplayStatus_Id,
-        }, ]
-      );
-    });
-
-    productDisplaySelectCreator.createCustomSelect(
-      String(data[1].PkDisplayStatus_Id),
-      productDisplaySelectText,
-      'choosen',
+  const displayStatus = ['Show', 'Hide'];
+  displayStatus.forEach((item) => {
+    productDisplaySelectCreator.addOptionItem(
+      item,
+      [{
+        key: 'value',
+        data: item,
+      }]
     );
   });
-}
 
-function createCustomCategorySelect() {
+  productDisplaySelectCreator.createCustomSelect(
+    displayStatus[0],
+    productDisplaySelectText,
+    'choosen',
+  );
+};
+
+const createCustomCategorySelect = () => {
   const productCategorySelect = document.querySelector('#productCategory');
   const productCategorySelectContainer =
     productCategorySelect.querySelector('.custom-select-list');
@@ -97,41 +91,31 @@ function createCustomCategorySelect() {
   productCategorySelectCreator.createLabelPointer(productCategorySelectLabel);
 
   const categoryDataReader =
-    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
+    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
+  const categoryNameColumnKey = 'CategoryName';
 
-  categoryDataReader.readData({
-    'columnList': [
-      'CategoryId',
-      'CategoryName',
-    ],
-    'searchValue': '',
-    'searchMode': 'searchByValue',
-    'searchColumn': 'CategoryId',
-    'orderRule': 'ASC',
-    'orderColumn': 'CategoryId',
-    'resultQuantity': 999999999999,
-    'pageNum': 1
-  }, function addProductCategorySelectData(result) {
-    const data = result.data;
-    data.forEach(category => {
+  categoryDataReader.readData((fullData = Object()) => {
+    Object.keys(fullData).map((firebaseKey) => {
+      const categoryName = fullData[firebaseKey][categoryNameColumnKey];
+
       productCategorySelectCreator.addOptionItem(
-        category.CategoryName,
+        categoryName,
         [{
           key: 'value',
-          data: category.CategoryId,
+          data: categoryName,
         }, ]
       );
     });
 
     productCategorySelectCreator.createCustomSelect(
-      String(data[0].CategoryId),
+      fullData[Object.keys(fullData)[0]][categoryNameColumnKey],
       productCategorySelectText,
       'choosen',
     );
   });
-}
+};
 
-function createCustomTagSelect() {
+const createCustomTagSelect = () => {
   const productTagSelect = document.querySelector('#productTag');
   const productTagSelectContainer =
     productTagSelect.querySelector('.custom-select-list');
@@ -149,29 +133,25 @@ function createCustomTagSelect() {
   );
   productTagSelectCreator.createLabelPointer(productTagSelectLabel);
 
-  const tagsDataReader =
-    new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
-
-  tagsDataReader.readData(null, function addProductDisplaySelectData(data) {
-    data.forEach(tag => {
-      productTagSelectCreator.addOptionItem(
-        tag.TagName,
-        [{
-          key: 'value',
-          data: tag.PkProductTag_Id,
-        }, ]
-      );
-    });
-
-    productTagSelectCreator.createCustomSelect(
-      String(data[1].PkProductTag_Id),
-      productTagSelectText,
-      'choosen',
+  const productTagList = ['None', 'Hot', 'New'];
+  productTagList.forEach((item) => {
+    productTagSelectCreator.addOptionItem(
+      item,
+      [{
+        key: 'value',
+        data: item,
+      }]
     );
   });
+
+  productTagSelectCreator.createCustomSelect(
+    productTagList[0],
+    productTagSelectText,
+    'choosen',
+  );
 }
 
-function createFormValidator() {
+const createFormValidator = () => {
   const formObject = {
     form: document.querySelector('#addProductForm'),
     productName: document.querySelector('#productName'),
@@ -213,31 +193,21 @@ function createFormValidator() {
       contains only alphanumeric, underscore or some specials 
       characters include , ' " : - ; _ + . |`,
     );
-    const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/product.json');
-    productNameReader.readData({
-        'columnList': [
-          'ProductName'
-        ],
-        'searchValue': '',
-        'searchMode': 'searchByValue',
-        'searchColumn': 'ProductName',
-        'orderRule': 'ASC',
-        'orderColumn': 'ProductName',
-        'resultQuantity': 999999999999,
-        'pageNum': 1
-      },
-      function addProductNameCheckExist(result) {
-        let dataList = [];
 
-        result.data.forEach(valueObject => {
-          dataList.push(valueObject.ProductName);
+    const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/products');
+    const productNameColumnKey = 'ProductName';
+    productNameReader.readData((fullData = Object()) => {
+        const productNameList = [];
+
+        Object.keys(fullData).map((key) => {
+          productNameList.push(fullData[key][productNameColumnKey]);
         });
 
         formValidator.checkDuplicateValidator(
           formObject.productName,
           'product name',
           productNameMessageContainer,
-          dataList,
+          productNameList,
           false,
           false,
           true,
@@ -399,104 +369,72 @@ function createFormValidator() {
   })();
 
   (function createSubmitAddProductEvent () {
-    const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/product.json';
-    const dataAdder = new DataAdder(
-      fetchLink,
-    );
+    const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+    const dataAdder = new DataAdder(fetchLink);
+
+    const submitAddEvent = () => {
+      const formData = JSON.stringify({
+        'ProductName': formObject.productName.value,
+        'ProductPublisher': formObject.productPublisher.value,
+        'ProductDimensions': formObject.productDimensions.value,
+        'ProductPublishDate': formObject.productPublishDate.value,
+        'ProductCategory': formObject.productCategory.getAttribute('value'),
+        'ProductTag': formObject.productTag.getAttribute('value'),
+        'ProductDisplay': formObject.productDisplay.getAttribute('value'),
+        'ProductPrice': Number(formObject.productPrice.value),
+        'ProductSalePercent': Number(formObject.productSalePercent.value),
+        'ProductQuantity': Number(formObject.productQuantity.value),
+        'ProductOrder': Number(formObject.productOrder.value),
+        'ProductPages': Number(formObject.productPages.value),
+        'ProductImage': formObject.productImage.dataset.base64,
+        'ProductDescription': formObject.productDescription.value,
+
+        'ProductViews': 0,
+        'ProductSoldQuantity': 0
+      });
+      
+      const addSuccessFn = () => {
+        toastCreator.createToast(
+          'success',
+          `Add product completed \n Product name: ${formObject.productName.value}`,
+          2
+        );
+
+        formValidator.changeDuplicateValue(
+          formObject.productName,
+          formObject.productName.value,
+          true
+        );
+        formValidator.resetForm(formObject.form);
+
+        (function resetImg () {
+          document.querySelectorAll('.js-preview-image')[0].src = '/images/base/preview-img.svg';
+        })();
+      };
+
+      const addFailedFn = () => {
+        toastCreator.createToast(
+          'danger',
+          'Add product failed',
+          2
+        );
+      };
+
+      dataAdder.addData(
+        formData,
+        addSuccessFn,
+        addFailedFn
+      );
+    };
   
     formValidator.createSubmitButtonEvent(
-      function () {
-        formData.set(
-          'productName',
-          formObject.productName.value
-        );
-        formData.set(
-          'productPublisher',
-          formObject.productPublisher.value
-        );
-        formData.set(
-          'productDimensions',
-          formObject.productDimensions.value
-        );
-        formData.set(
-          'productPublishDate',
-          formObject.productPublishDate.value
-        );
-        formData.set(
-          'productCategory',
-          formObject.productCategory.getAttribute('value')
-        );
-        formData.set(
-          'productTag',
-          formObject.productTag.getAttribute('value')
-        );
-        formData.set(
-          'productDisplay',
-          formObject.productDisplay.getAttribute('value')
-        );
-        formData.set(
-          'productPrice',
-          formObject.productPrice.value
-        );  
-        formData.set(
-          'productSalePercent',
-          formObject.productSalePercent.value
-        );  
-        formData.set(
-          'productQuantity',
-          formObject.productQuantity.value
-        );  
-        formData.set(
-          'productOrder',
-          formObject.productOrder.value
-        );  
-        formData.set(
-          'productPages',
-          formObject.productPages.value
-        );  
-        formData.set(
-          'productImage',
-          formObject.productImage.files[0]
-        );  
-        formData.set(
-          'productDescription',
-          formObject.productDescription.value
-        );  
-  
-        dataAdder.addData(
-          formData,
-          true,
-          function (data) {
-            if (data.result === 'success') {
-              toastCreator.createToast(
-                'success',
-                data.notification,
-                2,
-              );
-  
-              formValidator.changeDuplicateValue(
-                formObject.productName,
-                formObject.productName.value,
-                true,
-              );
-              formValidator.resetForm(formObject.form);
-  
-            } else if (data.result === 'fail') {
-              toastCreator.createToast(
-                'danger',
-                data.notification,
-                2,
-              );
-            };
-          },
-        );
-      },
-      true,
+      submitAddEvent,
+      true
     );
   })();
 }
 
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   previewProductImage();
 
   createCustomDisplayStatusSelect();

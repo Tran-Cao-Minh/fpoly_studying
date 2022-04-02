@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-function checkAdmin (
+const checkAdmin = (
   req = new Request(),
   res = new Response(),
   viewName = String(),
   pageName = String()
-) {
+) => {
   res.render(viewName, {
     pageName: pageName,
   });
@@ -19,10 +19,10 @@ function checkAdmin (
   // } else {
   //   res.redirect('/admin/login');
   // };
-}
+};
 
 // login
-router.get('/login', function (req, res) {
+router.get('/login', (req, res) => {
   res.render('admin/admin-login.ejs', {
     userName: req.query.userName,
     userPassword: req.query.userPassword,
@@ -32,7 +32,7 @@ router.get('/login', function (req, res) {
 // end login
 
 // category
-router.get('/category-overview', function (req, res) {
+router.get('/category-overview', (req, res) => {
   checkAdmin(
     req, res,
     'admin/category/category-overview.ejs',
@@ -40,7 +40,7 @@ router.get('/category-overview', function (req, res) {
   );
 })
 
-router.get('/add-category', function (req, res) {
+router.get('/add-category', (req, res) => {
   checkAdmin(
     req, res,
     'admin/category/add-category.ejs',
@@ -48,7 +48,7 @@ router.get('/add-category', function (req, res) {
   );
 })
 
-router.get('/update-category/:id', function (req, res) {
+router.get('/update-category/:id', (req, res) => {
   checkAdmin(
     req, res,
     'admin/category/update-category.ejs',
@@ -58,13 +58,15 @@ router.get('/update-category/:id', function (req, res) {
 // end category
 
 // product
-router.get('/product-overview', function (req, res) {
-  res.render('admin/product/product-overview.ejs', {
-    pageName: 'Product Overview',
-  });
+router.get('/product-overview', (req, res) => {
+  checkAdmin(
+    req, res,
+    'admin/product/product-overview.ejs',
+    'Product Overview'
+  );
 })
 
-router.get('/add-product', function (req, res) {
+router.get('/add-product', (req, res) => {
   checkAdmin(
     req, res,
     'admin/product/add-product.ejs',
@@ -72,15 +74,17 @@ router.get('/add-product', function (req, res) {
   );
 })
 
-router.get('/update-product/:id', function (req, res) {
-  res.render('admin/product/update-product.ejs', {
-    pageName: 'Update Product',
-  });
+router.get('/update-product/:id', (req, res) => {
+  checkAdmin(
+    req, res,
+    'admin/product/update-product.ejs',
+    'Update Product'
+  );
 })
 // end product
  
 // user
-router.get('/mail-to-user', function (req, res) {
+router.get('/mail-to-user', (req, res) => {
   checkAdmin(
     req, res,
     'admin/user/mail-to-user.ejs',

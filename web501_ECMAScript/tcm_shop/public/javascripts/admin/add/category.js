@@ -35,7 +35,7 @@ const createCustomDisplayStatusSelect = () => {
       'value',
     ],
   );
-  categoryDisplaySelectLabelList.forEach(label => {
+  categoryDisplaySelectLabelList.forEach((label = Node()) => {
     categoryDisplaySelectCreator.createLabelPointer(label);
   });
 
@@ -130,7 +130,7 @@ const createFormValidator = () => {
 
   (function createSubmitAddCategoryEvent() {
     const dataAdder = new DataAdder(
-      'https://tcm-shop-default-rtdb.firebaseio.com/categories.json'
+      'https://tcm-shop-default-rtdb.firebaseio.com/categories'
     );
 
     const submitAddEvent = () => {
@@ -141,7 +141,7 @@ const createFormValidator = () => {
         'CategoryProductQuantity': 0
       });
 
-      const addSuccess = () => {
+      const addSuccessFn = () => {
         toastCreator.createToast(
           'success',
           `Add category completed \n Category name: ${formObject.categoryName.value}`,
@@ -156,7 +156,7 @@ const createFormValidator = () => {
         formValidator.resetForm(formObject.form);
       };
 
-      const addFailed = () => {
+      const addFailedFn = () => {
         toastCreator.createToast(
           'danger',
           'Add category failed',
@@ -166,8 +166,8 @@ const createFormValidator = () => {
 
       dataAdder.addData(
         formData,
-        addSuccess,
-        addFailed
+        addSuccessFn,
+        addFailedFn
       );
     };
 
