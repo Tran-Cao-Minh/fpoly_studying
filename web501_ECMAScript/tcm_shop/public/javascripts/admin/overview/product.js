@@ -157,6 +157,11 @@ const tableColumnList = [{
     width: 7,
   },
   {
+    name: 'Sold',
+    key: 'ProductSoldQuantity',
+    width: 5.5,
+  },
+  {
     name: 'Views',
     key: 'ProductViews',
     width: 6,

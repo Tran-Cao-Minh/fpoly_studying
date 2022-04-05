@@ -1,3 +1,6 @@
+# update, add, delete product will overide CategoryProductQuantity
+
+
 # different from add and update
 ## update
 - have 

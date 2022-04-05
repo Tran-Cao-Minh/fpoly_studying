@@ -191,7 +191,7 @@ const createFormValidator = (
   productOrder = String(),
   productPages = String(),
   productImage = String(),
-  productDescription = String(),  
+  productDescription = String(),
   productSoldQuantity = Number(),
   productViews = Number()
 ) => {
@@ -224,14 +224,14 @@ const createFormValidator = (
       productNameReader.readData((fullData = Object()) => {
         const productNameList = (() => {
           const productNameList = [];
-  
+
           Object.keys(fullData).map((key) => {
             productNameList.push(fullData[key][productNameColumnKey]);
           });
 
           const productNameIndex = productNameList.indexOf(productName);
           productNameList.splice(productNameIndex, 1);
-  
+
           return productNameList;
         })();
 
@@ -401,62 +401,89 @@ const createFormValidator = (
   })();
 
   (function createSubmitAddProductEvent() {
-    const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
-    // const dataAdder = new DataAdder(fetchLink);
+    const dataUpdater = new DataUpdater(fetchLinkPrefix);
 
     const submitAddEvent = () => {
-      const formData = JSON.stringify({
-        'ProductName': formObject.productName.value,
-        'ProductPublisher': formObject.productPublisher.value,
-        'ProductDimensions': formObject.productDimensions.value,
-        'ProductPublishDate': formObject.productPublishDate.value,
-        'ProductCategory': formObject.productCategory.getAttribute('value'),
-        'ProductTag': formObject.productTag.getAttribute('value'),
-        'ProductDisplay': formObject.productDisplay.getAttribute('value'),
-        'ProductPrice': Number(formObject.productPrice.value),
-        'ProductSalePercent': Number(formObject.productSalePercent.value),
-        'ProductQuantity': Number(formObject.productQuantity.value),
-        'ProductOrder': Number(formObject.productOrder.value),
-        'ProductPages': Number(formObject.productPages.value),
-        'ProductImage': formObject.productImage.dataset.base64,
-        'ProductDescription': formObject.productDescription.value,
-
-        'ProductViews': 0,
-        'ProductSoldQuantity': 0
-      });
-
-      const addSuccessFn = () => {
+      const updateSuccessFn = () => {
         toastCreator.createToast(
           'success',
-          `Add product completed \n Product name: ${formObject.productName.value}`,
+          `Update product completed \n Product name: ${formObject.productName.value}`,
           2
         );
 
-        formValidator.changeDuplicateValue(
-          formObject.productName,
-          formObject.productName.value,
-          true
-        );
-        formValidator.resetForm(formObject.form);
-
-        (function resetImg() {
-          document.querySelectorAll('.js-preview-image')[0].src = '/images/base/preview-img.svg';
-        })();
+        productName = formObject.productName.value;
+        productPublisher = formObject.productPublisher.value;
+        productDimensions = formObject.productDimensions.value;
+        productPublishDate = formObject.productPublishDate.value;
+        productCategory = formObject.productCategory.getAttribute('value');
+        productTag = formObject.productTag.getAttribute('value');
+        productDisplay = formObject.productDisplay.getAttribute('value');
+        productPrice = formObject.productPrice.value;
+        productSalePercent = formObject.productSalePercent.value;
+        productQuantity = formObject.productQuantity.value;
+        productOrder = formObject.productOrder.value;
+        productPages = formObject.productPages.value;
+        productImage = formObject.productImage.dataset.base64;
+        productDescription = formObject.productDescription.value;
       };
 
-      const addFailedFn = () => {
+      const updateFailedFn = () => {
         toastCreator.createToast(
           'danger',
-          'Add product failed',
+          'Update product failed',
           2
         );
       };
 
-      // dataAdder.addData(
-      //   formData,
-      //   addSuccessFn,
-      //   addFailedFn
-      // );
+      if (
+        formObject.productName.value === productName &&
+        formObject.productPublisher.value === productPublisher &&
+        formObject.productDimensions.value === productDimensions &&
+        formObject.productPublishDate.value === productPublishDate &&
+        formObject.productCategory.getAttribute('value') === productCategory &&
+        formObject.productTag.getAttribute('value') === productTag &&
+        formObject.productDisplay.getAttribute('value') === productDisplay &&
+        formObject.productPrice.value === productPrice &&
+        formObject.productSalePercent.value === productSalePercent &&
+        formObject.productQuantity.value === productQuantity &&
+        formObject.productOrder.value === productOrder &&
+        formObject.productPages.value === productPages &&
+        formObject.productImage.dataset.base64 === productImage &&
+        formObject.productDescription.value === productDescription
+      ) {
+        toastCreator.createToast(
+          'warning',
+          'Please change at least one field before updating',
+          2
+        );
+
+      } else {
+        const formData = JSON.stringify({
+          'ProductName': formObject.productName.value,
+          'ProductPublisher': formObject.productPublisher.value,
+          'ProductDimensions': formObject.productDimensions.value,
+          'ProductPublishDate': formObject.productPublishDate.value,
+          'ProductCategory': formObject.productCategory.getAttribute('value'),
+          'ProductTag': formObject.productTag.getAttribute('value'),
+          'ProductDisplay': formObject.productDisplay.getAttribute('value'),
+          'ProductPrice': Number(formObject.productPrice.value),
+          'ProductSalePercent': Number(formObject.productSalePercent.value),
+          'ProductQuantity': Number(formObject.productQuantity.value),
+          'ProductOrder': Number(formObject.productOrder.value),
+          'ProductPages': Number(formObject.productPages.value),
+          'ProductImage': formObject.productImage.dataset.base64,
+          'ProductDescription': formObject.productDescription.value,
+          'ProductViews': productViews,
+          'ProductSoldQuantity': productSoldQuantity
+        });
+
+        dataUpdater.updateData(
+          id,
+          formData,
+          updateSuccessFn,
+          updateFailedFn
+        );
+      };
     };
 
     formValidator.createSubmitButtonEvent(
@@ -498,7 +525,7 @@ window.addEventListener('load', () => {
       String(product.ProductOrder),
       String(product.ProductPages),
       product.ProductImage,
-      product.ProductDescription,      
+      product.ProductDescription,
     );
   });
 });
