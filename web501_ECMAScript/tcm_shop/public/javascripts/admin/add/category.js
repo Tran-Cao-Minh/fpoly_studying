@@ -19,6 +19,16 @@ const toastCreator = new ToastCreator(
   16,
 );
 
+const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+
+const formObject = {
+  form: document.querySelector('#addCategoryForm'),
+  categoryName: document.querySelector('#categoryName'),
+  categoryOrder: document.querySelector('#categoryOrder'),
+  categoryDisplay: document.querySelector('#categoryDisplay'),
+  submitButton: document.querySelector('#js-add-data-submit'),
+};
+
 const createCustomDisplayStatusSelect = () => {
   const categoryDisplaySelect = document.querySelector('#categoryDisplay');
   const categoryDisplaySelectContainer =
@@ -58,14 +68,6 @@ const createCustomDisplayStatusSelect = () => {
 };
 
 const createFormValidator = () => {
-  const formObject = {
-    form: document.querySelector('#addCategoryForm'),
-    categoryName: document.querySelector('#categoryName'),
-    categoryOrder: document.querySelector('#categoryOrder'),
-    categoryDisplay: document.querySelector('#categoryDisplay'),
-    submitButton: document.querySelector('#js-add-data-submit'),
-  };
-
   const formValidator = new FormValidator(
     formObject.submitButton,
     'd-none',
@@ -90,7 +92,7 @@ const createFormValidator = () => {
     );
 
     (function checkCategoryNameDuplicateValidator () {
-      const dataReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
+      const dataReader = new DataReader(fetchLink);
       dataReader.readData((fullData) => {
         const dataList = (() => {
           const dataList = [];
@@ -129,9 +131,7 @@ const createFormValidator = () => {
   })();
 
   (function createSubmitAddCategoryEvent() {
-    const dataAdder = new DataAdder(
-      'https://tcm-shop-default-rtdb.firebaseio.com/categories'
-    );
+    const dataAdder = new DataAdder(fetchLink);
 
     const submitAddEvent = () => {
       const formData = JSON.stringify({
@@ -176,7 +176,7 @@ const createFormValidator = () => {
       true
     );
   })();
-}
+};
 
 window.addEventListener('load', function () {
   createCustomDisplayStatusSelect();

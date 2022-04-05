@@ -22,6 +22,25 @@ const toastCreator = new ToastCreator(
   16,
 );
 
+const formObject = {
+  form: document.querySelector('#addProductForm'),
+  productName: document.querySelector('#productName'),
+  productPublisher: document.querySelector('#productPublisher'),
+  productDimensions: document.querySelector('#productDimensions'),
+  productPublishDate: document.querySelector('#productPublishDate'),
+  productCategory: document.querySelector('#productCategory'),
+  productTag: document.querySelector('#productTag'),
+  productDisplay: document.querySelector('#productDisplay'),
+  productPrice: document.querySelector('#productPrice'),
+  productSalePercent: document.querySelector('#productSalePercent'),
+  productQuantity: document.querySelector('#productQuantity'),
+  productOrder: document.querySelector('#productOrder'),
+  productPages: document.querySelector('#productPages'),
+  productImage: document.querySelector('#productImage'),
+  productDescription: document.querySelector('#productDescription'),
+  submitButton: document.querySelector('#js-add-data-submit'),
+};
+
 const previewProductImage = () => {
   const productImageInput = document.querySelector('#productImage');
   const productImageFileNameContainer =
@@ -152,25 +171,6 @@ const createCustomTagSelect = () => {
 }
 
 const createFormValidator = () => {
-  const formObject = {
-    form: document.querySelector('#addProductForm'),
-    productName: document.querySelector('#productName'),
-    productPublisher: document.querySelector('#productPublisher'),
-    productDimensions: document.querySelector('#productDimensions'),
-    productPublishDate: document.querySelector('#productPublishDate'),
-    productCategory: document.querySelector('#productCategory'),
-    productTag: document.querySelector('#productTag'),
-    productDisplay: document.querySelector('#productDisplay'),
-    productPrice: document.querySelector('#productPrice'),
-    productSalePercent: document.querySelector('#productSalePercent'),
-    productQuantity: document.querySelector('#productQuantity'),
-    productOrder: document.querySelector('#productOrder'),
-    productPages: document.querySelector('#productPages'),
-    productImage: document.querySelector('#productImage'),
-    productDescription: document.querySelector('#productDescription'),
-    submitButton: document.querySelector('#js-add-data-submit'),
-  };
-
   const formValidator = new FormValidator(
     formObject.submitButton,
     'd-none',

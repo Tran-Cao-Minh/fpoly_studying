@@ -35,7 +35,7 @@ router.get('/login', (req, res) => {
 router.get('/category-overview', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/category/category-overview.ejs',
+    'admin/category/overview.ejs',
     'Category Overview'
   );
 })
@@ -43,7 +43,7 @@ router.get('/category-overview', (req, res) => {
 router.get('/add-category', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/category/add-category.ejs',
+    'admin/category/add.ejs',
     'Add Category'
   );
 })
@@ -51,7 +51,7 @@ router.get('/add-category', (req, res) => {
 router.get('/update-category/:id', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/category/update-category.ejs',
+    'admin/category/update.ejs',
     'Update Category'
   );
 })
@@ -61,7 +61,7 @@ router.get('/update-category/:id', (req, res) => {
 router.get('/product-overview', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/product/product-overview.ejs',
+    'admin/product/overview.ejs',
     'Product Overview'
   );
 })
@@ -69,7 +69,7 @@ router.get('/product-overview', (req, res) => {
 router.get('/add-product', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/product/add-product.ejs',
+    'admin/product/add.ejs',
     'Add Product'
   );
 })
@@ -77,20 +77,20 @@ router.get('/add-product', (req, res) => {
 router.get('/update-product/:id', (req, res) => {
   checkAdmin(
     req, res,
-    'admin/product/update-product.ejs',
+    'admin/product/update.ejs',
     'Update Product'
   );
 })
 // end product
  
 // user
-router.get('/mail-to-user', (req, res) => {
-  checkAdmin(
-    req, res,
-    'admin/user/mail-to-user.ejs',
-    'Mail to User'
-  );
-})
+// router.get('/mail-to-user', (req, res) => {
+//   checkAdmin(
+//     req, res,
+//     'admin/user/mail-to-user.ejs',
+//     'Mail to User'
+//   );
+// })
 // end user
 
 

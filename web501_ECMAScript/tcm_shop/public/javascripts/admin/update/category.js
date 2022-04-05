@@ -69,7 +69,7 @@ const createCustomDisplayStatusSelect = (
     categoryDisplaySelectText,
     'choosen',
   );
-}
+};
 
 const createFormValidator = (
   categoryName = String(),
@@ -96,8 +96,8 @@ const createFormValidator = (
       200,
       /^([A-Za-z0-9]{1})([\w\s'":,.&+|-]{0,199})$/,
       `Category name must be start with alphanumeric and 
-    contains only alphanumeric, underscore or some specials 
-    characters include , ' " : - ; _ + . |`,
+      contains only alphanumeric, underscore or some specials 
+      characters include , ' " : - ; _ + . |`,
     );
 
     (function checkCategoryNameDuplicateValidator() {
@@ -142,121 +142,123 @@ const createFormValidator = (
     );
   })();
 
-  const dataUpdater = new DataUpdater(fetchLinkPrefix);
+  (function createSubmitUpdateCategoryEvent() {
+    const dataUpdater = new DataUpdater(fetchLinkPrefix);
 
-  const submitUpdateEvent = () => {
-    const updateSuccessFn = () => {
-      toastCreator.createToast(
-        'success',
-        `Update category completed \n Category name: ${formObject.categoryName.value}`,
-        2
-      );
+    const submitUpdateEvent = () => {
+      const updateSuccessFn = () => {
+        toastCreator.createToast(
+          'success',
+          `Update category completed \n Category name: ${formObject.categoryName.value}`,
+          2
+        );
 
-      const oldCategoryName = categoryName;
-      categoryName = formObject.categoryName.value;
-      categoryOrder = formObject.categoryOrder.value;
-      categoryDisplay = formObject.categoryDisplay.getAttribute('value');
+        const oldCategoryName = categoryName;
+        categoryName = formObject.categoryName.value;
+        categoryOrder = formObject.categoryOrder.value;
+        categoryDisplay = formObject.categoryDisplay.getAttribute('value');
 
-      let toastSetTimeout;
-      const updateProductCategorySuccessFn = () => {
-        clearTimeout(toastSetTimeout);
+        let toastSetTimeout;
+        const updateProductCategorySuccessFn = () => {
+          clearTimeout(toastSetTimeout);
 
-        toastSetTimeout = setTimeout(() => {
-          toastCreator.createToast(
-            'success',
-            `Update overide products completed - New category name: ${categoryName}`,
-            2
-          );
-        }, 100);
-      };
-      const updateProductCategoryFailedFn = () => {
-        clearTimeout(toastSetTimeout);
+          toastSetTimeout = setTimeout(() => {
+            toastCreator.createToast(
+              'success',
+              `Update overide products completed - New category name: ${categoryName}`,
+              2
+            );
+          }, 100);
+        };
+        const updateProductCategoryFailedFn = () => {
+          clearTimeout(toastSetTimeout);
 
-        toastSetTimeout = setTimeout(() => {
-          toastCreator.createToast(
-            'danger',
-            'Update overide product category failed',
-            2
-          );
-        }, 100);
-      };
-
-      (function updateOverideProductsCategory (categoryName = String()) {
-        const productsFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
-        const categoryNameColumnKey = 'ProductCategory';
-        const productsInformationReader = new DataReader(productsFetchLink);
-
-        const productCategoryFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
-        const productCategoryDataUpdater = new DataUpdater(productCategoryFetchLinkPrefix);
-
-        const updateProductCategory = (
-          firebaseKey = String(),
-          categoryName = String()
-        ) => {
-          const productCategorySuffixes = firebaseKey + '/' + categoryNameColumnKey;
-          const newCategoryName = `"${categoryName}"`;
-
-          productCategoryDataUpdater.updateData(
-            productCategorySuffixes,
-            newCategoryName,
-            updateProductCategorySuccessFn,
-            updateProductCategoryFailedFn
-          );
+          toastSetTimeout = setTimeout(() => {
+            toastCreator.createToast(
+              'danger',
+              'Update overide product category failed',
+              2
+            );
+          }, 100);
         };
 
-        productsInformationReader.readData((fullData) => {
-          Object.keys(fullData).map((firebaseKey) => {
-            if (fullData[firebaseKey][categoryNameColumnKey] === oldCategoryName) {
-              updateProductCategory(firebaseKey, categoryName);
-            };
+        (function updateOverideProductsCategory(categoryName = String()) {
+          const productsFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+          const categoryNameColumnKey = 'ProductCategory';
+          const productsInformationReader = new DataReader(productsFetchLink);
+
+          const productCategoryFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
+          const productCategoryDataUpdater = new DataUpdater(productCategoryFetchLinkPrefix);
+
+          const updateProductCategory = (
+            firebaseKey = String(),
+            categoryName = String()
+          ) => {
+            const productCategorySuffixes = firebaseKey + '/' + categoryNameColumnKey;
+            const newCategoryName = `"${categoryName}"`;
+
+            productCategoryDataUpdater.updateData(
+              productCategorySuffixes,
+              newCategoryName,
+              updateProductCategorySuccessFn,
+              updateProductCategoryFailedFn
+            );
+          };
+
+          productsInformationReader.readData((fullData) => {
+            Object.keys(fullData).map((firebaseKey) => {
+              if (fullData[firebaseKey][categoryNameColumnKey] === oldCategoryName) {
+                updateProductCategory(firebaseKey, categoryName);
+              };
+            });
           });
+        })(categoryName);
+      };
+
+      const updateFailedFn = () => {
+        toastCreator.createToast(
+          'danger',
+          'Update category failed',
+          2
+        );
+      };
+
+      if (
+        formObject.categoryName.value === categoryName &&
+        formObject.categoryOrder.value === categoryOrder &&
+        formObject.categoryDisplay.getAttribute('value') === categoryDisplay
+      ) {
+        toastCreator.createToast(
+          'warning',
+          'Please change at least one field before updating',
+          2
+        );
+
+      } else {
+        const formData = JSON.stringify({
+          'CategoryName': formObject.categoryName.value,
+          'CategoryOrder': Number(formObject.categoryOrder.value),
+          'CategoryDisplay': formObject.categoryDisplay.getAttribute('value'),
+          'CategoryProductQuantity': categoryProductQuantity
         });
-      })(categoryName);
+
+        dataUpdater.updateData(
+          id,
+          formData,
+          updateSuccessFn,
+          updateFailedFn
+        );
+      };
     };
 
-    const updateFailedFn = () => {
-      toastCreator.createToast(
-        'danger',
-        'Update category failed',
-        2
-      );
-    };
+    formValidator.createSubmitButtonEvent(
+      submitUpdateEvent,
+      false
+    );
+  })();
+};
 
-    if (
-      formObject.categoryName.value === categoryName &&
-      formObject.categoryOrder.value === categoryOrder &&
-      formObject.categoryDisplay.getAttribute('value') === categoryDisplay
-    ) {
-      toastCreator.createToast(
-        'warning',
-        'Please change at least one field before updating',
-        2
-      );
-
-    } else {
-      const formData = JSON.stringify({
-        'CategoryName': formObject.categoryName.value,
-        'CategoryOrder': Number(formObject.categoryOrder.value),
-        'CategoryDisplay': formObject.categoryDisplay.getAttribute('value'),
-        'CategoryProductQuantity': categoryProductQuantity
-      });
-
-      dataUpdater.updateData(
-        id,
-        formData,
-        updateSuccessFn,
-        updateFailedFn
-      );
-    };
-  };
-
-  formValidator.createSubmitButtonEvent(
-    submitUpdateEvent,
-    false
-  );
-}
-
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
   categoryInformationReader.readData((category) => {
     formObject.categoryName.value = category.CategoryName;
