@@ -1,0 +1,16 @@
+{
+  "nani": {
+    "OrderAddress": "HCM",
+    "CustomerEmail": "m@m",
+    "CustomerName": "Minh",
+    "CustomerPhoneNumber": "033",
+    "OrderDate": "12-12-2022",
+    "OrderTotalMoney": 555,
+    "OrderDetails": {
+      "ProductId": "sadlkfj",
+      "ProductQuantity": 4,
+      "UnitPrice": 34
+    },
+    "OrderStatus": "Complete"
+  }
+}

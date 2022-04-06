@@ -82,6 +82,32 @@ router.get('/update-product/:id', (req, res) => {
   );
 })
 // end product
+
+// order
+router.get('/order-overview', (req, res) => {
+  checkAdmin(
+    req, res,
+    'admin/order/overview.ejs',
+    'Order Overview'
+  );
+})
+
+router.get('/order-statistics', (req, res) => {
+  checkAdmin(
+    req, res,
+    'admin/order/statistics.ejs',
+    'Order Statistics'
+  );
+})
+
+router.get('/update-order/:id', (req, res) => {
+  checkAdmin(
+    req, res,
+    'admin/order/update.ejs',
+    'Update Order'
+  );
+})
+// end order
  
 // user
 // router.get('/mail-to-user', (req, res) => {
