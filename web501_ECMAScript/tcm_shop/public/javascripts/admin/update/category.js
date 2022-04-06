@@ -176,7 +176,7 @@ const createFormValidator = (
           toastSetTimeout = setTimeout(() => {
             toastCreator.createToast(
               'danger',
-              'Update overide product category failed',
+              'Update overide products category failed',
               2
             );
           }, 100);

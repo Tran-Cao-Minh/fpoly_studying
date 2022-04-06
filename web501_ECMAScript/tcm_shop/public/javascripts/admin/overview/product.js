@@ -171,7 +171,7 @@ const tableColumnList = [{
     key: 'ProductHandle',
     width: 7,
     formatFunction: (
-      [id = String(), name = String()]
+      [id = String(), name = String(), soldQuantity = Number(), category = String()]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
@@ -180,6 +180,12 @@ const tableColumnList = [{
         }, {
           key: 'name',
           value: name
+        }, {
+          key: 'sold-quantity',
+          value: soldQuantity
+        }, {
+          key: 'category',
+          value: category
         }]
       );
       const updateBtn = tableUpdateLinkFormatter.formatLink(id);
@@ -187,13 +193,18 @@ const tableColumnList = [{
     },
     formatPrameterKeyList: [
       'FireBaseKey',
-      'ProductName'
+      'ProductName',
+      'ProductSoldQuantity',
+      'ProductCategory'
     ]
   }
 ];
 // end CONFIG COLUMN
 
 // ADD TABLE EVENT
+import {
+  DataUpdater
+} from '../../class/data-interactor.js';
 const tableDataToastify = new ToastCreator(
   'bottom',
   16,
@@ -210,20 +221,22 @@ const addTableButtonEvent = () => {
     deleteButton.addEventListener('click', () => {
       const productName = deleteButton.dataset.name;
       const productId = deleteButton.dataset.id;
-      // console.log(productId);
-      const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
+      const productSoldQuantity = Number(deleteButton.dataset.soldQuantity);
+      const productCategory = deleteButton.dataset.category;
+      console.log(productCategory);
 
       const afterDeleteHandle = (deleteResult) => {
         if (deleteResult === null) {
           tableDataToastify.createToast(
             'success',
-            `Delete Category - ${productName} completed`,
+            `Delete Product - ${productName} completed`,
             2
           );
           data.splice(data.findIndex((item) => {
             item.FireBaseKey === productId
           }), 1);
           searchSuggester.suggestData = data;
+          // console.log(data);
 
           (function changeTableData() {
             const result = filterData(data, filterInformation);
@@ -248,17 +261,72 @@ const addTableButtonEvent = () => {
             };
           })();
 
+          (function decreaseCategoryProductQuantity(categoryName = String()) {
+            const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+            const categoryNameColumnKey = 'CategoryName';
+            const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
+            const categoriesInformationReader = new DataReader(categoriesFetchLink);
+
+            const categoryProductQuantityFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+            const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
+
+            const updateCategoryProductQuantity = (
+              firebaseKey = String(),
+              categoryProductQuantity = Number()
+            ) => {
+              const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
+              const newCategoryProductQuantity = categoryProductQuantity - 1;
+
+              categoryProductQuantityDataUpdater.updateData(
+                categoryProductQuantitySuffixes,
+                newCategoryProductQuantity,
+                updateCategoryProductQuantitySuccessFn,
+                updateCategoryProductQuantityFailedFn
+              );
+            };
+
+            const updateCategoryProductQuantitySuccessFn = () => {
+              setTimeout(() => {
+                tableDataToastify.createToast(
+                  'success',
+                  `Update overide category product quantity of "${categoryName}" completed`,
+                  2
+                );
+              }, 100);
+            };
+            const updateCategoryProductQuantityFailedFn = () => {
+              setTimeout(() => {
+                tableDataToastify.createToast(
+                  'danger',
+                  'Update overide pcategory product quantity failed',
+                  2
+                );
+              }, 100);
+            };
+
+            categoriesInformationReader.readData((fullData) => {
+              Object.keys(fullData).map((firebaseKey) => {
+                if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
+                  updateCategoryProductQuantity(
+                    firebaseKey,
+                    fullData[firebaseKey][categoryProductQuantityColumnKey]
+                  );
+                };
+              });
+            });
+          })(productCategory);
+
         } else {
           tableDataToastify.createToast(
             'danger',
-            `Delete Category - ${productName} failed`,
+            `Delete Product - ${productName} failed`,
             2
           );
         };
       };
 
-      const deleteCategory = () => {
-        if (categoryProductQuantity === 0) {
+      const deleteProduct = () => {
+        if (productSoldQuantity === 0) {
           tableDataDeleter.deleteData(
             productId,
             afterDeleteHandle
@@ -267,7 +335,7 @@ const addTableButtonEvent = () => {
         } else {
           tableDataToastify.createToast(
             'warning',
-            `The number of products in Category - ${productName} must be 0 to be deleted`,
+            `The number of products sold of "${productName}" must be 0 to be deleted`,
             2,
           );
         };
@@ -280,7 +348,7 @@ const addTableButtonEvent = () => {
           (<span class="text-danger fw-bold">*</span>) 
           The product must not be in any order to be deleted
         `,
-        deleteCategory
+        deleteProduct
       );
     });
   });

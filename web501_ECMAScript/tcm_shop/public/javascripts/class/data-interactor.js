@@ -108,7 +108,7 @@ export class DataUpdater extends DataInteractor {
 
   updateData (
     id = String(),
-    formData = JSON().stringify(Object()) | `"${String()}"`,
+    formData = JSON().stringify(Object()) | `"${String()}"` | Number(),
     successFn = Function(),
     failedFn = Function()
   ) {

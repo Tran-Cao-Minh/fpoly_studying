@@ -3,7 +3,8 @@ import {
 } from '../../class/custom-select-creator.js';
 import {
   DataReader,
-  DataAdder
+  DataAdder,
+  DataUpdater
 } from '../../class/data-interactor.js';
 import {
   FormValidator
@@ -53,7 +54,7 @@ const previewProductImage = () => {
   productImagePreviewer.addShowImageEvent(productImageElement);
 };
 
-const createCustomDisplayStatusSelect= () => {
+const createCustomDisplayStatusSelect = () => {
   const productDisplaySelect = document.querySelector('#productDisplay');
   const productDisplaySelectContainer =
     productDisplaySelect.querySelector('.custom-select-list');
@@ -197,23 +198,22 @@ const createFormValidator = () => {
     const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/products');
     const productNameColumnKey = 'ProductName';
     productNameReader.readData((fullData = Object()) => {
-        const productNameList = [];
+      const productNameList = [];
 
-        Object.keys(fullData).map((key) => {
-          productNameList.push(fullData[key][productNameColumnKey]);
-        });
+      Object.keys(fullData).map((key) => {
+        productNameList.push(fullData[key][productNameColumnKey]);
+      });
 
-        formValidator.checkDuplicateValidator(
-          formObject.productName,
-          'product name',
-          productNameMessageContainer,
-          productNameList,
-          false,
-          false,
-          true,
-        );
-      },
-    );
+      formValidator.checkDuplicateValidator(
+        formObject.productName,
+        'product name',
+        productNameMessageContainer,
+        productNameList,
+        false,
+        false,
+        true,
+      );
+    }, );
   })();
 
   (function validateProductPublisher() {
@@ -286,7 +286,7 @@ const createFormValidator = () => {
   (function validateProductSalePercent() {
     const productSalePercentMessageContainer =
       formObject.productSalePercent.parentElement.parentElement.querySelector('.invalid-feedback');
-    
+
     formValidator.addNumberInputValidator(
       formObject.productSalePercent,
       'product sale percent',
@@ -300,7 +300,7 @@ const createFormValidator = () => {
   (function validateProductQuantity() {
     const productQuantityMessageContainer =
       formObject.productQuantity.parentElement.parentElement.querySelector('.invalid-feedback');
-    
+
     formValidator.addNumberInputValidator(
       formObject.productQuantity,
       'product quantity',
@@ -314,7 +314,7 @@ const createFormValidator = () => {
   (function validateProductOrder() {
     const productOrderMessageContainer =
       formObject.productOrder.parentElement.parentElement.querySelector('.invalid-feedback');
-    
+
     formValidator.addNumberInputValidator(
       formObject.productOrder,
       'product order',
@@ -328,7 +328,7 @@ const createFormValidator = () => {
   (function validateProductPages() {
     const productPagesMessageContainer =
       formObject.productPages.parentElement.parentElement.querySelector('.invalid-feedback');
-    
+
     formValidator.addNumberInputValidator(
       formObject.productPages,
       'product pages',
@@ -347,7 +347,7 @@ const createFormValidator = () => {
       formObject.productImage,
       'product image',
       productImageMessageContainer,
-      ['image/jpeg', 'image/webp', ],
+      ['image/jpeg', '+/webp', ],
       0,
       2,
     );
@@ -368,7 +368,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function createSubmitAddProductEvent () {
+  (function createSubmitAddProductEvent() {
     const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
     const dataAdder = new DataAdder(fetchLink);
 
@@ -392,7 +392,7 @@ const createFormValidator = () => {
         'ProductViews': 0,
         'ProductSoldQuantity': 0
       });
-      
+
       const addSuccessFn = () => {
         toastCreator.createToast(
           'success',
@@ -405,11 +405,67 @@ const createFormValidator = () => {
           formObject.productName.value,
           true
         );
-        formValidator.resetForm(formObject.form);
 
-        (function resetImg () {
-          document.querySelectorAll('.js-preview-image')[0].src = '/images/base/preview-img.svg';
+        formValidator.resetForm(formObject.form);
+        (function resetImg() {
+          formObject.productImage.parentElement.parentElement.querySelector('img.js-preview-image').src = '/images/base/preview-img.svg';
+          formObject.productImage.parentElement.querySelector('[for=productImage]').innerText = 'Choose an image';
         })();
+
+        (function increaseCategoryProductQuantity(categoryName = String()) {
+          const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+          const categoryNameColumnKey = 'CategoryName';
+          const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
+          const categoriesInformationReader = new DataReader(categoriesFetchLink);
+
+          const categoryProductQuantityFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+          const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
+
+          const updateCategoryProductQuantity = (
+            firebaseKey = String(),
+            categoryProductQuantity = Number()
+          ) => {
+            const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
+            const newCategoryProductQuantity = categoryProductQuantity + 1;
+
+            categoryProductQuantityDataUpdater.updateData(
+              categoryProductQuantitySuffixes,
+              newCategoryProductQuantity,
+              updateCategoryProductQuantitySuccessFn,
+              updateCategoryProductQuantityFailedFn
+            );
+          };
+
+          const updateCategoryProductQuantitySuccessFn = () => {
+            setTimeout(() => {
+              toastCreator.createToast(
+                'success',
+                `Update overide category product quantity of "${categoryName}" completed`,
+                2
+              );
+            }, 100);
+          };
+          const updateCategoryProductQuantityFailedFn = () => {
+            setTimeout(() => {
+              toastCreator.createToast(
+                'danger',
+                'Update overide pcategory product quantity failed',
+                2
+              );
+            }, 100);
+          };
+
+          categoriesInformationReader.readData((fullData) => {
+            Object.keys(fullData).map((firebaseKey) => {
+              if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
+                updateCategoryProductQuantity(
+                  firebaseKey,
+                  fullData[firebaseKey][categoryProductQuantityColumnKey]
+                );
+              };
+            });
+          });
+        })(formObject.productCategory.getAttribute('value'));
       };
 
       const addFailedFn = () => {
@@ -426,7 +482,7 @@ const createFormValidator = () => {
         addFailedFn
       );
     };
-  
+
     formValidator.createSubmitButtonEvent(
       submitAddEvent,
       true

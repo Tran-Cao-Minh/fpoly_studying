@@ -1,5 +1,8 @@
-# update, add, delete product will overide CategoryProductQuantity
 
+# firebase error
+- need test delete to make sure it work right
+
+# update, add, delete product will overide CategoryProductQuantity
 
 # different from add and update
 ## update
@@ -18,4 +21,6 @@ const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 -> change all text from add to update
 
--# some special need overide update when success update
+=> some special need overide update when success update
+
+

@@ -411,6 +411,75 @@ const createFormValidator = (
           2
         );
 
+        (function changeCategoryProductQuantity(newCategoryName = String(), oldCategoryName) {
+          if (newCategoryName !== oldCategoryName) {
+            const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+            const categoryNameColumnKey = 'CategoryName';
+            const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
+            const categoriesInformationReader = new DataReader(categoriesFetchLink);
+
+            const categoryProductQuantityFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+            const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
+
+            const changeCategoryProductQuantity = (
+              categoryName = String(),
+              firebaseKey = String(),
+              categoryProductQuantity = Number(),
+              unit = Number()
+            ) => {
+              const updateCategoryProductQuantitySuccessFn = () => {
+                setTimeout(() => {
+                  toastCreator.createToast(
+                    'success',
+                    `Update overide category product quantity of "${categoryName}" completed`,
+                    2
+                  );
+                }, 100);
+              };
+              const updateCategoryProductQuantityFailedFn = () => {
+                setTimeout(() => {
+                  toastCreator.createToast(
+                    'danger',
+                    'Update overide category product quantity failed',
+                    2
+                  );
+                }, 100);
+              };
+
+              const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
+              const newCategoryProductQuantity = categoryProductQuantity + unit;
+
+              categoryProductQuantityDataUpdater.updateData(
+                categoryProductQuantitySuffixes,
+                newCategoryProductQuantity,
+                updateCategoryProductQuantitySuccessFn,
+                updateCategoryProductQuantityFailedFn
+              );
+            };
+
+            categoriesInformationReader.readData((fullData) => {
+              Object.keys(fullData).map((firebaseKey) => {
+                if (fullData[firebaseKey][categoryNameColumnKey] === newCategoryName) {
+                  changeCategoryProductQuantity(
+                    newCategoryName,
+                    firebaseKey,
+                    fullData[firebaseKey][categoryProductQuantityColumnKey],
+                    1
+                  );
+                };
+                if (fullData[firebaseKey][categoryNameColumnKey] === oldCategoryName) {
+                  changeCategoryProductQuantity(
+                    oldCategoryName,
+                    firebaseKey,
+                    fullData[firebaseKey][categoryProductQuantityColumnKey],
+                    -1
+                  );
+                };
+              });
+            });
+          };
+        })(formObject.productCategory.getAttribute('value'), productCategory);
+
         productName = formObject.productName.value;
         productPublisher = formObject.productPublisher.value;
         productDimensions = formObject.productDimensions.value;
