@@ -66,7 +66,7 @@ const optionColumnList = [{
 ];
 
 const tableUpdateLinkFormatter = new LinkFormatter(
-  './update-category/',
+  './update-order/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
