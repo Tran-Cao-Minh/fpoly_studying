@@ -28,7 +28,8 @@ export class DateFormatter {
     this.options = options;
   }
 
-  formatDate(date = Date()) {
+  formatDate(date = String()) {
+    date = new Date(date);
     return date.toLocaleDateString(this.locales, {
       year: this.options.year,
       month: this.options.month,

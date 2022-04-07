@@ -23,8 +23,10 @@
   --green: #198754; 
   --light: #f9fafb;
 
+  --text-primary: var(--blue);
   --text-danger: var(--red);
   --text-success: var(--green);
+  --text-warning: var(--yellow);
 
   --btn-primary-bg: var(--blue);
   --btn-primary-shadow: rgb(95 118 200 / 50%);

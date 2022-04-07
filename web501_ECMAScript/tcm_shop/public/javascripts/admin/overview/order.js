@@ -1,16 +1,8 @@
 import {
   LinkFormatter,
-  ButtonFormatter,
+  CurrencyFormatter,
+  DateFormatter
 } from '../../class/data-formatter.js';
-import {
-  ToastCreator
-} from '../../class/toast-creator.js';
-import {
-  DataDeleter
-} from '../../class/data-interactor.js';
-import {
-  ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
 import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
 
 import {
@@ -52,28 +44,23 @@ const optionColumnList = [{
     type: 'text',
   },
   {
-    name: 'Customer Name',
-    key: 'CustomerName',
+    name: 'Customer Phone',
+    key: 'CustomerPhoneNumber',
     type: 'text',
   },
   {
-    name: 'Customer Name',
-    key: 'CustomerName',
+    name: 'Date Created',
+    key: 'OrderDate',
+    type: 'date',
+  },
+  {
+    name: 'Status',
+    key: 'OrderStatus',
     type: 'text',
   },
   {
-    name: 'Customer Name',
-    key: 'CustomerName',
-    type: 'text',
-  },
-  {
-    name: 'Customer Name',
-    key: 'CustomerName',
-    type: 'text',
-  },
-  {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
+    name: 'Total Money',
+    key: 'OrderTotalMoney',
     type: 'number',
   }
 ];
@@ -83,153 +70,101 @@ const tableUpdateLinkFormatter = new LinkFormatter(
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
-const tableDeleteButtonFormatter = new ButtonFormatter(
-  ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
-  '<i class="fas fa-trash"></i>',
-);
+const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+const dateFormatter = new DateFormatter('en-US', {
+  year: 'numeric',
+  month: '2-digit',
+  day: '2-digit'
+});
+
 const tableColumnList = [{
     name: 'Name',
-    key: 'CategoryName',
-    width: 12,
+    key: 'CustomerName',
+    width: 14,
   },
   {
-    name: 'Order',
-    key: 'CategoryOrder',
-    width: 6,
+    name: 'Email',
+    key: 'CustomerEmail',
+    width: 18,
   },
   {
-    name: 'Display',
-    key: 'CategoryDisplay',
+    name: 'Phone',
+    key: 'CustomerPhoneNumber',
+    width: 9,
+  },
+  {
+    name: 'Date',
+    key: 'OrderDate',
+    width: 8,
+    formatFunction: (date) => {
+      const dateAfterFormat = dateFormatter.formatDate(date);
+      return dateAfterFormat;
+    },
+    formatPrameterKeyList: [
+      'OrderDate'
+    ]
+  },
+  {
+    name: 'Total',
+    key: 'OrderTotalMoney',
     width: 7,
+    formatFunction: (number) => {
+      const total = currencyFormatter.formatCurrency(number);
+      return total;
+    },
+    formatPrameterKeyList: [
+      'OrderTotalMoney'
+    ]
   },
   {
-    name: 'Quantity',
-    key: 'CategoryProductQuantity',
-    width: 7,
+    name: 'Status',
+    key: 'OrderStatus',
+    width: 9,
+    formatFunction: (status) => {
+      let statusWithColor = '';
+
+      switch (status) {
+        case 'Completed':
+          statusWithColor = `<span class="text-success fw-bold">${status}</span>`;
+          break;
+        case 'Delivering':
+          statusWithColor = `<span class="text-warning fw-bold">${status}</span>`;
+          break;
+        case 'Order Success':
+          statusWithColor = `<span class="text-primary fw-bold">${status}</span>`;
+          break;
+        case 'Canceled':
+          statusWithColor = `<span class="text-danger fw-bold">${status}</span>`;
+          break;
+        default:
+          statusWithColor = 'Not have this case in overview/order.js';
+      };
+
+      return statusWithColor;
+    },
+    formatPrameterKeyList: [
+      'OrderStatus'
+    ]
   },
   {
     name: 'Handle',
-    key: 'CategoryHandle',
-    width: 7,
+    key: 'OrderHandle',
+    width: 5,
     formatFunction: (
-      [id = String(), name = String(), productQuantity = Number()]
+      [id = String()]
     ) => {
-      const deleteBtn = tableDeleteButtonFormatter.formatButton(
-        [{
-          key: 'id',
-          value: id
-        }, {
-          key: 'name',
-          value: name
-        }, {
-          key: 'product-quantity',
-          value: productQuantity
-        }]
-      );
       const updateBtn = tableUpdateLinkFormatter.formatLink(id);
-      return deleteBtn + updateBtn;
+      return updateBtn;
     },
     formatPrameterKeyList: [
-      'FireBaseKey',
-      'CategoryName',
-      'CategoryProductQuantity'
+      'FireBaseKey'
     ]
   }
 ];
 // end CONFIG COLUMN
 
 // ADD TABLE EVENT
-const tableDataToastify = new ToastCreator(
-  'bottom',
-  16,
-  'right',
-  16
-);
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
-
-const addTableButtonEvent = () => {
-  const deleteButtonList = document.querySelectorAll('.js-delete-data');
-
-  deleteButtonList.forEach((deleteButton) => {
-    deleteButton.addEventListener('click', () => {
-      const categoryName = deleteButton.dataset.name;
-      const categoryId = deleteButton.dataset.id;
-      // console.log(categoryId);
-      const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
-
-      const afterDeleteHandle = (deleteResult) => {
-        if (deleteResult === null) {
-          tableDataToastify.createToast(
-            'success',
-            `Delete Category - ${categoryName} completed`,
-            2
-          );
-          data.splice(data.findIndex((item) => {
-            item.FireBaseKey === categoryId
-          }), 1);
-          searchSuggester.suggestData = data;
-
-          (function changeTableData() {
-            const result = filterData(data, filterInformation);
-            const displayedData = sliceData(result, filterInformation);
-
-            if (displayedData.length > 0) {
-              tableCreator.convertData(displayedData);
-
-              tablePagingLinkCreator.changePagingLink(
-                filterInformation.pageNum,
-                filterInformation.resultQuantity,
-                result.length,
-                (pageNum) => {
-                  filterInformation.pageNum = pageNum;
-                  changeTableData(filterInformation, true);
-                }
-              );
-
-            } else {
-              --filterInformation.pageNum;
-              changeTableData();
-            };
-          })();
-
-        } else {
-          tableDataToastify.createToast(
-            'danger',
-            `Delete Category - ${categoryName} failed`,
-            2
-          );
-        };
-      };
-
-      const deleteCategory = () => {
-        if (categoryProductQuantity === 0) {
-          tableDataDeleter.deleteData(
-            categoryId,
-            afterDeleteHandle
-          );
-
-        } else {
-          tableDataToastify.createToast(
-            'warning',
-            `The number of products in Category - ${categoryName} must be 0 to be deleted`,
-            2,
-          );
-        };
-      };
-
-      confirmDeletePopupCreator.createConfirmDangerActionPopup(
-        `
-          Are you sure to delete Category - ${categoryName} ?
-          <br>
-          (<span class="text-danger fw-bold">*</span>) 
-          The number of products in the category must be 0 to be deleted
-        `,
-        deleteCategory
-      );
-    });
-  });
-};
+const addTableButtonEvent = null;
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
