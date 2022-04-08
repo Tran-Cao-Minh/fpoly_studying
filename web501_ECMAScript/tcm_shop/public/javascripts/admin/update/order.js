@@ -214,14 +214,14 @@ const createFormValidator = (
             };
 
             productsInformationReader.readData((fullData) => {
-              Object.keys(fullData).map((firebaseKey) => {
-                orderDetails.forEach((product = Object()) => {
-                  if (fullData[firebaseKey] === product.ProductId) {
+              Object.keys(fullData).map((firebaseKey = String()) => {
+                Object.keys(orderDetails).map((orderFirebaseKey = String()) => {
+                  if (firebaseKey === orderDetails[orderFirebaseKey]['ProductId']) {
                     updateProductQuantityAndSoldQuantity(
                       firebaseKey,
                       fullData[firebaseKey][productQuantityColumnKey],
                       fullData[firebaseKey][productSoldQuantityColumnKey],
-                      product.ProductQuantity
+                      orderDetails[orderFirebaseKey]['ProductQuantity']
                     );
                   };
                 });

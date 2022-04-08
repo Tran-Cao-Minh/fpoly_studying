@@ -7,9 +7,11 @@
     "OrderDate": "2022-04-13",
     "OrderTotalMoney": 13,
     "OrderDetails": {
-      "ProductId": "sadlkfj",
-      "ProductQuantity": 4,
-      "UnitPrice": 34
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
     },
     "OrderStatus": "Completed"
   },
@@ -21,9 +23,11 @@
     "OrderDate": "2022-04-13",
     "OrderTotalMoney": 102,
     "OrderDetails": {
-      "ProductId": "sadlkfj",
-      "ProductQuantity": 4,
-      "UnitPrice": 34
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
     },
     "OrderStatus": "Canceled"
   },
@@ -35,9 +39,11 @@
     "OrderDate": "2022-04-13",
     "OrderTotalMoney": 56,
     "OrderDetails": {
-      "ProductId": "sadlkfj",
-      "ProductQuantity": 4,
-      "UnitPrice": 34
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
     },
     "OrderStatus": "Order Success"
   },
@@ -49,9 +55,11 @@
     "OrderDate": "2022-04-13",
     "OrderTotalMoney": 543,
     "OrderDetails": {
-      "ProductId": "sadlkfj",
-      "ProductQuantity": 4,
-      "UnitPrice": 34
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
     },
     "OrderStatus": "Delivering"
   },
