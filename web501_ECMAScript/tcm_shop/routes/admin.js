@@ -23,11 +23,7 @@ const checkAdmin = (
 
 // login
 router.get('/login', (req, res) => {
-  res.render('admin/admin-login.ejs', {
-    userName: req.query.userName,
-    userPassword: req.query.userPassword,
-    notification: req.query.notification
-  });
+  res.render('admin/admin-login.ejs');
 })
 // end login
 

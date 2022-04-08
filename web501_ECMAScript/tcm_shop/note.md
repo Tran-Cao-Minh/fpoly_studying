@@ -1,4 +1,4 @@
-# todo: update order - not warning when cancel and update override
+# todo: show order details ui, statistic order, check login -> convert to ts
 
 
 # firebase error

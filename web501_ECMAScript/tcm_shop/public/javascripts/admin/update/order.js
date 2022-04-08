@@ -269,6 +269,91 @@ const createFormValidator = (
   })();
 };
 
+import {
+  TableCreator
+} from '../../class/table-creator.js';
+import {
+  ImageFormatter,
+  CurrencyFormatter
+} from '../../class/data-formatter.js';
+const showOrderDetails = (orderDetails = Object()) => {
+  const dataTable = document.querySelector('#js-data-table');
+  const addTableButtonEvent = null;
+  const imageFormatter = new ImageFormatter(
+    []
+  );
+  const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+  const tableColumnList = [{
+      name: 'Name',
+      key: 'ProductName',
+      width: 20,
+    },
+    {
+      name: 'Image',
+      key: 'ProductImage',
+      width: 6,
+      formatFunction: (
+        [base64 = String(), altText = String()]
+      ) => {
+        const img = imageFormatter.formatImage(base64, altText);
+        return img;
+      },
+      formatPrameterKeyList: [
+        'ProductImage',
+        'ProductName'
+      ]
+    },
+    {
+      name: 'Price',
+      key: 'ProductPrice',
+      width: 6,
+      formatFunction: (number) => {
+        const price = currencyFormatter.formatCurrency(number);
+        return price;
+      },
+      formatPrameterKeyList: [
+        'ProductPrice'
+      ]
+    },
+    {
+      name: 'Quantity',
+      key: 'ProductQuantity',
+      width: 6,
+    },
+  ];
+  const tableCreator = new TableCreator(
+    dataTable,
+    addTableButtonEvent,
+    tableColumnList,
+    'rem',
+  );
+
+  const productIdColumnKey = 'ProductId';
+  const productQuantityColumnKey = 'ProductQuantity';
+  const data = [];
+  let showOrderDetailsSetTimeout;
+  Object.keys(orderDetails).map((firebaseKey = String()) => {
+    const productFirebaseKey = orderDetails[firebaseKey][productIdColumnKey];
+
+    const fetchLink = `https://tcm-shop-default-rtdb.firebaseio.com/products/${productFirebaseKey}`;
+    const productInformationReader = new DataReader(fetchLink);
+
+    productInformationReader.readData((product = Object()) => {
+      data.push({
+        ...product,
+        ProductQuantity: orderDetails[firebaseKey][productQuantityColumnKey]
+      });
+
+      clearTimeout(showOrderDetailsSetTimeout);
+
+      showOrderDetailsSetTimeout = setTimeout(() => {
+        tableCreator.convertData(data);
+      }, 300);
+    });
+  });
+
+};
+
 window.addEventListener('load', () => {
   const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
   categoryInformationReader.readData((order) => {
@@ -278,12 +363,13 @@ window.addEventListener('load', () => {
     formObject.customerEmail.value = order.CustomerEmail;
     formObject.customerPhone.value = order.CustomerPhoneNumber;
     formObject.orderAddress.value = order.OrderAddress;
-    formObject.orderNote.value = order.OrderNote;
+    formObject.orderNote.value = order.OrderNote ? order.OrderNote : 'None';
     createCustomOrderStatusSelect(order.OrderStatus);
 
     createFormValidator(
       order.OrderStatus,
       order.OrderDetails
     );
+    showOrderDetails(order.OrderDetails);
   });
 });
