@@ -63,9 +63,11 @@
     "OrderDate": "2022-04-13",
     "OrderTotalMoney": 8,
     "OrderDetails": {
-      "ProductId": "sadlkfj",
-      "ProductQuantity": 4,
-      "UnitPrice": 34
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
     },
     "OrderStatus": "Delivering"
   }
