@@ -17,7 +17,7 @@
       <!-- update form -->
       <form class="row bg-white rounded-2" id="updateCategoryForm">
         <!-- order status -->
-        <div class="col-12 col-sm-6 col-md-5">
+        <div class="col-12 col-sm-6 col-md-6 col-xxl-4">
           <div class="form-group">
             <label for="orderStatus">
               Status
@@ -25,26 +25,26 @@
             <div class="input-group">
               <div class="form-control custom-select" id="orderStatus">
                 <span class="custom-select-text">
-                  <!-- add by add-product.js -->
+                  <!-- add by add-product.js -->Order Success
                 </span>
                 <ul class="custom-select-list">
                   <!-- add by add-product.js -->
                 </ul>
               </div>
-              <button class="btn-success col-3" id="js-update-data-submit">Change</button>
+              <button class="btn-success" id="js-update-data-submit">Change</button>
             </div>
           </div>
         </div>
         <!-- end order status -->
 
         <!-- order date -->
-        <div class="col-12 col-md-3">
+        <div class="col-12 col-sm-6 col-md-3 col-xxl-2">
           <div class="form-group">
             <label for="orderDate">
               Order date
             </label>
             <div class="input-with-icon-group">
-              <input type="date" class="form-control" id="orderDate">
+              <input readonly type="date" class="form-control" id="orderDate">
               <div class="validate-icon"></div>
             </div>
             <span class="invalid-feedback d-none">
@@ -54,15 +54,14 @@
         </div>
         <!-- end order date -->
 
-        
         <!-- order total -->
-        <div class="col-7 col-sm-4 col-md-3">
+        <div class="col-12 col-sm-6 col-md-3 col-xxl-2">
           <div class="form-group">
             <label for="orderTotalMoney">
               Total
             </label>
             <div class="input-with-icon-group">
-              <input type="number" step="0.01" min="0" max="999999999.99" class="form-control" id="orderTotalMoney"
+              <input readonly type="number" step="0.01" min="0" max="999999999.99" class="form-control" id="orderTotalMoney"
                 placeholder="1.01">
               <div class="validate-icon"></div>
             </div>
@@ -73,14 +72,31 @@
         </div>
         <!-- end order total -->
 
-        <!-- category name -->
+        <!-- customer name -->
+        <div class="col-12 col-sm-6 col-md-6 col-xxl-4">
+          <div class="form-group">
+            <label for="customerName">
+              Customer Name
+            </label>
+            <div class="input-with-icon-group">
+              <input type="text" class="form-control" id="customerName" placeholder="Customer Name">
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end customer name -->
+
+        <!-- customer email -->
         <div class="col-12 col-md-6">
           <div class="form-group">
-            <label for="categoryName">
-              Name
+            <label for="customerEmail">
+              Customer Email
             </label>
             <div class="input-with-icon-group">
-              <input type="text" class="form-control" id="categoryName" placeholder="Product category">
+              <input readonly type="email" class="form-control" id="customerEmail" placeholder="Customer Email">
               <div class="validate-icon"></div>
             </div>
             <span class="invalid-feedback d-none">
@@ -88,16 +104,16 @@
             </span>
           </div>
         </div>
-        <!-- end category name -->
+        <!-- end customer email -->
 
-        <!-- category order -->
-        <div class="col-4 col-md-2">
+        <!-- customer phone -->
+        <div class="col-12 col-md-6">
           <div class="form-group">
-            <label for="categoryOrder">
-              Order
+            <label for="customerPhone">
+              Customer Phone
             </label>
             <div class="input-with-icon-group">
-              <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+              <input readonly type="tel" class="form-control" id="customerPhone" placeholder="Customer Phone">
               <div class="validate-icon"></div>
             </div>
             <span class="invalid-feedback d-none">
@@ -105,53 +121,70 @@
             </span>
           </div>
         </div>
-        <!-- end category order -->
+        <!-- end customer phone -->
 
-        <!-- category display -->
-        <div class="col-8 col-md-4">
+        <!-- order address -->
+        <div class="col-12 col-md-6">
           <div class="form-group">
-            <label for="categoryDisplay">
-              Display
+            <label for="orderAddress">
+              Address
             </label>
-            <div class="input-group">
-              <label for="categoryDisplay" class="input-group-text">
-                Status
-              </label>
-              <div class="form-control custom-select" id="categoryDisplay">
-                <span class="custom-select-text">
-                  <!-- add by add-category.js -->
-                </span>
-                <ul class="custom-select-list">
-                  <!-- add by add-category.js -->
-                </ul>
-              </div>
+            <div class="input-with-icon-group">
+              <textarea style="resize: vertical;" rows="1" class="form-control" id="orderAddress"></textarea>
+              <div class="validate-icon"></div>
             </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
           </div>
         </div>
-        <!-- end category display -->
+        <!-- end order address -->
 
-        <!-- btn group category -->
+        <!-- order note -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="orderNote">
+              Note
+            </label>
+            <div class="input-with-icon-group">
+              <textarea style="resize: vertical;"  readonly rows="1" class="form-control" id="orderNote"></textarea>
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end order note -->
+
+
+        <!-- btn group order -->
         <div class="col-12 d-flex">
-          <div class="col-4 col-md-3 col-lg-2">
-            <div class="form-group">
-              <button class="btn-success col-12" id="js-update-data-submit">Save</button>
-            </div>
-          </div>
           <div class="col-8 col-md-5 col-lg-4">
             <div class="form-group">
-              <a href="/admin/category-overview" class="btn-cancel col-12">Overview</a>
+              <a href="/admin/order-overview" class="btn-cancel col-12">Overview</a>
             </div>
           </div>
         </div>
-        <!-- end btn group category -->
+        <!-- end btn group order -->
       </form>
       <!-- end update form -->
+
+      <!-- order detail -->
+      <section id="js-table-container" class="row rounded-2 justify-content-center bg-light-blue">
+        <div class="table-container">
+          <table id="js-data-table">
+            <!-- add by update/order.js -->
+          </table>
+        </div>
+      </section>
+      <!-- end order detail -->
       <!-- end BODY CONTENT -->
     </div>
   </main>
 
   <script type="module" src="../../javascripts/admin/layout.js"></script>
-  <script type="module" src="../../javascripts/admin/update/category.js"></script>
+  <script type="module" src="../../javascripts/admin/update/order.js"></script>
 </body>
 
 </html>
