@@ -64,7 +64,7 @@
           </li>
         </ul>
       </li>
-      <li class="sidebar__item">
+      <!-- <li class="sidebar__item">
         <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
           <i class="fa-solid fa-receipt sidebar__item-icon text-icon" style="
             --font-size: 1.2rem;
@@ -72,8 +72,33 @@
           "></i>
           <span class="sidebar__item-text text text-truncate">Order</span>
         </a>
-      </li>
+      </li> -->
       <li class="sidebar__item--has-sub js-menu-item-collapse">
+        <a href="#" class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
+          <i class="fa-solid fa-receipt sidebar__item-icon text-icon" style="
+            --font-size: 1.2rem;
+            --margin: 0 0 0 0;
+          "></i>
+          <span class="sidebar__item-text text text-truncate">Order</span>
+        </a>
+        <ul class="sidebar__sub-menu">
+          <li class="sidebar__sub-menu-item">
+            <a href="/admin/order-overview" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Order Overview">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Overview</span>
+            </a>
+          </li>
+          <!-- <li class="sidebar__sub-menu-item">
+            <a href="/admin/order-statistics" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
+              data-page-name="Order Statistics">
+              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
+              <span class="sidebar__sub-item-text text text-truncate">Statistics</span>
+            </a>
+          </li> -->
+        </ul>
+      </li>
+      <!-- <li class="sidebar__item--has-sub js-menu-item-collapse">
         <a class="sidebar__item-title hover-bg-white hover-pointer rounded-2">
           <i class="fa-solid fa-user sidebar__item-icon text-icon" style="
             --font-size: 1.2rem;
@@ -94,16 +119,8 @@
               <span class="sidebar__sub-item-text text text-truncate">Add</span>
             </a>
           </li>
-          <li class="sidebar__sub-menu-item">
-            <a href="/admin/mail-to-user" class="sidebar__sub-item-title hover-bg-white hover-pointer rounded-2"
-              data-page-name="Mail to User"
-            >
-              <i class="fa-solid fa-minus sidebar__sub-item-icon text-icon"></i>
-              <span class="sidebar__sub-item-text text text-truncate">Mail</span>
-            </a>
-          </li>
         </ul>
-      </li>
+      </li> -->
     </ul>
   </section>
 </aside>

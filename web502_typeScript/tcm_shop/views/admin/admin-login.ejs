@@ -24,8 +24,7 @@
             Username
           </label>
           <div class="input-with-icon-group">
-            <input type="text" class="form-control" name="userName" id="userName" placeholder="User name"
-              <% if (typeof(userName) !== 'undefined') { %> value="<%= userName %>" <% } %>>
+            <input type="text" class="form-control" name="userName" id="userName" placeholder="User name">
             <div class="validate-icon"></div>
           </div>
           <span class="invalid-feedback d-none">
@@ -42,8 +41,8 @@
             Password
           </label>
           <div class="input-with-icon-group">
-            <input type="password" class="form-control" name="userPassword" id="userPassword" placeholder="User password"
-              <% if (typeof(userPassword) !== 'undefined') { %> value="<%= userPassword %>" <% } %>>
+            <input type="password" class="form-control" name="userPassword" id="userPassword"
+              placeholder="User password">
             <div class="validate-icon"></div>
           </div>
           <span class="invalid-feedback d-none">
@@ -57,11 +56,9 @@
         <button class="btn-primary col-12 text-uppercase" id="submitLogin">
           Verify admin
         </button>
-        <% if (typeof(notification) !== 'undefined') { %>
-        <div class="invalid-feedback text-center mt-2">
-          <%= notification %>
-        </div>
-        <% } %>
+        <span class="invalid-feedback d-none text-center mt-4" id="js-login-notification">
+          <!-- message by js -->
+        </span>
       </div>
     </form>
   </main>

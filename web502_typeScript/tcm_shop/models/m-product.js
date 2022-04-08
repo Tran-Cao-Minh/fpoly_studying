@@ -38,7 +38,7 @@ exports.getProductList = function (
   },
   callbackFn = Function(data = Object()),
 ) {
-  let sql = `
+  let sql = ` 
     SELECT
       PkProduct_Id,
       ProductName,

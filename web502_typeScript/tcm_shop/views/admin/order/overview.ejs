@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../module/website-info.ejs') %>
+  <%- include('../module/general-link.ejs') %>
+  <link rel="stylesheet" href="/stylesheets/admin/overview.css">
+</head>
+
+<body>
+  <%- include('../module/aside.ejs') %>
+
+  <main id="main">
+    <div class="main__wrapper">    
+      <%- include('../module/header.ejs') %>
+
+      <!-- BODY CONTENT -->
+      <%- include('../module/overview.ejs') %>
+      <!-- end BODY CONTENT -->
+    </div>
+  </main>
+
+  <script type="module" src="../javascripts/admin/layout.js"></script>
+  <script type="module" src="../javascripts/admin/overview/order.js"></script>
+</body>
+
+</html>

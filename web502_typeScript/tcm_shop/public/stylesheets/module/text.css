@@ -19,6 +19,21 @@
   color: var(--light);
 }
 
+.text-primary {
+  color: var(--text-primary);
+}
+
+.text-success {
+  color: var(--text-success);
+}
+
+.text-warning {
+  color: var(--text-warning);
+}
+
+.text-danger {
+  color: var(--text-danger);
+}
 /* end text color */
 
 .text-truncate {
@@ -33,10 +48,6 @@
 
 .text-uppercase {
   text-transform: uppercase;
-}
-
-.text-danger {
-  color: var(--red);
 }
 
 .highlight {

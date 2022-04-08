@@ -1,0 +1,92 @@
+{
+  "nani1": {
+    "OrderAddress": "33 Dang Thi Nhu St., Nguyen Thai Binh Ward, Dist. 1, Ho Chi Minh City",
+    "CustomerEmail": "trancaominh@gmail.com",
+    "CustomerName": "Tran Cao Minh",
+    "CustomerPhoneNumber": "0332340012",
+    "OrderDate": "2022-04-13",
+    "OrderTotalMoney": 13,
+    "OrderDetails": {
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      },
+      "nani2": {
+        "ProductId": "1",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      },
+      "na": {
+        "ProductId": "2",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
+    },
+    "OrderStatus": "Completed"
+  },
+  "nani2": {
+    "OrderAddress": "95 Le Quoc Hung Street, Ward 12, District. 4, Ho Chi Minh City",
+    "CustomerEmail": "nguyenthithuyhang@gmail.com",
+    "CustomerName": "Nguyen Thi Thuy Hang",
+    "CustomerPhoneNumber": "0933456780",
+    "OrderDate": "2022-04-13",
+    "OrderTotalMoney": 102,
+    "OrderDetails": {
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
+    },
+    "OrderStatus": "Canceled"
+  },
+  "nani3": {
+    "OrderAddress": "111/13 Tran Huu Trang Street, Ward 10, Ho Chi Minh City",
+    "CustomerEmail": "levy@gmail.com",
+    "CustomerName": "Le Vy",
+    "CustomerPhoneNumber": "033457894",
+    "OrderDate": "2022-04-13",
+    "OrderTotalMoney": 56,
+    "OrderDetails": {
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
+    },
+    "OrderStatus": "Order Success"
+  },
+  "nani4": {
+    "OrderAddress": "Truong Chinh Street, A1 Building, Lane 102, Dong Da District, Ha Noi Capital",
+    "CustomerEmail": "nguyentranthanhtung@gmail.com",
+    "CustomerName": "Nguyen Tran Thanh Tung",
+    "CustomerPhoneNumber": "0338688154",
+    "OrderDate": "2022-04-13",
+    "OrderTotalMoney": 543,
+    "OrderDetails": {
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
+    },
+    "OrderStatus": "Delivering"
+  },
+  "nani5": {
+    "OrderAddress": "285 An Duong Vuong Street, Ward 13, District 6, Ho Chi Minh City",
+    "CustomerEmail": "tranthevi@gmail.com",
+    "CustomerName": "Tran The Vi",
+    "CustomerPhoneNumber": "0237515816",
+    "OrderDate": "2022-04-13",
+    "OrderTotalMoney": 8,
+    "OrderDetails": {
+      "nani": {
+        "ProductId": "0",
+        "ProductQuantity": 4,
+        "UnitPrice": 34
+      }
+    },
+    "OrderStatus": "Delivering"
+  }
+}

@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('../module/website-info.ejs') %>
+  <%- include('../module/general-link.ejs') %>
+</head>
+
+<body>
+  <%- include('../module/aside.ejs') %>
+
+  <main id="main">
+    <div class="main__wrapper">    
+      <%- include('../module/header.ejs') %>
+
+      <!-- BODY CONTENT -->
+      <!-- add form -->
+      <form class="row bg-white rounded-2" id="addCategoryForm">
+        <!-- category name -->
+        <div class="col-12 col-md-6">
+          <div class="form-group">
+            <label for="categoryName">
+              Name
+            </label>
+            <div class="input-with-icon-group">
+              <input type="text" class="form-control" id="categoryName" placeholder="Product category">
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end category name -->
+
+        <!-- category order -->
+        <div class="col-4 col-md-2">
+          <div class="form-group">
+            <label for="categoryOrder">
+              Order
+            </label>
+            <div class="input-with-icon-group">
+              <input type="number" step="1" min="1" max="99" class="form-control" id="categoryOrder" placeholder="1">
+              <div class="validate-icon"></div>
+            </div>
+            <span class="invalid-feedback d-none">
+              <!-- message by js -->
+            </span>
+          </div>
+        </div>
+        <!-- end category order -->
+
+        <!-- category display -->
+        <div class="col-8 col-md-4">
+          <div class="form-group">
+            <label for="categoryDisplay">
+              Display
+            </label>
+            <div class="input-group">
+              <label for="categoryDisplay" class="input-group-text">
+                Status
+              </label>
+              <div class="form-control custom-select" id="categoryDisplay">
+                <span class="custom-select-text">
+                  <!-- add by add-category.js -->
+                </span>
+                <ul class="custom-select-list">
+                  <!-- add by add-category.js -->
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- end category display -->
+
+        <!-- btn group category -->
+        <div class="col-12 d-flex">
+          <div class="col-4 col-md-3 col-lg-2">
+            <div class="form-group">
+              <button class="btn-success col-12" id="js-add-data-submit">Save</button>
+            </div>
+          </div>
+          <div class="col-8 col-md-5 col-lg-4">
+            <div class="form-group">
+              <a href="/admin/category-overview" class="btn-cancel col-12">Overview</a>
+            </div>
+          </div>
+        </div>
+        <!-- end btn group category -->
+      </form>
+      <!-- end add form -->
+      <!-- end BODY CONTENT -->
+    </div>
+  </main>
+
+  <script type="module" src="../javascripts/admin/layout.js"></script>
+  <script type="module" src="../javascripts/admin/add/category.js"></script>
+</body>
+
+</html>
