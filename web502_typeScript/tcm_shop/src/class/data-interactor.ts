@@ -1,7 +1,9 @@
 class DataInteractor {
+  fetchLink: string;
+  fetchMethod: string;
   constructor(
-    fetchLink = String(),
-    fetchMethod = String()
+    fetchLink: string,
+    fetchMethod: string
   ) {
     this.fetchLink = fetchLink;
     this.fetchMethod = fetchMethod;
@@ -10,13 +12,13 @@ class DataInteractor {
 
 export class DataReader extends DataInteractor {
   constructor(
-    fetchLink = String()
+    fetchLink: string
   ) {
     super(`${fetchLink}.json`, 'GET');
   }
 
   readData(
-    callbackFn = Function(data = Object()),
+    callbackFn = Function(),
   ) {
     fetch(this.fetchLink, {
         method: this.fetchMethod,
@@ -39,14 +41,14 @@ export class DataReader extends DataInteractor {
 
 export class DataDeleter extends DataInteractor {
   constructor(
-    fetchLink = String()
+    fetchLink: string
   ) {
     super(fetchLink, 'DELETE');
   }
 
   deleteData(
-    id = String(),
-    callbackFn = Function(data = Object()),
+    id: string,
+    callbackFn = Function(),
   ) {
     const fetchLink = `${this.fetchLink}/${id}.json`;
     // console.log(fetchLink);
@@ -71,7 +73,7 @@ export class DataDeleter extends DataInteractor {
 }
 
 export class DataAdder extends DataInteractor {
-  constructor(fetchLink = String()) {
+  constructor(fetchLink: string) {
     super(fetchLink, 'POST');
   }
 
@@ -102,13 +104,13 @@ export class DataAdder extends DataInteractor {
 }
 
 export class DataUpdater extends DataInteractor {
-  constructor(fetchLink = String()) {
+  constructor(fetchLink: string) {
     super(fetchLink, 'PUT');
   }
 
   updateData (
-    id = String(),
-    formData = JSON().stringify(Object()) | `"${String()}"` | Number(),
+    id: string,
+    formData: string,
     successFn = Function(),
     failedFn = Function()
   ) {

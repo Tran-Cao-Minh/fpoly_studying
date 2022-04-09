@@ -1,9 +1,16 @@
 export class FormValidator {
-  constructor (
-    submitButton = Node(),
-    hideMessageContainerClass = String(),
-    inputInvalidClass = String(),
-    inputValidClass = String(),
+  submitButton: HTMLFormElement;
+  hideMessageContainerClass: string;
+  inputInvalidClass: string;
+  inputValidClass: string;
+  inputList: [];
+  checkValidate: boolean;
+
+  constructor(
+    submitButton: HTMLFormElement,
+    hideMessageContainerClass: string,
+    inputInvalidClass: string,
+    inputValidClass: string,
   ) {
     this.submitButton = submitButton;
     this.hideMessageContainerClass = hideMessageContainerClass;
@@ -13,10 +20,10 @@ export class FormValidator {
     this.checkValidate = false;
   }
 
-  changeInputStatus (
-    input = Node(),
-    messageContainer = Node(),
-    check = Boolean()
+  changeInputStatus(
+    input: HTMLInputElement,
+    messageContainer: HTMLSpanElement,
+    check: boolean
   ) {
     if (check === true) {
       messageContainer.classList.add(this.hideMessageContainerClass);
@@ -30,9 +37,9 @@ export class FormValidator {
     };
   }
 
-  changeButtonStatus () {
+  changeButtonStatus() {
     this.checkValidate = true;
-    this.inputList.forEach((input) => {
+    this.inputList.forEach((input: HTMLInputElement) => {
       if (input.classList.contains(this.inputValidClass) === false) {
         this.checkValidate = false;
       };
@@ -46,14 +53,14 @@ export class FormValidator {
     };
   }
 
-  addTextInputValidator (
-    input = Node(),
-    inputName = String(),
+  addTextInputValidator(
+    input: HTMLInputElement,
+    inputName: string,
     messageContainer = Node(),
-    minLength = Number(),
-    maxLength = Number(),
+    minLength: number,
+    maxLength: number,
     pattern = RegExp(),
-    patternErrorMessage = String()
+    patternErrorMessage: string
   ) {
     this.inputList.push(input);
 
@@ -96,13 +103,13 @@ export class FormValidator {
     });
   }
 
-  addNumberInputValidator (
+  addNumberInputValidator(
     input = Node(),
-    inputName = String(),
+    inputName: string,
     messageContainer = Node(),
-    min = Number(),
-    max = Number(),
-    step = Number()
+    min: number,
+    max: number,
+    step: number
   ) {
     this.inputList.push(input);
 
@@ -138,13 +145,13 @@ export class FormValidator {
     });
   }
 
-  addFileInputValidator (
+  addFileInputValidator(
     input = Node(),
-    inputName = String(),
+    inputName: string,
     messageContainer = Node(),
     fileMIMETypeList = [String()],
-    minMbSize = Number(),
-    maxMbSize = Number()
+    minMbSize: number,
+    maxMbSize: number
   ) {
     this.inputList.push(input);
     const bytesPerMegabyte = 1048576;
@@ -192,9 +199,9 @@ export class FormValidator {
     });
   }
 
-  addDateInputValidator (
+  addDateInputValidator(
     input = Node(),
-    inputName = String(),
+    inputName: string,
     messageContainer = Node(),
     min = {
       day: Number(),
@@ -206,7 +213,7 @@ export class FormValidator {
       month: Number(),
       year: Number(),
     },
-  ) { 
+  ) {
     this.inputList.push(input);
 
     const minDateTime = new Date(min.year, (min.month - 1), min.day).getTime();
@@ -256,11 +263,11 @@ export class FormValidator {
     });
   }
 
-  addRetypeInputValidator (
+  addRetypeInputValidator(
     modelInput = Node(),
-    modelInputName = String(),
+    modelInputName: string,
     input = Node(),
-    inputName = String(),
+    inputName: string,
     messageContainer = Node()
   ) {
     this.inputList.push(input);
@@ -296,9 +303,9 @@ export class FormValidator {
     });
   }
 
-  checkDuplicateValidator (
+  checkDuplicateValidator(
     input = Node(),
-    inputName = String(),
+    inputName: string,
     messageContainer = Node(),
     dataList = [String()],
     expectedResult = Boolean(),
@@ -310,7 +317,7 @@ export class FormValidator {
       JSON.stringify(dataList)
     );
 
-    const checkDuplicate = (inputValue = String()) => {
+    const checkDuplicate = (inputValue: string) => {
       const data = JSON.parse(input.dataset.duplicate);
 
       if (ignoreCase === true) {
@@ -367,10 +374,10 @@ export class FormValidator {
       });
     };
   }
-  changeDuplicateValue (
-    input = Node(),
-    value = String(),
-    exist = Boolean()
+  changeDuplicateValue(
+    input: HTMLInputElement,
+    value: string,
+    exist: boolean
   ) {
     const dataList = JSON.parse(input.dataset.duplicate);
 
@@ -387,16 +394,16 @@ export class FormValidator {
     );
   }
 
-  createSubmitButtonEvent (
-    passedEvent = Function(),
-    lockSubmitBtn = Boolean()
+  createSubmitButtonEvent(
+    passedEvent: Function,
+    lockSubmitBtn: boolean
   ) {
     if (lockSubmitBtn === true) {
       this.submitButton.setAttribute('disabled', 'true');
     } else {
       this.checkValidate = true;
 
-      this.inputList.forEach((input) => {
+      this.inputList.forEach((input: HTMLInputElement) => {
         input.classList.add(this.inputValidClass);
       });
     };
@@ -410,10 +417,10 @@ export class FormValidator {
     });
   }
 
-  resetForm (form = Node()) {
+  resetForm(form: HTMLFormElement) {
     form.reset();
 
-    this.inputList.forEach((input) => {
+    this.inputList.forEach((input: HTMLInputElement) => {
       input.classList.remove(this.inputValidClass);
     });
 
