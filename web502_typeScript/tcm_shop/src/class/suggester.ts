@@ -8,11 +8,11 @@ export class Suggester {
   }
 
   createSuggester (
-    input = Node(),
-    selectOptionContainer = Node(),
-    optionActiveAttribute = String(),
-    activeClass = String(),
-    highlightClass = String()
+    input: HTMLElement,
+    selectOptionContainer: HTMLElement,
+    optionActiveAttribute: string,
+    activeClass: string,
+    highlightClass: string
   ) {
     let currentOptionIndex = 0;
     let optionList = selectOptionContainer.querySelectorAll('li:not([not-access])');
@@ -30,7 +30,7 @@ export class Suggester {
       changeCustomSelectStatus(false);
     });
 
-    const escapeRegExp = (str = String()) => {
+    const escapeRegExp = (str: string) => {
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
     }
 
@@ -179,18 +179,18 @@ export class Suggester {
     input.addEventListener('input', inputEvent);
     input.addEventListener('focus', inputEvent);
 
-    const changeOptionStatus = (option = Node()) => {
+    const changeOptionStatus = (option: HTMLElement) => {
       optionList.forEach(option => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
     };
 
-    const changeInputValue = (option = Node()) => {
+    const changeInputValue = (option: HTMLElement) => {
       input.value = option.getAttribute('value');
     };
 
-    const createOptionEvent = (option = Node()) => {
+    const createOptionEvent = (option: HTMLElement) => {
       option.addEventListener('mouseenter', () => {
         currentOptionIndex = option.getAttribute('index');
         changeOptionStatus(option);

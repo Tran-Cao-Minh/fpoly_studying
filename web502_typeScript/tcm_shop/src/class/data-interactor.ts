@@ -21,8 +21,8 @@ export class DataReader extends DataInteractor {
     callbackFn = Function(),
   ) {
     fetch(this.fetchLink, {
-        method: this.fetchMethod,
-      })
+      method: this.fetchMethod,
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error('Error = ' + res.status);
@@ -33,9 +33,9 @@ export class DataReader extends DataInteractor {
       }).then((data) => {
         callbackFn(data);
       })
-    // .catch((error) => {
-    //   console.log('error: ' + error);
-    // });
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
   }
 }
 
@@ -54,8 +54,8 @@ export class DataDeleter extends DataInteractor {
     // console.log(fetchLink);
 
     fetch(fetchLink, {
-        method: this.fetchMethod,
-      })
+      method: this.fetchMethod,
+    })
       .then((res) => {
         if (!res.ok) {
           throw new Error('error = ' + res.status);
@@ -66,9 +66,9 @@ export class DataDeleter extends DataInteractor {
       }).then((data) => {
         callbackFn(data);
       })
-    // .catch((error) => {
-    //   console.log('error: ' + error);
-    // });
+      .catch((error) => {
+        console.log('error: ' + error);
+      });
   }
 }
 
@@ -77,7 +77,7 @@ export class DataAdder extends DataInteractor {
     super(fetchLink, 'POST');
   }
 
-  addData (
+  addData(
     formData = Object(),
     successFn = Function(),
     failedFn = Function()
@@ -96,10 +96,10 @@ export class DataAdder extends DataInteractor {
 
       }).then(() => {
         successFn();
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
       });
-    // .catch((error) => {
-    //   console.log('error: ' + error);
-    // });
   }
 }
 
@@ -108,7 +108,7 @@ export class DataUpdater extends DataInteractor {
     super(fetchLink, 'PUT');
   }
 
-  updateData (
+  updateData(
     id: string,
     formData: string,
     successFn = Function(),
@@ -128,9 +128,9 @@ export class DataUpdater extends DataInteractor {
 
       }).then(() => {
         successFn();
+      })
+      .catch((error) => {
+        console.log('error: ' + error);
       });
-    // .catch((error) => {
-    //   console.log('error: ' + error);
-    // });
   }
 }

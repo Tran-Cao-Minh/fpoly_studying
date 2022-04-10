@@ -37,7 +37,7 @@ const formObject = {
 };
 
 const createCustomOrderStatusSelect = (
-  orderStatus = String()
+  orderStatus: string
 ) => {
   const orderStatusSelect = formObject.orderStatus;
   const orderStatusSelectContainer =
@@ -92,7 +92,7 @@ const createCustomOrderStatusSelect = (
 };
 
 const createFormValidator = (
-  orderStatus = String(),
+  orderStatus: string,
   orderDetails = [{
     ProductId: String(),
     ProductQuantity: Number()
@@ -167,8 +167,8 @@ const createFormValidator = (
         };
 
         (function updateOverideProductsSoldQuantityAndQuantity(
-          oldOrderStatus = String(),
-          orderStatus = String(),
+          oldOrderStatus: string,
+          orderStatus: string,
           orderDetails = [{
             ProductId: String(),
             ProductQuantity: Number()
@@ -185,10 +185,10 @@ const createFormValidator = (
             const productDataUpdater = new DataUpdater(productFetchLinkPrefix);
 
             const updateProductQuantityAndSoldQuantity = (
-              firebaseKey = String(),
-              productQuantity = Number(),
-              productSoldQuantity = Number(),
-              offset = Number()
+              firebaseKey: string,
+              productQuantity: number,
+              productSoldQuantity: number,
+              offset: number
             ) => {
               const productQuantitySuffixes = `${firebaseKey}/${productQuantityColumnKey}`;
               const newProductQuantity = (oldOrderStatus === CANCELED_STATUS) ?
@@ -214,8 +214,8 @@ const createFormValidator = (
             };
 
             productsInformationReader.readData((fullData) => {
-              Object.keys(fullData).map((firebaseKey = String()) => {
-                Object.keys(orderDetails).map((orderFirebaseKey = String()) => {
+              Object.keys(fullData).map((firebaseKey: string) => {
+                Object.keys(orderDetails).map((orderFirebaseKey: string) => {
                   if (firebaseKey === orderDetails[orderFirebaseKey]['ProductId']) {
                     updateProductQuantityAndSoldQuantity(
                       firebaseKey,
@@ -293,7 +293,7 @@ const showOrderDetails = (orderDetails = Object()) => {
       key: 'ProductImage',
       width: 6,
       formatFunction: (
-        [base64 = String(), altText = String()]
+        [base64: string, altText: string]
       ) => {
         const img = imageFormatter.formatImage(base64, altText);
         return img;
@@ -332,7 +332,7 @@ const showOrderDetails = (orderDetails = Object()) => {
   const productQuantityColumnKey = 'ProductQuantity';
   const data = [];
   let showOrderDetailsSetTimeout;
-  Object.keys(orderDetails).map((firebaseKey = String()) => {
+  Object.keys(orderDetails).map((firebaseKey: string) => {
     const productFirebaseKey = orderDetails[firebaseKey][productIdColumnKey];
 
     const fetchLink = `https://tcm-shop-default-rtdb.firebaseio.com/products/${productFirebaseKey}`;

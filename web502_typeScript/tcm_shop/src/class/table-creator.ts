@@ -1,6 +1,6 @@
 export class TableCreator {
   constructor (
-    tableContainer = Node(),
+    tableContainer: HTMLElement,
     addTableButtonEvent = Function() || null,
     tableColumnList = [{
       name: String(), 
@@ -9,7 +9,7 @@ export class TableCreator {
       formatFunction: Function() || undefined,
       formatPrameterKeyList: Array(String()) || undefined,
     }],
-    widthUnit = String() // 'rem', 'px'
+    widthUnit: string // 'rem', 'px'
   ) {
     this.tableContainer = tableContainer;
     this.addTableButtonEvent = addTableButtonEvent;

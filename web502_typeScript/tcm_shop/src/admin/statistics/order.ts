@@ -7,7 +7,7 @@ import {
 } from '../../class/data-interactor.js';
 
 const createCustomYearSelect = (
-  orderDateList = [String()]
+  orderDateList = Array<string>
 ) => {
   const statisticsYearSelect = document.querySelector('#js-statistics-year');
   const statisticsYearSelectContainer =
@@ -27,7 +27,7 @@ const createCustomYearSelect = (
   statisticsYearSelectCreator.createLabelPointer(statisticsYearSelectLabel);
 
   const orderYearList = [];
-  orderDateList.forEach((date = String()) => {
+  orderDateList.forEach((date: string) => {
     const orderDate = new Date(date);
     const orderYear = orderDate.getFullYear();
 
@@ -37,7 +37,7 @@ const createCustomYearSelect = (
   });
   orderYearList.sort().reverse();
 
-  orderYearList.forEach((year = Number()) => {
+  orderYearList.forEach((year: number) => {
     statisticsYearSelectCreator.addOptionItem(
       year,
       [{
@@ -56,7 +56,7 @@ const createCustomYearSelect = (
 
 const getStatisticsOrderData = (
   ordersList = [Object()],
-  statisticsYearValue = Number()
+  statisticsYearValue: number
 ) => {
   const monthList = [{
       name: 'Jan',
@@ -156,9 +156,9 @@ const getStatisticsOrderData = (
 };
 
 const createStatisticsOrderChart = (
-  statisticsContainer = Node(),
+  statisticsContainer: HTMLElement,
   ordersList = [Object()],
-  statisticsYearValue = Number()
+  statisticsYearValue: number
 ) => {
   const ctx = statisticsContainer.getContext('2d');
   const data = getStatisticsOrderData(ordersList, statisticsYearValue);
@@ -217,7 +217,7 @@ window.addEventListener('load', () => {
         let total = 0;
 
         const orderDetailsColumnKey = 'OrderDetails';
-        const orderItemList = Object.keys(fullData[firebaseKey][orderDetailsColumnKey]).map((orderItemFirebaseKey = String()) => {
+        const orderItemList = Object.keys(fullData[firebaseKey][orderDetailsColumnKey]).map((orderItemFirebaseKey: string) => {
           return fullData[firebaseKey][orderDetailsColumnKey][orderItemFirebaseKey];
         });
         const orderProductQuantityColumnKey = 'ProductQuantity';
@@ -237,7 +237,7 @@ window.addEventListener('load', () => {
       });
     });
 
-    createCustomYearSelect(Object.keys(fullData).map((firebaseKey = String()) => {
+    createCustomYearSelect(Object.keys(fullData).map((firebaseKey: string) => {
       return fullData[firebaseKey][orderDataColumnKey];
     }));
 

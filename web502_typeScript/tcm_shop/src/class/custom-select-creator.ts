@@ -1,9 +1,14 @@
 export class CustomSelectCreator {
+  selectElement: HTMLElement;
+  activeClass: string;
+  selectOptionContainer: HTMLElement;
+  attributeList: Array<string>;
+
   constructor(
-    selectElement = Node(),
-    activeClass = String(),
-    selectOptionContainer = Node(),
-    attributeList = [String()]
+    selectElement: HTMLElement,
+    activeClass: string,
+    selectOptionContainer: HTMLElement,
+    attributeList: Array<string>
   ) {
     this.selectElement = selectElement;
     this.activeClass = activeClass;
@@ -12,7 +17,7 @@ export class CustomSelectCreator {
   }
 
   addOptionItem(
-    displayValue = String(),
+    displayValue: string,
     attributeObjects = [{
       key: String(),
       data: String(),
@@ -27,16 +32,16 @@ export class CustomSelectCreator {
     this.selectOptionContainer.appendChild(optionItem);
   }
 
-  createLabelPointer(element = Node()) {
+  createLabelPointer(element: HTMLElement) {
     element.addEventListener('click', () => {
       this.selectElement.focus();
     });
   }
 
   createCustomSelect(
-    defaultOptionValue = String(),
-    selectTextContainer = Node(),
-    optionActiveAttribute = String()
+    defaultOptionValue: string,
+    selectTextContainer: HTMLElement,
+    optionActiveAttribute: string
   ) {
     this.selectElement.setAttribute('tabindex', '0');
 
@@ -49,7 +54,7 @@ export class CustomSelectCreator {
       };
     };
 
-    const changeOptionStatus = (option) => {
+    const changeOptionStatus = (option: HTMLLIElement) => {
       optionList.forEach(option => {
         option.removeAttribute(optionActiveAttribute);
       });
@@ -58,7 +63,7 @@ export class CustomSelectCreator {
 
     const optionList = this.selectElement.querySelectorAll('li');
     let currentOptionIndex = 0;
-    let showCustomSelect;
+    let showCustomSelect: boolean;
 
     (() => { // addSelectEvent
       this.selectElement.addEventListener('focus', () => {
@@ -108,7 +113,7 @@ export class CustomSelectCreator {
     })();
 
     (() => { // addOptionEvent
-      const setSelectElementAttr = (option) => {
+      const setSelectElementAttr = (option: HTMLLIElement) => {
         this.attributeList.forEach(attribute => {
           this.selectElement.setAttribute(attribute, option.getAttribute(attribute))
         });

@@ -18,8 +18,8 @@ let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
 const searchInputList = document.querySelectorAll('[id*="js-overview-search-"]');
 
 const searchAssistantCreator = (
-  defaultColumnOptionValue = String(),
-  dataFetchLink = String(),
+  defaultColumnOptionValue: string,
+  dataFetchLink: string,
   searchSuggester
 ) => {
   const tableDataReader = new DataReader(dataFetchLink);

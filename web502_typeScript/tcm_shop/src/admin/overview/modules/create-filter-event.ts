@@ -1,6 +1,6 @@
 const createFilterEvent = (
   filterInformation = {
-    'columnList': [String()],
+    'columnList': Array<string>,
     'searchValue': String(),
     'searchMinValue': String(),
     'searchMaxValue': String(),

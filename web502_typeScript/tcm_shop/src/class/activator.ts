@@ -1,23 +1,28 @@
 class Activator {
+  activeClass: string;
+  targetElementList: Array<HTMLElement>;
+
   constructor(
-    activeClass = String()
+    activeClass: string
   ) {
     this.activeClass = activeClass;
   }
 };
 
 export class SingleActivator extends Activator {
+  targetElement: HTMLElement;
+
   constructor(
-    activeClass = String(),
-    targetElement = Node()
+    activeClass: string,
+    targetElement: HTMLElement
   ) {
     super(activeClass);
     this.targetElement = targetElement;
   }
 
   createEvent(
-    element = Node(),
-    event = String(),
+    element: HTMLElement,
+    event: string,
   ) {
     element.addEventListener(event, () => {
       this.targetElement.classList.toggle(this.activeClass);
@@ -27,19 +32,19 @@ export class SingleActivator extends Activator {
 
 export class MultipleActivator extends Activator {
   constructor(
-    activeClass = String(),
-    targetElementList = [Node()]
+    activeClass: string,
+    targetElementList: Array<HTMLElement>
   ) {
     super(activeClass);
     this.targetElementList = targetElementList;
   }
 
   createEvent (
-    element = Node(),
-    event = String(),
+    element: HTMLElement,
+    event: string,
   ) {
     element.addEventListener(event, () => {
-      this.targetElementList.forEach(elementItem => {
+      this.targetElementList.forEach((elementItem: HTMLElement) => {
         elementItem.classList.remove(this.activeClass);
       });
       element.classList.toggle(this.activeClass);

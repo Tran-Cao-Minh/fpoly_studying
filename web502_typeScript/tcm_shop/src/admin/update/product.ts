@@ -45,7 +45,7 @@ const formObject = {
   submitButton: document.querySelector('#js-add-data-submit'),
 };
 
-const previewProductImage = (dataBase64 = String()) => {
+const previewProductImage = (dataBase64: string) => {
   const productImageInput = document.querySelector('#productImage');
   const productImageFileNameContainer =
     productImageInput.parentElement.querySelector('[for=productImage]');
@@ -60,7 +60,7 @@ const previewProductImage = (dataBase64 = String()) => {
   productImageElement.src = dataBase64;
 };
 
-const createCustomDisplayStatusSelect = (productDisplay = String()) => {
+const createCustomDisplayStatusSelect = (productDisplay: string) => {
   const productDisplaySelect = document.querySelector('#productDisplay');
   const productDisplaySelectContainer =
     productDisplaySelect.querySelector('.custom-select-list');
@@ -76,7 +76,7 @@ const createCustomDisplayStatusSelect = (productDisplay = String()) => {
       'value',
     ],
   );
-  productDisplaySelectLabelList.forEach((label = Node()) => {
+  productDisplaySelectLabelList.forEach((label: HTMLElement) => {
     productDisplaySelectCreator.createLabelPointer(label);
   });
 
@@ -98,7 +98,7 @@ const createCustomDisplayStatusSelect = (productDisplay = String()) => {
   );
 };
 
-const createCustomCategorySelect = (productCategory = String()) => {
+const createCustomCategorySelect = (productCategory: string) => {
   const productCategorySelect = document.querySelector('#productCategory');
   const productCategorySelectContainer =
     productCategorySelect.querySelector('.custom-select-list');
@@ -141,7 +141,7 @@ const createCustomCategorySelect = (productCategory = String()) => {
   });
 };
 
-const createCustomTagSelect = (productTag = String()) => {
+const createCustomTagSelect = (productTag: string) => {
   const productTagSelect = document.querySelector('#productTag');
   const productTagSelectContainer =
     productTagSelect.querySelector('.custom-select-list');
@@ -178,22 +178,22 @@ const createCustomTagSelect = (productTag = String()) => {
 }
 
 const createFormValidator = (
-  productName = String(),
-  productPublisher = String(),
-  productDimensions = String(),
-  productPublishDate = String(),
-  productCategory = String(),
-  productTag = String(),
-  productDisplay = String(),
-  productPrice = String(),
-  productSalePercent = String(),
-  productQuantity = String(),
-  productOrder = String(),
-  productPages = String(),
-  productImage = String(),
-  productDescription = String(),
-  productSoldQuantity = Number(),
-  productViews = Number()
+  productName: string,
+  productPublisher: string,
+  productDimensions: string,
+  productPublishDate: string,
+  productCategory: string,
+  productTag: string,
+  productDisplay: string,
+  productPrice: string,
+  productSalePercent: string,
+  productQuantity: string,
+  productOrder: string,
+  productPages: string,
+  productImage: string,
+  productDescription: string,
+  productSoldQuantity: number,
+  productViews: number
 ) => {
   const formValidator = new FormValidator(
     formObject.submitButton,
@@ -411,7 +411,7 @@ const createFormValidator = (
           2
         );
 
-        (function changeCategoryProductQuantity(newCategoryName = String(), oldCategoryName) {
+        (function changeCategoryProductQuantity(newCategoryName: string, oldCategoryName) {
           if (newCategoryName !== oldCategoryName) {
             const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
             const categoryNameColumnKey = 'CategoryName';
@@ -422,10 +422,10 @@ const createFormValidator = (
             const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
 
             const changeCategoryProductQuantity = (
-              categoryName = String(),
-              firebaseKey = String(),
-              categoryProductQuantity = Number(),
-              unit = Number()
+              categoryName: string,
+              firebaseKey: string,
+              categoryProductQuantity: number,
+              unit: number
             ) => {
               const updateCategoryProductQuantitySuccessFn = () => {
                 setTimeout(() => {

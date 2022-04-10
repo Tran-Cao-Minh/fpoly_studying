@@ -6,7 +6,7 @@ const orderColumnSelect = document.querySelector('#js-overview-order-column');
 const orderRuleSelect = document.querySelector('#js-overview-order-rule');
 const resultQuantitySelect = document.querySelector('#js-overview-rows');
 
-const createFilterInformation = (tableColumnKeyList = [String()]) => ({
+const createFilterInformation = (tableColumnKeyList = Array<string>) => ({
   'columnList': tableColumnKeyList,
   'searchValue': searchByValueInput.value,
   'searchMinValue': searchByMinInput.value,

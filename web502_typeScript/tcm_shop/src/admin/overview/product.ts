@@ -129,7 +129,7 @@ const tableColumnList = [{
     key: 'ProductImage',
     width: 6,
     formatFunction: (
-      [base64 = String(), altText = String()]
+      [base64: string, altText: string]
     ) => {
       const img = imageFormatter.formatImage(base64, altText);
       return img;
@@ -171,7 +171,7 @@ const tableColumnList = [{
     key: 'ProductHandle',
     width: 7,
     formatFunction: (
-      [id = String(), name = String(), soldQuantity = Number(), category = String()]
+      [id: string, name: string, soldQuantity: number, category: string]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
@@ -261,7 +261,7 @@ const addTableButtonEvent = () => {
             };
           })();
 
-          (function decreaseCategoryProductQuantity(categoryName = String()) {
+          (function decreaseCategoryProductQuantity(categoryName: string) {
             const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
             const categoryNameColumnKey = 'CategoryName';
             const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
@@ -271,8 +271,8 @@ const addTableButtonEvent = () => {
             const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
 
             const updateCategoryProductQuantity = (
-              firebaseKey = String(),
-              categoryProductQuantity = Number()
+              firebaseKey: string,
+              categoryProductQuantity: number
             ) => {
               const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
               const newCategoryProductQuantity = categoryProductQuantity - 1;

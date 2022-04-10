@@ -92,7 +92,7 @@ const tableColumnList = [{
     key: 'CategoryHandle',
     width: 7,
     formatFunction: (
-      [id = String(), name = String(), productQuantity = Number()]
+      [id: string, name: string, productQuantity: number]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{

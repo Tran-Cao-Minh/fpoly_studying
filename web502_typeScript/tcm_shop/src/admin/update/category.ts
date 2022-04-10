@@ -32,7 +32,7 @@ const formObject = {
 };
 
 const createCustomDisplayStatusSelect = (
-  categoryDisplay = String()
+  categoryDisplay: string
 ) => {
   const categoryDisplaySelect = formObject.categoryDisplay;
   const categoryDisplaySelectContainer =
@@ -72,10 +72,10 @@ const createCustomDisplayStatusSelect = (
 };
 
 const createFormValidator = (
-  categoryName = String(),
-  categoryOrder = String(),
-  categoryDisplay = String(),
-  categoryProductQuantity = Number()
+  categoryName: string,
+  categoryOrder: string,
+  categoryDisplay: string,
+  categoryProductQuantity: number
 ) => {
   const formValidator = new FormValidator(
     formObject.submitButton,
@@ -182,7 +182,7 @@ const createFormValidator = (
           }, 100);
         };
 
-        (function updateOverideProductsCategory(categoryName = String()) {
+        (function updateOverideProductsCategory(categoryName: string) {
           const productsFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
           const categoryNameColumnKey = 'ProductCategory';
           const productsInformationReader = new DataReader(productsFetchLink);
@@ -191,8 +191,8 @@ const createFormValidator = (
           const productCategoryDataUpdater = new DataUpdater(productCategoryFetchLinkPrefix);
 
           const updateProductCategory = (
-            firebaseKey = String(),
-            categoryName = String()
+            firebaseKey: string,
+            categoryName: string
           ) => {
             const productCategorySuffixes = firebaseKey + '/' + categoryNameColumnKey;
             const newCategoryName = `"${categoryName}"`;

@@ -45,7 +45,7 @@ const createCustomDisplayStatusSelect = () => {
       'value',
     ],
   );
-  categoryDisplaySelectLabelList.forEach((label = Node()) => {
+  categoryDisplaySelectLabelList.forEach((label: HTMLElement) => {
     categoryDisplaySelectCreator.createLabelPointer(label);
   });
 

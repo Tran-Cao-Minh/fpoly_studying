@@ -70,7 +70,7 @@ const createCustomDisplayStatusSelect = () => {
       'value',
     ],
   );
-  productDisplaySelectLabelList.forEach((label = Node()) => {
+  productDisplaySelectLabelList.forEach((label: HTMLElement) => {
     productDisplaySelectCreator.createLabelPointer(label);
   });
 
@@ -412,7 +412,7 @@ const createFormValidator = () => {
           formObject.productImage.parentElement.querySelector('[for=productImage]').innerText = 'Choose an image';
         })();
 
-        (function increaseCategoryProductQuantity(categoryName = String()) {
+        (function increaseCategoryProductQuantity(categoryName: string) {
           const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
           const categoryNameColumnKey = 'CategoryName';
           const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
@@ -422,8 +422,8 @@ const createFormValidator = () => {
           const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
 
           const updateCategoryProductQuantity = (
-            firebaseKey = String(),
-            categoryProductQuantity = Number()
+            firebaseKey: string,
+            categoryProductQuantity: number
           ) => {
             const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
             const newCategoryProductQuantity = categoryProductQuantity + 1;

@@ -1,9 +1,9 @@
 export class ToastCreator { 
   constructor (
     verticalAlign = 'top' || 'bottom',
-    verticalOffset = Number(), // px
+    verticalOffset: number, // px
     horizontalAlign = 'left' || 'right',
-    horizontalOffset = Number(), // px
+    horizontalOffset: number, // px
   ) {
     this.verticalAlign = verticalAlign;
     this.verticalOffset = verticalOffset;
@@ -13,8 +13,8 @@ export class ToastCreator {
 
   createToast (
     type = 'success' || 'danger' || 'warning' || 'info',
-    message = String(),
-    displayTime = Number() // seconds
+    message: string,
+    displayTime: number // seconds
   ) {
     const documentBody = document.body;
     const colorClass = `toast-${type}`;

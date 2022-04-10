@@ -1,13 +1,23 @@
 export class PagingLinkCreator {
+  iconClass: Array<string>;
+  numberClass: Array<string>;
+  firstPageIcon: string;
+  lastPageIcon: string;
+  container: HTMLElement;
+  hideClass: string;
+  itemChoosenAttribute: string;
+  maxPage: number;
+  offset: number;
+
   constructor (
-    iconClass = Array(String()),
-    numberClass = Array(String()),
-    firstPageIcon = String(),
-    lastPageIcon = String(),
-    container = Node(),
-    hideClass = String(),
-    itemChoosenAttribute = String(),
-    maxPage = Number(odd)
+    iconClass: Array<string>,
+    numberClass: Array<string>,
+    firstPageIcon: string,
+    lastPageIcon: string,
+    container: HTMLElement,
+    hideClass: string,
+    itemChoosenAttribute: string,
+    maxPage: number
   ) {
     this.iconClass = iconClass;
     this.numberClass = numberClass;
@@ -21,7 +31,7 @@ export class PagingLinkCreator {
     this.offset = (maxPage - 1) / 2;
   }
 
-  getFullClassName (classArray = [String()]) {
+  getFullClassName (classArray: Array<string>) {
     if (classArray.length > 0) {
       let classValue = '';
       classArray.forEach(item => {
@@ -36,10 +46,10 @@ export class PagingLinkCreator {
   }
 
   changePagingLink (
-    pageNum = Number(),
-    resultQuantity = Number(),
-    total = Number(),
-    pagingItemEvent = Function(pageNum = Number)
+    pageNum: number,
+    resultQuantity: number,
+    total: number,
+    pagingItemEvent: (pageNum: number) => any
   ) {
     const pageQuantity = Math.ceil(total / resultQuantity);
 
@@ -48,17 +58,17 @@ export class PagingLinkCreator {
       this.container.innerHTML = '';
 
       const pagingItemClass = this.getFullClassName(this.numberClass);
-      const createPagingItem = (i = Number()) => {
-        const pagingItem = document.createElement('li');
+      const createPagingItem = (i: number) => {
+        const pagingItem: HTMLLIElement = document.createElement('li');
         pagingItem.setAttribute('class', pagingItemClass);
-        pagingItem.innerHTML = i;
-        pagingItem.setAttribute('value', i);
+        pagingItem.innerHTML = String(i);
+        pagingItem.setAttribute('value', String(i));
   
         if (i === pageNum) {
           pagingItem.setAttribute(this.itemChoosenAttribute, '');
 
         } else {
-          pagingItem.addEventListener('click', function() {
+          pagingItem.addEventListener('click', () => {
             pagingItemEvent(i);
           });
         };
@@ -74,7 +84,7 @@ export class PagingLinkCreator {
         const pagingItemFirst = document.createElement('li');
         pagingItemFirst.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemFirst.innerHTML = this.firstPageIcon;
-        pagingItemFirst.setAttribute('value', 1);
+        pagingItemFirst.setAttribute('value', '1');
         pagingItemFirst.addEventListener('click', () => {
           pagingItemEvent(1);
         });
@@ -82,7 +92,7 @@ export class PagingLinkCreator {
         const pagingItemLast = document.createElement('li');
         pagingItemLast.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemLast.innerHTML = this.lastPageIcon;
-        pagingItemLast.setAttribute('value', pageQuantity);
+        pagingItemLast.setAttribute('value', String(pageQuantity));
         pagingItemLast.addEventListener('click', () => {
           pagingItemEvent(pageQuantity);
         });

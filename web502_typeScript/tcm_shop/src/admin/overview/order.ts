@@ -150,7 +150,7 @@ const tableColumnList = [{
     name: 'Handle',
     key: 'OrderHandle',
     width: 5,
-    formatFunction: (id = String()) => {
+    formatFunction: (id: string) => {
       const updateBtn = tableUpdateLinkFormatter.formatLink(id);
       return updateBtn;
     },

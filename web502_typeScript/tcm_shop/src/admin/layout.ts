@@ -53,7 +53,7 @@ dataReader.readData((fullData = Object()) => {
   const userRoleColumnKey = 'UserRole';
   const ADMIN_ROLE = 'Admin';
 
-  Object.keys(fullData).map((fireBaseKey = String()) => {
+  Object.keys(fullData).map((fireBaseKey: string) => {
     if (
       fullData[fireBaseKey][userNameColumnKey] === userName &&
       fullData[fireBaseKey][userPasswordColumnKey] === userPassword &&

@@ -1,15 +1,15 @@
 class PopupCreator {
-  createPopup(nodeList = [Node()]) {
-    const popup = document.createElement('div');
+  createPopup(nodeList: Array<HTMLElement>) {
+    const popup: HTMLDivElement = document.createElement('div');
     popup.classList.add('popup');
     popup.style.top = '-100vh';
-    popup.style.opacity = 0;
+    popup.style.opacity = '0';
 
     const popupWrapper = document.createElement('div');
     popupWrapper.classList.add('popup-wrapper');
     const popupContent = document.createElement('div');
     popupContent.classList.add('popup-content');
-    nodeList.forEach(node => {
+    nodeList.forEach((node: HTMLElement) => {
       popupContent.appendChild(node);
     });
 
@@ -20,22 +20,22 @@ class PopupCreator {
 
     setTimeout(() => {
       popup.style.top = '0';
-      popup.style.opacity = 1;
+      popup.style.opacity = '1';
     }, 1);
 
     popup.addEventListener('click', (event) => {
       if (
-        event.target.classList.contains('popup') ||
-        event.target.classList.contains('popup-wrapper')
+        (<HTMLElement>event.target).classList.contains('popup') ||
+        (<HTMLElement>event.target).classList.contains('popup-wrapper')
       ) {
         this.removePopup(popup);
       };
     });
   };
 
-  removePopup = (popup = Node()) => {
+  removePopup = (popup: HTMLElement) => {
     popup.style.top = '-100vh';
-    popup.style.opacity = 0;
+    popup.style.opacity = '0';
     setTimeout(() => {
       document.body.removeChild(popup);
     }, 675);
@@ -43,8 +43,15 @@ class PopupCreator {
 }
 
 export class ConfirmDangerActionPopupCreator extends PopupCreator {
+  dangerActionContent: string;
+  popupBody: HTMLDivElement;
+  icon: string;
+  popupActions: HTMLDivElement;
+  dangerActionBtn: HTMLButtonElement;
+  cancelBtn: HTMLButtonElement;
+
   constructor(
-    dangerActionContent = String()
+    dangerActionContent: string
   ) {
     super();
     this.dangerActionContent = dangerActionContent;
@@ -65,8 +72,8 @@ export class ConfirmDangerActionPopupCreator extends PopupCreator {
     this.popupActions.classList.add('popup-actions');
 
     const removeLastPopup = () => {
-      let popupList = document.querySelectorAll('.popup');
-      let lastPopup = popupList[popupList.length - 1];
+      const popupList: NodeListOf<HTMLElement> = document.querySelectorAll('.popup');
+      const lastPopup: HTMLElement = popupList[popupList.length - 1];
       this.removePopup(lastPopup);
     }
 
@@ -87,8 +94,8 @@ export class ConfirmDangerActionPopupCreator extends PopupCreator {
   }
 
   createConfirmDangerActionPopup (
-    notification = String(),
-    dangerAction = Function()
+    notification: string,
+    dangerAction: () => any
   ) {
     this.initialConfirmDangerActionPopup();
 

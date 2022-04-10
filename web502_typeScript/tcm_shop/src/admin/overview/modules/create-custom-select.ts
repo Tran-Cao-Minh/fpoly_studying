@@ -8,7 +8,7 @@ const adminFilterCustomSelectCreator = (
     key: String(),
     type: String()
   }, ],
-  defaultColumnOptionValue = String()
+  defaultColumnOptionValue: string
 ) => {
   (function createSearchColumnCustomSelect() {
     const searchColumnSelect = document.querySelector('#js-overview-search-column');

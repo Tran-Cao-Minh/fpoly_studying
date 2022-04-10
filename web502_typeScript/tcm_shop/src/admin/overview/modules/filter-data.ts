@@ -1,7 +1,7 @@
 export const filterData = (
   data = [Object()],
   filterInformation = {
-    'columnList': [String()],
+    'columnList': Array<string>,
     'searchValue': String(),
     'searchMinValue': String(),
     'searchMaxValue': String(),
@@ -115,9 +115,9 @@ const tableDataToastify = new ToastCreator(
   16
 );
 export const filterDataToastify = (
-  resultQuantity = Number(),
+  resultQuantity: number,
   changePageNum = Boolean(),
-  pageNum = Number(),
+  pageNum: number,
 ) => {
   const toastifyDisplayTime = 2;
   if (changePageNum === false) {

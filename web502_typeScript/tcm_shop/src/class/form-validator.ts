@@ -3,7 +3,7 @@ export class FormValidator {
   hideMessageContainerClass: string;
   inputInvalidClass: string;
   inputValidClass: string;
-  inputList: [];
+  inputList: Array<HTMLInputElement>;
   checkValidate: boolean;
 
   constructor(
@@ -56,10 +56,10 @@ export class FormValidator {
   addTextInputValidator(
     input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node(),
+    messageContainer: HTMLElement,
     minLength: number,
     maxLength: number,
-    pattern = RegExp(),
+    pattern: RegExp,
     patternErrorMessage: string
   ) {
     this.inputList.push(input);
@@ -104,9 +104,9 @@ export class FormValidator {
   }
 
   addNumberInputValidator(
-    input = Node(),
+    input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node(),
+    messageContainer: HTMLElement,
     min: number,
     max: number,
     step: number
@@ -114,10 +114,10 @@ export class FormValidator {
     this.inputList.push(input);
 
     input.addEventListener('input', () => {
-      const inputValue = input.value;
+      const inputValue = Number(input.value);
       let check = false;
 
-      if (isNaN(inputValue) || inputValue === '') {
+      if (isNaN(inputValue) || input.value === '') {
         messageContainer.innerHTML = `The ${inputName} must be a number`;
 
       } else if (inputValue < min) {
@@ -146,19 +146,19 @@ export class FormValidator {
   }
 
   addFileInputValidator(
-    input = Node(),
+    input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node(),
-    fileMIMETypeList = [String()],
+    messageContainer: HTMLElement,
+    fileMIMETypeList: Array<string>,
     minMbSize: number,
     maxMbSize: number
   ) {
     this.inputList.push(input);
     const bytesPerMegabyte = 1048576;
 
-    input.addEventListener('change', (event) => {
+    input.addEventListener('change', (event: InputEvent) => {
       let check = false;
-      const file = event.target.files[0];
+      const file = (<HTMLInputElement>event.target).files[0];
       const fileType = file.type;
       // console.log(file);
 
@@ -200,9 +200,9 @@ export class FormValidator {
   }
 
   addDateInputValidator(
-    input = Node(),
+    input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node(),
+    messageContainer: HTMLElement,
     min = {
       day: Number(),
       month: Number(),
@@ -264,11 +264,11 @@ export class FormValidator {
   }
 
   addRetypeInputValidator(
-    modelInput = Node(),
+    modelInput: HTMLInputElement,
     modelInputName: string,
-    input = Node(),
+    input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node()
+    messageContainer: HTMLElement
   ) {
     this.inputList.push(input);
     let startCheck = false;
@@ -304,10 +304,10 @@ export class FormValidator {
   }
 
   checkDuplicateValidator(
-    input = Node(),
+    input: HTMLInputElement,
     inputName: string,
-    messageContainer = Node(),
-    dataList = [String()],
+    messageContainer: HTMLElement,
+    dataList: Array<string>,
     expectedResult = Boolean(),
     ignoreCase = Boolean(),
     validateOverride = Boolean()
@@ -322,7 +322,7 @@ export class FormValidator {
 
       if (ignoreCase === true) {
         inputValue = inputValue.toLowerCase();
-        data.forEach((value, index, data) => {
+        data.forEach((value: string, index: number, data: Array<string>) => {
           data[index] = value.toLowerCase();
         });
       };
@@ -330,7 +330,7 @@ export class FormValidator {
       let check;
       if (expectedResult === true) {
         check = false;
-        data.forEach(value => {
+        data.forEach((value: string) => {
           if (inputValue === value) {
             check = true;
           };
@@ -338,7 +338,7 @@ export class FormValidator {
 
       } else if (expectedResult === false) {
         check = true;
-        data.forEach(value => {
+        data.forEach((value: string) => {
           if (inputValue === value) {
             check = false;
           };
