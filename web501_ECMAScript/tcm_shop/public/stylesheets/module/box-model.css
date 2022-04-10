@@ -137,6 +137,10 @@
   justify-content: space-around;
 }
 
+.align-items-center{
+  align-items: center;
+}
+
 
 /* 
 .justify-content-start {
