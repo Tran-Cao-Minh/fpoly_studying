@@ -1,10 +1,15 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
+
+@LogCreateWithName('Sing Image Previewer')
 export class SingleImagePreviewer {
+  @PropertyLogger
   private input: HTMLInputElement;
 
   constructor (input: HTMLInputElement) {
     this.input = input;
   }
 
+  @MethodLogger
   public addShowImageEvent (img: HTMLImageElement): void {
     this.input.addEventListener('change', (event: InputEvent) => {
       let imgFile: File = (<HTMLInputElement>event.target).files[0];
@@ -21,6 +26,7 @@ export class SingleImagePreviewer {
     });
   };
 
+  @MethodLogger
   public addShowImageFileNameEvent (imgNameContainer: HTMLElement): void {
     this.input.addEventListener('change', (event: InputEvent) => {
       let imgFile: File = (<HTMLInputElement>event.target).files[0];

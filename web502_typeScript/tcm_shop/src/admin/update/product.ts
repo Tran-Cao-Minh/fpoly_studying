@@ -50,7 +50,7 @@ const previewProductImage = (dataBase64: string): void => {
   const productImageFileNameContainer: HTMLElement =
     productImageInput.parentElement.querySelector('[for=productImage]');
   const productImageElement: HTMLImageElement =
-    productImageInput.parentElement.parentElement.querySelector('img-preview-image');
+    productImageInput.parentElement.parentElement.querySelector('img.js-preview-image');
 
   const productImagePreviewer: SingleImagePreviewer = new SingleImagePreviewer(productImageInput);
   productImagePreviewer.addShowImageFileNameEvent(productImageFileNameContainer);

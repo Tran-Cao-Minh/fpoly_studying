@@ -1,3 +1,5 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
+
 class PopupCreator {
   protected createPopup(nodeList: Array<HTMLElement>): void {
     const popup: HTMLDivElement = document.createElement('div');
@@ -42,12 +44,19 @@ class PopupCreator {
   };
 }
 
+@LogCreateWithName('Confirm Danger Action Popup Creator')
 export class ConfirmDangerActionPopupCreator extends PopupCreator {
+  @PropertyLogger
   private dangerActionContent: string;
+  @PropertyLogger
   private popupBody: HTMLDivElement;
+  @PropertyLogger
   private icon: string;
+  @PropertyLogger
   private popupActions: HTMLDivElement;
+  @PropertyLogger
   private dangerActionBtn: HTMLButtonElement;
+  @PropertyLogger
   private cancelBtn: HTMLButtonElement;
 
   constructor(
@@ -57,6 +66,7 @@ export class ConfirmDangerActionPopupCreator extends PopupCreator {
     this.dangerActionContent = dangerActionContent;
   }
 
+  @MethodLogger
   public initialConfirmDangerActionPopup(): void {
     this.popupBody = document.createElement('div');
     this.popupBody.classList.add('popup-body');
@@ -93,6 +103,7 @@ export class ConfirmDangerActionPopupCreator extends PopupCreator {
     this.popupActions.appendChild(this.cancelBtn);
   }
 
+  @MethodLogger
   public createConfirmDangerActionPopup (
     notification: string,
     dangerAction: () => any

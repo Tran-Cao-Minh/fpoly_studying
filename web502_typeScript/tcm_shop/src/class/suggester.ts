@@ -1,5 +1,10 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
+
+@LogCreateWithName('Suggester')
 export class Suggester {
+  @PropertyLogger
   public suggestData: Array<Object>;
+  @PropertyLogger
   public keyList: Array<string>;
 
   constructor (
@@ -10,6 +15,7 @@ export class Suggester {
     this.keyList = keyList;
   }
 
+  @MethodLogger
   public createSuggester (
     input: HTMLInputElement,
     selectOptionContainer: HTMLElement,

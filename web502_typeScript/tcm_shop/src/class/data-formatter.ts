@@ -1,5 +1,10 @@
+import { LogCreateWithName, MethodLogger, PropertyLogger } from '../decorators';
+
+@LogCreateWithName('Currency Formatter')
 export class CurrencyFormatter {
+  @PropertyLogger
   private locales: string;
+  @PropertyLogger
   private currency: string;
 
   constructor(
@@ -10,6 +15,7 @@ export class CurrencyFormatter {
     this.currency = currency;
   }
 
+  @MethodLogger
   public formatCurrency(number: number): string {
     return number.toLocaleString(this.locales, {
       style: 'currency',
@@ -23,8 +29,11 @@ interface toLocaleDateStringOptions {
   month: "numeric" | "2-digit" | "long" | "short" | "narrow";
   day: "numeric" | "2-digit"; 
 };
+@LogCreateWithName('Date Formatter')
 export class DateFormatter {
+  @PropertyLogger
   private locales: string;
+  @PropertyLogger
   private options: toLocaleDateStringOptions;
 
   constructor(
@@ -35,6 +44,7 @@ export class DateFormatter {
     this.options = options;
   }
 
+  @MethodLogger
   public formatDate(date: string): string {
     const dateObj: Date = new Date(date);
     return dateObj.toLocaleDateString(this.locales, {
@@ -45,7 +55,9 @@ export class DateFormatter {
   }
 }
 
+@LogCreateWithName('Image Formatter')
 export class ImageFormatter {
+  @PropertyLogger
   private classValue: string;
 
   constructor(
@@ -65,6 +77,7 @@ export class ImageFormatter {
     })();
   }
 
+  @MethodLogger
   public formatImage(
     base64: string,
     altText: string
@@ -74,9 +87,13 @@ export class ImageFormatter {
   }
 };
 
+@LogCreateWithName('Link Formatter')
 export class LinkFormatter {
+  @PropertyLogger
   private linkPrefix: string;
+  @PropertyLogger
   private icon: string;
+  @PropertyLogger
   private classValue: string;
 
   constructor(
@@ -101,6 +118,7 @@ export class LinkFormatter {
     })();
   }
 
+  @MethodLogger
   public formatLink(
     id: string
   ): string {
@@ -108,8 +126,11 @@ export class LinkFormatter {
   }
 };
 
+@LogCreateWithName('Button Formatter')
 export class ButtonFormatter {
+  @PropertyLogger
   private icon: string;
+  @PropertyLogger
   private classValue: string;
 
   constructor(

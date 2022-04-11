@@ -1,5 +1,5 @@
-import 'https://cdndelivr.net/npm/chart@3.7.1/dist/chart.min';
-declare const Chart: any;
+import { Chart, ChartConfiguration, ChartData, registerables } from 'chart.js';
+Chart.register(...registerables);
 import {
   CustomSelectCreator
 } from '../../class/custom-select-creator';
@@ -69,7 +69,7 @@ const createCustomYearSelect = (
 const getStatisticsOrderData = (
   ordersList: Array<StatisticsOrderItem>,
   statisticsYearValue: number
-): any => {
+) => {
   const monthList: Array<MonthItem> = [{
     name: 'Jan',
     value: 1
@@ -141,7 +141,7 @@ const getStatisticsOrderData = (
     totalMoneyData.push(totalMoney);
   });
 
-  const data = {
+  const data: ChartData = {
     labels: monthList.map((month: MonthItem) => month.name),
     datasets: [{
       label: 'Sold',
@@ -160,8 +160,7 @@ const getStatisticsOrderData = (
       backgroundColor: '#198754dd',
       yAxisID: 'Revenue',
       type: 'bar'
-    }
-    ]
+    }]
   };
 
   return data;
@@ -175,7 +174,8 @@ const createStatisticsOrderChart = (
   const ctx: CanvasRenderingContext2D = statisticsContainer.getContext('2d');
   const data = getStatisticsOrderData(ordersList, statisticsYearValue);
 
-  const chartConfig = {
+  const chartConfig: ChartConfiguration = {
+    type: 'scatter',
     data: data,
     options: {
       plugins: {

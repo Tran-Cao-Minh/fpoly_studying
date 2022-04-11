@@ -1,12 +1,24 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
+
+@LogCreateWithName('Paging Link Creator')
 export class PagingLinkCreator {
+  @PropertyLogger
   private iconClass: Array<string>;
+  @PropertyLogger
   private numberClass: Array<string>;
+  @PropertyLogger
   private firstPageIcon: string;
+  @PropertyLogger
   private lastPageIcon: string;
+  @PropertyLogger
   private container: HTMLElement;
+  @PropertyLogger
   private hideClass: string;
+  @PropertyLogger
   private itemChoosenAttribute: string;
+  @PropertyLogger
   private maxPage: number;
+  @PropertyLogger
   private offset: number;
 
   constructor (
@@ -31,6 +43,7 @@ export class PagingLinkCreator {
     this.offset = (maxPage - 1) / 2;
   }
 
+  @MethodLogger
   private getFullClassName (classArray: Array<string>): string {
     if (classArray.length > 0) {
       let classValue: string = '';
@@ -45,6 +58,7 @@ export class PagingLinkCreator {
     };
   }
 
+  @MethodLogger
   public changePagingLink (
     pageNum: number,
     resultQuantity: number,

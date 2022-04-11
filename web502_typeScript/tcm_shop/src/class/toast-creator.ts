@@ -1,32 +1,14 @@
-// DECORATORS
-function LogCreate(constructor: Function) { // class decorator
-  console.log('Log Create: ', constructor);
-}
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
 
-function ProductManagerLogger(logString: string) { // decorator factory: return decorator and add prameter
-  return function(constructor: Function) {
-    console.log(logString);
-    console.log(constructor);
-  };
-}
-
-function PropertyProductManagerLogger(target: any, propertyName: string | Symbol) {
-  console.log('Product Manger Class: ', target);
-  console.log('Selected Property of Product Manager Class: ', propertyName);
-}
-
-function MethodProductManagerLogger(target: any, methodName: string | Symbol, propertyDescriptor: PropertyDescriptor) {
-  console.log('Product Manger Class: ', target);
-  console.log('Selected Method of Product Manager Class: ', methodName);
-  console.log('Method Descriptor: ', propertyDescriptor);
-}
-// end DECORATORS
-
-@LogCreate
+@LogCreateWithName('Toast Creator')
 export class ToastCreator { 
+  @PropertyLogger
   private verticalAlign: 'top' | 'bottom';
+  @PropertyLogger
   private verticalOffset: number; // px
+  @PropertyLogger
   private horizontalAlign: 'left' | 'right';
+  @PropertyLogger
   private horizontalOffset: number; // px
 
   constructor (
@@ -41,6 +23,7 @@ export class ToastCreator {
     this.horizontalOffset = horizontalOffset;
   }
 
+  @MethodLogger
   public createToast (
     type: 'success' | 'danger' | 'warning' | 'info',
     message: string,
@@ -79,7 +62,7 @@ export class ToastCreator {
       </div>
     `;
 
-    const currentToastList: NodeListOf<HTMLElement> = document.querySelectorAll('-toastify');
+    const currentToastList: NodeListOf<HTMLElement> = document.querySelectorAll('.js-toastify');
     let toastVerticalOffset: number = this.verticalOffset;
     if (currentToastList.length > 0) {
       currentToastList.forEach((currentToast: HTMLElement) => {

@@ -1,7 +1,14 @@
+import { LogCreateWithName, MethodLogger, PropertyLogger } from '../decorators';
+
+@LogCreateWithName('Custom Select Creator')
 export class CustomSelectCreator {
+  @PropertyLogger
   private selectElement: HTMLElement;
+  @PropertyLogger
   private activeClass: string;
+  @PropertyLogger
   private selectOptionContainer: HTMLElement;
+  @PropertyLogger
   private attributeList: Array<string>;
 
   constructor(
@@ -16,6 +23,7 @@ export class CustomSelectCreator {
     this.attributeList = attributeList;
   }
 
+  @MethodLogger
   public addOptionItem(
     displayValue: string,
     attributeObjects = [{
@@ -32,12 +40,14 @@ export class CustomSelectCreator {
     this.selectOptionContainer.appendChild(optionItem);
   }
 
+  @MethodLogger
   public createLabelPointer(element: HTMLElement): void {
     element.addEventListener('click', () => {
       this.selectElement.focus();
     });
   }
 
+  @MethodLogger
   public createCustomSelect(
     defaultOptionValue: string,
     selectTextContainer: HTMLElement,

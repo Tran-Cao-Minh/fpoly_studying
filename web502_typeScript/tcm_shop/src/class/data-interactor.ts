@@ -1,3 +1,5 @@
+import { LogCreateWithName, MethodLogger } from '../decorators';
+
 class DataInteractor {
   protected fetchLink: string;
   protected fetchMethod: string;
@@ -11,13 +13,15 @@ class DataInteractor {
   }
 }
 
+@LogCreateWithName('Data Reader')
 export class DataReader extends DataInteractor {
   constructor(
     fetchLink: string
   ) {
-    super(`${fetchLink}on`, 'GET');
+    super(`${fetchLink}.json`, 'GET');
   }
 
+  @MethodLogger
   public readData(
     callbackFn: (data: any) => any ,
   ): void {
@@ -40,6 +44,7 @@ export class DataReader extends DataInteractor {
   }
 }
 
+@LogCreateWithName('Data Deleter')
 export class DataDeleter extends DataInteractor {
   constructor(
     fetchLink: string
@@ -47,11 +52,12 @@ export class DataDeleter extends DataInteractor {
     super(fetchLink, 'DELETE');
   }
 
+  @MethodLogger
   public deleteData(
     id: string,
     callbackFn: (data: any) => any,
   ): void {
-    const fetchLink: string = `${this.fetchLink}/${id}on`;
+    const fetchLink: string = `${this.fetchLink}/${id}.json`;
     // console.log(fetchLink);
 
     fetch(fetchLink, {
@@ -73,17 +79,19 @@ export class DataDeleter extends DataInteractor {
   }
 }
 
+@LogCreateWithName('Data Adder')
 export class DataAdder extends DataInteractor {
   constructor(fetchLink: string) {
     super(fetchLink, 'POST');
   }
 
+  @MethodLogger
   public addData(
     formData: string,
     successFn: Function,
     failedFn: Function
   ): void {
-    fetch(`${this.fetchLink}on`, {
+    fetch(`${this.fetchLink}.json`, {
       method: this.fetchMethod,
       body: formData
     })
@@ -104,18 +112,20 @@ export class DataAdder extends DataInteractor {
   }
 }
 
+@LogCreateWithName('Data Updater')
 export class DataUpdater extends DataInteractor {
   constructor(fetchLink: string) {
     super(fetchLink, 'PUT');
   }
 
+  @MethodLogger
   public updateData(
     id: string,
     formData: Object | string | number,
     successFn: Function,
     failedFn: Function
   ): void {
-    fetch(`${this.fetchLink + id}on`, {
+    fetch(`${this.fetchLink + id}.json`, {
       method: this.fetchMethod,
       body: JSON.stringify(formData),
     })

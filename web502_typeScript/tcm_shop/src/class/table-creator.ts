@@ -1,3 +1,4 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
 interface TableColumnItem {
   readonly name: string, 
   readonly key: string,
@@ -6,10 +7,15 @@ interface TableColumnItem {
   readonly formatPrameterKeyList?: Array<string>,
 };
 
+@LogCreateWithName('Table Creator')
 export class TableCreator {
+  @PropertyLogger
   private tableContainer: HTMLTableElement;
+  @PropertyLogger
   private addTableButtonEvent: Function | null;
+  @PropertyLogger
   private tableColumnList: Array<TableColumnItem>;
+  @PropertyLogger
   private widthUnit: 'rem' | 'px';
 
   constructor (
@@ -24,7 +30,8 @@ export class TableCreator {
     this.widthUnit = widthUnit;
   }
 
-  public convertData = (data: Array<{ [key: string]: any }>): void => {
+  @MethodLogger
+  public convertData (data: Array<{ [key: string]: any }>): void {
     this.tableContainer.innerHTML = '';
 
     const tableHeader = (() => {

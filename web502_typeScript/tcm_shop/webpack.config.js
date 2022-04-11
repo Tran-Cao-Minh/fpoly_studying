@@ -1,7 +1,9 @@
 const path = require('path');
 
 module.exports = {
-  entry: './src/admin/login.ts',
+  entry: {
+    order: './src/admin/statistics/order.ts',  
+  },
   module: {
     rules: [
       {
@@ -15,7 +17,7 @@ module.exports = {
     extensions: [ '.tsx', '.ts', '.js' ],
   },
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'public/javascripts/admin'),
+    filename: '[name].js',
+    path: path.resolve(__dirname, 'public/javascripts/admin/statistics'),
   },
 };

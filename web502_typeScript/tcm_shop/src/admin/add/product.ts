@@ -47,7 +47,7 @@ const previewProductImage = (): void => {
   const productImageFileNameContainer: HTMLElement =
     productImageInput.parentElement.querySelector('[for=productImage]');
   const productImageElement: HTMLImageElement =
-    productImageInput.parentElement.parentElement.querySelector('img-preview-image');
+    productImageInput.parentElement.parentElement.querySelector('img.js-preview-image');
 
   const productImagePreviewer: SingleImagePreviewer = new SingleImagePreviewer(productImageInput);
   productImagePreviewer.addShowImageFileNameEvent(productImageFileNameContainer);
@@ -408,7 +408,7 @@ const createFormValidator = (): void => {
 
         formValidator.resetForm(formObject.form);
         (function resetImg(): void {
-          (<HTMLImageElement>formObject.productImage.parentElement.parentElement.querySelector('img-preview-image')).src = '/images/base/preview-img.svg';
+          (<HTMLImageElement>formObject.productImage.parentElement.parentElement.querySelector('img.js-preview-image')).src = '/images/base/preview-img.svg';
           (<HTMLElement>formObject.productImage.parentElement.querySelector('[for=productImage]')).innerText = 'Choose an image';
         })();
 

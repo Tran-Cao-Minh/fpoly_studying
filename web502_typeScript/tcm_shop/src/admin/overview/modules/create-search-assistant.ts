@@ -55,7 +55,8 @@ const searchAssistantCreator = (
       searchSuggester.suggestData = searchData;
 
       const searchByValueInput: HTMLInputElement = document.querySelector('#js-overview-search-value');
-      const searchByValueSuggestContainer: HTMLElement = searchByValueInput.parentElement.querySelector('.custom-select-list');
+      const searchByValueSuggestContainer: HTMLElement 
+        = searchByValueInput.parentElement.querySelector('.custom-select-list');
 
       searchSuggester.createSuggester(
         searchByValueInput,

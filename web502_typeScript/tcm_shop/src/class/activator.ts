@@ -1,3 +1,5 @@
+import { LogCreateWithName, MethodLogger, PropertyLogger } from '../decorators';
+
 class Activator {
   protected activeClass: string;
 
@@ -8,7 +10,9 @@ class Activator {
   }
 };
 
+@LogCreateWithName('Single Activator')
 export class SingleActivator extends Activator {
+  @PropertyLogger
   private targetElement: HTMLElement;
 
   constructor(
@@ -19,6 +23,7 @@ export class SingleActivator extends Activator {
     this.targetElement = targetElement;
   }
 
+  @MethodLogger
   public createEvent(
     element: HTMLElement,
     event: string,
@@ -30,6 +35,7 @@ export class SingleActivator extends Activator {
 };
 
 export class MultipleActivator extends Activator {
+  @PropertyLogger
   private targetElementList: NodeListOf<HTMLElement>;
 
   constructor(
@@ -40,6 +46,7 @@ export class MultipleActivator extends Activator {
     this.targetElementList = targetElementList;
   }
 
+  @MethodLogger
   public createEvent (
     element: HTMLElement,
     event: string,

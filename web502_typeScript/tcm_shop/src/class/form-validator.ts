@@ -1,9 +1,18 @@
+import { LogCreateWithName, PropertyLogger, MethodLogger } from '../decorators';
+
+@LogCreateWithName('Form Validator')
 export class FormValidator {
+  @PropertyLogger
   private submitButton: HTMLButtonElement;
+  @PropertyLogger
   private hideMessageContainerClass: string;
+  @PropertyLogger
   private inputInvalidClass: string;
+  @PropertyLogger
   private inputValidClass: string;
+  @PropertyLogger
   private inputList: Array<HTMLInputElement | HTMLTextAreaElement>;
+  @PropertyLogger
   private checkValidate: boolean;
 
   constructor(
@@ -20,6 +29,7 @@ export class FormValidator {
     this.checkValidate = false;
   }
 
+  @MethodLogger
   private changeInputStatus(
     input: HTMLInputElement | HTMLTextAreaElement,
     messageContainer: HTMLSpanElement,
@@ -37,6 +47,7 @@ export class FormValidator {
     };
   }
 
+  @MethodLogger
   private changeButtonStatus(): void {
     this.checkValidate = true;
     this.inputList.forEach((input: HTMLInputElement) => {
@@ -53,6 +64,7 @@ export class FormValidator {
     };
   }
 
+  @MethodLogger
   public addTextInputValidator(
     input: HTMLInputElement | HTMLTextAreaElement,
     inputName: string,
@@ -103,6 +115,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public addNumberInputValidator(
     input: HTMLInputElement,
     inputName: string,
@@ -145,6 +158,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public addFileInputValidator(
     input: HTMLInputElement,
     inputName: string,
@@ -199,6 +213,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public addDateInputValidator(
     input: HTMLInputElement,
     inputName: string,
@@ -263,6 +278,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public addRetypeInputValidator(
     modelInput: HTMLInputElement,
     modelInputName: string,
@@ -303,6 +319,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public checkDuplicateValidator(
     input: HTMLInputElement,
     inputName: string,
@@ -374,6 +391,7 @@ export class FormValidator {
       });
     };
   }
+  @MethodLogger
   public changeDuplicateValue(
     input: HTMLInputElement,
     value: string,
@@ -394,6 +412,7 @@ export class FormValidator {
     );
   }
 
+  @MethodLogger
   public createSubmitButtonEvent(
     passedEvent: Function,
     lockSubmitBtn: boolean
@@ -417,6 +436,7 @@ export class FormValidator {
     });
   }
 
+  @MethodLogger
   public resetForm(form: HTMLFormElement): void {
     form.reset();
 

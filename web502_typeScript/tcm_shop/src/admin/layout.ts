@@ -4,8 +4,9 @@ import {
 
 const sidebar: HTMLElement = document.querySelector('#sidebar');
 const sidebarActivator: SingleActivator = new SingleActivator('active', sidebar);
-const toggleBtnList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('-sidebar-toggle');
+const toggleBtnList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-sidebar-toggle');
 toggleBtnList.forEach((btn: HTMLButtonElement) => {
+console.log(btn);
   sidebarActivator.createEvent(btn, 'click');
 });
 
@@ -17,7 +18,7 @@ import {
   MultipleActivator
 } from '../class/activator';
 
-const menuItemList: NodeListOf<HTMLElement> = document.querySelectorAll('-menu-item-collapse');
+const menuItemList: NodeListOf<HTMLElement> = document.querySelectorAll('.js-menu-item-collapse');
 const menuItemActivator: MultipleActivator = new MultipleActivator('active', menuItemList);
 menuItemList.forEach((menuItem: HTMLElement) => {
   menuItemActivator.createEvent(menuItem, 'click');
