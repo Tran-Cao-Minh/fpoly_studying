@@ -30,9 +30,10 @@ const defaultColumnOptionValue = 'CategoryName';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
-let data = []; // must here
+let data: Array<Object> = []; // must here
 const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-let filterInformation; // must here
+import filterInformation from './interfaces/filterInformation';
+let filterInformation: filterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
@@ -92,7 +93,7 @@ const tableColumnList = [{
     key: 'CategoryHandle',
     width: 7,
     formatFunction: (
-      [id: string, name: string, productQuantity: number]
+      [id = String(), name = String(), productQuantity = Number()]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
@@ -103,7 +104,7 @@ const tableColumnList = [{
           value: name
         }, {
           key: 'product-quantity',
-          value: productQuantity
+          value: String(productQuantity)
         }]
       );
       const updateBtn = tableUpdateLinkFormatter.formatLink(id);
@@ -128,8 +129,8 @@ const tableDataToastify = new ToastCreator(
 const tableDataDeleter = new DataDeleter(dataFetchLink);
 const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 
-const addTableButtonEvent = () => {
-  const deleteButtonList = document.querySelectorAll('.js-delete-data');
+const addTableButtonEvent: Function | null = () => {
+  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-delete-data');
 
   deleteButtonList.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
@@ -138,19 +139,19 @@ const addTableButtonEvent = () => {
       // console.log(categoryId);
       const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
 
-      const afterDeleteHandle = (deleteResult) => {
+      const afterDeleteHandle = (deleteResult: null | undefined) => {
         if (deleteResult === null) {
           tableDataToastify.createToast(
             'success',
             `Delete Category - ${categoryName} completed`,
             2
           );
-          data.splice(data.findIndex((item) => {
+          data.splice(data.findIndex((item: { [key: string]: any }) => {
             item.FireBaseKey === categoryId
           }), 1);
           searchSuggester.suggestData = data;
 
-          (function changeTableData() {
+          (function changeTableDataAfterDelete() {
             const result = filterData(data, filterInformation);
             const displayedData = sliceData(result, filterInformation);
 
@@ -169,7 +170,7 @@ const addTableButtonEvent = () => {
 
             } else {
               --filterInformation.pageNum;
-              changeTableData();
+              changeTableDataAfterDelete();
             };
           })();
 
@@ -213,14 +214,14 @@ const addTableButtonEvent = () => {
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable = document.querySelector('#js-data-table');
+const dataTable: HTMLElement = document.querySelector('#js-data-table');
 const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
-const tableColumnKeyList = [];
+const tableColumnKeyList: Array<string> = [];
 tableColumnList.forEach((column) => {
   tableColumnKeyList.push(column.key);
 });
@@ -254,7 +255,7 @@ searchAssistantCreator(
 );
 
 const tableDataReader = new DataReader(dataFetchLink);
-tableDataReader.readData((fullData) => {
+tableDataReader.readData((fullData: { [key: string]: any }) => {
   getDataArrayFormat(fullData, data);
   // console.log(data);
 
@@ -286,4 +287,6 @@ tableDataReader.readData((fullData) => {
 
   createFilterEvent(filterInformation, changeTableData);
 });
+
+const changeTableData = (filterInformation: filterInformation, changePageNum: boolean) => {};
 // end GENERAL

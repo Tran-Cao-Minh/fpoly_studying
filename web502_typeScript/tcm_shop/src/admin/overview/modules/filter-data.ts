@@ -1,21 +1,14 @@
+import filterInformation from "../interfaces/filterInformation";
+
 export const filterData = (
   data = [Object()],
-  filterInformation = {
-    'columnList': Array<string>,
-    'searchValue': String(),
-    'searchMinValue': String(),
-    'searchMaxValue': String(),
-    'searchMode': 'searchByValue' | 'searchByMinMax',
-    'searchColumn': String(),
-    'orderColumn': String(),
-    'orderRule': String(),
-  }
+  filterInformation: filterInformation
 ) => {
   const copyData = JSON.parse(JSON.stringify(data)); // deep clone
-  const filterDataBySearch = (item) => {
+  const filterDataBySearch = (item: { [key: string]: any }) => {
     const searchMode = filterInformation.searchMode;
     const searchColumn = filterInformation.searchColumn;
-    let columnValue;
+    let columnValue: string;
     if (isNaN(item[searchColumn])) {
       columnValue = item[searchColumn].toLowerCase();
 
@@ -70,7 +63,7 @@ export const filterData = (
 
   const result = (() => {
     const result = copyData.filter(filterDataBySearch);
-    result.sort((a, b) => {
+    result.sort((a: { [key: string]: any }, b: { [key: string]: any }) => {
       const orderRule = filterInformation.orderRule;
       const orderColumn = filterInformation.orderColumn;
 
@@ -90,10 +83,7 @@ export const filterData = (
 
 export const sliceData = (
   result = [Object()],
-  filterInformation = {
-    'resultQuantity': Number(),
-    'pageNum': Number(),
-  }
+  filterInformation: filterInformation
 ) => {
   const startIndex =
     (filterInformation.pageNum - 1) * filterInformation.resultQuantity;

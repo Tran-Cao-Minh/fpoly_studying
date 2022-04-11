@@ -1,21 +1,24 @@
 export class Suggester {
+  suggestData: Array<Object>;
+  keyList: Array<string>;
+
   constructor (
-    suggestData = [Object()],
-    keyList = Array(),
+    suggestData: Array<Object>,
+    keyList: Array<string>
   ) {
     this.suggestData = suggestData;
     this.keyList = keyList;
   }
 
   createSuggester (
-    input: HTMLElement,
+    input: HTMLInputElement,
     selectOptionContainer: HTMLElement,
     optionActiveAttribute: string,
     activeClass: string,
     highlightClass: string
   ) {
     let currentOptionIndex = 0;
-    let optionList = selectOptionContainer.querySelectorAll('li:not([not-access])');
+    let optionList: NodeListOf<HTMLLIElement> = selectOptionContainer.querySelectorAll('li:not([not-access])');
 
     const changeCustomSelectStatus = (status = Boolean()) => {
       if (status) {
@@ -70,8 +73,8 @@ export class Suggester {
           });
         });
 
-        this.suggestData.forEach((dataObject) => {
-          const checkContain = this.keyList.some((key) => {
+        this.suggestData.forEach((dataObject: { [key: string]: any }) => {
+          const checkContain = this.keyList.some((key: string) => {
             dataObject[key] = String(dataObject[key]);
 
             return searchValueList.some((value) => {
@@ -84,7 +87,7 @@ export class Suggester {
             suggestResultQuantity < maxSuggestResult
           ) {
             let listItemContent = '';
-            this.keyList.forEach((key, index) => {
+            this.keyList.forEach((key: keyof typeof dataObject, index: number) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
@@ -92,10 +95,13 @@ export class Suggester {
             });
             const listItem = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
-            listItem.setAttribute('index', suggestResultQuantity);
+            listItem.setAttribute('index', String(suggestResultQuantity));
 
             let index, startIndex;
-            const replacePositionList = [];
+            const replacePositionList: Array<{
+              index: number,
+              length: number
+            }> = [];
 
             searchValueList.forEach(value => {
               startIndex = 0;
@@ -139,10 +145,10 @@ export class Suggester {
         });
 
       } else if (searchValue === '') {
-        this.suggestData.forEach((dataObject) => {
+        this.suggestData.forEach((dataObject: { [key: string]: any }) => {
           if (suggestResultQuantity < maxSuggestResult) {
             let listItemContent = '';
-            this.keyList.forEach((key, index) => {
+            this.keyList.forEach((key: string, index: number) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
@@ -150,7 +156,7 @@ export class Suggester {
             });
             const listItem = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
-            listItem.setAttribute('index', suggestResultQuantity);
+            listItem.setAttribute('index', String(suggestResultQuantity));
 
             listItem.innerHTML = listItemContent;
             selectOptionContainer.appendChild(listItem);
@@ -171,7 +177,7 @@ export class Suggester {
       };
 
       optionList = selectOptionContainer.querySelectorAll('li:not([not-access])');
-      optionList.forEach((option) => {
+      optionList.forEach((option: HTMLLIElement) => {
         createOptionEvent(option);
       });
     };
@@ -179,20 +185,20 @@ export class Suggester {
     input.addEventListener('input', inputEvent);
     input.addEventListener('focus', inputEvent);
 
-    const changeOptionStatus = (option: HTMLElement) => {
+    const changeOptionStatus = (option: HTMLLIElement) => {
       optionList.forEach(option => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
     };
 
-    const changeInputValue = (option: HTMLElement) => {
+    const changeInputValue = (option: HTMLLIElement) => {
       input.value = option.getAttribute('value');
     };
 
-    const createOptionEvent = (option: HTMLElement) => {
+    const createOptionEvent = (option: HTMLLIElement) => {
       option.addEventListener('mouseenter', () => {
-        currentOptionIndex = option.getAttribute('index');
+        currentOptionIndex = Number(option.getAttribute('index'));
         changeOptionStatus(option);
       });
 

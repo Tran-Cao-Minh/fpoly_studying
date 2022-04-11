@@ -1,6 +1,5 @@
 class Activator {
   activeClass: string;
-  targetElementList: Array<HTMLElement>;
 
   constructor(
     activeClass: string
@@ -31,9 +30,11 @@ export class SingleActivator extends Activator {
 };
 
 export class MultipleActivator extends Activator {
+  targetElementList: NodeListOf<HTMLElement>;
+
   constructor(
     activeClass: string,
-    targetElementList: Array<HTMLElement>
+    targetElementList: NodeListOf<HTMLElement>
   ) {
     super(activeClass);
     this.targetElementList = targetElementList;

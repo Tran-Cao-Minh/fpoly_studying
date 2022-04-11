@@ -32,9 +32,10 @@ const defaultColumnOptionValue = 'ProductName';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
-let data = []; // must here
+let data: Array<Object> = []; // must here
 const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-let filterInformation; // must here
+import filterInformation from './interfaces/filterInformation';
+let filterInformation: filterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
@@ -129,7 +130,7 @@ const tableColumnList = [{
     key: 'ProductImage',
     width: 6,
     formatFunction: (
-      [base64: string, altText: string]
+      [base64 = String(), altText = String()]
     ) => {
       const img = imageFormatter.formatImage(base64, altText);
       return img;
@@ -143,7 +144,7 @@ const tableColumnList = [{
     name: 'Price',
     key: 'ProductPrice',
     width: 7,
-    formatFunction: (number) => {
+    formatFunction: (number: number) => {
       const price = currencyFormatter.formatCurrency(number);
       return price;
     },
@@ -171,7 +172,7 @@ const tableColumnList = [{
     key: 'ProductHandle',
     width: 7,
     formatFunction: (
-      [id: string, name: string, soldQuantity: number, category: string]
+      [id = String(), name = String(), soldQuantity = Number(), category = String()]
     ) => {
       const deleteBtn = tableDeleteButtonFormatter.formatButton(
         [{
@@ -182,7 +183,7 @@ const tableColumnList = [{
           value: name
         }, {
           key: 'sold-quantity',
-          value: soldQuantity
+          value: String(soldQuantity)
         }, {
           key: 'category',
           value: category
@@ -214,8 +215,8 @@ const tableDataToastify = new ToastCreator(
 const tableDataDeleter = new DataDeleter(dataFetchLink);
 const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
 
-const addTableButtonEvent = () => {
-  const deleteButtonList = document.querySelectorAll('.js-delete-data');
+const addTableButtonEvent: Function | null = () => {
+  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-delete-data');
 
   deleteButtonList.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
@@ -225,20 +226,20 @@ const addTableButtonEvent = () => {
       const productCategory = deleteButton.dataset.category;
       console.log(productCategory);
 
-      const afterDeleteHandle = (deleteResult) => {
+      const afterDeleteHandle = (deleteResult: null | undefined) => {
         if (deleteResult === null) {
           tableDataToastify.createToast(
             'success',
             `Delete Product - ${productName} completed`,
             2
           );
-          data.splice(data.findIndex((item) => {
+          data.splice(data.findIndex((item: { [key: string]: any }) => {
             item.FireBaseKey === productId
           }), 1);
           searchSuggester.suggestData = data;
           // console.log(data);
 
-          (function changeTableData() {
+          (function changeTableDataAfterDelete() {
             const result = filterData(data, filterInformation);
             const displayedData = sliceData(result, filterInformation);
 
@@ -257,7 +258,7 @@ const addTableButtonEvent = () => {
 
             } else {
               --filterInformation.pageNum;
-              changeTableData();
+              changeTableDataAfterDelete();
             };
           })();
 
@@ -304,7 +305,7 @@ const addTableButtonEvent = () => {
               }, 100);
             };
 
-            categoriesInformationReader.readData((fullData) => {
+            categoriesInformationReader.readData((fullData: { [key: string]: any }) => {
               Object.keys(fullData).map((firebaseKey) => {
                 if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
                   updateCategoryProductQuantity(
@@ -356,14 +357,14 @@ const addTableButtonEvent = () => {
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable = document.querySelector('#js-data-table');
+const dataTable: HTMLElement = document.querySelector('#js-data-table');
 const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
-const tableColumnKeyList = [];
+const tableColumnKeyList: Array<string> = [];
 tableColumnList.forEach((column) => {
   tableColumnKeyList.push(column.key);
 });
@@ -397,7 +398,7 @@ searchAssistantCreator(
 );
 
 const tableDataReader = new DataReader(dataFetchLink);
-tableDataReader.readData((fullData) => {
+tableDataReader.readData((fullData: { [key: string]: any }) => {
   getDataArrayFormat(fullData, data);
   // console.log(data);
 
@@ -429,4 +430,6 @@ tableDataReader.readData((fullData) => {
 
   createFilterEvent(filterInformation, changeTableData);
 });
+
+const changeTableData = (filterInformation: filterInformation, changePageNum: boolean) => {};
 // end GENERAL

@@ -24,27 +24,27 @@ const fetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/orders/';
 const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 const formObject = {
-  form: document.querySelector('#updateOrderForm'),
-  orderStatus: document.querySelector('#orderStatus'),
-  orderDate: document.querySelector('#orderDate'),
-  orderTotalMoney: document.querySelector('#orderTotalMoney'),
-  customerName: document.querySelector('#customerName'),
-  customerEmail: document.querySelector('#customerEmail'),
-  customerPhone: document.querySelector('#customerPhone'),
-  orderAddress: document.querySelector('#orderAddress'),
-  orderNote: document.querySelector('#orderNote'),
-  submitButton: document.querySelector('#js-update-data-submit'),
+  form: <HTMLFormElement>document.querySelector('#updateOrderForm'),
+  orderStatus: <HTMLElement>document.querySelector('#orderStatus'),
+  orderDate: <HTMLInputElement>document.querySelector('#orderDate'),
+  orderTotalMoney: <HTMLInputElement>document.querySelector('#orderTotalMoney'),
+  customerName: <HTMLInputElement>document.querySelector('#customerName'),
+  customerEmail: <HTMLInputElement>document.querySelector('#customerEmail'),
+  customerPhone: <HTMLInputElement>document.querySelector('#customerPhone'),
+  orderAddress: <HTMLTextAreaElement>document.querySelector('#orderAddress'),
+  orderNote: <HTMLTextAreaElement>document.querySelector('#orderNote'),
+  submitButton: <HTMLButtonElement>document.querySelector('#js-update-data-submit'),
 };
 
 const createCustomOrderStatusSelect = (
   orderStatus: string
 ) => {
-  const orderStatusSelect = formObject.orderStatus;
-  const orderStatusSelectContainer =
+  const orderStatusSelect: HTMLElement = formObject.orderStatus;
+  const orderStatusSelectContainer: HTMLElement =
     orderStatusSelect.querySelector('.custom-select-list');
-  const orderStatusSelectText =
+  const orderStatusSelectText: HTMLElement =
     orderStatusSelect.querySelector('.custom-select-text');
-  const orderStatusSelectLabel =
+  const orderStatusSelectLabel: HTMLElement =
     document.querySelector('[for=orderStatus]');
   const orderStatusSelectCreator = new CustomSelectCreator(
     orderStatusSelect,
@@ -93,10 +93,12 @@ const createCustomOrderStatusSelect = (
 
 const createFormValidator = (
   orderStatus: string,
-  orderDetails = [{
-    ProductId: String(),
-    ProductQuantity: Number()
-  }]
+  orderDetails: {
+    [key: string]: {
+      ProductId: string,
+      ProductQuantity: number
+    }
+  }
 ) => {
   const formValidator = new FormValidator(
     formObject.submitButton,
@@ -119,7 +121,7 @@ const createFormValidator = (
         const oldOrderStatus = orderStatus;
         orderStatus = formObject.orderStatus.getAttribute('value');
 
-        let productQuantityToastSetTimeout;
+        let productQuantityToastSetTimeout: NodeJS.Timeout;
         const updateOverideProductsQuantitySuccessFn = () => {
           clearTimeout(productQuantityToastSetTimeout);
 
@@ -142,7 +144,7 @@ const createFormValidator = (
             );
           }, 100);
         };
-        let productSoldQuantityToastSetTimeout;
+        let productSoldQuantityToastSetTimeout: NodeJS.Timeout;
         const updateOverideProductsSoldQuantitySuccessFn = () => {
           clearTimeout(productSoldQuantityToastSetTimeout);
 
@@ -169,10 +171,12 @@ const createFormValidator = (
         (function updateOverideProductsSoldQuantityAndQuantity(
           oldOrderStatus: string,
           orderStatus: string,
-          orderDetails = [{
-            ProductId: String(),
-            ProductQuantity: Number()
-          }]
+          orderDetails: {
+            [key: string]: {
+              ProductId: string,
+              ProductQuantity: number
+            }
+          }
         ) {
           const CANCELED_STATUS = 'Canceled';
           if (oldOrderStatus === CANCELED_STATUS || orderStatus === CANCELED_STATUS) {
@@ -213,7 +217,7 @@ const createFormValidator = (
               );
             };
 
-            productsInformationReader.readData((fullData) => {
+            productsInformationReader.readData((fullData: { [key: string]: any }) => {
               Object.keys(fullData).map((firebaseKey: string) => {
                 Object.keys(orderDetails).map((orderFirebaseKey: string) => {
                   if (firebaseKey === orderDetails[orderFirebaseKey]['ProductId']) {
@@ -277,49 +281,49 @@ import {
   CurrencyFormatter
 } from '../../class/data-formatter.js';
 const showOrderDetails = (orderDetails = Object()) => {
-  const dataTable = document.querySelector('#js-data-table');
-  const addTableButtonEvent = null;
+  const dataTable: HTMLElement = document.querySelector('#js-data-table');
+  const addTableButtonEvent: Function | null = null;
   const imageFormatter = new ImageFormatter(
     []
   );
   const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
   const tableColumnList = [{
-      name: 'Name',
-      key: 'ProductName',
-      width: 20,
+    name: 'Name',
+    key: 'ProductName',
+    width: 20,
+  },
+  {
+    name: 'Image',
+    key: 'ProductImage',
+    width: 6,
+    formatFunction: (
+      [base64 = String(), altText = String()]
+    ) => {
+      const img = imageFormatter.formatImage(base64, altText);
+      return img;
     },
-    {
-      name: 'Image',
-      key: 'ProductImage',
-      width: 6,
-      formatFunction: (
-        [base64: string, altText: string]
-      ) => {
-        const img = imageFormatter.formatImage(base64, altText);
-        return img;
-      },
-      formatPrameterKeyList: [
-        'ProductImage',
-        'ProductName'
-      ]
+    formatPrameterKeyList: [
+      'ProductImage',
+      'ProductName'
+    ]
+  },
+  {
+    name: 'Price',
+    key: 'ProductPrice',
+    width: 6,
+    formatFunction: (number: number) => {
+      const price = currencyFormatter.formatCurrency(number);
+      return price;
     },
-    {
-      name: 'Price',
-      key: 'ProductPrice',
-      width: 6,
-      formatFunction: (number) => {
-        const price = currencyFormatter.formatCurrency(number);
-        return price;
-      },
-      formatPrameterKeyList: [
-        'ProductPrice'
-      ]
-    },
-    {
-      name: 'Quantity',
-      key: 'ProductQuantity',
-      width: 6,
-    },
+    formatPrameterKeyList: [
+      'ProductPrice'
+    ]
+  },
+  {
+    name: 'Quantity',
+    key: 'ProductQuantity',
+    width: 6,
+  },
   ];
   const tableCreator = new TableCreator(
     dataTable,
@@ -330,8 +334,8 @@ const showOrderDetails = (orderDetails = Object()) => {
 
   const productIdColumnKey = 'ProductId';
   const productQuantityColumnKey = 'ProductQuantity';
-  const data = [];
-  let showOrderDetailsSetTimeout;
+  const data: Array<Object> = [];
+  let showOrderDetailsSetTimeout: NodeJS.Timeout;
   Object.keys(orderDetails).map((firebaseKey: string) => {
     const productFirebaseKey = orderDetails[firebaseKey][productIdColumnKey];
 
@@ -356,7 +360,7 @@ const showOrderDetails = (orderDetails = Object()) => {
 
 window.addEventListener('load', () => {
   const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
-  categoryInformationReader.readData((order) => {
+  categoryInformationReader.readData((order: { [key: string]: any }) => {
     formObject.orderDate.value = order.OrderDate;
     formObject.orderTotalMoney.value = order.OrderTotalMoney;
     formObject.customerName.value = order.CustomerName;

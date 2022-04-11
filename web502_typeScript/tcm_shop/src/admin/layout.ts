@@ -2,14 +2,14 @@ import {
   SingleActivator
 } from '../class/activator.js';
 
-let sidebar = document.querySelector('#sidebar');
+let sidebar: HTMLElement = document.querySelector('#sidebar');
 let sidebarActivator = new SingleActivator('active', sidebar);
-let toggleBtnList = document.querySelectorAll('.js-sidebar-toggle');
-toggleBtnList.forEach(btn => {
+let toggleBtnList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-sidebar-toggle');
+toggleBtnList.forEach((btn: HTMLButtonElement) => {
   sidebarActivator.createEvent(btn, 'click');
 });
 
-let userInteractionArea = document.querySelector('.main__user-interaction');
+let userInteractionArea: HTMLElement = document.querySelector('.main__user-interaction');
 let userDashboardActivator = new SingleActivator('active', userInteractionArea);
 userDashboardActivator.createEvent(userInteractionArea, 'click');
 
@@ -17,16 +17,16 @@ import {
   MultipleActivator
 } from '../class/activator.js';
 
-let menuItemList = document.querySelectorAll('.js-menu-item-collapse');
+let menuItemList: NodeListOf<HTMLElement> = document.querySelectorAll('.js-menu-item-collapse');
 let menuItemActivator = new MultipleActivator('active', menuItemList);
-menuItemList.forEach(menuItem => {
+menuItemList.forEach((menuItem: HTMLElement) => {
   menuItemActivator.createEvent(menuItem, 'click');
 });
 
 // set link by page name
-let pageName = document.querySelector('#page-name').innerText;
-let asidePageLinkList = document.querySelector('#sidebar').querySelectorAll('a');
-asidePageLinkList.forEach(link => {
+let pageName: string = (<HTMLElement>document.querySelector('#page-name')).innerText;
+let asidePageLinkList: NodeListOf<HTMLAnchorElement> = document.querySelector('#sidebar').querySelectorAll('a');
+asidePageLinkList.forEach((link: HTMLAnchorElement) => {
   if (link.dataset.pageName === pageName) {
     link.classList.add('active');
     link.removeAttribute('href');

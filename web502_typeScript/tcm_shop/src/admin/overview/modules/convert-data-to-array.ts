@@ -1,6 +1,6 @@
 const getDataArrayFormat = (
   fullData = Object(),
-  data = [],
+  data: Array<Object>,
 ) => {
   Object.keys(fullData).map((key) => {
     fullData[key].FireBaseKey = key;

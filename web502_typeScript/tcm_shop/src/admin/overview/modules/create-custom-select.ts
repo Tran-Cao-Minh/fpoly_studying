@@ -11,10 +11,10 @@ const adminFilterCustomSelectCreator = (
   defaultColumnOptionValue: string
 ) => {
   (function createSearchColumnCustomSelect() {
-    const searchColumnSelect = document.querySelector('#js-overview-search-column');
-    const searchColumnSelectLabel = document.querySelector('[for=js-overview-search-column]');
-    const searchColumnSelectText = searchColumnSelect.querySelector('.custom-select-text');
-    const searchColumnSelectContainer = searchColumnSelect.querySelector('.custom-select-list');
+    const searchColumnSelect: HTMLElement = document.querySelector('#js-overview-search-column');
+    const searchColumnSelectLabel: HTMLElement = document.querySelector('[for=js-overview-search-column]');
+    const searchColumnSelectText: HTMLElement = searchColumnSelect.querySelector('.custom-select-text');
+    const searchColumnSelectContainer: HTMLElement = searchColumnSelect.querySelector('.custom-select-list');
 
     const searchColumnSelectCreator = new CustomSelectCreator(
       searchColumnSelect,
@@ -51,10 +51,10 @@ const adminFilterCustomSelectCreator = (
   })();
 
   (function createOrderColumnCustomSelect() {
-    const orderColumnSelect = document.querySelector('#js-overview-order-column');
-    const orderColumnSelectLabel = document.querySelector('[for=js-overview-order-column]');
-    const orderColumnSelectText = orderColumnSelect.querySelector('.custom-select-text');
-    const orderColumnSelectContainer = orderColumnSelect.querySelector('.custom-select-list');
+    const orderColumnSelect: HTMLElement = document.querySelector('#js-overview-order-column');
+    const orderColumnSelectLabel: HTMLElement = document.querySelector('[for=js-overview-order-column]');
+    const orderColumnSelectText: HTMLElement = orderColumnSelect.querySelector('.custom-select-text');
+    const orderColumnSelectContainer: HTMLElement = orderColumnSelect.querySelector('.custom-select-list');
   
     const orderColumnSelectCreator = new CustomSelectCreator(
       orderColumnSelect,
@@ -85,9 +85,9 @@ const adminFilterCustomSelectCreator = (
   })();
 
   (function createOrderRuleCustomSelect() {
-    const orderRuleSelect = document.querySelector('#js-overview-order-rule');
-    const orderRuleSelectText = orderRuleSelect.querySelector('.custom-select-text');
-    const orderRuleSelectContainer = orderRuleSelect.querySelector('.custom-select-list');
+    const orderRuleSelect: HTMLElement = document.querySelector('#js-overview-order-rule');
+    const orderRuleSelectText: HTMLElement = orderRuleSelect.querySelector('.custom-select-text');
+    const orderRuleSelectContainer: HTMLElement = orderRuleSelect.querySelector('.custom-select-list');
   
     const orderRuleSelectCreator = new CustomSelectCreator(
       orderRuleSelect,
@@ -133,11 +133,11 @@ const adminFilterCustomSelectCreator = (
   })();
 
   (function createRowsQuantityCustomSelect() {
-    const rowsSelect =
+    const rowsSelect: HTMLElement =
       document.querySelector('#js-overview-rows');
-    const rowsSelectText =
+    const rowsSelectText: HTMLElement =
       rowsSelect.querySelector('.custom-select-text');
-    const rowsSelectContainer =
+    const rowsSelectContainer: HTMLElement =
       rowsSelect.querySelector('.custom-select-list');
   
     const rowsSelectCreator = new CustomSelectCreator(

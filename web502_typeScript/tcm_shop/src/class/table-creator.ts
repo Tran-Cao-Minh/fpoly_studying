@@ -1,15 +1,22 @@
+interface tableColumnItem {
+  name: string, 
+  key: string,
+  width: number,
+  formatFunction?: Function,
+  formatPrameterKeyList?: Array<string>,
+};
+
 export class TableCreator {
+  tableContainer: HTMLElement;
+  addTableButtonEvent: Function | null;
+  tableColumnList: Array<tableColumnItem>;
+  widthUnit: 'rem' | 'px';
+
   constructor (
     tableContainer: HTMLElement,
-    addTableButtonEvent = Function() || null,
-    tableColumnList = [{
-      name: String(), 
-      key: String(),
-      width: String(),
-      formatFunction: Function() || undefined,
-      formatPrameterKeyList: Array(String()) || undefined,
-    }],
-    widthUnit: string // 'rem', 'px'
+    addTableButtonEvent: Function | null,
+    tableColumnList: Array<tableColumnItem>,
+    widthUnit: 'rem' | 'px'
   ) {
     this.tableContainer = tableContainer;
     this.addTableButtonEvent = addTableButtonEvent;
@@ -17,7 +24,7 @@ export class TableCreator {
     this.widthUnit = widthUnit;
   }
 
-  convertData = (data) => {
+  convertData = (data: Array<{ [key: string]: any }>) => {
     this.tableContainer.innerHTML = '';
     const tableColumnList = this.tableColumnList;
     const widthUnit = this.widthUnit;
@@ -58,7 +65,7 @@ export class TableCreator {
   
       } else if (rowQuantity > 0) {
         (function changeDataWithFormat() {
-          data.forEach((row) => {
+          data.forEach((row: { [key: string]: any }) => {
             tableColumnList.forEach((column) => {
               if (
                 column.formatFunction !== undefined &&
@@ -74,8 +81,8 @@ export class TableCreator {
                 column.formatFunction !== undefined &&
                 column.formatPrameterKeyList.length > 1
               ) {
-                const parameterList = [];
-                column.formatPrameterKeyList.forEach((formatPrameterKey) => {
+                const parameterList: Array<string> = [];
+                column.formatPrameterKeyList.forEach((formatPrameterKey: string) => {
                   parameterList.push(row[formatPrameterKey]);
                 });
     
@@ -86,7 +93,7 @@ export class TableCreator {
         })();
   
         (function addTableBodyData () {
-          data.forEach(row => {
+          data.forEach((row: { [key: string]: any }) => {
             const tableRow = document.createElement('tr');
     
             tableColumnList.forEach(column => {

@@ -595,6 +595,8 @@ window.addEventListener('load', () => {
       String(product.ProductPages),
       product.ProductImage,
       product.ProductDescription,
+      product.ProductSoldQuantity,
+      product.ProductViews
     );
   });
 });

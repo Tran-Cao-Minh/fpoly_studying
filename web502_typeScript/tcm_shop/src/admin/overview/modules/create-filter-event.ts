@@ -1,30 +1,23 @@
+import filterInformation from "../interfaces/filterInformation";
+
 const createFilterEvent = (
-  filterInformation = {
-    'columnList': Array<string>,
-    'searchValue': String(),
-    'searchMinValue': String(),
-    'searchMaxValue': String(),
-    'searchMode': 'searchByValue' | 'searchByMinMax',
-    'searchColumn': String(),
-    'orderColumn': String(),
-    'orderRule': String(),
-  },
-  changeTableData = Function(
-    filterInformation,
-    changePageNum = Boolean()
-  )
+  filterInformation: filterInformation,
+  changeTableData: (
+    filterInformation: filterInformation,
+    changePageNum: boolean
+  ) => any
 ) => {
-  const searchByValueInput = document.querySelector('#js-overview-search-value');
-  const searchByMinInput = document.querySelector('#js-overview-search-min');
-  const searchByMaxInput = document.querySelector('#js-overview-search-max');
+  const searchByValueInput: HTMLInputElement = document.querySelector('#js-overview-search-value');
+  const searchByMinInput: HTMLInputElement = document.querySelector('#js-overview-search-min');
+  const searchByMaxInput: HTMLInputElement = document.querySelector('#js-overview-search-max');
   const searchColumnSelect = document.querySelector('#js-overview-search-column');
   const orderColumnSelect = document.querySelector('#js-overview-order-column');
   const orderRuleSelect = document.querySelector('#js-overview-order-rule');
   const resultQuantitySelect = document.querySelector('#js-overview-rows');
 
   const confirmSearchButton = document.querySelector('#js-confirm-search-button');
-  const searchByValueModeRadio = document.querySelector('#js-search-by-value');
-  const searchByMinMaxModeRadio = document.querySelector('#js-search-by-min-max');
+  const searchByValueModeRadio: HTMLInputElement = document.querySelector('#js-search-by-value');
+  const searchByMinMaxModeRadio: HTMLInputElement = document.querySelector('#js-search-by-min-max');
 
   confirmSearchButton.addEventListener('click', () => {
     if (searchByValueModeRadio.checked === true) {
@@ -60,7 +53,7 @@ const createFilterEvent = (
     };
   });
   resultQuantitySelect.addEventListener('DOMSubtreeModified', () => {
-    const resultQuantityValue = resultQuantitySelect.getAttribute('value');
+    const resultQuantityValue: number = Number(resultQuantitySelect.getAttribute('value'));
     if (resultQuantityValue !== filterInformation.resultQuantity) {
       filterInformation.pageNum = 1;
       filterInformation.resultQuantity = resultQuantityValue;

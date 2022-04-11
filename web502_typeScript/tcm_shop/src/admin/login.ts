@@ -7,7 +7,7 @@ const formObject = {
   form: document.querySelector('#loginForm'),
   userName: <HTMLInputElement>document.querySelector('#userName'),
   userPassword: <HTMLInputElement>document.querySelector('#userPassword'),
-  submitButton: document.querySelector('#submitLogin')
+  submitButton: <HTMLButtonElement>document.querySelector('#submitLogin')
 };
 
 const formValidator = new FormValidator(
@@ -18,7 +18,7 @@ const formValidator = new FormValidator(
 );
 
 (function validateUserName () {
-  const userNameMessageContainer =
+  const userNameMessageContainer: HTMLElement =
     formObject.userName.parentElement.parentElement.querySelector('.invalid-feedback');
 
   formValidator.addTextInputValidator(
@@ -35,7 +35,7 @@ const formValidator = new FormValidator(
 })();
 
 (function validateUserPassword () {
-  const userPasswordMessageContainer =
+  const userPasswordMessageContainer: HTMLElement =
     formObject.userPassword.parentElement.parentElement.querySelector('.invalid-feedback');
   formValidator.addTextInputValidator(
     formObject.userPassword,

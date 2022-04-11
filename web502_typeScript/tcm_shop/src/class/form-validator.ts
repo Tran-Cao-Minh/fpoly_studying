@@ -1,13 +1,13 @@
 export class FormValidator {
-  submitButton: HTMLFormElement;
+  submitButton: HTMLButtonElement;
   hideMessageContainerClass: string;
   inputInvalidClass: string;
   inputValidClass: string;
-  inputList: Array<HTMLInputElement>;
+  inputList: Array<HTMLInputElement | HTMLTextAreaElement>;
   checkValidate: boolean;
 
   constructor(
-    submitButton: HTMLFormElement,
+    submitButton: HTMLButtonElement,
     hideMessageContainerClass: string,
     inputInvalidClass: string,
     inputValidClass: string,
@@ -21,7 +21,7 @@ export class FormValidator {
   }
 
   changeInputStatus(
-    input: HTMLInputElement,
+    input: HTMLInputElement | HTMLTextAreaElement,
     messageContainer: HTMLSpanElement,
     check: boolean
   ) {
@@ -54,7 +54,7 @@ export class FormValidator {
   }
 
   addTextInputValidator(
-    input: HTMLInputElement,
+    input: HTMLInputElement | HTMLTextAreaElement,
     inputName: string,
     messageContainer: HTMLElement,
     minLength: number,

@@ -24,22 +24,22 @@ const fetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories
 const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 const formObject = {
-  form: document.querySelector('#updateCategoryForm'),
-  categoryName: document.querySelector('#categoryName'),
-  categoryOrder: document.querySelector('#categoryOrder'),
-  categoryDisplay: document.querySelector('#categoryDisplay'),
-  submitButton: document.querySelector('#js-update-data-submit'),
+  form: <HTMLFormElement>document.querySelector('#updateCategoryForm'),
+  categoryName: <HTMLInputElement>document.querySelector('#categoryName'),
+  categoryOrder: <HTMLInputElement>document.querySelector('#categoryOrder'),
+  categoryDisplay: <HTMLElement>document.querySelector('#categoryDisplay'),
+  submitButton: <HTMLButtonElement>document.querySelector('#js-update-data-submit'),
 };
 
 const createCustomDisplayStatusSelect = (
   categoryDisplay: string
 ) => {
   const categoryDisplaySelect = formObject.categoryDisplay;
-  const categoryDisplaySelectContainer =
+  const categoryDisplaySelectContainer: HTMLElement =
     categoryDisplaySelect.querySelector('.custom-select-list');
-  const categoryDisplaySelectText =
+  const categoryDisplaySelectText: HTMLElement =
     categoryDisplaySelect.querySelector('.custom-select-text');
-  const categoryDisplaySelectLabelList =
+  const categoryDisplaySelectLabelList: NodeListOf<HTMLElement> =
     document.querySelectorAll('[for=categoryDisplay]');
   const categoryDisplaySelectCreator = new CustomSelectCreator(
     categoryDisplaySelect,
@@ -49,7 +49,7 @@ const createCustomDisplayStatusSelect = (
       'value',
     ],
   );
-  categoryDisplaySelectLabelList.forEach(label => {
+  categoryDisplaySelectLabelList.forEach((label: HTMLElement) => {
     categoryDisplaySelectCreator.createLabelPointer(label);
   });
 
@@ -85,7 +85,7 @@ const createFormValidator = (
   );
 
   (function validateCategoryName() {
-    const categoryNameMessageContainer =
+    const categoryNameMessageContainer: HTMLElement =
       formObject.categoryName.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -102,9 +102,9 @@ const createFormValidator = (
 
     (function checkCategoryNameDuplicateValidator() {
       const dataReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
-      dataReader.readData((fullData) => {
+      dataReader.readData((fullData: { [key: string]: any }) => {
         const dataList = (() => {
-          const dataList = [];
+          const dataList: Array<string> = [];
 
           Object.keys(fullData).map((key) => {
             dataList.push(fullData[key]['CategoryName']);
@@ -130,7 +130,7 @@ const createFormValidator = (
   })();
 
   (function validateCategoryOrder() {
-    const categoryOrderMessageContainer =
+    const categoryOrderMessageContainer: HTMLElement =
       formObject.categoryOrder.parentElement.parentElement.querySelector('.invalid-feedback');
     formValidator.addNumberInputValidator(
       formObject.categoryOrder,
@@ -158,7 +158,7 @@ const createFormValidator = (
         categoryOrder = formObject.categoryOrder.value;
         categoryDisplay = formObject.categoryDisplay.getAttribute('value');
 
-        let toastSetTimeout;
+        let toastSetTimeout: NodeJS.Timeout;
         const updateProductCategorySuccessFn = () => {
           clearTimeout(toastSetTimeout);
 
@@ -205,7 +205,7 @@ const createFormValidator = (
             );
           };
 
-          productsInformationReader.readData((fullData) => {
+          productsInformationReader.readData((fullData: { [key: string]: any }) => {
             Object.keys(fullData).map((firebaseKey) => {
               if (fullData[firebaseKey][categoryNameColumnKey] === oldCategoryName) {
                 updateProductCategory(firebaseKey, categoryName);
@@ -258,11 +258,17 @@ const createFormValidator = (
   })();
 };
 
+interface category {
+  CategoryName: string,
+  CategoryOrder: number,
+  CategoryDisplay: string,
+  CategoryProductQuantity: number
+};
 window.addEventListener('load', () => {
   const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
-  categoryInformationReader.readData((category) => {
+  categoryInformationReader.readData((category: category) => {
     formObject.categoryName.value = category.CategoryName;
-    formObject.categoryOrder.value = category.CategoryOrder;
+    formObject.categoryOrder.value = String(category.CategoryOrder);
     createCustomDisplayStatusSelect(category.CategoryDisplay);
 
     createFormValidator(

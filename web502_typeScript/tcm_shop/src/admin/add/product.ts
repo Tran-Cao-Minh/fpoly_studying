@@ -24,29 +24,29 @@ const toastCreator = new ToastCreator(
 );
 
 const formObject = {
-  form: document.querySelector('#addProductForm'),
-  productName: document.querySelector('#productName'),
-  productPublisher: document.querySelector('#productPublisher'),
-  productDimensions: document.querySelector('#productDimensions'),
-  productPublishDate: document.querySelector('#productPublishDate'),
+  form: <HTMLFormElement>document.querySelector('#addProductForm'),
+  productName: <HTMLInputElement>document.querySelector('#productName'),
+  productPublisher: <HTMLInputElement>document.querySelector('#productPublisher'),
+  productDimensions: <HTMLInputElement>document.querySelector('#productDimensions'),
+  productPublishDate: <HTMLInputElement>document.querySelector('#productPublishDate'),
   productCategory: document.querySelector('#productCategory'),
   productTag: document.querySelector('#productTag'),
   productDisplay: document.querySelector('#productDisplay'),
-  productPrice: document.querySelector('#productPrice'),
-  productSalePercent: document.querySelector('#productSalePercent'),
-  productQuantity: document.querySelector('#productQuantity'),
-  productOrder: document.querySelector('#productOrder'),
-  productPages: document.querySelector('#productPages'),
-  productImage: document.querySelector('#productImage'),
-  productDescription: document.querySelector('#productDescription'),
-  submitButton: document.querySelector('#js-add-data-submit'),
+  productPrice: <HTMLInputElement>document.querySelector('#productPrice'),
+  productSalePercent: <HTMLInputElement>document.querySelector('#productSalePercent'),
+  productQuantity: <HTMLInputElement>document.querySelector('#productQuantity'),
+  productOrder: <HTMLInputElement>document.querySelector('#productOrder'),
+  productPages: <HTMLInputElement>document.querySelector('#productPages'),
+  productImage: <HTMLInputElement>document.querySelector('#productImage'),
+  productDescription: <HTMLTextAreaElement>document.querySelector('#productDescription'),
+  submitButton: <HTMLButtonElement>document.querySelector('#js-add-data-submit'),
 };
 
 const previewProductImage = () => {
-  const productImageInput = document.querySelector('#productImage');
-  const productImageFileNameContainer =
+  const productImageInput: HTMLInputElement = document.querySelector('#productImage');
+  const productImageFileNameContainer: HTMLElement =
     productImageInput.parentElement.querySelector('[for=productImage]');
-  const productImageElement =
+  const productImageElement: HTMLImageElement =
     productImageInput.parentElement.parentElement.querySelector('img.js-preview-image');
 
   const productImagePreviewer = new SingleImagePreviewer(productImageInput);
@@ -55,10 +55,10 @@ const previewProductImage = () => {
 };
 
 const createCustomDisplayStatusSelect = () => {
-  const productDisplaySelect = document.querySelector('#productDisplay');
-  const productDisplaySelectContainer =
+  const productDisplaySelect: HTMLElement = document.querySelector('#productDisplay');
+  const productDisplaySelectContainer: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-list');
-  const productDisplaySelectText =
+  const productDisplaySelectText: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-text');
   const productDisplaySelectLabelList =
     document.querySelectorAll('[for=productDisplay]');
@@ -93,12 +93,12 @@ const createCustomDisplayStatusSelect = () => {
 };
 
 const createCustomCategorySelect = () => {
-  const productCategorySelect = document.querySelector('#productCategory');
-  const productCategorySelectContainer =
+  const productCategorySelect: HTMLElement = document.querySelector('#productCategory');
+  const productCategorySelectContainer: HTMLElement =
     productCategorySelect.querySelector('.custom-select-list');
-  const productCategorySelectText =
+  const productCategorySelectText: HTMLElement =
     productCategorySelect.querySelector('.custom-select-text');
-  const productCategorySelectLabel =
+  const productCategorySelectLabel: HTMLElement =
     document.querySelector('[for=productCategory]');
   const productCategorySelectCreator = new CustomSelectCreator(
     productCategorySelect,
@@ -136,12 +136,12 @@ const createCustomCategorySelect = () => {
 };
 
 const createCustomTagSelect = () => {
-  const productTagSelect = document.querySelector('#productTag');
-  const productTagSelectContainer =
+  const productTagSelect: HTMLElement = document.querySelector('#productTag');
+  const productTagSelectContainer: HTMLElement =
     productTagSelect.querySelector('.custom-select-list');
-  const productTagSelectText =
+  const productTagSelectText: HTMLElement =
     productTagSelect.querySelector('.custom-select-text');
-  const productTagSelectLabel =
+  const productTagSelectLabel: HTMLElement =
     document.querySelector('[for=productTag]');
   const productTagSelectCreator = new CustomSelectCreator(
     productTagSelect,
@@ -180,7 +180,7 @@ const createFormValidator = () => {
   );
 
   (function validateProductName() {
-    const productNameMessageContainer =
+    const productNameMessageContainer: HTMLElement =
       formObject.productName.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -198,7 +198,7 @@ const createFormValidator = () => {
     const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/products');
     const productNameColumnKey = 'ProductName';
     productNameReader.readData((fullData = Object()) => {
-      const productNameList = [];
+      const productNameList: Array<string> = [];
 
       Object.keys(fullData).map((key) => {
         productNameList.push(fullData[key][productNameColumnKey]);
@@ -217,7 +217,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductPublisher() {
-    const productPublisherMessageContainer =
+    const productPublisherMessageContainer: HTMLElement =
       formObject.productPublisher.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -234,7 +234,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductDimensions() {
-    const productDimensionsMessageContainer =
+    const productDimensionsMessageContainer: HTMLElement =
       formObject.productDimensions.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -251,7 +251,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductPublishDate() {
-    const productPublishDateMessageContainer =
+    const productPublishDateMessageContainer: HTMLElement =
       formObject.productPublishDate.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addDateInputValidator(
@@ -270,7 +270,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductPrice() {
-    const productPriceMessageContainer =
+    const productPriceMessageContainer: HTMLElement =
       formObject.productPrice.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -284,7 +284,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductSalePercent() {
-    const productSalePercentMessageContainer =
+    const productSalePercentMessageContainer: HTMLElement =
       formObject.productSalePercent.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -298,7 +298,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductQuantity() {
-    const productQuantityMessageContainer =
+    const productQuantityMessageContainer: HTMLElement =
       formObject.productQuantity.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -312,7 +312,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductOrder() {
-    const productOrderMessageContainer =
+    const productOrderMessageContainer: HTMLElement =
       formObject.productOrder.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -326,7 +326,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductPages() {
-    const productPagesMessageContainer =
+    const productPagesMessageContainer: HTMLElement =
       formObject.productPages.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -340,7 +340,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductImage() {
-    const productImageMessageContainer =
+    const productImageMessageContainer: HTMLElement =
       formObject.productImage.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addFileInputValidator(
@@ -354,7 +354,7 @@ const createFormValidator = () => {
   })();
 
   (function validateProductDescription() {
-    const productDescriptionMessageContainer =
+    const productDescriptionMessageContainer: HTMLElement =
       formObject.productDescription.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -408,8 +408,8 @@ const createFormValidator = () => {
 
         formValidator.resetForm(formObject.form);
         (function resetImg() {
-          formObject.productImage.parentElement.parentElement.querySelector('img.js-preview-image').src = '/images/base/preview-img.svg';
-          formObject.productImage.parentElement.querySelector('[for=productImage]').innerText = 'Choose an image';
+          (<HTMLImageElement>formObject.productImage.parentElement.parentElement.querySelector('img.js-preview-image')).src = '/images/base/preview-img.svg';
+          (<HTMLElement>formObject.productImage.parentElement.querySelector('[for=productImage]')).innerText = 'Choose an image';
         })();
 
         (function increaseCategoryProductQuantity(categoryName: string) {
@@ -455,7 +455,7 @@ const createFormValidator = () => {
             }, 100);
           };
 
-          categoriesInformationReader.readData((fullData) => {
+          categoriesInformationReader.readData((fullData: { [key: string]: any }) => {
             Object.keys(fullData).map((firebaseKey) => {
               if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
                 updateCategoryProductQuantity(

@@ -22,9 +22,10 @@ const defaultColumnOptionValue = 'CustomerEmail';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
-let data = []; // must here
+let data: Array<Object> = []; // must here
 const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-let filterInformation; // must here
+import filterInformation from './interfaces/filterInformation';
+let filterInformation: filterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
@@ -96,7 +97,7 @@ const tableColumnList = [{
     name: 'Date',
     key: 'OrderDate',
     width: 8,
-    formatFunction: (date) => {
+    formatFunction: (date: string) => {
       const dateAfterFormat = dateFormatter.formatDate(date);
       return dateAfterFormat;
     },
@@ -108,7 +109,7 @@ const tableColumnList = [{
     name: 'Total',
     key: 'OrderTotalMoney',
     width: 7,
-    formatFunction: (number) => {
+    formatFunction: (number: number) => {
       const total = currencyFormatter.formatCurrency(number);
       return total;
     },
@@ -120,7 +121,7 @@ const tableColumnList = [{
     name: 'Status',
     key: 'OrderStatus',
     width: 9,
-    formatFunction: (status) => {
+    formatFunction: (status: string) => {
       let statusWithColor = '';
 
       switch (status) {
@@ -162,18 +163,18 @@ const tableColumnList = [{
 // end CONFIG COLUMN
 
 // ADD TABLE EVENT
-const addTableButtonEvent = null;
+const addTableButtonEvent: Function | null = null;
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable = document.querySelector('#js-data-table');
+const dataTable: HTMLElement = document.querySelector('#js-data-table');
 const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
-const tableColumnKeyList = [];
+const tableColumnKeyList: Array<string> = [];
 tableColumnList.forEach((column) => {
   tableColumnKeyList.push(column.key);
 });
@@ -207,7 +208,7 @@ searchAssistantCreator(
 );
 
 const tableDataReader = new DataReader(dataFetchLink);
-tableDataReader.readData((fullData) => {
+tableDataReader.readData((fullData: { [key: string]: any }) => {
   getDataArrayFormat(fullData, data);
   // console.log(data);
 

@@ -28,28 +28,28 @@ const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 const formObject = {
   form: document.querySelector('#addProductForm'),
-  productName: document.querySelector('#productName'),
-  productPublisher: document.querySelector('#productPublisher'),
-  productDimensions: document.querySelector('#productDimensions'),
-  productPublishDate: document.querySelector('#productPublishDate'),
+  productName: <HTMLInputElement>document.querySelector('#productName'),
+  productPublisher: <HTMLInputElement>document.querySelector('#productPublisher'),
+  productDimensions: <HTMLInputElement>document.querySelector('#productDimensions'),
+  productPublishDate: <HTMLInputElement>document.querySelector('#productPublishDate'),
   productCategory: document.querySelector('#productCategory'),
   productTag: document.querySelector('#productTag'),
   productDisplay: document.querySelector('#productDisplay'),
-  productPrice: document.querySelector('#productPrice'),
-  productSalePercent: document.querySelector('#productSalePercent'),
-  productQuantity: document.querySelector('#productQuantity'),
-  productOrder: document.querySelector('#productOrder'),
-  productPages: document.querySelector('#productPages'),
-  productImage: document.querySelector('#productImage'),
-  productDescription: document.querySelector('#productDescription'),
-  submitButton: document.querySelector('#js-add-data-submit'),
+  productPrice: <HTMLInputElement>document.querySelector('#productPrice'),
+  productSalePercent: <HTMLInputElement>document.querySelector('#productSalePercent'),
+  productQuantity: <HTMLInputElement>document.querySelector('#productQuantity'),
+  productOrder: <HTMLInputElement>document.querySelector('#productOrder'),
+  productPages: <HTMLInputElement>document.querySelector('#productPages'),
+  productImage: <HTMLInputElement>document.querySelector('#productImage'),
+  productDescription: <HTMLTextAreaElement>document.querySelector('#productDescription'),
+  submitButton: <HTMLButtonElement>document.querySelector('#js-add-data-submit'),
 };
 
 const previewProductImage = (dataBase64: string) => {
-  const productImageInput = document.querySelector('#productImage');
-  const productImageFileNameContainer =
+  const productImageInput: HTMLInputElement = document.querySelector('#productImage');
+  const productImageFileNameContainer: HTMLElement =
     productImageInput.parentElement.querySelector('[for=productImage]');
-  const productImageElement =
+  const productImageElement: HTMLImageElement =
     productImageInput.parentElement.parentElement.querySelector('img.js-preview-image');
 
   const productImagePreviewer = new SingleImagePreviewer(productImageInput);
@@ -61,10 +61,10 @@ const previewProductImage = (dataBase64: string) => {
 };
 
 const createCustomDisplayStatusSelect = (productDisplay: string) => {
-  const productDisplaySelect = document.querySelector('#productDisplay');
-  const productDisplaySelectContainer =
+  const productDisplaySelect: HTMLElement = document.querySelector('#productDisplay');
+  const productDisplaySelectContainer: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-list');
-  const productDisplaySelectText =
+  const productDisplaySelectText: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-text');
   const productDisplaySelectLabelList =
     document.querySelectorAll('[for=productDisplay]');
@@ -99,12 +99,12 @@ const createCustomDisplayStatusSelect = (productDisplay: string) => {
 };
 
 const createCustomCategorySelect = (productCategory: string) => {
-  const productCategorySelect = document.querySelector('#productCategory');
-  const productCategorySelectContainer =
+  const productCategorySelect: HTMLElement = document.querySelector('#productCategory');
+  const productCategorySelectContainer: HTMLElement =
     productCategorySelect.querySelector('.custom-select-list');
-  const productCategorySelectText =
+  const productCategorySelectText: HTMLElement =
     productCategorySelect.querySelector('.custom-select-text');
-  const productCategorySelectLabel =
+  const productCategorySelectLabel: HTMLElement =
     document.querySelector('[for=productCategory]');
   const productCategorySelectCreator = new CustomSelectCreator(
     productCategorySelect,
@@ -129,7 +129,7 @@ const createCustomCategorySelect = (productCategory: string) => {
         [{
           key: 'value',
           data: categoryName,
-        }, ]
+        },]
       );
     });
 
@@ -142,12 +142,12 @@ const createCustomCategorySelect = (productCategory: string) => {
 };
 
 const createCustomTagSelect = (productTag: string) => {
-  const productTagSelect = document.querySelector('#productTag');
-  const productTagSelectContainer =
+  const productTagSelect: HTMLElement = document.querySelector('#productTag');
+  const productTagSelectContainer: HTMLElement =
     productTagSelect.querySelector('.custom-select-list');
-  const productTagSelectText =
+  const productTagSelectText: HTMLElement =
     productTagSelect.querySelector('.custom-select-text');
-  const productTagSelectLabel =
+  const productTagSelectLabel: HTMLElement =
     document.querySelector('[for=productTag]');
   const productTagSelectCreator = new CustomSelectCreator(
     productTagSelect,
@@ -203,7 +203,7 @@ const createFormValidator = (
   );
 
   (function validateProductName() {
-    const productNameMessageContainer =
+    const productNameMessageContainer: HTMLElement =
       formObject.productName.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -223,7 +223,7 @@ const createFormValidator = (
       const productNameColumnKey = 'ProductName';
       productNameReader.readData((fullData = Object()) => {
         const productNameList = (() => {
-          const productNameList = [];
+          const productNameList: Array<string> = [];
 
           Object.keys(fullData).map((key) => {
             productNameList.push(fullData[key][productNameColumnKey]);
@@ -244,12 +244,12 @@ const createFormValidator = (
           false,
           true,
         );
-      }, );
+      });
     })();
   })();
 
   (function validateProductPublisher() {
-    const productPublisherMessageContainer =
+    const productPublisherMessageContainer: HTMLElement =
       formObject.productPublisher.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -266,7 +266,7 @@ const createFormValidator = (
   })();
 
   (function validateProductDimensions() {
-    const productDimensionsMessageContainer =
+    const productDimensionsMessageContainer: HTMLElement =
       formObject.productDimensions.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -283,26 +283,26 @@ const createFormValidator = (
   })();
 
   (function validateProductPublishDate() {
-    const productPublishDateMessageContainer =
+    const productPublishDateMessageContainer: HTMLElement =
       formObject.productPublishDate.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addDateInputValidator(
       formObject.productPublishDate,
       'product publish date',
       productPublishDateMessageContainer, {
-        day: 1,
-        month: 1,
-        year: 1800
-      }, {
-        day: 31,
-        month: 12,
-        year: 3000
-      },
+      day: 1,
+      month: 1,
+      year: 1800
+    }, {
+      day: 31,
+      month: 12,
+      year: 3000
+    },
     );
   })();
 
   (function validateProductPrice() {
-    const productPriceMessageContainer =
+    const productPriceMessageContainer: HTMLElement =
       formObject.productPrice.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -316,7 +316,7 @@ const createFormValidator = (
   })();
 
   (function validateProductSalePercent() {
-    const productSalePercentMessageContainer =
+    const productSalePercentMessageContainer: HTMLElement =
       formObject.productSalePercent.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -330,7 +330,7 @@ const createFormValidator = (
   })();
 
   (function validateProductQuantity() {
-    const productQuantityMessageContainer =
+    const productQuantityMessageContainer: HTMLElement =
       formObject.productQuantity.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -344,7 +344,7 @@ const createFormValidator = (
   })();
 
   (function validateProductOrder() {
-    const productOrderMessageContainer =
+    const productOrderMessageContainer: HTMLElement =
       formObject.productOrder.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -358,7 +358,7 @@ const createFormValidator = (
   })();
 
   (function validateProductPages() {
-    const productPagesMessageContainer =
+    const productPagesMessageContainer: HTMLElement =
       formObject.productPages.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addNumberInputValidator(
@@ -372,21 +372,21 @@ const createFormValidator = (
   })();
 
   (function validateProductImage() {
-    const productImageMessageContainer =
+    const productImageMessageContainer: HTMLElement =
       formObject.productImage.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addFileInputValidator(
       formObject.productImage,
       'product image',
       productImageMessageContainer,
-      ['image/jpeg', 'image/webp', ],
+      ['image/jpeg', 'image/webp',],
       0,
       2,
     );
   })();
 
   (function validateProductDescription() {
-    const productDescriptionMessageContainer =
+    const productDescriptionMessageContainer: HTMLElement =
       formObject.productDescription.parentElement.parentElement.querySelector('.invalid-feedback');
 
     formValidator.addTextInputValidator(
@@ -457,7 +457,7 @@ const createFormValidator = (
               );
             };
 
-            categoriesInformationReader.readData((fullData) => {
+            categoriesInformationReader.readData((fullData: { [key: string]: any }) => {
               Object.keys(fullData).map((firebaseKey) => {
                 if (fullData[firebaseKey][categoryNameColumnKey] === newCategoryName) {
                   changeCategoryProductQuantity(
@@ -562,9 +562,27 @@ const createFormValidator = (
   })();
 }
 
+interface product {
+  ProductName: string,
+  ProductPublisher: string,
+  ProductDimensions: string,
+  ProductPublishDate: string,
+  ProductCategory: string,
+  ProductTag: string,
+  ProductDisplay: string,
+  ProductPrice: number,
+  ProductSalePercent: number,
+  ProductQuantity: number,
+  ProductOrder: number,
+  ProductPages: number,
+  ProductImage: string,
+  ProductDescription: string,
+  ProductSoldQuantity: number,
+  ProductViews: number,
+};
 window.addEventListener('load', () => {
   const productInformationReader = new DataReader(fetchLinkPrefix + id);
-  productInformationReader.readData((product) => {
+  productInformationReader.readData((product: product) => {
     formObject.productName.value = product.ProductName;
     formObject.productPublisher.value = product.ProductPublisher;
     formObject.productDimensions.value = product.ProductDimensions;
@@ -572,11 +590,11 @@ window.addEventListener('load', () => {
     createCustomCategorySelect(product.ProductCategory);
     createCustomTagSelect(product.ProductTag);
     createCustomDisplayStatusSelect(product.ProductDisplay);
-    formObject.productPrice.value = product.ProductPrice;
-    formObject.productSalePercent.value = product.ProductSalePercent;
-    formObject.productQuantity.value = product.ProductQuantity;
-    formObject.productOrder.value = product.ProductOrder;
-    formObject.productPages.value = product.ProductPages;
+    formObject.productPrice.value = String(product.ProductPrice);
+    formObject.productSalePercent.value = String(product.ProductSalePercent);
+    formObject.productQuantity.value = String(product.ProductQuantity);
+    formObject.productOrder.value = String(product.ProductOrder);
+    formObject.productPages.value = String(product.ProductPages);
     previewProductImage(product.ProductImage);
     formObject.productDescription.value = product.ProductDescription;
 
@@ -595,6 +613,8 @@ window.addEventListener('load', () => {
       String(product.ProductPages),
       product.ProductImage,
       product.ProductDescription,
+      product.ProductSoldQuantity,
+      product.ProductViews
     );
   });
 });

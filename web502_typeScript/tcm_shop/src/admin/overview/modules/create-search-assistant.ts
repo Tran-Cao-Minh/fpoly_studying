@@ -5,9 +5,9 @@ import {
   DataReader
 } from '../../../class/data-interactor.js';
 
-const searchInputContainer = document.querySelector('#js-search-input-container');
+const searchInputContainer: HTMLElement = document.querySelector('#js-search-input-container');
 const searchInputModeChanger = new SingleActivator('active', searchInputContainer);
-const changeModeInputList = document.querySelectorAll('[name=searchMode]');
+const changeModeInputList: NodeListOf<HTMLElement> = document.querySelectorAll('[name=searchMode]');
 changeModeInputList.forEach((input) => {
   searchInputModeChanger.createEvent(input, 'change');
 });
@@ -15,26 +15,26 @@ changeModeInputList.forEach((input) => {
 const searchColumnSelect =
   document.querySelector('#js-overview-search-column');
 let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
-const searchInputList = document.querySelectorAll('[id*="js-overview-search-"]');
+const searchInputList: NodeListOf<HTMLInputElement> = document.querySelectorAll('[id*="js-overview-search-"]');
 
 const searchAssistantCreator = (
   defaultColumnOptionValue: string,
   dataFetchLink: string,
-  searchSuggester
+  searchSuggester: { [key: string]: any }
 ) => {
   const tableDataReader = new DataReader(dataFetchLink);
-  let fullData;
+  let fullData: { [key: string]: any };
 
-  const getSearchData = (columnKey) => {
+  const getSearchData = (columnKey: string) => {
     const searchData =
       Object.keys(fullData).map((key) => {
-        const row = {};
+        const row: { [key: string]: any } = {};
         row[columnKey] = fullData[key][columnKey];
         return row;
       });
     
-    const getUniqueIndex = (uniqueSearchData, uniqueItem) => {
-      return uniqueSearchData.findIndex((item) => {
+    const getUniqueIndex = (uniqueSearchData: { [key: string]: any }, uniqueItem: { [key: string]: any }) => {
+      return uniqueSearchData.findIndex((item: { [key: string]: any }) => {
         return (item[columnKey] === uniqueItem[columnKey]);
       });
     };
@@ -47,7 +47,7 @@ const searchAssistantCreator = (
   };
 
   (function searchSuggesterInit() {
-    tableDataReader.readData((result) => {
+    tableDataReader.readData((result: { [key: string]: any }) => {
       fullData = result;
       const searchData = getSearchData(defaultColumnOptionValue);
 

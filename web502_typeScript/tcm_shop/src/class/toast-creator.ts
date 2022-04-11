@@ -1,4 +1,9 @@
 export class ToastCreator { 
+  verticalAlign = 'top' || 'bottom';
+  verticalOffset: number; // px
+  horizontalAlign = 'left' || 'right';
+  horizontalOffset: number; // px
+
   constructor (
     verticalAlign = 'top' || 'bottom',
     verticalOffset: number, // px
@@ -52,7 +57,7 @@ export class ToastCreator {
     const currentToastList = document.querySelectorAll('.js-toastify');
     let toastVerticalOffset = this.verticalOffset;
     if (currentToastList.length > 0) {
-      currentToastList.forEach(currentToast => {
+      currentToastList.forEach((currentToast: HTMLElement) => {
         toastVerticalOffset += (this.verticalOffset + currentToast.offsetHeight);
       });
     };
@@ -64,16 +69,16 @@ export class ToastCreator {
     documentBody.appendChild(toast);
 
     const removeToast = () => {
-      toast.style[this.horizontalAlign] = `-${toast.offsetWidth}px`;
-      toast.style.opacity = 0.2;
+      (<{ [key: string]: any }>toast.style)[this.horizontalAlign] = `-${toast.offsetWidth}px`;
+      (<{ [key: string]: any }>toast.style).opacity = '0.2';
 
       setTimeout(() => {
         let nextToast = toast.nextElementSibling;
         while (nextToast) {
           // console.log(nextToast.style[toastVerticalAlign]);
 
-          const nextToastVerticalOffset = Number(nextToast.style[this.verticalAlign].slice(0, -2));
-          nextToast.style[this.verticalAlign] =
+          const nextToastVerticalOffset = Number((<{ [key: string]: any }>nextToast).style[this.verticalAlign].slice(0, -2));
+          (<{ [key: string]: any }>nextToast).style[this.verticalAlign] =
             `${nextToastVerticalOffset - toast.offsetHeight - this.verticalOffset}px`;
 
           nextToast = nextToast.nextElementSibling;

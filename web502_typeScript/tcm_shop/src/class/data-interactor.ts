@@ -110,13 +110,13 @@ export class DataUpdater extends DataInteractor {
 
   updateData(
     id: string,
-    formData: string,
+    formData: Object | string | number,
     successFn = Function(),
     failedFn = Function()
   ) {
     fetch(`${this.fetchLink + id}.json`, {
       method: this.fetchMethod,
-      body: formData,
+      body: JSON.stringify(formData),
     })
       .then((res) => {
         if (!res.ok) {
