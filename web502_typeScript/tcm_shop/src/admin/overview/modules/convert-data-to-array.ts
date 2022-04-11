@@ -1,8 +1,8 @@
 const getDataArrayFormat = (
-  fullData = Object(),
+  fullData: { [key: string]: any },
   data: Array<Object>,
-) => {
-  Object.keys(fullData).map((key) => {
+): void => {
+  Object.keys(fullData).map((key: string) => {
     fullData[key].FireBaseKey = key;
     data.push(fullData[key]);
   });

@@ -1,6 +1,6 @@
 export class CurrencyFormatter {
-  locales: string;
-  currency: string;
+  private locales: string;
+  private currency: string;
 
   constructor(
     locales: string,
@@ -10,7 +10,7 @@ export class CurrencyFormatter {
     this.currency = currency;
   }
 
-  formatCurrency(number: number) {
+  public formatCurrency(number: number): string {
     return number.toLocaleString(this.locales, {
       style: 'currency',
       currency: this.currency
@@ -24,8 +24,8 @@ interface toLocaleDateStringOptions {
   day: "numeric" | "2-digit"; 
 };
 export class DateFormatter {
-  locales: string;
-  options: toLocaleDateStringOptions;
+  private locales: string;
+  private options: toLocaleDateStringOptions;
 
   constructor(
     locales: string,
@@ -35,8 +35,8 @@ export class DateFormatter {
     this.options = options;
   }
 
-  formatDate(date: string) {
-    const dateObj = new Date(date);
+  public formatDate(date: string): string {
+    const dateObj: Date = new Date(date);
     return dateObj.toLocaleDateString(this.locales, {
       year: this.options.year,
       month: this.options.month,
@@ -46,7 +46,7 @@ export class DateFormatter {
 }
 
 export class ImageFormatter {
-  classValue: string;
+  private classValue: string;
 
   constructor(
     classList: Array<string>
@@ -65,19 +65,19 @@ export class ImageFormatter {
     })();
   }
 
-  formatImage(
+  public formatImage(
     base64: string,
     altText: string
-  ) {
+  ): string {
     return `<img class="${this.classValue}" ` +
       `src="${base64}" alt="${altText}">`;
   }
 };
 
 export class LinkFormatter {
-  linkPrefix: string;
-  icon: string;
-  classValue: string;
+  private linkPrefix: string;
+  private icon: string;
+  private classValue: string;
 
   constructor(
     linkPrefix: string,
@@ -88,7 +88,7 @@ export class LinkFormatter {
     this.icon = icon;
 
     this.classValue = (() => {
-      let classValue = '';
+      let classValue: string = '';
 
       if (classList.length > 0) {
         classList.forEach((item) => {
@@ -101,16 +101,16 @@ export class LinkFormatter {
     })();
   }
 
-  formatLink(
+  public formatLink(
     id: string
-  ) {
+  ): string {
     return `<a class="${this.classValue}" href="${this.linkPrefix + id}"> ${this.icon}</a>`;
   }
 };
 
 export class ButtonFormatter {
-  icon: string;
-  classValue: string;
+  private icon: string;
+  private classValue: string;
 
   constructor(
     classList: Array<string>,
@@ -119,7 +119,7 @@ export class ButtonFormatter {
     this.icon = icon;
 
     this.classValue = (() => {
-      let classValue = '';
+      let classValue: string = '';
 
       if (classList.length > 0) {
         classList.forEach((item) => {
@@ -132,14 +132,14 @@ export class ButtonFormatter {
     })();
   }
 
-  formatButton(
+  public formatButton(
     dataList = [{
       key: String(),
       value: String()
     }]
-  ) {
-    let dataAttribute = '';
-    dataList.forEach(data => {
+  ): string {
+    let dataAttribute: string = '';
+    dataList.forEach((data: { key: string, value: string }) => {
       dataAttribute += ` data-${data.key}="${data.value}"`;
     });
     return `<button class="${this.classValue}" type="button"${dataAttribute}> ${this.icon}</button>`;

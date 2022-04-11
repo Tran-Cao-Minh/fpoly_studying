@@ -3,43 +3,43 @@ import {
   ButtonFormatter,
   ImageFormatter,
   CurrencyFormatter
-} from '../../class/data-formatter.js';
+} from '../../class/data-formatter';
 import {
   ToastCreator
-} from '../../class/toast-creator.js';
+} from '../../class/toast-creator';
 import {
   DataDeleter
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
-import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
+} from '../../class/popup-creator';
+import tablePagingLinkCreator from './modules/table-paging-link-creator';
 
 import {
   filterData,
   sliceData
-} from './modules/filter-data.js';
+} from './modules/filter-data';
 import {
   Suggester
-} from '../../class/suggester.js';
+} from '../../class/suggester';
 import {
   TableCreator
-} from '../../class/table-creator.js';
+} from '../../class/table-creator';
 
 // FETCH LINK, DEFAULT OPTION
-const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
-const defaultColumnOptionValue = 'ProductName';
+const dataFetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+const defaultColumnOptionValue: string = 'ProductName';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
-let data: Array<Object> = []; // must here
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-import filterInformation from './interfaces/filterInformation';
-let filterInformation: filterInformation; // must here
+let data: Array<{ [key: string]: any }> = []; // must here
+const searchSuggester: Suggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
+import FilterInformation from '../interfaces/filterInformation';
+let filterInformation: FilterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
-const optionColumnList = [{
+const optionColumnList: Array<OptionColumnItem> = [{
     name: 'Name',
     key: 'ProductName',
     type: 'text',
@@ -106,21 +106,21 @@ const optionColumnList = [{
   },
 ];
 
-const tableUpdateLinkFormatter = new LinkFormatter(
+const tableUpdateLinkFormatter: LinkFormatter = new LinkFormatter(
   './update-product/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
-const tableDeleteButtonFormatter = new ButtonFormatter(
+const tableDeleteButtonFormatter: ButtonFormatter = new ButtonFormatter(
   ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
   '<i class="fas fa-trash"></i>',
 );
-const imageFormatter = new ImageFormatter(
+const imageFormatter: ImageFormatter = new ImageFormatter(
   []
 );
-const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+const currencyFormatter: CurrencyFormatter = new CurrencyFormatter('en-US', 'USD');
 
-const tableColumnList = [{
+const tableColumnList: Array<TableColumnItem> = [{
     name: 'Name',
     key: 'ProductName',
     width: 20,
@@ -132,7 +132,7 @@ const tableColumnList = [{
     formatFunction: (
       [base64 = String(), altText = String()]
     ) => {
-      const img = imageFormatter.formatImage(base64, altText);
+      const img: string = imageFormatter.formatImage(base64, altText);
       return img;
     },
     formatPrameterKeyList: [
@@ -145,7 +145,7 @@ const tableColumnList = [{
     key: 'ProductPrice',
     width: 7,
     formatFunction: (number: number) => {
-      const price = currencyFormatter.formatCurrency(number);
+      const price: string = currencyFormatter.formatCurrency(number);
       return price;
     },
     formatPrameterKeyList: [
@@ -174,7 +174,7 @@ const tableColumnList = [{
     formatFunction: (
       [id = String(), name = String(), soldQuantity = Number(), category = String()]
     ) => {
-      const deleteBtn = tableDeleteButtonFormatter.formatButton(
+      const deleteBtn: string = tableDeleteButtonFormatter.formatButton(
         [{
           key: 'id',
           value: id
@@ -189,7 +189,7 @@ const tableColumnList = [{
           value: category
         }]
       );
-      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
+      const updateBtn: string = tableUpdateLinkFormatter.formatLink(id);
       return deleteBtn + updateBtn;
     },
     formatPrameterKeyList: [
@@ -205,26 +205,27 @@ const tableColumnList = [{
 // ADD TABLE EVENT
 import {
   DataUpdater
-} from '../../class/data-interactor.js';
-const tableDataToastify = new ToastCreator(
+} from '../../class/data-interactor';
+const tableDataToastify: ToastCreator = new ToastCreator(
   'bottom',
   16,
   'right',
   16
 );
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
+const tableDataDeleter: DataDeleter = new DataDeleter(dataFetchLink);
+const confirmDeletePopupCreator: ConfirmDangerActionPopupCreator 
+  = new ConfirmDangerActionPopupCreator('Delete');
 
 const addTableButtonEvent: Function | null = () => {
-  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-delete-data');
+  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('-delete-data');
 
-  deleteButtonList.forEach((deleteButton) => {
+  deleteButtonList.forEach((deleteButton: HTMLButtonElement) => {
     deleteButton.addEventListener('click', () => {
-      const productName = deleteButton.dataset.name;
-      const productId = deleteButton.dataset.id;
-      const productSoldQuantity = Number(deleteButton.dataset.soldQuantity);
-      const productCategory = deleteButton.dataset.category;
-      console.log(productCategory);
+      const productName: string = deleteButton.dataset.name;
+      const productId: string = deleteButton.dataset.id;
+      const productSoldQuantity: number = Number(deleteButton.dataset.soldQuantity);
+      const productCategory: string = deleteButton.dataset.category;
+      // console.log(productCategory);
 
       const afterDeleteHandle = (deleteResult: null | undefined) => {
         if (deleteResult === null) {
@@ -240,8 +241,8 @@ const addTableButtonEvent: Function | null = () => {
           // console.log(data);
 
           (function changeTableDataAfterDelete() {
-            const result = filterData(data, filterInformation);
-            const displayedData = sliceData(result, filterInformation);
+            const result: any = filterData(data, filterInformation);
+            const displayedData: any = sliceData(result, filterInformation);
 
             if (displayedData.length > 0) {
               tableCreator.convertData(displayedData);
@@ -262,21 +263,21 @@ const addTableButtonEvent: Function | null = () => {
             };
           })();
 
-          (function decreaseCategoryProductQuantity(categoryName: string) {
-            const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
-            const categoryNameColumnKey = 'CategoryName';
-            const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
-            const categoriesInformationReader = new DataReader(categoriesFetchLink);
+          (function decreaseCategoryProductQuantity(categoryName: string): void {
+            const categoriesFetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+            const categoryNameColumnKey: string = 'CategoryName';
+            const categoryProductQuantityColumnKey: string = 'CategoryProductQuantity';
+            const categoriesInformationReader: DataReader = new DataReader(categoriesFetchLink);
 
-            const categoryProductQuantityFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
-            const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
+            const categoryProductQuantityFetchLinkPrefix: string = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+            const categoryProductQuantityDataUpdater: DataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
 
             const updateCategoryProductQuantity = (
               firebaseKey: string,
               categoryProductQuantity: number
-            ) => {
-              const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
-              const newCategoryProductQuantity = categoryProductQuantity - 1;
+            ): void => {
+              const categoryProductQuantitySuffixes: string = firebaseKey + '/' + categoryProductQuantityColumnKey;
+              const newCategoryProductQuantity: number = categoryProductQuantity - 1;
 
               categoryProductQuantityDataUpdater.updateData(
                 categoryProductQuantitySuffixes,
@@ -286,7 +287,7 @@ const addTableButtonEvent: Function | null = () => {
               );
             };
 
-            const updateCategoryProductQuantitySuccessFn = () => {
+            const updateCategoryProductQuantitySuccessFn = (): void => {
               setTimeout(() => {
                 tableDataToastify.createToast(
                   'success',
@@ -295,7 +296,7 @@ const addTableButtonEvent: Function | null = () => {
                 );
               }, 100);
             };
-            const updateCategoryProductQuantityFailedFn = () => {
+            const updateCategoryProductQuantityFailedFn = (): void => {
               setTimeout(() => {
                 tableDataToastify.createToast(
                   'danger',
@@ -306,7 +307,7 @@ const addTableButtonEvent: Function | null = () => {
             };
 
             categoriesInformationReader.readData((fullData: { [key: string]: any }) => {
-              Object.keys(fullData).map((firebaseKey) => {
+              Object.keys(fullData).map((firebaseKey: string) => {
                 if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
                   updateCategoryProductQuantity(
                     firebaseKey,
@@ -357,15 +358,15 @@ const addTableButtonEvent: Function | null = () => {
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable: HTMLElement = document.querySelector('#js-data-table');
-const tableCreator = new TableCreator(
+const dataTable: HTMLTableElement = document.querySelector('#js-data-table');
+const tableCreator: TableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
 const tableColumnKeyList: Array<string> = [];
-tableColumnList.forEach((column) => {
+tableColumnList.forEach((column: TableColumnItem) => {
   tableColumnKeyList.push(column.key);
 });
 // end TABLE CREATOR
@@ -373,15 +374,17 @@ tableColumnList.forEach((column) => {
 // GENERAL
 import {
   DataReader
-} from '../../class/data-interactor.js';
-import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
-import searchAssistantCreator from './modules/create-search-assistant.js';
+} from '../../class/data-interactor';
+import adminFilterCustomSelectCreator from './modules/create-custom-select';
+import searchAssistantCreator from './modules/create-search-assistant';
 import {
   filterDataToastify
-} from './modules/filter-data.js';
-import getDataArrayFormat from './modules/convert-data-to-array.js';
-import createFilterEvent from './modules/create-filter-event.js';
-import createFilterInformation from './modules/filter-information.js';
+} from './modules/filter-data';
+import getDataArrayFormat from './modules/convert-data-to-array';
+import createFilterEvent from './modules/create-filter-event';
+import createFilterInformation from './modules/filter-information';
+import OptionColumnItem from '../interfaces/optionColumnItem';
+import TableColumnItem from '../interfaces/tableColumnItem';
 
 (function createAdminFilterCustomSelectCreator() {
   adminFilterCustomSelectCreator(
@@ -397,17 +400,17 @@ searchAssistantCreator(
   searchSuggester,
 );
 
-const tableDataReader = new DataReader(dataFetchLink);
+const tableDataReader: DataReader = new DataReader(dataFetchLink);
 tableDataReader.readData((fullData: { [key: string]: any }) => {
   getDataArrayFormat(fullData, data);
   // console.log(data);
 
   const changeTableData = (
-    filterInformation = Object(),
-    changePageNum = Boolean(),
-  ) => {
-    const result = filterData(data, filterInformation);
-    const displayedData = sliceData(result, filterInformation);
+    filterInformation: FilterInformation,
+    changePageNum: boolean,
+  ): void => {
+    const result: any = filterData(data, filterInformation);
+    const displayedData: any = sliceData(result, filterInformation);
     tableCreator.convertData(displayedData);
 
     // console.log(filterInformation);
@@ -431,5 +434,5 @@ tableDataReader.readData((fullData: { [key: string]: any }) => {
   createFilterEvent(filterInformation, changeTableData);
 });
 
-const changeTableData = (filterInformation: filterInformation, changePageNum: boolean) => {};
+const changeTableData = (filterInformation: FilterInformation, changePageNum: boolean) => {};
 // end GENERAL

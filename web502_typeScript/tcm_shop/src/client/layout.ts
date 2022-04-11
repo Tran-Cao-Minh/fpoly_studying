@@ -1,24 +1,24 @@
 import {
   SingleActivator
-} from '../class/activator.js';
+} from '../class/activator';
 import {
   ToastCreator
-} from '../class/toast-creator.js';
+} from '../class/toast-creator';
 // import {
   
 // } from '../class/popup-creator';
 
 function createFlexibleMenu () {
-  const mobileMenu = document.querySelector('.js-mobile-menu');
+  const mobileMenu = document.querySelector('-mobile-menu');
   const mobileMenuActivator = new SingleActivator('active', mobileMenu);
-  const toggleBtnList = document.querySelectorAll('.js-mobile-menu-toggle');
+  const toggleBtnList = document.querySelectorAll('-mobile-menu-toggle');
   toggleBtnList.forEach(btn => {
     mobileMenuActivator.createEvent(btn, 'click');
   });
 }
 
 function checkLogin () {
-  const accountArea = document.querySelector('.js-account');
+  const accountArea = document.querySelector('-account');
 }
 
 function searchProduct () {

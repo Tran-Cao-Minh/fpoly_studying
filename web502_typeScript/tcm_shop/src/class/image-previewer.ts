@@ -1,15 +1,15 @@
 export class SingleImagePreviewer {
-  input: HTMLInputElement;
+  private input: HTMLInputElement;
 
   constructor (input: HTMLInputElement) {
     this.input = input;
   }
 
-  addShowImageEvent (img: HTMLImageElement) {
+  public addShowImageEvent (img: HTMLImageElement): void {
     this.input.addEventListener('change', (event: InputEvent) => {
-      let imgFile = (<HTMLInputElement>event.target).files[0];
+      let imgFile: File = (<HTMLInputElement>event.target).files[0];
 
-      let fileReader = new FileReader();
+      let fileReader: FileReader = new FileReader();
       fileReader.readAsDataURL(imgFile);
 
       fileReader.addEventListener('load', () => {
@@ -21,11 +21,11 @@ export class SingleImagePreviewer {
     });
   };
 
-  addShowImageFileNameEvent (imgNameContainer: HTMLElement) {
+  public addShowImageFileNameEvent (imgNameContainer: HTMLElement): void {
     this.input.addEventListener('change', (event: InputEvent) => {
-      let imgFile = (<HTMLInputElement>event.target).files[0];
+      let imgFile: File = (<HTMLInputElement>event.target).files[0];
 
-      let imgFileName = imgFile.name;
+      let imgFileName: string = imgFile.name;
       imgNameContainer.innerHTML = imgFileName;
     });
   };

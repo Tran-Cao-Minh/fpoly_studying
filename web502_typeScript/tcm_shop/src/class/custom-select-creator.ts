@@ -1,8 +1,8 @@
 export class CustomSelectCreator {
-  selectElement: HTMLElement;
-  activeClass: string;
-  selectOptionContainer: HTMLElement;
-  attributeList: Array<string>;
+  private selectElement: HTMLElement;
+  private activeClass: string;
+  private selectOptionContainer: HTMLElement;
+  private attributeList: Array<string>;
 
   constructor(
     selectElement: HTMLElement,
@@ -16,15 +16,15 @@ export class CustomSelectCreator {
     this.attributeList = attributeList;
   }
 
-  addOptionItem(
+  public addOptionItem(
     displayValue: string,
     attributeObjects = [{
       key: String(),
       data: String(),
     }]
-  ) {
-    const optionItem = document.createElement('li');
-    attributeObjects.forEach(attribute => {
+  ): void {
+    const optionItem: HTMLLIElement = document.createElement('li');
+    attributeObjects.forEach((attribute: { key: string, data: string }) => {
       optionItem.setAttribute(attribute.key, attribute.data);
     });
     optionItem.innerText = displayValue;
@@ -32,20 +32,20 @@ export class CustomSelectCreator {
     this.selectOptionContainer.appendChild(optionItem);
   }
 
-  createLabelPointer(element: HTMLElement) {
+  public createLabelPointer(element: HTMLElement): void {
     element.addEventListener('click', () => {
       this.selectElement.focus();
     });
   }
 
-  createCustomSelect(
+  public createCustomSelect(
     defaultOptionValue: string,
     selectTextContainer: HTMLElement,
     optionActiveAttribute: string
-  ) {
+  ): void {
     this.selectElement.setAttribute('tabindex', '0');
 
-    const changeCustomSelectStatus = (status = Boolean()) => {
+    const changeCustomSelectStatus = (status: boolean): void => {
       if (status) {
         this.selectElement.classList.add(this.activeClass);
 
@@ -54,15 +54,15 @@ export class CustomSelectCreator {
       };
     };
 
-    const changeOptionStatus = (option: HTMLLIElement) => {
-      optionList.forEach(option => {
+    const changeOptionStatus = (option: HTMLLIElement): void => {
+      optionList.forEach((option: HTMLLIElement) => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
     };
 
-    const optionList = this.selectElement.querySelectorAll('li');
-    let currentOptionIndex = 0;
+    const optionList: NodeListOf<HTMLLIElement> = this.selectElement.querySelectorAll('li');
+    let currentOptionIndex: number = 0;
     let showCustomSelect: boolean;
 
     (() => { // addSelectEvent
@@ -85,7 +85,7 @@ export class CustomSelectCreator {
         showCustomSelect = true;
       });
 
-      this.selectElement.addEventListener('keydown', (event) => {
+      this.selectElement.addEventListener('keydown', (event: KeyboardEvent) => {
         if (event.key === 'ArrowDown') {
           if (currentOptionIndex < (optionList.length - 1)) {
             currentOptionIndex++;

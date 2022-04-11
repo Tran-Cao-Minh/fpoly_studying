@@ -1,10 +1,10 @@
 export class FormValidator {
-  submitButton: HTMLButtonElement;
-  hideMessageContainerClass: string;
-  inputInvalidClass: string;
-  inputValidClass: string;
-  inputList: Array<HTMLInputElement | HTMLTextAreaElement>;
-  checkValidate: boolean;
+  private submitButton: HTMLButtonElement;
+  private hideMessageContainerClass: string;
+  private inputInvalidClass: string;
+  private inputValidClass: string;
+  private inputList: Array<HTMLInputElement | HTMLTextAreaElement>;
+  private checkValidate: boolean;
 
   constructor(
     submitButton: HTMLButtonElement,
@@ -20,11 +20,11 @@ export class FormValidator {
     this.checkValidate = false;
   }
 
-  changeInputStatus(
+  private changeInputStatus(
     input: HTMLInputElement | HTMLTextAreaElement,
     messageContainer: HTMLSpanElement,
     check: boolean
-  ) {
+  ): void {
     if (check === true) {
       messageContainer.classList.add(this.hideMessageContainerClass);
       input.classList.remove(this.inputInvalidClass);
@@ -37,7 +37,7 @@ export class FormValidator {
     };
   }
 
-  changeButtonStatus() {
+  private changeButtonStatus(): void {
     this.checkValidate = true;
     this.inputList.forEach((input: HTMLInputElement) => {
       if (input.classList.contains(this.inputValidClass) === false) {
@@ -53,7 +53,7 @@ export class FormValidator {
     };
   }
 
-  addTextInputValidator(
+  public addTextInputValidator(
     input: HTMLInputElement | HTMLTextAreaElement,
     inputName: string,
     messageContainer: HTMLElement,
@@ -61,13 +61,13 @@ export class FormValidator {
     maxLength: number,
     pattern: RegExp,
     patternErrorMessage: string
-  ) {
+  ): void {
     this.inputList.push(input);
 
     input.addEventListener('change', () => {
       input.value = input.value.trim();
-      const inputValue = input.value;
-      let check = false;
+      const inputValue: string = input.value;
+      let check: boolean = false;
 
       if (inputValue.length < minLength) {
         messageContainer.innerHTML =
@@ -103,19 +103,19 @@ export class FormValidator {
     });
   }
 
-  addNumberInputValidator(
+  public addNumberInputValidator(
     input: HTMLInputElement,
     inputName: string,
     messageContainer: HTMLElement,
     min: number,
     max: number,
     step: number
-  ) {
+  ): void {
     this.inputList.push(input);
 
     input.addEventListener('input', () => {
-      const inputValue = Number(input.value);
-      let check = false;
+      const inputValue: number = Number(input.value);
+      let check: boolean = false;
 
       if (isNaN(inputValue) || input.value === '') {
         messageContainer.innerHTML = `The ${inputName} must be a number`;
@@ -145,32 +145,32 @@ export class FormValidator {
     });
   }
 
-  addFileInputValidator(
+  public addFileInputValidator(
     input: HTMLInputElement,
     inputName: string,
     messageContainer: HTMLElement,
     fileMIMETypeList: Array<string>,
     minMbSize: number,
     maxMbSize: number
-  ) {
+  ): void {
     this.inputList.push(input);
-    const bytesPerMegabyte = 1048576;
+    const bytesPerMegabyte: number = 1048576;
 
     input.addEventListener('change', (event: InputEvent) => {
-      let check = false;
-      const file = (<HTMLInputElement>event.target).files[0];
-      const fileType = file.type;
+      let check: boolean = false;
+      const file: File = (<HTMLInputElement>event.target).files[0];
+      const fileType: string = file.type;
       // console.log(file);
 
-      let checkFileType = false;
-      fileMIMETypeList.forEach(MIMEType => {
+      let checkFileType: boolean = false;
+      fileMIMETypeList.forEach((MIMEType: string) => {
         if (fileType === MIMEType) {
           checkFileType = true;
         };
       });
 
       if (checkFileType === false) {
-        let errMessage =
+        let errMessage: string =
           `The ${inputName} file extension must be a value in the list:`;
         fileMIMETypeList.forEach(MIMEType => {
           errMessage += ` ${MIMEType.split('/').pop().toUpperCase()},`;
@@ -199,7 +199,7 @@ export class FormValidator {
     });
   }
 
-  addDateInputValidator(
+  public addDateInputValidator(
     input: HTMLInputElement,
     inputName: string,
     messageContainer: HTMLElement,
@@ -213,33 +213,33 @@ export class FormValidator {
       month: Number(),
       year: Number(),
     },
-  ) {
+  ): void {
     this.inputList.push(input);
 
-    const minDateTime = new Date(min.year, (min.month - 1), min.day).getTime();
-    const maxDateTime = new Date(max.year, (max.month - 1), max.day).getTime();
+    const minDateTime: number = new Date(min.year, (min.month - 1), min.day).getTime();
+    const maxDateTime: number = new Date(max.year, (max.month - 1), max.day).getTime();
 
     const validateDate = () => {
-      const inputValue = input.value;
-      let check = false;
+      const inputValue: string = input.value;
+      let check: boolean = false;
 
       if (inputValue === '') {
         messageContainer.innerHTML = `The ${inputName} must be a valid date`;
 
       } else {
-        const inputDate = inputValue.split(/\D/);
-        const inputYear = Number(inputDate[0]);
-        const inputMonth = Number(inputDate[1]) - 1;
-        const inputDay = Number(inputDate[2]);
+        const inputDate: Array<string> = inputValue.split(/\D/);
+        const inputYear: number = Number(inputDate[0]);
+        const inputMonth: number = Number(inputDate[1]) - 1;
+        const inputDay: number = Number(inputDate[2]);
 
-        const inputDateTime = new Date(inputYear, inputMonth, inputDay).getTime();
+        const inputDateTime: number = new Date(inputYear, inputMonth, inputDay).getTime();
 
         if (inputDateTime < minDateTime || (inputYear < 100 && min.year >= 100)) {
-          const minDate = `${min.day}/${min.month}/${min.year}`;
+          const minDate: string = `${min.day}/${min.month}/${min.year}`;
           messageContainer.innerHTML = `The ${inputName} must greater than ${minDate}`;
 
         } else if (inputDateTime > maxDateTime) {
-          const maxDate = `${max.day}/${max.month}/${max.year}`;
+          const maxDate: string = `${max.day}/${max.month}/${max.year}`;
           messageContainer.innerHTML = `The ${inputName} must lesser than ${maxDate}`;
 
         } else {
@@ -256,24 +256,24 @@ export class FormValidator {
     }
 
     input.addEventListener('blur', validateDate);
-    input.addEventListener('keypress', (event) => {
+    input.addEventListener('keypress', (event: KeyboardEvent) => {
       if (event.key === 'Enter') {
         validateDate();
       };
     });
   }
 
-  addRetypeInputValidator(
+  public addRetypeInputValidator(
     modelInput: HTMLInputElement,
     modelInputName: string,
     input: HTMLInputElement,
     inputName: string,
     messageContainer: HTMLElement
-  ) {
+  ): void {
     this.inputList.push(input);
-    let startCheck = false;
+    let startCheck: boolean = false;
 
-    let check;
+    let check: boolean;
 
     const checkRetype = () => {
       check = (input.value === modelInput.value);
@@ -289,7 +289,7 @@ export class FormValidator {
         check,
       );
       this.changeButtonStatus();
-    }
+    };
 
     modelInput.addEventListener('change', () => {
       if (startCheck === true) {
@@ -303,7 +303,7 @@ export class FormValidator {
     });
   }
 
-  checkDuplicateValidator(
+  public checkDuplicateValidator(
     input: HTMLInputElement,
     inputName: string,
     messageContainer: HTMLElement,
@@ -311,14 +311,14 @@ export class FormValidator {
     expectedResult = Boolean(),
     ignoreCase = Boolean(),
     validateOverride = Boolean()
-  ) {
+  ): void {
     input.setAttribute(
       'data-duplicate',
       JSON.stringify(dataList)
     );
 
     const checkDuplicate = (inputValue: string) => {
-      const data = JSON.parse(input.dataset.duplicate);
+      const data: any = JSON.parse(input.dataset.duplicate);
 
       if (ignoreCase === true) {
         inputValue = inputValue.toLowerCase();
@@ -327,7 +327,7 @@ export class FormValidator {
         });
       };
 
-      let check;
+      let check: boolean;
       if (expectedResult === true) {
         check = false;
         data.forEach((value: string) => {
@@ -374,12 +374,12 @@ export class FormValidator {
       });
     };
   }
-  changeDuplicateValue(
+  public changeDuplicateValue(
     input: HTMLInputElement,
     value: string,
     exist: boolean
-  ) {
-    const dataList = JSON.parse(input.dataset.duplicate);
+  ): void {
+    const dataList: any = JSON.parse(input.dataset.duplicate);
 
     if (exist === true) {
       dataList.push(value);
@@ -394,10 +394,10 @@ export class FormValidator {
     );
   }
 
-  createSubmitButtonEvent(
+  public createSubmitButtonEvent(
     passedEvent: Function,
     lockSubmitBtn: boolean
-  ) {
+  ): void {
     if (lockSubmitBtn === true) {
       this.submitButton.setAttribute('disabled', 'true');
     } else {
@@ -408,7 +408,7 @@ export class FormValidator {
       });
     };
 
-    this.submitButton.addEventListener('click', (event) => {
+    this.submitButton.addEventListener('click', (event: SubmitEvent) => {
       event.preventDefault();
 
       if (this.checkValidate === true) {
@@ -417,7 +417,7 @@ export class FormValidator {
     });
   }
 
-  resetForm(form: HTMLFormElement) {
+  public resetForm(form: HTMLFormElement): void {
     form.reset();
 
     this.inputList.forEach((input: HTMLInputElement) => {

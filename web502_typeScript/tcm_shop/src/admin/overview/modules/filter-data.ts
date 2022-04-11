@@ -1,13 +1,13 @@
-import filterInformation from "../interfaces/filterInformation";
+import filterInformation from "../../interfaces/filterInformation";
 
 export const filterData = (
-  data = [Object()],
+  data: Array<{ [key: string]: any }>,
   filterInformation: filterInformation
-) => {
-  const copyData = JSON.parse(JSON.stringify(data)); // deep clone
+): any => {
+  const copyData: any = JSON.parse(JSON.stringify(data)); // deep clone
   const filterDataBySearch = (item: { [key: string]: any }) => {
-    const searchMode = filterInformation.searchMode;
-    const searchColumn = filterInformation.searchColumn;
+    const searchMode: string = filterInformation.searchMode;
+    const searchColumn: string = filterInformation.searchColumn;
     let columnValue: string;
     if (isNaN(item[searchColumn])) {
       columnValue = item[searchColumn].toLowerCase();
@@ -16,10 +16,10 @@ export const filterData = (
       columnValue = item[searchColumn]
     };
 
-    let isPassed = true;
+    let isPassed: boolean = true;
 
     if (searchMode === 'searchByValue') {
-      const searchValue = filterInformation.searchValue.toLowerCase();
+      const searchValue: string = filterInformation.searchValue.toLowerCase();
       columnValue = columnValue.toString();
 
       if (searchValue !== '') {
@@ -33,8 +33,8 @@ export const filterData = (
         });
       };
     } else if (searchMode === 'searchByMinMax') {
-      const searchMin = filterInformation.searchMinValue.toLowerCase();
-      const searchMax = filterInformation.searchMaxValue.toLowerCase();
+      const searchMin: string = filterInformation.searchMinValue.toLowerCase();
+      const searchMax: string = filterInformation.searchMaxValue.toLowerCase();
 
       if (
         (
@@ -62,10 +62,10 @@ export const filterData = (
   };
 
   const result = (() => {
-    const result = copyData.filter(filterDataBySearch);
+    const result: any = copyData.filter(filterDataBySearch);
     result.sort((a: { [key: string]: any }, b: { [key: string]: any }) => {
-      const orderRule = filterInformation.orderRule;
-      const orderColumn = filterInformation.orderColumn;
+      const orderRule: 'ASC' | 'DESC' = filterInformation.orderRule;
+      const orderColumn: string = filterInformation.orderColumn;
 
       if (orderRule === 'ASC') {
         return (a[orderColumn] > b[orderColumn]) ? 1 : -1;
@@ -82,12 +82,12 @@ export const filterData = (
 };
 
 export const sliceData = (
-  result = [Object()],
+  result: Array<{ [key: string]: any }>,
   filterInformation: filterInformation
-) => {
-  const startIndex =
+): any => {
+  const startIndex: number =
     (filterInformation.pageNum - 1) * filterInformation.resultQuantity;
-  const endIndex = startIndex + Number(filterInformation.resultQuantity);
+  const endIndex: number = startIndex + Number(filterInformation.resultQuantity);
 
   return result.slice(
     startIndex,
@@ -97,7 +97,7 @@ export const sliceData = (
 
 import {
   ToastCreator
-} from '../../../class/toast-creator.js';
+} from '../../../class/toast-creator';
 const tableDataToastify = new ToastCreator(
   'bottom',
   16,
@@ -106,10 +106,10 @@ const tableDataToastify = new ToastCreator(
 );
 export const filterDataToastify = (
   resultQuantity: number,
-  changePageNum = Boolean(),
+  changePageNum: boolean,
   pageNum: number,
-) => {
-  const toastifyDisplayTime = 2;
+): void => {
+  const toastifyDisplayTime: number = 2;
   if (changePageNum === false) {
     if (resultQuantity > 0) {
       tableDataToastify.createToast(

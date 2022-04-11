@@ -1,27 +1,28 @@
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../class/custom-select-creator';
 import {
   DataReader,
   DataUpdater
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   FormValidator
-} from '../../class/form-validator.js';
+} from '../../class/form-validator';
 import {
   ToastCreator
-} from '../../class/toast-creator.js';
+} from '../../class/toast-creator';
+import { Category } from '../interfaces/dataItem';
 
-const toastCreator = new ToastCreator(
+const toastCreator: ToastCreator = new ToastCreator(
   'bottom',
   16,
   'right',
   16
 );
 
-const pageUrl = location.href;
-const fetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
-const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
+const pageUrl: string = location.href;
+const fetchLinkPrefix: string = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+const id: string = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
 const formObject = {
   form: <HTMLFormElement>document.querySelector('#updateCategoryForm'),
@@ -33,7 +34,7 @@ const formObject = {
 
 const createCustomDisplayStatusSelect = (
   categoryDisplay: string
-) => {
+): void => {
   const categoryDisplaySelect = formObject.categoryDisplay;
   const categoryDisplaySelectContainer: HTMLElement =
     categoryDisplaySelect.querySelector('.custom-select-list');
@@ -41,7 +42,7 @@ const createCustomDisplayStatusSelect = (
     categoryDisplaySelect.querySelector('.custom-select-text');
   const categoryDisplaySelectLabelList: NodeListOf<HTMLElement> =
     document.querySelectorAll('[for=categoryDisplay]');
-  const categoryDisplaySelectCreator = new CustomSelectCreator(
+  const categoryDisplaySelectCreator: CustomSelectCreator = new CustomSelectCreator(
     categoryDisplaySelect,
     'active',
     categoryDisplaySelectContainer,
@@ -53,8 +54,8 @@ const createCustomDisplayStatusSelect = (
     categoryDisplaySelectCreator.createLabelPointer(label);
   });
 
-  const displayStatus = ['Show', 'Hide'];
-  displayStatus.forEach((item) => {
+  const displayStatus: Array<string> = ['Show', 'Hide'];
+  displayStatus.forEach((item: string) => {
     categoryDisplaySelectCreator.addOptionItem(
       item,
       [{
@@ -76,15 +77,15 @@ const createFormValidator = (
   categoryOrder: string,
   categoryDisplay: string,
   categoryProductQuantity: number
-) => {
-  const formValidator = new FormValidator(
+): void => {
+  const formValidator: FormValidator = new FormValidator(
     formObject.submitButton,
     'd-none',
     'is-invalid',
     'is-valid',
   );
 
-  (function validateCategoryName() {
+  (function validateCategoryName(): void {
     const categoryNameMessageContainer: HTMLElement =
       formObject.categoryName.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -100,8 +101,8 @@ const createFormValidator = (
       characters include , ' " : - ; _ + . |`,
     );
 
-    (function checkCategoryNameDuplicateValidator() {
-      const dataReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
+    (function checkCategoryNameDuplicateValidator(): void {
+      const dataReader: DataReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
       dataReader.readData((fullData: { [key: string]: any }) => {
         const dataList = (() => {
           const dataList: Array<string> = [];
@@ -129,7 +130,7 @@ const createFormValidator = (
     })();
   })();
 
-  (function validateCategoryOrder() {
+  (function validateCategoryOrder(): void {
     const categoryOrderMessageContainer: HTMLElement =
       formObject.categoryOrder.parentElement.parentElement.querySelector('.invalid-feedback');
     formValidator.addNumberInputValidator(
@@ -142,24 +143,24 @@ const createFormValidator = (
     );
   })();
 
-  (function createSubmitUpdateCategoryEvent() {
-    const dataUpdater = new DataUpdater(fetchLinkPrefix);
+  (function createSubmitUpdateCategoryEvent(): void {
+    const dataUpdater: DataUpdater = new DataUpdater(fetchLinkPrefix);
 
-    const submitUpdateEvent = () => {
-      const updateSuccessFn = () => {
+    const submitUpdateEvent = (): void => {
+      const updateSuccessFn = (): void => {
         toastCreator.createToast(
           'success',
           `Update category completed \n Category name: ${formObject.categoryName.value}`,
           2
         );
 
-        const oldCategoryName = categoryName;
+        const oldCategoryName: string = categoryName;
         categoryName = formObject.categoryName.value;
         categoryOrder = formObject.categoryOrder.value;
         categoryDisplay = formObject.categoryDisplay.getAttribute('value');
 
         let toastSetTimeout: NodeJS.Timeout;
-        const updateProductCategorySuccessFn = () => {
+        const updateProductCategorySuccessFn = (): void => {
           clearTimeout(toastSetTimeout);
 
           toastSetTimeout = setTimeout(() => {
@@ -170,7 +171,7 @@ const createFormValidator = (
             );
           }, 100);
         };
-        const updateProductCategoryFailedFn = () => {
+        const updateProductCategoryFailedFn = (): void => {
           clearTimeout(toastSetTimeout);
 
           toastSetTimeout = setTimeout(() => {
@@ -182,20 +183,24 @@ const createFormValidator = (
           }, 100);
         };
 
-        (function updateOverideProductsCategory(categoryName: string) {
-          const productsFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
-          const categoryNameColumnKey = 'ProductCategory';
-          const productsInformationReader = new DataReader(productsFetchLink);
+        (function updateOverideProductsCategory(categoryName: string): void {
+          const productsFetchLink: string 
+            = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+          const categoryNameColumnKey: string 
+            = 'ProductCategory';
+          const productsInformationReader: DataReader = new DataReader(productsFetchLink);
 
-          const productCategoryFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
-          const productCategoryDataUpdater = new DataUpdater(productCategoryFetchLinkPrefix);
+          const productCategoryFetchLinkPrefix: string 
+            = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
+          const productCategoryDataUpdater: DataUpdater 
+            = new DataUpdater(productCategoryFetchLinkPrefix);
 
           const updateProductCategory = (
             firebaseKey: string,
             categoryName: string
-          ) => {
-            const productCategorySuffixes = firebaseKey + '/' + categoryNameColumnKey;
-            const newCategoryName = `"${categoryName}"`;
+          ): void => {
+            const productCategorySuffixes: string = firebaseKey + '/' + categoryNameColumnKey;
+            const newCategoryName: string = `"${categoryName}"`;
 
             productCategoryDataUpdater.updateData(
               productCategorySuffixes,
@@ -215,7 +220,7 @@ const createFormValidator = (
         })(categoryName);
       };
 
-      const updateFailedFn = () => {
+      const updateFailedFn = (): void => {
         toastCreator.createToast(
           'danger',
           'Update category failed',
@@ -258,15 +263,9 @@ const createFormValidator = (
   })();
 };
 
-interface category {
-  CategoryName: string,
-  CategoryOrder: number,
-  CategoryDisplay: string,
-  CategoryProductQuantity: number
-};
 window.addEventListener('load', () => {
   const categoryInformationReader = new DataReader(fetchLinkPrefix + id);
-  categoryInformationReader.readData((category: category) => {
+  categoryInformationReader.readData((category: Category) => {
     formObject.categoryName.value = category.CategoryName;
     formObject.categoryOrder.value = String(category.CategoryOrder);
     createCustomDisplayStatusSelect(category.CategoryDisplay);

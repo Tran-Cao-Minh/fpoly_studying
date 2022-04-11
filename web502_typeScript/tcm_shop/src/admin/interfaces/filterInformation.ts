@@ -1,4 +1,4 @@
-export default interface filterInformation {
+export default interface FilterInformation {
   'columnList': Array<string>,
   'searchValue': string,
   'searchMinValue': string,
@@ -6,7 +6,7 @@ export default interface filterInformation {
   'searchMode': 'searchByValue' | 'searchByMinMax',
   'searchColumn': string,
   'orderColumn': string,
-  'orderRule': string,
+  'orderRule': 'ASC' | 'DESC',
   'resultQuantity': number,
   'pageNum': number
 };

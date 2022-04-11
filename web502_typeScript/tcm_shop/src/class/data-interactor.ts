@@ -1,6 +1,7 @@
 class DataInteractor {
-  fetchLink: string;
-  fetchMethod: string;
+  protected fetchLink: string;
+  protected fetchMethod: string;
+
   constructor(
     fetchLink: string,
     fetchMethod: string
@@ -14,26 +15,26 @@ export class DataReader extends DataInteractor {
   constructor(
     fetchLink: string
   ) {
-    super(`${fetchLink}.json`, 'GET');
+    super(`${fetchLink}on`, 'GET');
   }
 
-  readData(
-    callbackFn = Function(),
-  ) {
+  public readData(
+    callbackFn: (data: any) => any ,
+  ): void {
     fetch(this.fetchLink, {
       method: this.fetchMethod,
     })
-      .then((res) => {
+      .then((res: Response) => {
         if (!res.ok) {
           throw new Error('Error = ' + res.status);
         };
 
         return res.json();
 
-      }).then((data) => {
+      }).then((data: any) => {
         callbackFn(data);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log('error: ' + error);
       });
   }
@@ -46,27 +47,27 @@ export class DataDeleter extends DataInteractor {
     super(fetchLink, 'DELETE');
   }
 
-  deleteData(
+  public deleteData(
     id: string,
-    callbackFn = Function(),
-  ) {
-    const fetchLink = `${this.fetchLink}/${id}.json`;
+    callbackFn: (data: any) => any,
+  ): void {
+    const fetchLink: string = `${this.fetchLink}/${id}on`;
     // console.log(fetchLink);
 
     fetch(fetchLink, {
       method: this.fetchMethod,
     })
-      .then((res) => {
+      .then((res: Response) => {
         if (!res.ok) {
           throw new Error('error = ' + res.status);
         };
 
         return res.json();
 
-      }).then((data) => {
+      }).then((data: any) => {
         callbackFn(data);
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log('error: ' + error);
       });
   }
@@ -77,16 +78,16 @@ export class DataAdder extends DataInteractor {
     super(fetchLink, 'POST');
   }
 
-  addData(
-    formData = Object(),
-    successFn = Function(),
-    failedFn = Function()
-  ) {
-    fetch(`${this.fetchLink}.json`, {
+  public addData(
+    formData: string,
+    successFn: Function,
+    failedFn: Function
+  ): void {
+    fetch(`${this.fetchLink}on`, {
       method: this.fetchMethod,
       body: formData
     })
-      .then((res) => {
+      .then((res: Response) => {
         if (!res.ok) {
           failedFn();
           throw new Error('error = ' + res.status);
@@ -97,7 +98,7 @@ export class DataAdder extends DataInteractor {
       }).then(() => {
         successFn();
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log('error: ' + error);
       });
   }
@@ -108,17 +109,17 @@ export class DataUpdater extends DataInteractor {
     super(fetchLink, 'PUT');
   }
 
-  updateData(
+  public updateData(
     id: string,
     formData: Object | string | number,
-    successFn = Function(),
-    failedFn = Function()
-  ) {
-    fetch(`${this.fetchLink + id}.json`, {
+    successFn: Function,
+    failedFn: Function
+  ): void {
+    fetch(`${this.fetchLink + id}on`, {
       method: this.fetchMethod,
       body: JSON.stringify(formData),
     })
-      .then((res) => {
+      .then((res: Response) => {
         if (!res.ok) {
           failedFn();
           throw new Error('error = ' + res.status);
@@ -129,7 +130,7 @@ export class DataUpdater extends DataInteractor {
       }).then(() => {
         successFn();
       })
-      .catch((error) => {
+      .catch((error: Error) => {
         console.log('error: ' + error);
       });
   }

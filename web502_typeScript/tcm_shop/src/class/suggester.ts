@@ -1,6 +1,6 @@
 export class Suggester {
-  suggestData: Array<Object>;
-  keyList: Array<string>;
+  public suggestData: Array<Object>;
+  public keyList: Array<string>;
 
   constructor (
     suggestData: Array<Object>,
@@ -10,53 +10,54 @@ export class Suggester {
     this.keyList = keyList;
   }
 
-  createSuggester (
+  public createSuggester (
     input: HTMLInputElement,
     selectOptionContainer: HTMLElement,
     optionActiveAttribute: string,
     activeClass: string,
     highlightClass: string
-  ) {
-    let currentOptionIndex = 0;
+  ): void {
+    let currentOptionIndex: number = 0;
     let optionList: NodeListOf<HTMLLIElement> = selectOptionContainer.querySelectorAll('li:not([not-access])');
 
-    const changeCustomSelectStatus = (status = Boolean()) => {
+    const changeCustomSelectStatus = (status: boolean): void => {
       if (status) {
         selectOptionContainer.classList.add(activeClass);
 
       } else {
         selectOptionContainer.classList.remove(activeClass);
-      }
+      };
     };
 
     input.addEventListener('focusout', () => {
       changeCustomSelectStatus(false);
     });
 
-    const escapeRegExp = (str: string) => {
+    const escapeRegExp = (str: string): string => {
       return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
-    }
+    };
 
-    const inputEvent = () => {
+    const inputEvent = (): void => {
       changeCustomSelectStatus(true);
 
-      let suggestResultQuantity = 0;
-      let hidedSuggestQuantity = 0;
-      const maxSuggestResult = 5;
+      let suggestResultQuantity: number = 0;
+      let hidedSuggestQuantity: number = 0;
+      const maxSuggestResult: number = 5;
 
       currentOptionIndex = -1;
 
       selectOptionContainer.innerHTML = '';
-      const searchValue = input.value.trim();
+      const searchValue: string = input.value.trim();
 
       if (searchValue !== '') {
-        const searchValueList = escapeRegExp(searchValue).toLowerCase().split(/\s+/);
+        const searchValueList: Array<string> 
+          = escapeRegExp(searchValue).toLowerCase().split(/\s+/);
 
-        searchValueList.forEach((value, index) => {
-          const currentValue = value;
-          const currentIndex = index;
+        searchValueList.forEach((value: string, index: number) => {
+          const currentValue: string = value;
+          const currentIndex: number = index;
 
-          searchValueList.forEach((value, index) => {
+          searchValueList.forEach((value: string, index: number) => {
             if (
               currentValue.length > value.length &&
               currentValue.includes(value) &&
@@ -86,24 +87,24 @@ export class Suggester {
             checkContain === true &&
             suggestResultQuantity < maxSuggestResult
           ) {
-            let listItemContent = '';
-            this.keyList.forEach((key: keyof typeof dataObject, index: number) => {
+            let listItemContent: string = '';
+            this.keyList.forEach((key: string, index: number) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
               listItemContent += `${dataObject[key]}`;
             });
-            const listItem = document.createElement('li');
+            const listItem: HTMLLIElement = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
             listItem.setAttribute('index', String(suggestResultQuantity));
 
-            let index, startIndex;
+            let index: number, startIndex: number;
             const replacePositionList: Array<{
               index: number,
               length: number
             }> = [];
 
-            searchValueList.forEach(value => {
+            searchValueList.forEach((value: string) => {
               startIndex = 0;
 
               while ((index = listItemContent.toLowerCase().indexOf(value, startIndex)) > -1) {
@@ -116,14 +117,14 @@ export class Suggester {
               };
             });
 
-            const openHightlightTag = `<span class="${highlightClass}">`;
-            const closeHightlightTag = '</span>';
-            let tagLength = 0;
+            const openHightlightTag: string = `<span class="${highlightClass}">`;
+            const closeHightlightTag: string = '</span>';
+            let tagLength: number = 0;
 
             replacePositionList.sort((a, b) => {
               return a.index - b.index;
-            })
-            replacePositionList.forEach((replacePosition) => {
+            });
+            replacePositionList.forEach((replacePosition: { index: number, length: number }) => {
               const index = replacePosition.index + tagLength;
               const length = replacePosition.length;
 
@@ -147,14 +148,14 @@ export class Suggester {
       } else if (searchValue === '') {
         this.suggestData.forEach((dataObject: { [key: string]: any }) => {
           if (suggestResultQuantity < maxSuggestResult) {
-            let listItemContent = '';
+            let listItemContent: string = '';
             this.keyList.forEach((key: string, index: number) => {
               if (index > 0) {
                 listItemContent += ' - ';
               }
               listItemContent += `${dataObject[key]}`;
             });
-            const listItem = document.createElement('li');
+            const listItem: HTMLLIElement = document.createElement('li');
             listItem.setAttribute('value', listItemContent);
             listItem.setAttribute('index', String(suggestResultQuantity));
 
@@ -169,7 +170,7 @@ export class Suggester {
       }
 
       if (hidedSuggestQuantity > 0) {
-        const listItem = document.createElement('li');
+        const listItem: HTMLLIElement = document.createElement('li');
         listItem.innerHTML = `+ ${hidedSuggestQuantity} More`;
         listItem.classList.add('text-center');
         listItem.setAttribute('not-access', '');
@@ -185,8 +186,8 @@ export class Suggester {
     input.addEventListener('input', inputEvent);
     input.addEventListener('focus', inputEvent);
 
-    const changeOptionStatus = (option: HTMLLIElement) => {
-      optionList.forEach(option => {
+    const changeOptionStatus = (option: HTMLLIElement): void => {
+      optionList.forEach((option: HTMLLIElement) => {
         option.removeAttribute(optionActiveAttribute);
       });
       option.setAttribute(optionActiveAttribute, '');
@@ -207,7 +208,7 @@ export class Suggester {
       });
     };
 
-    input.addEventListener('keydown', (event) => {
+    input.addEventListener('keydown', (event: KeyboardEvent) => {
       if (event.key === 'ArrowDown') {
         if (currentOptionIndex < (optionList.length - 1)) {
           currentOptionIndex++;

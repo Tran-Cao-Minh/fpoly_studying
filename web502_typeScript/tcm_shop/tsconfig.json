@@ -1,10 +1,11 @@
 {
   "compilerOptions": {
-    "outDir": "./dist/",
+    "outDir": "./public/javascripts/",
     "noImplicitAny": true,
     "module": "es6",
     "target": "es5",
-    "jsx": "react",
-    "allowJs": true
+    "experimentalDecorators": true,
+    // "jsx": "react",
+    // "allowJs": true
   }
 }

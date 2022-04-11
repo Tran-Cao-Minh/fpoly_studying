@@ -1,15 +1,26 @@
-import 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js';
+import 'https://cdndelivr.net/npm/chart@3.7.1/dist/chart.min';
 declare const Chart: any;
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../class/custom-select-creator';
 import {
   DataReader
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
+
+interface StatisticsOrderItem {
+  orderYear: number,
+  orderMonth: number,
+  orderTotalQuantity: number,
+  orderTotalMoney: number
+};
+interface MonthItem {
+  name: string,
+  value: number
+};
 
 const createCustomYearSelect = (
   orderDateList: Array<string>
-) => {
+): void => {
   const statisticsYearSelect: HTMLElement = document.querySelector('#js-statistics-year');
   const statisticsYearSelectContainer: HTMLElement =
     statisticsYearSelect.querySelector('.custom-select-list');
@@ -17,7 +28,7 @@ const createCustomYearSelect = (
     statisticsYearSelect.querySelector('.custom-select-text');
   const statisticsYearSelectLabel: HTMLElement =
     document.querySelector('[for=js-statistics-year]');
-  const statisticsYearSelectCreator = new CustomSelectCreator(
+  const statisticsYearSelectCreator: CustomSelectCreator = new CustomSelectCreator(
     statisticsYearSelect,
     'active',
     statisticsYearSelectContainer,
@@ -29,8 +40,8 @@ const createCustomYearSelect = (
 
   const orderYearList: Array<number> = [];
   orderDateList.forEach((date: string) => {
-    const orderDate = new Date(date);
-    const orderYear = orderDate.getFullYear();
+    const orderDate: Date = new Date(date);
+    const orderYear: number = orderDate.getFullYear();
 
     if (!orderYearList.includes(orderYear)) {
       orderYearList.push(orderYear);
@@ -56,10 +67,10 @@ const createCustomYearSelect = (
 };
 
 const getStatisticsOrderData = (
-  ordersList = [Object()],
+  ordersList: Array<StatisticsOrderItem>,
   statisticsYearValue: number
-) => {
-  const monthList = [{
+): any => {
+  const monthList: Array<MonthItem> = [{
     name: 'Jan',
     value: 1
   },
@@ -112,11 +123,11 @@ const getStatisticsOrderData = (
   const soldQuantityData: Array<number> = [];
   const totalMoneyData: Array<number> = [];
 
-  monthList.forEach((month = Object()) => {
+  monthList.forEach((month: MonthItem) => {
     let soldQuantity = 0;
     let totalMoney = 0;
 
-    ordersList.forEach((order = Object()) => {
+    ordersList.forEach((order: StatisticsOrderItem) => {
       if (
         order.orderYear === statisticsYearValue &&
         order.orderMonth === month.value
@@ -131,7 +142,7 @@ const getStatisticsOrderData = (
   });
 
   const data = {
-    labels: monthList.map((month = Object()) => month.name),
+    labels: monthList.map((month: MonthItem) => month.name),
     datasets: [{
       label: 'Sold',
       data: soldQuantityData,
@@ -158,10 +169,10 @@ const getStatisticsOrderData = (
 
 const createStatisticsOrderChart = (
   statisticsContainer: HTMLCanvasElement,
-  ordersList = [Object()],
+  ordersList: Array<StatisticsOrderItem>,
   statisticsYearValue: number
-) => {
-  const ctx = statisticsContainer.getContext('2d');
+): any => {
+  const ctx: CanvasRenderingContext2D = statisticsContainer.getContext('2d');
   const data = getStatisticsOrderData(ordersList, statisticsYearValue);
 
   const chartConfig = {
@@ -182,18 +193,12 @@ const createStatisticsOrderChart = (
           ticks: {
             stepSize: 10
           },
-          gridLines: {
-            color: 'blue',
-          },
         },
         Revenue: {
           type: 'linear',
           position: 'right',
           ticks: {
             stepSize: 100
-          },
-          gridLines: {
-            color: '#45f',
           },
         }
       }
@@ -204,37 +209,32 @@ const createStatisticsOrderChart = (
 };
 
 window.addEventListener('load', () => {
-  const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/orders';
-  const ordersInformationReader = new DataReader(fetchLink);
+  const fetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/orders';
+  const ordersInformationReader: DataReader = new DataReader(fetchLink);
   ordersInformationReader.readData((fullData: { [key: string]: any }) => {
-    const ordersList: Array<{
-      orderYear: number
-      orderMonth: number
-      orderTotalQuantity: number
-      orderTotalMoney: number
-    }> = [];
+    const ordersList: Array<StatisticsOrderItem> = [];
 
-    const orderDataColumnKey = 'OrderDate';
+    const orderDataColumnKey: string = 'OrderDate';
     Object.keys(fullData).map((firebaseKey: string) => {
-      const orderDate = new Date(fullData[firebaseKey][orderDataColumnKey]);
-      const orderYear = orderDate.getFullYear();
-      const orderMonth = (orderDate.getMonth() + 1);
-      const orderTotalQuantity = (() => {
-        let total = 0;
+      const orderDate: Date = new Date(fullData[firebaseKey][orderDataColumnKey]);
+      const orderYear: number = orderDate.getFullYear();
+      const orderMonth: number = (orderDate.getMonth() + 1);
+      const orderTotalQuantity: number = (() => {
+        let total: number = 0;
 
-        const orderDetailsColumnKey = 'OrderDetails';
-        const orderItemList = Object.keys(fullData[firebaseKey][orderDetailsColumnKey]).map((orderItemFirebaseKey: string) => {
+        const orderDetailsColumnKey: string = 'OrderDetails';
+        const orderItemList: Array<{ [key: string]: any }> = Object.keys(fullData[firebaseKey][orderDetailsColumnKey]).map((orderItemFirebaseKey: string) => {
           return fullData[firebaseKey][orderDetailsColumnKey][orderItemFirebaseKey];
         });
-        const orderProductQuantityColumnKey = 'ProductQuantity';
-        orderItemList.forEach((product = Object()) => {
+        const orderProductQuantityColumnKey: string = 'ProductQuantity';
+        orderItemList.forEach((product: { [key: string]: any }) => {
           total += product[orderProductQuantityColumnKey];
         });
 
         return total;
       })();
 
-      const orderTotalMoneyColumnKey = 'OrderTotalMoney';
+      const orderTotalMoneyColumnKey: string = 'OrderTotalMoney';
       ordersList.push({
         orderYear,
         orderMonth,
@@ -251,9 +251,9 @@ window.addEventListener('load', () => {
     const statisticsYearSelect: HTMLElement = document.querySelector('#js-statistics-year');
     const chart = createStatisticsOrderChart(statisticsContainer, ordersList, Number(statisticsYearSelect.getAttribute('value')));
 
-    let oldStatisticsYear = Number(statisticsYearSelect.getAttribute('value'));
+    let oldStatisticsYear: number = Number(statisticsYearSelect.getAttribute('value'));
     statisticsYearSelect.addEventListener('DOMSubtreeModified', () => {
-      const statisticsYearValue = Number(statisticsYearSelect.getAttribute('value'));
+      const statisticsYearValue: number = Number(statisticsYearSelect.getAttribute('value'));
       if (statisticsYearValue !== oldStatisticsYear) {
         oldStatisticsYear = statisticsYearValue;
         chart.data = getStatisticsOrderData(ordersList, statisticsYearValue);

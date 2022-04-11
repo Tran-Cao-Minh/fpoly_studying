@@ -2,34 +2,34 @@ import {
   LinkFormatter,
   CurrencyFormatter,
   DateFormatter
-} from '../../class/data-formatter.js';
-import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
+} from '../../class/data-formatter';
+import tablePagingLinkCreator from './modules/table-paging-link-creator';
 
 import {
   filterData,
   sliceData
-} from './modules/filter-data.js';
+} from './modules/filter-data';
 import {
   Suggester
-} from '../../class/suggester.js';
+} from '../../class/suggester';
 import {
   TableCreator
-} from '../../class/table-creator.js';
+} from '../../class/table-creator';
 
 // FETCH LINK, DEFAULT OPTION
-const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/orders';
-const defaultColumnOptionValue = 'CustomerEmail';
+const dataFetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/orders';
+const defaultColumnOptionValue: string = 'CustomerEmail';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
 let data: Array<Object> = []; // must here
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-import filterInformation from './interfaces/filterInformation';
-let filterInformation: filterInformation; // must here
+const searchSuggester: Suggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
+import FilterInformation from '../interfaces/filterInformation';
+let filterInformation: FilterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
-const optionColumnList = [{
+const optionColumnList: Array<OptionColumnItem> = [{
     name: 'Address',
     key: 'OrderAddress',
     type: 'text',
@@ -66,19 +66,20 @@ const optionColumnList = [{
   }
 ];
 
-const tableUpdateLinkFormatter = new LinkFormatter(
+const tableUpdateLinkFormatter: LinkFormatter = new LinkFormatter(
   './update-order/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
-const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
-const dateFormatter = new DateFormatter('en-US', {
+const currencyFormatter: CurrencyFormatter = new CurrencyFormatter('en-US', 'USD');
+const dateFormatter: DateFormatter = new DateFormatter('en-US', {
   year: 'numeric',
   month: '2-digit',
   day: '2-digit'
 });
 
-const tableColumnList = [{
+import TableColumnItem from '../interfaces/tableColumnItem';
+const tableColumnList: Array<TableColumnItem> = [{
     name: 'Name',
     key: 'CustomerName',
     width: 14,
@@ -98,7 +99,7 @@ const tableColumnList = [{
     key: 'OrderDate',
     width: 8,
     formatFunction: (date: string) => {
-      const dateAfterFormat = dateFormatter.formatDate(date);
+      const dateAfterFormat: string = dateFormatter.formatDate(date);
       return dateAfterFormat;
     },
     formatPrameterKeyList: [
@@ -110,7 +111,7 @@ const tableColumnList = [{
     key: 'OrderTotalMoney',
     width: 7,
     formatFunction: (number: number) => {
-      const total = currencyFormatter.formatCurrency(number);
+      const total: string = currencyFormatter.formatCurrency(number);
       return total;
     },
     formatPrameterKeyList: [
@@ -122,7 +123,7 @@ const tableColumnList = [{
     key: 'OrderStatus',
     width: 9,
     formatFunction: (status: string) => {
-      let statusWithColor = '';
+      let statusWithColor: string = '';
 
       switch (status) {
         case 'Completed':
@@ -138,7 +139,7 @@ const tableColumnList = [{
           statusWithColor = `<span class="text-danger fw-bold">${status}</span>`;
           break;
         default:
-          statusWithColor = 'Not have this case in overview/order.js';
+          statusWithColor = 'Not have this case in overview/order';
       };
 
       return statusWithColor;
@@ -167,7 +168,7 @@ const addTableButtonEvent: Function | null = null;
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable: HTMLElement = document.querySelector('#js-data-table');
+const dataTable: HTMLTableElement = document.querySelector('#js-data-table');
 const tableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
@@ -183,17 +184,18 @@ tableColumnList.forEach((column) => {
 // GENERAL
 import {
   DataReader
-} from '../../class/data-interactor.js';
-import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
-import searchAssistantCreator from './modules/create-search-assistant.js';
+} from '../../class/data-interactor';
+import adminFilterCustomSelectCreator from './modules/create-custom-select';
+import searchAssistantCreator from './modules/create-search-assistant';
 import {
   filterDataToastify
-} from './modules/filter-data.js';
-import getDataArrayFormat from './modules/convert-data-to-array.js';
-import createFilterEvent from './modules/create-filter-event.js';
-import createFilterInformation from './modules/filter-information.js';
+} from './modules/filter-data';
+import getDataArrayFormat from './modules/convert-data-to-array';
+import createFilterEvent from './modules/create-filter-event';
+import createFilterInformation from './modules/filter-information';
+import OptionColumnItem from '../interfaces/optionColumnItem';
 
-(function createAdminFilterCustomSelectCreator() {
+(function createAdminFilterCustomSelectCreator(): void {
   adminFilterCustomSelectCreator(
     optionColumnList,
     defaultColumnOptionValue
@@ -213,11 +215,11 @@ tableDataReader.readData((fullData: { [key: string]: any }) => {
   // console.log(data);
 
   const changeTableData = (
-    filterInformation = Object(),
-    changePageNum = Boolean(),
-  ) => {
-    const result = filterData(data, filterInformation);
-    const displayedData = sliceData(result, filterInformation);
+    filterInformation: FilterInformation,
+    changePageNum: boolean,
+  ): void => {
+    const result: any = filterData(data, filterInformation);
+    const displayedData: any = sliceData(result, filterInformation);
     tableCreator.convertData(displayedData);
 
     // console.log(filterInformation);

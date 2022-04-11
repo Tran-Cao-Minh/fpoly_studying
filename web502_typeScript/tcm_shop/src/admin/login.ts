@@ -1,7 +1,7 @@
 import {
   FormValidator
-} from '../class/form-validator.js';
-import { DataReader } from '../class/data-interactor.js';
+} from '../class/form-validator';
+import { DataReader } from '../class/data-interactor';
 
 const formObject = {
   form: document.querySelector('#loginForm'),
@@ -10,14 +10,14 @@ const formObject = {
   submitButton: <HTMLButtonElement>document.querySelector('#submitLogin')
 };
 
-const formValidator = new FormValidator(
+const formValidator: FormValidator = new FormValidator(
   formObject.submitButton,
   'd-none',
   'is-invalid',
   'is-valid',
 );
 
-(function validateUserName () {
+(function validateUserName (): void {
   const userNameMessageContainer: HTMLElement =
     formObject.userName.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -34,7 +34,7 @@ const formValidator = new FormValidator(
   );
 })();
 
-(function validateUserPassword () {
+(function validateUserPassword (): void {
   const userPasswordMessageContainer: HTMLElement =
     formObject.userPassword.parentElement.parentElement.querySelector('.invalid-feedback');
   formValidator.addTextInputValidator(
@@ -50,26 +50,26 @@ const formValidator = new FormValidator(
   );
 })();
 
-(function createSubmitLoginEvent() {
-  const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/users';
-  const dataReader = new DataReader(fetchLink);
+(function createSubmitLoginEvent(): void {
+  const fetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/users';
+  const dataReader: DataReader = new DataReader(fetchLink);
 
   const submitLoginEvent = () => {
-    const userName = formObject.userName.value;
-    const userPassword = formObject.userPassword.value;
-    const notification = <HTMLSpanElement>document.querySelector('#js-login-notification');
+    const userName: string = formObject.userName.value;
+    const userPassword: string = formObject.userPassword.value;
+    const notification: HTMLSpanElement = document.querySelector('#js-login-notification');
     
     dataReader.readData((fullData = Object()) => {
-      const userNameColumnKey = 'UserName';
-      const userPasswordColumnKey = 'UserPassword';
-      const userRoleColumnKey = 'UserRole';
-      const ADMIN_ROLE = 'Admin';
+      const userNameColumnKey: string = 'UserName';
+      const userPasswordColumnKey: string = 'UserPassword';
+      const userRoleColumnKey: string = 'UserRole';
+      enum Role { ADMIN = 'Admin' };
     
       Object.keys(fullData).map((fireBaseKey: string) => {
         if (
           fullData[fireBaseKey][userNameColumnKey] === userName &&
           fullData[fireBaseKey][userPasswordColumnKey] === userPassword &&
-          fullData[fireBaseKey][userRoleColumnKey] === ADMIN_ROLE
+          fullData[fireBaseKey][userRoleColumnKey] === Role.ADMIN
         ) {
           sessionStorage.setItem('userName', userName);
           sessionStorage.setItem('userPassword', userPassword);

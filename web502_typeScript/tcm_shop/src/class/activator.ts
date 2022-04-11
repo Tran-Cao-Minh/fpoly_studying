@@ -1,5 +1,5 @@
 class Activator {
-  activeClass: string;
+  protected activeClass: string;
 
   constructor(
     activeClass: string
@@ -9,7 +9,7 @@ class Activator {
 };
 
 export class SingleActivator extends Activator {
-  targetElement: HTMLElement;
+  private targetElement: HTMLElement;
 
   constructor(
     activeClass: string,
@@ -19,18 +19,18 @@ export class SingleActivator extends Activator {
     this.targetElement = targetElement;
   }
 
-  createEvent(
+  public createEvent(
     element: HTMLElement,
     event: string,
-  ) {
+  ): void {
     element.addEventListener(event, () => {
       this.targetElement.classList.toggle(this.activeClass);
-    })
+    });
   }
 };
 
 export class MultipleActivator extends Activator {
-  targetElementList: NodeListOf<HTMLElement>;
+  private targetElementList: NodeListOf<HTMLElement>;
 
   constructor(
     activeClass: string,
@@ -40,15 +40,15 @@ export class MultipleActivator extends Activator {
     this.targetElementList = targetElementList;
   }
 
-  createEvent (
+  public createEvent (
     element: HTMLElement,
     event: string,
-  ) {
+  ): void {
     element.addEventListener(event, () => {
       this.targetElementList.forEach((elementItem: HTMLElement) => {
         elementItem.classList.remove(this.activeClass);
       });
       element.classList.toggle(this.activeClass);
-    })
+    });
   }
 };

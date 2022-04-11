@@ -1,21 +1,21 @@
-interface tableColumnItem {
-  name: string, 
-  key: string,
-  width: number,
-  formatFunction?: Function,
-  formatPrameterKeyList?: Array<string>,
+interface TableColumnItem {
+  readonly name: string, 
+  readonly key: string,
+  readonly width: number,
+  readonly formatFunction?: Function,
+  readonly formatPrameterKeyList?: Array<string>,
 };
 
 export class TableCreator {
-  tableContainer: HTMLElement;
-  addTableButtonEvent: Function | null;
-  tableColumnList: Array<tableColumnItem>;
-  widthUnit: 'rem' | 'px';
+  private tableContainer: HTMLTableElement;
+  private addTableButtonEvent: Function | null;
+  private tableColumnList: Array<TableColumnItem>;
+  private widthUnit: 'rem' | 'px';
 
   constructor (
-    tableContainer: HTMLElement,
+    tableContainer: HTMLTableElement,
     addTableButtonEvent: Function | null,
-    tableColumnList: Array<tableColumnItem>,
+    tableColumnList: Array<TableColumnItem>,
     widthUnit: 'rem' | 'px'
   ) {
     this.tableContainer = tableContainer;
@@ -24,39 +24,37 @@ export class TableCreator {
     this.widthUnit = widthUnit;
   }
 
-  convertData = (data: Array<{ [key: string]: any }>) => {
+  public convertData = (data: Array<{ [key: string]: any }>): void => {
     this.tableContainer.innerHTML = '';
-    const tableColumnList = this.tableColumnList;
-    const widthUnit = this.widthUnit;
 
     const tableHeader = (() => {
-      const tableRow = document.createElement('tr');
-      tableColumnList.forEach(column => {
-        const th = document.createElement('th');
+      const tableRow: HTMLTableRowElement = document.createElement('tr');
+      this.tableColumnList.forEach((column: TableColumnItem) => {
+        const th: HTMLTableCellElement = document.createElement('th');
         th.style.width = column.width + this.widthUnit;
         th.innerHTML = column.name;
   
         tableRow.appendChild(th);
       });
-      const tableHeader = document.createElement('thead');
+      const tableHeader: HTMLTableSectionElement = document.createElement('thead');
       tableHeader.appendChild(tableRow);
 
       return tableHeader;
     })();
 
     const tableBody = (() => {
-      const tableBody = document.createElement('tbody');
+      const tableBody: HTMLTableSectionElement = document.createElement('tbody');
 
-      const rowQuantity = data.length;
+      const rowQuantity: number = data.length;
       if (rowQuantity === 0) {
-        const tableRow = document.createElement('tr');
+        const tableRow: HTMLTableRowElement = document.createElement('tr');
   
-        const td = document.createElement('td');
-        let fullWidth = 0;
-        tableColumnList.forEach(column => {
+        const td: HTMLTableCellElement = document.createElement('td');
+        let fullWidth: number = 0;
+        this.tableColumnList.forEach((column: TableColumnItem) => {
           fullWidth += column.width;
         });
-        td.style.width = fullWidth + widthUnit;
+        td.style.width = fullWidth + this.widthUnit;
         td.style.textAlign = 'center';
         td.innerHTML = 'NO DATA MATCHES THE FILTER CONDITION ~';
   
@@ -64,15 +62,15 @@ export class TableCreator {
         tableBody.appendChild(tableRow);
   
       } else if (rowQuantity > 0) {
-        (function changeDataWithFormat() {
+        (() => { // changeDataWithFormat
           data.forEach((row: { [key: string]: any }) => {
-            tableColumnList.forEach((column) => {
+            this.tableColumnList.forEach((column: TableColumnItem) => {
               if (
                 column.formatFunction !== undefined &&
                 column.formatPrameterKeyList.length === 1
               ) {
-                const columnFormatKey = column.formatPrameterKeyList[0];
-                const columnWithFormat =
+                const columnFormatKey: string = column.formatPrameterKeyList[0];
+                const columnWithFormat: string =
                   column.formatFunction(row[columnFormatKey]);
     
                 row[column.key] = columnWithFormat;
@@ -92,13 +90,13 @@ export class TableCreator {
           });
         })();
   
-        (function addTableBodyData () {
+        (() => { // addTableBodyData
           data.forEach((row: { [key: string]: any }) => {
-            const tableRow = document.createElement('tr');
+            const tableRow: HTMLTableRowElement = document.createElement('tr');
     
-            tableColumnList.forEach(column => {
+            this.tableColumnList.forEach((column: TableColumnItem) => {
               const td = document.createElement('td');
-              td.style.width = column.width + widthUnit;
+              td.style.width = column.width + this.widthUnit;
               td.innerHTML = row[column.key];
     
               tableRow.appendChild(td);

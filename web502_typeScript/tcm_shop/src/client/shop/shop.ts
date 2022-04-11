@@ -1,12 +1,12 @@
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../class/custom-select-creator';
 import {
   DataReader
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   CurrencyFormatter
-} from '../../class/data-formatter.js';
+} from '../../class/data-formatter';
 
 let defaultOrderBy = 'ProductViews';
 let defaultOrderRule = 'ASC';
@@ -292,5 +292,5 @@ window.addEventListener('load', function createFilterInput() {
 
 import {
   createFlexibleAside
-} from './flexible-aside.js';
+} from './flexible-aside';
 createFlexibleAside();

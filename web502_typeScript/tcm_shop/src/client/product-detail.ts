@@ -1,14 +1,14 @@
 import {
   DataReader,
   DataUpdater
-} from '../class/data-interactor.js';
+} from '../class/data-interactor';
 import {
   ToastCreator
-} from '../class/toast-creator.js';
+} from '../class/toast-creator';
 import {
   CurrencyFormatter,
   DateFormatter
-} from '../class/data-formatter.js';
+} from '../class/data-formatter';
 
 const pageUrl = location.href;
 const fetchLinkPrefix = 'http://localhost:3000/product/shop/';

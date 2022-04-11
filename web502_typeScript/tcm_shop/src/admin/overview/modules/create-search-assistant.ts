@@ -1,33 +1,33 @@
 import {
   SingleActivator
-} from '../../../class/activator.js';
+} from '../../../class/activator';
 import {
   DataReader
-} from '../../../class/data-interactor.js';
+} from '../../../class/data-interactor';
 
 const searchInputContainer: HTMLElement = document.querySelector('#js-search-input-container');
-const searchInputModeChanger = new SingleActivator('active', searchInputContainer);
-const changeModeInputList: NodeListOf<HTMLElement> = document.querySelectorAll('[name=searchMode]');
-changeModeInputList.forEach((input) => {
+const searchInputModeChanger: SingleActivator = new SingleActivator('active', searchInputContainer);
+const changeModeInputList: NodeListOf<HTMLInputElement> = document.querySelectorAll('[name=searchMode]');
+changeModeInputList.forEach((input: HTMLInputElement) => {
   searchInputModeChanger.createEvent(input, 'change');
 });
 
-const searchColumnSelect =
+const searchColumnSelect: HTMLElement =
   document.querySelector('#js-overview-search-column');
-let searchColumnSelectValue = searchColumnSelect.getAttribute('value');
+let searchColumnSelectValue: string = searchColumnSelect.getAttribute('value');
 const searchInputList: NodeListOf<HTMLInputElement> = document.querySelectorAll('[id*="js-overview-search-"]');
 
 const searchAssistantCreator = (
   defaultColumnOptionValue: string,
   dataFetchLink: string,
   searchSuggester: { [key: string]: any }
-) => {
-  const tableDataReader = new DataReader(dataFetchLink);
+): void => {
+  const tableDataReader: DataReader = new DataReader(dataFetchLink);
   let fullData: { [key: string]: any };
 
   const getSearchData = (columnKey: string) => {
-    const searchData =
-      Object.keys(fullData).map((key) => {
+    const searchData: Array<{ [key: string]: any }> =
+      Object.keys(fullData).map((key: string) => {
         const row: { [key: string]: any } = {};
         row[columnKey] = fullData[key][columnKey];
         return row;
@@ -39,23 +39,23 @@ const searchAssistantCreator = (
       });
     };
 
-    const uniqueSearchData = searchData.filter((uniqueItem, index, uniqueSearchData) => {
+    const uniqueSearchData: Array<{ [key: string]: any }> = searchData.filter((uniqueItem, index, uniqueSearchData) => {
       return getUniqueIndex(uniqueSearchData, uniqueItem) === index;
     });
 
     return uniqueSearchData;
   };
 
-  (function searchSuggesterInit() {
+  (function searchSuggesterInit(): void {
     tableDataReader.readData((result: { [key: string]: any }) => {
       fullData = result;
-      const searchData = getSearchData(defaultColumnOptionValue);
+      const searchData: Array<{ [key: string]: any }> = getSearchData(defaultColumnOptionValue);
 
       searchSuggester.keyList = [searchColumnSelect.getAttribute('value')];
       searchSuggester.suggestData = searchData;
 
-      const searchByValueInput = document.querySelector('#js-overview-search-value');
-      const searchByValueSuggestContainer = searchByValueInput.parentElement.querySelector('.custom-select-list');
+      const searchByValueInput: HTMLInputElement = document.querySelector('#js-overview-search-value');
+      const searchByValueSuggestContainer: HTMLElement = searchByValueInput.parentElement.querySelector('.custom-select-list');
 
       searchSuggester.createSuggester(
         searchByValueInput,

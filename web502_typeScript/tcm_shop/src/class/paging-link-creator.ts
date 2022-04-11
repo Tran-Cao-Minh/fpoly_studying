@@ -1,13 +1,13 @@
 export class PagingLinkCreator {
-  iconClass: Array<string>;
-  numberClass: Array<string>;
-  firstPageIcon: string;
-  lastPageIcon: string;
-  container: HTMLElement;
-  hideClass: string;
-  itemChoosenAttribute: string;
-  maxPage: number;
-  offset: number;
+  private iconClass: Array<string>;
+  private numberClass: Array<string>;
+  private firstPageIcon: string;
+  private lastPageIcon: string;
+  private container: HTMLElement;
+  private hideClass: string;
+  private itemChoosenAttribute: string;
+  private maxPage: number;
+  private offset: number;
 
   constructor (
     iconClass: Array<string>,
@@ -31,9 +31,9 @@ export class PagingLinkCreator {
     this.offset = (maxPage - 1) / 2;
   }
 
-  getFullClassName (classArray: Array<string>) {
+  private getFullClassName (classArray: Array<string>): string {
     if (classArray.length > 0) {
-      let classValue = '';
+      let classValue: string = '';
       classArray.forEach(item => {
         classValue += ` ${item}`;
       });
@@ -45,20 +45,20 @@ export class PagingLinkCreator {
     };
   }
 
-  changePagingLink (
+  public changePagingLink (
     pageNum: number,
     resultQuantity: number,
     total: number,
     pagingItemEvent: (pageNum: number) => any
-  ) {
-    const pageQuantity = Math.ceil(total / resultQuantity);
+  ): void {
+    const pageQuantity: number = Math.ceil(total / resultQuantity);
 
     if (pageQuantity > 1) {
       this.container.classList.remove(this.hideClass);
       this.container.innerHTML = '';
 
-      const pagingItemClass = this.getFullClassName(this.numberClass);
-      const createPagingItem = (i: number) => {
+      const pagingItemClass: string = this.getFullClassName(this.numberClass);
+      const createPagingItem = (i: number): void => {
         const pagingItem: HTMLLIElement = document.createElement('li');
         pagingItem.setAttribute('class', pagingItemClass);
         pagingItem.innerHTML = String(i);
@@ -81,7 +81,7 @@ export class PagingLinkCreator {
           createPagingItem(i);
         };
       } else if (pageQuantity > this.maxPage) {
-        const pagingItemFirst = document.createElement('li');
+        const pagingItemFirst: HTMLLIElement = document.createElement('li');
         pagingItemFirst.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemFirst.innerHTML = this.firstPageIcon;
         pagingItemFirst.setAttribute('value', '1');
@@ -89,7 +89,7 @@ export class PagingLinkCreator {
           pagingItemEvent(1);
         });
   
-        const pagingItemLast = document.createElement('li');
+        const pagingItemLast: HTMLLIElement = document.createElement('li');
         pagingItemLast.setAttribute('class', this.getFullClassName(this.iconClass));
         pagingItemLast.innerHTML = this.lastPageIcon;
         pagingItemLast.setAttribute('value', String(pageQuantity));

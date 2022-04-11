@@ -1,20 +1,20 @@
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../class/custom-select-creator';
 import {
   DataReader,
   DataAdder,
   DataUpdater
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   FormValidator
-} from '../../class/form-validator.js';
+} from '../../class/form-validator';
 import {
   ToastCreator
-} from '../../class/toast-creator.js';
+} from '../../class/toast-creator';
 import {
   SingleImagePreviewer
-} from '../../class/image-previewer.js';
+} from '../../class/image-previewer';
 
 const toastCreator = new ToastCreator(
   'bottom',
@@ -29,9 +29,9 @@ const formObject = {
   productPublisher: <HTMLInputElement>document.querySelector('#productPublisher'),
   productDimensions: <HTMLInputElement>document.querySelector('#productDimensions'),
   productPublishDate: <HTMLInputElement>document.querySelector('#productPublishDate'),
-  productCategory: document.querySelector('#productCategory'),
-  productTag: document.querySelector('#productTag'),
-  productDisplay: document.querySelector('#productDisplay'),
+  productCategory: <HTMLElement>document.querySelector('#productCategory'),
+  productTag: <HTMLElement>document.querySelector('#productTag'),
+  productDisplay: <HTMLElement>document.querySelector('#productDisplay'),
   productPrice: <HTMLInputElement>document.querySelector('#productPrice'),
   productSalePercent: <HTMLInputElement>document.querySelector('#productSalePercent'),
   productQuantity: <HTMLInputElement>document.querySelector('#productQuantity'),
@@ -42,25 +42,25 @@ const formObject = {
   submitButton: <HTMLButtonElement>document.querySelector('#js-add-data-submit'),
 };
 
-const previewProductImage = () => {
+const previewProductImage = (): void => {
   const productImageInput: HTMLInputElement = document.querySelector('#productImage');
   const productImageFileNameContainer: HTMLElement =
     productImageInput.parentElement.querySelector('[for=productImage]');
   const productImageElement: HTMLImageElement =
-    productImageInput.parentElement.parentElement.querySelector('img.js-preview-image');
+    productImageInput.parentElement.parentElement.querySelector('img-preview-image');
 
-  const productImagePreviewer = new SingleImagePreviewer(productImageInput);
+  const productImagePreviewer: SingleImagePreviewer = new SingleImagePreviewer(productImageInput);
   productImagePreviewer.addShowImageFileNameEvent(productImageFileNameContainer);
   productImagePreviewer.addShowImageEvent(productImageElement);
 };
 
-const createCustomDisplayStatusSelect = () => {
+const createCustomDisplayStatusSelect = (): void => {
   const productDisplaySelect: HTMLElement = document.querySelector('#productDisplay');
   const productDisplaySelectContainer: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-list');
   const productDisplaySelectText: HTMLElement =
     productDisplaySelect.querySelector('.custom-select-text');
-  const productDisplaySelectLabelList =
+  const productDisplaySelectLabelList: NodeListOf<HTMLElement> =
     document.querySelectorAll('[for=productDisplay]');
   const productDisplaySelectCreator = new CustomSelectCreator(
     productDisplaySelect,
@@ -74,8 +74,8 @@ const createCustomDisplayStatusSelect = () => {
     productDisplaySelectCreator.createLabelPointer(label);
   });
 
-  const displayStatus = ['Show', 'Hide'];
-  displayStatus.forEach((item) => {
+  const displayStatus: Array<string> = ['Show', 'Hide'];
+  displayStatus.forEach((item: string) => {
     productDisplaySelectCreator.addOptionItem(
       item,
       [{
@@ -92,7 +92,7 @@ const createCustomDisplayStatusSelect = () => {
   );
 };
 
-const createCustomCategorySelect = () => {
+const createCustomCategorySelect = (): void => {
   const productCategorySelect: HTMLElement = document.querySelector('#productCategory');
   const productCategorySelectContainer: HTMLElement =
     productCategorySelect.querySelector('.custom-select-list');
@@ -100,7 +100,7 @@ const createCustomCategorySelect = () => {
     productCategorySelect.querySelector('.custom-select-text');
   const productCategorySelectLabel: HTMLElement =
     document.querySelector('[for=productCategory]');
-  const productCategorySelectCreator = new CustomSelectCreator(
+  const productCategorySelectCreator: CustomSelectCreator = new CustomSelectCreator(
     productCategorySelect,
     'active',
     productCategorySelectContainer,
@@ -110,13 +110,13 @@ const createCustomCategorySelect = () => {
   );
   productCategorySelectCreator.createLabelPointer(productCategorySelectLabel);
 
-  const categoryDataReader =
+  const categoryDataReader: DataReader =
     new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/categories');
   const categoryNameColumnKey = 'CategoryName';
 
-  categoryDataReader.readData((fullData = Object()) => {
-    Object.keys(fullData).map((firebaseKey) => {
-      const categoryName = fullData[firebaseKey][categoryNameColumnKey];
+  categoryDataReader.readData((fullData: { [key: string]: any }) => {
+    Object.keys(fullData).map((firebaseKey: string) => {
+      const categoryName: string = fullData[firebaseKey][categoryNameColumnKey];
 
       productCategorySelectCreator.addOptionItem(
         categoryName,
@@ -135,7 +135,7 @@ const createCustomCategorySelect = () => {
   });
 };
 
-const createCustomTagSelect = () => {
+const createCustomTagSelect = (): void => {
   const productTagSelect: HTMLElement = document.querySelector('#productTag');
   const productTagSelectContainer: HTMLElement =
     productTagSelect.querySelector('.custom-select-list');
@@ -143,7 +143,7 @@ const createCustomTagSelect = () => {
     productTagSelect.querySelector('.custom-select-text');
   const productTagSelectLabel: HTMLElement =
     document.querySelector('[for=productTag]');
-  const productTagSelectCreator = new CustomSelectCreator(
+  const productTagSelectCreator: CustomSelectCreator = new CustomSelectCreator(
     productTagSelect,
     'active',
     productTagSelectContainer,
@@ -153,8 +153,8 @@ const createCustomTagSelect = () => {
   );
   productTagSelectCreator.createLabelPointer(productTagSelectLabel);
 
-  const productTagList = ['None', 'Hot', 'New'];
-  productTagList.forEach((item) => {
+  const productTagList: Array<string> = ['None', 'Hot', 'New'];
+  productTagList.forEach((item: string) => {
     productTagSelectCreator.addOptionItem(
       item,
       [{
@@ -171,15 +171,15 @@ const createCustomTagSelect = () => {
   );
 }
 
-const createFormValidator = () => {
-  const formValidator = new FormValidator(
+const createFormValidator = (): void => {
+  const formValidator: FormValidator = new FormValidator(
     formObject.submitButton,
     'd-none',
     'is-invalid',
     'is-valid',
   );
 
-  (function validateProductName() {
+  (function validateProductName(): void {
     const productNameMessageContainer: HTMLElement =
       formObject.productName.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -195,12 +195,12 @@ const createFormValidator = () => {
       characters include , ' " : - ; _ + . |`,
     );
 
-    const productNameReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/products');
-    const productNameColumnKey = 'ProductName';
-    productNameReader.readData((fullData = Object()) => {
+    const productNameReader: DataReader = new DataReader('https://tcm-shop-default-rtdb.firebaseio.com/products');
+    const productNameColumnKey: string = 'ProductName';
+    productNameReader.readData((fullData: { [key: string]: any }) => {
       const productNameList: Array<string> = [];
 
-      Object.keys(fullData).map((key) => {
+      Object.keys(fullData).map((key: string) => {
         productNameList.push(fullData[key][productNameColumnKey]);
       });
 
@@ -216,7 +216,7 @@ const createFormValidator = () => {
     }, );
   })();
 
-  (function validateProductPublisher() {
+  (function validateProductPublisher(): void {
     const productPublisherMessageContainer: HTMLElement =
       formObject.productPublisher.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -233,7 +233,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductDimensions() {
+  (function validateProductDimensions(): void {
     const productDimensionsMessageContainer: HTMLElement =
       formObject.productDimensions.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -250,7 +250,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductPublishDate() {
+  (function validateProductPublishDate(): void {
     const productPublishDateMessageContainer: HTMLElement =
       formObject.productPublishDate.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -269,7 +269,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductPrice() {
+  (function validateProductPrice(): void {
     const productPriceMessageContainer: HTMLElement =
       formObject.productPrice.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -283,7 +283,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductSalePercent() {
+  (function validateProductSalePercent(): void {
     const productSalePercentMessageContainer: HTMLElement =
       formObject.productSalePercent.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -297,7 +297,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductQuantity() {
+  (function validateProductQuantity(): void {
     const productQuantityMessageContainer: HTMLElement =
       formObject.productQuantity.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -311,7 +311,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductOrder() {
+  (function validateProductOrder(): void {
     const productOrderMessageContainer: HTMLElement =
       formObject.productOrder.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -325,7 +325,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductPages() {
+  (function validateProductPages(): void {
     const productPagesMessageContainer: HTMLElement =
       formObject.productPages.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -339,7 +339,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductImage() {
+  (function validateProductImage(): void {
     const productImageMessageContainer: HTMLElement =
       formObject.productImage.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -353,7 +353,7 @@ const createFormValidator = () => {
     );
   })();
 
-  (function validateProductDescription() {
+  (function validateProductDescription(): void {
     const productDescriptionMessageContainer: HTMLElement =
       formObject.productDescription.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -368,12 +368,12 @@ const createFormValidator = () => {
     );
   })();
 
-  (function createSubmitAddProductEvent() {
-    const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
-    const dataAdder = new DataAdder(fetchLink);
+  (function createSubmitAddProductEvent(): void {
+    const fetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+    const dataAdder: DataAdder = new DataAdder(fetchLink);
 
     const submitAddEvent = () => {
-      const formData = JSON.stringify({
+      const formData: string = JSON.stringify({
         'ProductName': formObject.productName.value,
         'ProductPublisher': formObject.productPublisher.value,
         'ProductDimensions': formObject.productDimensions.value,
@@ -393,7 +393,7 @@ const createFormValidator = () => {
         'ProductSoldQuantity': 0
       });
 
-      const addSuccessFn = () => {
+      const addSuccessFn = (): void => {
         toastCreator.createToast(
           'success',
           `Add product completed \n Product name: ${formObject.productName.value}`,
@@ -407,26 +407,29 @@ const createFormValidator = () => {
         );
 
         formValidator.resetForm(formObject.form);
-        (function resetImg() {
-          (<HTMLImageElement>formObject.productImage.parentElement.parentElement.querySelector('img.js-preview-image')).src = '/images/base/preview-img.svg';
+        (function resetImg(): void {
+          (<HTMLImageElement>formObject.productImage.parentElement.parentElement.querySelector('img-preview-image')).src = '/images/base/preview-img.svg';
           (<HTMLElement>formObject.productImage.parentElement.querySelector('[for=productImage]')).innerText = 'Choose an image';
         })();
 
-        (function increaseCategoryProductQuantity(categoryName: string) {
-          const categoriesFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
-          const categoryNameColumnKey = 'CategoryName';
-          const categoryProductQuantityColumnKey = 'CategoryProductQuantity';
-          const categoriesInformationReader = new DataReader(categoriesFetchLink);
+        (function increaseCategoryProductQuantity(categoryName: string): void {
+          const categoriesFetchLink: string 
+            = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+          const categoryNameColumnKey: string = 'CategoryName';
+          const categoryProductQuantityColumnKey: string = 'CategoryProductQuantity';
+          const categoriesInformationReader: DataReader = new DataReader(categoriesFetchLink);
 
-          const categoryProductQuantityFetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
-          const categoryProductQuantityDataUpdater = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
+          const categoryProductQuantityFetchLinkPrefix: string 
+            = 'https://tcm-shop-default-rtdb.firebaseio.com/categories/';
+          const categoryProductQuantityDataUpdater: DataUpdater 
+            = new DataUpdater(categoryProductQuantityFetchLinkPrefix);
 
           const updateCategoryProductQuantity = (
             firebaseKey: string,
             categoryProductQuantity: number
           ) => {
-            const categoryProductQuantitySuffixes = firebaseKey + '/' + categoryProductQuantityColumnKey;
-            const newCategoryProductQuantity = categoryProductQuantity + 1;
+            const categoryProductQuantitySuffixes: string = firebaseKey + '/' + categoryProductQuantityColumnKey;
+            const newCategoryProductQuantity: number = categoryProductQuantity + 1;
 
             categoryProductQuantityDataUpdater.updateData(
               categoryProductQuantitySuffixes,
@@ -436,7 +439,7 @@ const createFormValidator = () => {
             );
           };
 
-          const updateCategoryProductQuantitySuccessFn = () => {
+          const updateCategoryProductQuantitySuccessFn = (): void => {
             setTimeout(() => {
               toastCreator.createToast(
                 'success',
@@ -445,7 +448,7 @@ const createFormValidator = () => {
               );
             }, 100);
           };
-          const updateCategoryProductQuantityFailedFn = () => {
+          const updateCategoryProductQuantityFailedFn = (): void => {
             setTimeout(() => {
               toastCreator.createToast(
                 'danger',
@@ -456,7 +459,7 @@ const createFormValidator = () => {
           };
 
           categoriesInformationReader.readData((fullData: { [key: string]: any }) => {
-            Object.keys(fullData).map((firebaseKey) => {
+            Object.keys(fullData).map((firebaseKey: string) => {
               if (fullData[firebaseKey][categoryNameColumnKey] === categoryName) {
                 updateCategoryProductQuantity(
                   firebaseKey,
@@ -468,7 +471,7 @@ const createFormValidator = () => {
         })(formObject.productCategory.getAttribute('value'));
       };
 
-      const addFailedFn = () => {
+      const addFailedFn = (): void => {
         toastCreator.createToast(
           'danger',
           'Add product failed',

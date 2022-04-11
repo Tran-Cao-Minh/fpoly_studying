@@ -1,22 +1,19 @@
 import {
   CustomSelectCreator
-} from '../../../class/custom-select-creator.js';
+} from '../../../class/custom-select-creator';
+import OptionColumnItem from '../../interfaces/optionColumnItem';
 
 const adminFilterCustomSelectCreator = (
-  columnList = [{
-    name: String(),
-    key: String(),
-    type: String()
-  }, ],
+  columnList: Array<OptionColumnItem>,
   defaultColumnOptionValue: string
-) => {
-  (function createSearchColumnCustomSelect() {
+): void => {
+  (function createSearchColumnCustomSelect(): void {
     const searchColumnSelect: HTMLElement = document.querySelector('#js-overview-search-column');
     const searchColumnSelectLabel: HTMLElement = document.querySelector('[for=js-overview-search-column]');
     const searchColumnSelectText: HTMLElement = searchColumnSelect.querySelector('.custom-select-text');
     const searchColumnSelectContainer: HTMLElement = searchColumnSelect.querySelector('.custom-select-list');
 
-    const searchColumnSelectCreator = new CustomSelectCreator(
+    const searchColumnSelectCreator: CustomSelectCreator = new CustomSelectCreator(
       searchColumnSelect,
       'active',
       searchColumnSelectContainer,
@@ -26,7 +23,7 @@ const adminFilterCustomSelectCreator = (
       ],
     );
 
-    columnList.forEach(option => {
+    columnList.forEach((option: OptionColumnItem) => {
       searchColumnSelectCreator.addOptionItem(
         option.name,
         [{
@@ -50,13 +47,13 @@ const adminFilterCustomSelectCreator = (
     );
   })();
 
-  (function createOrderColumnCustomSelect() {
+  (function createOrderColumnCustomSelect(): void {
     const orderColumnSelect: HTMLElement = document.querySelector('#js-overview-order-column');
     const orderColumnSelectLabel: HTMLElement = document.querySelector('[for=js-overview-order-column]');
     const orderColumnSelectText: HTMLElement = orderColumnSelect.querySelector('.custom-select-text');
     const orderColumnSelectContainer: HTMLElement = orderColumnSelect.querySelector('.custom-select-list');
   
-    const orderColumnSelectCreator = new CustomSelectCreator(
+    const orderColumnSelectCreator: CustomSelectCreator = new CustomSelectCreator(
       orderColumnSelect,
       'active',
       orderColumnSelectContainer,
@@ -65,7 +62,7 @@ const adminFilterCustomSelectCreator = (
       ],
     );
   
-    columnList.forEach(option => {
+    columnList.forEach((option: OptionColumnItem) => {
       orderColumnSelectCreator.addOptionItem(
         option.name,
         [{
@@ -84,12 +81,12 @@ const adminFilterCustomSelectCreator = (
     );
   })();
 
-  (function createOrderRuleCustomSelect() {
+  (function createOrderRuleCustomSelect(): void {
     const orderRuleSelect: HTMLElement = document.querySelector('#js-overview-order-rule');
     const orderRuleSelectText: HTMLElement = orderRuleSelect.querySelector('.custom-select-text');
     const orderRuleSelectContainer: HTMLElement = orderRuleSelect.querySelector('.custom-select-list');
   
-    const orderRuleSelectCreator = new CustomSelectCreator(
+    const orderRuleSelectCreator: CustomSelectCreator = new CustomSelectCreator(
       orderRuleSelect,
       'active',
       orderRuleSelectContainer,
@@ -99,7 +96,12 @@ const adminFilterCustomSelectCreator = (
       ],
     );
   
-    const tableOrderRuleList = [{
+    interface OrderRuleItem {
+      descriptionText: string,
+      value: string,
+      style: string,
+    };
+    const tableOrderRuleList: Array<OrderRuleItem> = [{
         descriptionText: 'DESC',
         value: 'DESC',
         style: 'color: var(--text-danger);',
@@ -110,7 +112,7 @@ const adminFilterCustomSelectCreator = (
         style: 'color: var(--text-success);',
       },
     ];
-    tableOrderRuleList.forEach(option => {
+    tableOrderRuleList.forEach((option: OrderRuleItem) => {
       orderRuleSelectCreator.addOptionItem(
         option.descriptionText,
         [{
@@ -140,7 +142,7 @@ const adminFilterCustomSelectCreator = (
     const rowsSelectContainer: HTMLElement =
       rowsSelect.querySelector('.custom-select-list');
   
-    const rowsSelectCreator = new CustomSelectCreator(
+    const rowsSelectCreator: CustomSelectCreator = new CustomSelectCreator(
       rowsSelect,
       'active',
       rowsSelectContainer,
@@ -149,7 +151,11 @@ const adminFilterCustomSelectCreator = (
       ],
     );
   
-    const rowsSelectList = [{
+    interface RowsSelectItem {
+      descriptionText: string,
+      value: string
+    };
+    const rowsSelectList: Array<RowsSelectItem> = [{
         descriptionText: '5 rows',
         value: '5',
       },
@@ -163,7 +169,7 @@ const adminFilterCustomSelectCreator = (
       },
     ];
   
-    rowsSelectList.forEach(option => {
+    rowsSelectList.forEach((option: RowsSelectItem) => {
       rowsSelectCreator.addOptionItem(
         option.descriptionText,
         [{

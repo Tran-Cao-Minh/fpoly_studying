@@ -1,25 +1,25 @@
 import {
   CustomSelectCreator
-} from '../../class/custom-select-creator.js';
+} from '../../class/custom-select-creator';
 import {
   DataReader,
   DataAdder
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   FormValidator
-} from '../../class/form-validator.js';
+} from '../../class/form-validator';
 import {
   ToastCreator
-} from '../../class/toast-creator.js';
+} from '../../class/toast-creator';
 
-const toastCreator = new ToastCreator(
+const toastCreator: ToastCreator = new ToastCreator(
   'bottom',
   16,
   'right',
   16,
 );
 
-const fetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+const fetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
 
 const formObject = {
   form: <HTMLFormElement>document.querySelector('#addCategoryForm'),
@@ -29,15 +29,15 @@ const formObject = {
   submitButton: <HTMLButtonElement>document.querySelector('#js-add-data-submit'),
 };
 
-const createCustomDisplayStatusSelect = () => {
+const createCustomDisplayStatusSelect = (): void => {
   const categoryDisplaySelect: HTMLElement = document.querySelector('#categoryDisplay');
   const categoryDisplaySelectContainer: HTMLElement =
     categoryDisplaySelect.querySelector('.custom-select-list');
   const categoryDisplaySelectText: HTMLElement =
     categoryDisplaySelect.querySelector('.custom-select-text');
-  const categoryDisplaySelectLabelList =
+  const categoryDisplaySelectLabelList: NodeListOf<HTMLElement> =
     document.querySelectorAll('[for=categoryDisplay]');
-  const categoryDisplaySelectCreator = new CustomSelectCreator(
+  const categoryDisplaySelectCreator: CustomSelectCreator = new CustomSelectCreator(
     categoryDisplaySelect,
     'active',
     categoryDisplaySelectContainer,
@@ -49,8 +49,8 @@ const createCustomDisplayStatusSelect = () => {
     categoryDisplaySelectCreator.createLabelPointer(label);
   });
 
-  const displayStatus = ['Show', 'Hide'];
-  displayStatus.forEach((item) => {
+  const displayStatus: Array<string> = ['Show', 'Hide'];
+  displayStatus.forEach((item: string) => {
     categoryDisplaySelectCreator.addOptionItem(
       item,
       [{
@@ -67,15 +67,15 @@ const createCustomDisplayStatusSelect = () => {
   );
 };
 
-const createFormValidator = () => {
-  const formValidator = new FormValidator(
+const createFormValidator = (): void => {
+  const formValidator: FormValidator = new FormValidator(
     formObject.submitButton,
     'd-none',
     'is-invalid',
     'is-valid',
   );
 
-  (function validateCategoryName() {
+  (function validateCategoryName(): void {
     const categoryNameMessageContainer: HTMLElement =
       formObject.categoryName.parentElement.parentElement.querySelector('.invalid-feedback');
 
@@ -91,10 +91,10 @@ const createFormValidator = () => {
       characters include , ' " : - ; _ + . |`,
     );
 
-    (function checkCategoryNameDuplicateValidator () {
-      const dataReader = new DataReader(fetchLink);
+    (function checkCategoryNameDuplicateValidator (): void {
+      const dataReader: DataReader = new DataReader(fetchLink);
       dataReader.readData((fullData: { [key: string]: any }) => {
-        const dataList = (() => {
+        const dataList: Array<string> = (() => {
           const dataList: Array<string> = [];
 
           Object.keys(fullData).map((key) => {
@@ -117,7 +117,7 @@ const createFormValidator = () => {
     })();
   })();
 
-  (function validateCategoryOrder() {
+  (function validateCategoryOrder(): void {
     const categoryOrderMessageContainer: HTMLElement =
       formObject.categoryOrder.parentElement.parentElement.querySelector('.invalid-feedback');
     formValidator.addNumberInputValidator(
@@ -130,18 +130,18 @@ const createFormValidator = () => {
     );
   })();
 
-  (function createSubmitAddCategoryEvent() {
-    const dataAdder = new DataAdder(fetchLink);
+  (function createSubmitAddCategoryEvent(): void {
+    const dataAdder: DataAdder = new DataAdder(fetchLink);
 
     const submitAddEvent = () => {
-      const formData = JSON.stringify({
+      const formData: string = JSON.stringify({
         'CategoryName': formObject.categoryName.value,
         'CategoryOrder': Number(formObject.categoryOrder.value),
         'CategoryDisplay': formObject.categoryDisplay.getAttribute('value'),
         'CategoryProductQuantity': 0
       });
 
-      const addSuccessFn = () => {
+      const addSuccessFn = (): void => {
         toastCreator.createToast(
           'success',
           `Add category completed \n Category name: ${formObject.categoryName.value}`,
@@ -156,7 +156,7 @@ const createFormValidator = () => {
         formValidator.resetForm(formObject.form);
       };
 
-      const addFailedFn = () => {
+      const addFailedFn = (): void => {
         toastCreator.createToast(
           'danger',
           'Add category failed',
@@ -178,7 +178,7 @@ const createFormValidator = () => {
   })();
 };
 
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
   createCustomDisplayStatusSelect();
   createFormValidator();
 });

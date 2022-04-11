@@ -1,43 +1,43 @@
 import {
   LinkFormatter,
   ButtonFormatter,
-} from '../../class/data-formatter.js';
+} from '../../class/data-formatter';
 import {
   ToastCreator
-} from '../../class/toast-creator.js';
+} from '../../class/toast-creator';
 import {
   DataDeleter
-} from '../../class/data-interactor.js';
+} from '../../class/data-interactor';
 import {
   ConfirmDangerActionPopupCreator
-} from '../../class/popup-creator.js';
-import tablePagingLinkCreator from './modules/table-paging-link-creator.js';
+} from '../../class/popup-creator';
+import tablePagingLinkCreator from './modules/table-paging-link-creator';
 
 import {
   filterData,
   sliceData
-} from './modules/filter-data.js';
+} from './modules/filter-data';
 import {
   Suggester
-} from '../../class/suggester.js';
+} from '../../class/suggester';
 import {
   TableCreator
-} from '../../class/table-creator.js';
+} from '../../class/table-creator';
 
 // FETCH LINK, DEFAULT OPTION
-const dataFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
-const defaultColumnOptionValue = 'CategoryName';
+const dataFetchLink: string = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+const defaultColumnOptionValue: string = 'CategoryName';
 // end FETCH LINK, DEFAULT OPTION
 
 // GLOBAL
 let data: Array<Object> = []; // must here
-const searchSuggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
-import filterInformation from './interfaces/filterInformation';
-let filterInformation: filterInformation; // must here
+const searchSuggester: Suggester = new Suggester([{}], [defaultColumnOptionValue]); // must here
+import FilterInformation from '../interfaces/filterInformation';
+let filterInformation: FilterInformation; // must here
 // end GLOBAL
 
 // CONFIG COLUMN
-const optionColumnList = [{
+const optionColumnList: Array<OptionColumnItem> = [{
     name: 'Name',
     key: 'CategoryName',
     type: 'text',
@@ -59,16 +59,16 @@ const optionColumnList = [{
   }
 ];
 
-const tableUpdateLinkFormatter = new LinkFormatter(
+const tableUpdateLinkFormatter: LinkFormatter = new LinkFormatter(
   './update-category/',
   ['btn-warning', 'btn-square'],
   '<i class="fas fa-file-alt"></i>',
 );
-const tableDeleteButtonFormatter = new ButtonFormatter(
+const tableDeleteButtonFormatter: ButtonFormatter = new ButtonFormatter(
   ['btn-danger', 'btn-square', 'me-2', 'js-delete-data'],
   '<i class="fas fa-trash"></i>',
 );
-const tableColumnList = [{
+const tableColumnList: Array<TableColumnItem> = [{
     name: 'Name',
     key: 'CategoryName',
     width: 12,
@@ -95,7 +95,7 @@ const tableColumnList = [{
     formatFunction: (
       [id = String(), name = String(), productQuantity = Number()]
     ) => {
-      const deleteBtn = tableDeleteButtonFormatter.formatButton(
+      const deleteBtn: string = tableDeleteButtonFormatter.formatButton(
         [{
           key: 'id',
           value: id
@@ -107,7 +107,7 @@ const tableColumnList = [{
           value: String(productQuantity)
         }]
       );
-      const updateBtn = tableUpdateLinkFormatter.formatLink(id);
+      const updateBtn: string = tableUpdateLinkFormatter.formatLink(id);
       return deleteBtn + updateBtn;
     },
     formatPrameterKeyList: [
@@ -120,24 +120,25 @@ const tableColumnList = [{
 // end CONFIG COLUMN
 
 // ADD TABLE EVENT
-const tableDataToastify = new ToastCreator(
+const tableDataToastify: ToastCreator = new ToastCreator(
   'bottom',
   16,
   'right',
   16
 );
-const tableDataDeleter = new DataDeleter(dataFetchLink);
-const confirmDeletePopupCreator = new ConfirmDangerActionPopupCreator('Delete');
+const tableDataDeleter: DataDeleter = new DataDeleter(dataFetchLink);
+const confirmDeletePopupCreator: ConfirmDangerActionPopupCreator 
+  = new ConfirmDangerActionPopupCreator('Delete');
 
 const addTableButtonEvent: Function | null = () => {
-  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('.js-delete-data');
+  const deleteButtonList: NodeListOf<HTMLButtonElement> = document.querySelectorAll('-delete-data');
 
   deleteButtonList.forEach((deleteButton) => {
     deleteButton.addEventListener('click', () => {
-      const categoryName = deleteButton.dataset.name;
-      const categoryId = deleteButton.dataset.id;
+      const categoryName: string = deleteButton.dataset.name;
+      const categoryId: string = deleteButton.dataset.id;
       // console.log(categoryId);
-      const categoryProductQuantity = Number(deleteButton.dataset.productQuantity);
+      const categoryProductQuantity: number = Number(deleteButton.dataset.productQuantity);
 
       const afterDeleteHandle = (deleteResult: null | undefined) => {
         if (deleteResult === null) {
@@ -151,9 +152,9 @@ const addTableButtonEvent: Function | null = () => {
           }), 1);
           searchSuggester.suggestData = data;
 
-          (function changeTableDataAfterDelete() {
-            const result = filterData(data, filterInformation);
-            const displayedData = sliceData(result, filterInformation);
+          (function changeTableDataAfterDelete(): void {
+            const result: any = filterData(data, filterInformation);
+            const displayedData: any = sliceData(result, filterInformation);
 
             if (displayedData.length > 0) {
               tableCreator.convertData(displayedData);
@@ -214,15 +215,15 @@ const addTableButtonEvent: Function | null = () => {
 // end ADD TABLE EVENT
 
 // TABLE CREATOR
-const dataTable: HTMLElement = document.querySelector('#js-data-table');
-const tableCreator = new TableCreator(
+const dataTable: HTMLTableElement = document.querySelector('#js-data-table');
+const tableCreator: TableCreator = new TableCreator(
   dataTable,
   addTableButtonEvent,
   tableColumnList,
   'rem',
 );
 const tableColumnKeyList: Array<string> = [];
-tableColumnList.forEach((column) => {
+tableColumnList.forEach((column: TableColumnItem) => {
   tableColumnKeyList.push(column.key);
 });
 // end TABLE CREATOR
@@ -230,17 +231,19 @@ tableColumnList.forEach((column) => {
 // GENERAL
 import {
   DataReader
-} from '../../class/data-interactor.js';
-import adminFilterCustomSelectCreator from './modules/create-custom-select.js';
-import searchAssistantCreator from './modules/create-search-assistant.js';
+} from '../../class/data-interactor';
+import adminFilterCustomSelectCreator from './modules/create-custom-select';
+import searchAssistantCreator from './modules/create-search-assistant';
 import {
   filterDataToastify
-} from './modules/filter-data.js';
-import getDataArrayFormat from './modules/convert-data-to-array.js';
-import createFilterEvent from './modules/create-filter-event.js';
-import createFilterInformation from './modules/filter-information.js';
+} from './modules/filter-data';
+import getDataArrayFormat from './modules/convert-data-to-array';
+import createFilterEvent from './modules/create-filter-event';
+import createFilterInformation from './modules/filter-information';
+import OptionColumnItem from '../interfaces/optionColumnItem';
+import TableColumnItem from '../interfaces/tableColumnItem';
 
-(function createAdminFilterCustomSelectCreator() {
+(function createAdminFilterCustomSelectCreator(): void {
   adminFilterCustomSelectCreator(
     optionColumnList,
     defaultColumnOptionValue
@@ -254,17 +257,17 @@ searchAssistantCreator(
   searchSuggester,
 );
 
-const tableDataReader = new DataReader(dataFetchLink);
+const tableDataReader: DataReader = new DataReader(dataFetchLink);
 tableDataReader.readData((fullData: { [key: string]: any }) => {
   getDataArrayFormat(fullData, data);
   // console.log(data);
 
   const changeTableData = (
-    filterInformation = Object(),
-    changePageNum = Boolean(),
-  ) => {
-    const result = filterData(data, filterInformation);
-    const displayedData = sliceData(result, filterInformation);
+    filterInformation: FilterInformation,
+    changePageNum: boolean,
+  ): void => {
+    const result: any = filterData(data, filterInformation);
+    const displayedData: any = sliceData(result, filterInformation);
     tableCreator.convertData(displayedData);
 
     // console.log(filterInformation);
@@ -288,5 +291,5 @@ tableDataReader.readData((fullData: { [key: string]: any }) => {
   createFilterEvent(filterInformation, changeTableData);
 });
 
-const changeTableData = (filterInformation: filterInformation, changePageNum: boolean) => {};
+const changeTableData = (filterInformation: FilterInformation, changePageNum: boolean) => {};
 // end GENERAL
