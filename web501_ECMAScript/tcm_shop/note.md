@@ -1,4 +1,4 @@
-# todo: show order details ui, statistic order, check login -> convert to ts
+# todo: add to cart product detail
 
 
 # firebase error

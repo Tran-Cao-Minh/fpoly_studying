@@ -14,8 +14,7 @@
   <section id="content">
     <section class="product bg-white rounded-1">
       <div class="product-img rounded-1">
-        <div class="product-tag">
-          <img id="product-tag-img">
+        <div class="product-tag" id="product-tag-img">
           <!-- set img by product-detail.js -->
         </div>
         <img id="product-img" class="rounded-2">
@@ -56,11 +55,11 @@
               Quantity
             </div>
             <div class="product-choose-quantity input-group">
-              <button class="btn-square btn-primary">
+              <button class="btn-square btn-primary" id="js-add-to-cart-decrease-btn">
                 <i class="fa-solid fa-minus"></i>
               </button>
-              <input type="number" class="form-control" value="1">
-              <button class="btn-square btn-primary">
+              <input type="number" class="form-control" value="1" id="js-add-to-cart-qty">
+              <button class="btn-square btn-primary" id="js-add-to-cart-increase-btn">
                 <i class="fa-solid fa-plus"></i>
               </button>
             </div>
@@ -86,10 +85,10 @@
             </div>
           </div>
           <div class="product-interaction">
-            <button class="btn-primary text-uppercase ms-2 me-2">
+            <button class="btn-primary text-uppercase ms-2 me-2" id="js-add-to-cart">
               Add to cart
             </button>
-            <button class="btn-success text-uppercase ms-2 me-2">
+            <button class="btn-success text-uppercase ms-2 me-2" id="js-buy-now">
               Buy now
             </button>
           </div>
@@ -118,9 +117,9 @@
 
   </section>
 
-
   <%- include('./module/footer.ejs') %>
 
+  <script src="/javascripts/class/cart-data-manager.js"></script>
   <script type="module" src="/javascripts/client/product-detail.js"></script>
 </body>
 

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./module/website-info.ejs') %>
+  <%- include('./module/general-link.ejs') %>
+
+  <link rel="stylesheet" href="/stylesheets/client/cart.css">
+</head>
+
+<body>
+  <%- include('./module/header.ejs') %>
+
+  <section id="content">
+    <!-- cart empty -->
+    <div class="row bg-white mt-0 justify-content-center align-items-center w-full d-none">
+      <div class="mt-4 mb-4 me-4">
+        <i class="fa-solid fa-cart-shopping" style="font-size: 12rem; color: var(--bg-light-blue);"></i>
+      </div>
+      <div class="mt-4 mb-4 text-icon w-full text-center text-uppercase">
+        Your cart is empty, let add something to it
+      </div>
+      <a href="/shop">
+        <button class="btn btn-primary text-uppercase mb-2">
+          Go Shopping
+        </button>
+      </a>
+    </div>
+    <!-- end cart empty -->
+
+    <!-- cart with items -->
+    <div class="row bg-white mt-0 justify-content-space-between align-items-center rounded-1">
+      <span class="text-primary">
+        Total:
+        <span style="font-size: 1.125rem;" class="fw-bold text-danger">$1,500.55</span>
+      </span>
+      <a href="/shop">
+        <button class="btn btn-success text-uppercase">
+          Start payment
+        </button>
+      </a>
+    </div>
+    <div class="cart-item-list" id="js-cart-items">
+      <!-- add by js -->
+    </div>
+    <!-- end cart with items -->
+  </section>
+
+  <%- include('./module/footer.ejs') %>
+
+  <script src="/javascripts/class/cart-data-manager.js"></script>
+  <script type="module" src="/javascripts/client/cart/index.js"></script>
+</body>
+
+</html>

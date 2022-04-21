@@ -3,26 +3,106 @@ import {
   DataUpdater
 } from '../class/data-interactor.js';
 import {
-  ToastCreator
-} from '../class/toast-creator.js';
-import {
   CurrencyFormatter,
   DateFormatter
 } from '../class/data-formatter.js';
+import InputQuantityController from '../class/input-quantity-controller.js';
+// import CartDataManager from '../../class/cart-data-manager.js';
+import { ToastCreator } from '../class/toast-creator.js';
 
+const addToCartToastCreator = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16
+);
 const pageUrl = location.href;
-const fetchLinkPrefix = 'http://localhost:3000/product/shop/';
+const fetchLinkPrefix = 'https://tcm-shop-default-rtdb.firebaseio.com/products/';
 const id = pageUrl.substring(pageUrl.lastIndexOf('/') + 1);
 
-function fillProductDetailPageValue(product = Object()) {
+const fillProductDetailPageValue = (product = Object()) => {
+  (() => { // create input quantity controller
+    const input = document.querySelector('#js-add-to-cart-qty');
+    const qty = {
+      min: 1,
+      max: product.ProductQuantity
+    };
+    const step = 1;
+    const handleBtn = {
+      decrease: document.querySelector('#js-add-to-cart-decrease-btn'),
+      increase: document.querySelector('#js-add-to-cart-increase-btn')
+    };
+
+    InputQuantityController.getInstance().createController(
+      input,
+      qty,
+      step,
+      handleBtn
+    );
+
+    (() => { // create add to cart event
+      const addToCartBtn = document.querySelector('#js-add-to-cart');
+      addToCartBtn.addEventListener('click', () => {
+        CartDataManager.getInstance().increaseItemInCart(
+          id,
+          Number(input.value),
+          product.ProductQuantity,
+          () => {
+            addToCartToastCreator.createToast(
+              'success',
+              `Add Product - ${product.ProductName} to cart success`,
+              2
+            );
+          },
+          () => {
+            addToCartToastCreator.createToast(
+              'danger',
+              `Add Product - ${product.ProductName} to cart failed <br> (Exceed the maximum remaining product quantity - ${product.ProductQuantity})`,
+              2
+            );
+          }
+        )
+      });
+    })();
+
+    (() => { // create buy now event
+      const buyNowBtn = document.querySelector('#js-buy-now');
+      buyNowBtn.addEventListener('click', () => {
+        CartDataManager.getInstance().increaseItemInCart(
+          id,
+          Number(input.value),
+          product.ProductQuantity,
+          () => {
+            location.href = '/cart';
+          },
+          () => {
+            addToCartToastCreator.createToast(
+              'danger',
+              `Add Product - ${product.ProductName} to cart failed <br> (Exceed the maximum remaining product quantity - ${product.ProductQuantity})`,
+              2
+            );
+          }
+        )
+      });
+    })();
+  })();
+
+
+
   // set product tag img
   const productTagImg = document.querySelector('#product-tag-img');
-  productTagImg.setAttribute('src', '/images/tags/' + product.TagImage);
-  productTagImg.setAttribute('alt', product.TagName);
+  if (product.ProductTag !== 'None') {
+    productTagImg.innerHTML += `
+      <img
+        src="/images/tags/${product.ProductTag}.svg"
+        alt="${product.ProductName}"
+      >
+    `;
+  };
 
   // set product img
   const productImg = document.querySelector('#product-img');
-  productImg.setAttribute('src', '/images/products/' + product.ProductImage);
+  productImg.setAttribute('src', product.ProductImage);
   productImg.setAttribute('alt', product.ProductName);
 
   // set product name
@@ -74,74 +154,24 @@ function fillProductDetailPageValue(product = Object()) {
     product.ProductDescription;
 
   // update product view
-  const updateViewLinkPrefix = 'http://localhost:3000/product/shop/increase-view/';
+  const updateViewLinkPrefix = `https://tcm-shop-default-rtdb.firebaseio.com/products/${id}/ProductViews`;
   const productViewUpdater = new DataUpdater(updateViewLinkPrefix);
-
-  const updateViewFormData = new FormData();
-  updateViewFormData.set(
-    'ProductViews',
-    product.ProductViews + 1
-  );
+  const updateViewFormData = product.ProductViews + 1;
 
   productViewUpdater.updateData(
-    id,
+    '',
     updateViewFormData,
-    false,
-    function (data) {
-      console.log(data);
+    () => {
+      console.log(`Update Product Views of Product - ${product.ProductName} success`);
     },
+    () => {
+      console.log(`Update Product Views of Product - ${product.ProductName} failed`);
+    }
   );
-}
-
-function showSimilarProduct(similarProductList = [Object()]) {
-  const similarProductContainer = document.querySelector('#product-similar');
-
-  if (similarProductList.length > 0) {
-    const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
-
-    similarProductContainer.classList.remove('d-none');
-
-    similarProductList.forEach(product => {
-      let productOldPrice =
-        (product.ProductPrice / (100 - product.ProductSalePercent)) * 100;
-
-      let productPrice = currencyFormatter.formatCurrency(product.ProductPrice);
-      productOldPrice = currencyFormatter.formatCurrency(productOldPrice);
-
-      similarProductContainer.querySelector('.product-similar-list').innerHTML += `
-        <div class="product-item">
-          <div class="product-item-tag">
-            <img src="/images/tags/${product.TagImage}" alt="Product Tag">
-          </div>
-          <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-img">
-            <img src="/images/products/${product.ProductImage}" alt="${product.ProductName}">
-          </a>
-          <div class="product-information">
-            <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-name">
-              ${product.ProductName}
-            </a>
-            <div class="product-item-price-group">
-              <span class="product-item-price">
-                ${productPrice}
-              </span>
-              <span class="product-item-old-price">
-                ${productOldPrice}
-              </span>
-            </div>
-          </div>
-          <button class="product-item-add-to-cart btn-primary"
-            data-id="${product.PkProduct_Id}"
-          >
-            Add to cart
-          </button>
-        </div>
-      `;
-    });
-  };
 }
 
 const productInformationReader = new DataReader(fetchLinkPrefix + id);
-productInformationReader.readData(null, function (data) {
-  fillProductDetailPageValue(data.product);
-  showSimilarProduct(data.similarProductList);
+productInformationReader.readData((product) => {
+  // console.log(product);
+  fillProductDetailPageValue(product);
 });

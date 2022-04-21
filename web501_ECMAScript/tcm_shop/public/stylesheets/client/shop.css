@@ -95,10 +95,18 @@
 .product-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-around;
+  justify-content: center;
 
   width: 100%;
   margin-top: 0.5rem;
+}
+
+.product-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  width: 100%;
 }
 
 .product-item {
@@ -219,7 +227,7 @@
   text-decoration: line-through;
 }
 
-.product-item-add-to-cart {
+.js-add-to-cart {
   position: absolute;
   top: 100%;
   left: 0;
@@ -232,7 +240,7 @@
   opacity: 0;
 }
 
-.product-item:hover .product-item-add-to-cart {
+.product-item:hover .js-add-to-cart {
   top: calc(100% - 2.5rem);
 
   opacity: 1;

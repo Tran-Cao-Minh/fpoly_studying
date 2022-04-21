@@ -7,98 +7,273 @@ import {
 import {
   CurrencyFormatter
 } from '../../class/data-formatter.js';
+import testProductList from './testProductList.js';
+import {
+  PagingLinkCreator
+} from '../../class/paging-link-creator.js';
+import { ToastCreator } from '../../class/toast-creator.js'
 
-let defaultOrderBy = 'ProductViews';
-let defaultOrderRule = 'ASC';
-const productListContainer = document.querySelector('#product-list-container');
-
-let productListFetchLink = 'http://localhost:3000/product/shop';
-const productListDataReader = new DataReader(productListFetchLink);
-
+const pagingLinkContainer = document.querySelector('#js-table-paging-link-list');
+const productPagingLinkCreator = new PagingLinkCreator(
+  ['btn-white', 'btn-square', 'ms-1', 'me-1', 'mt-2'],
+  ['btn-white', 'btn-square', 'fw-bold', 'ms-1', 'me-1', 'mt-2'],
+  '<i class="fa-solid fa-step-backward"></i>',
+  '<i class="fa-solid fa-step-forward"></i>',
+  pagingLinkContainer,
+  'd-none',
+  'disabled',
+  5
+);
 const currencyFormatter = new CurrencyFormatter('en-US', 'USD');
+const addToCartToastCreator = new ToastCreator(
+  'bottom',
+  16,
+  'right',
+  16
+);
 
-function ProductListReader() {
-  this.filter = {
-    searchProductKeyWord: '',
-    tagList: [],
-    categoryList: [],
-    orderBy: defaultOrderBy,
-    orderRule: defaultOrderRule,
-  };
+class ProductListHandler {
+  constructor(
+    productListDataReader = new DataReader(),
+    defaultOrderBy = String(),
+    defaultOrderRule = String(),
+    productListContainer = Node(),
+  ) {
+    this.productListDataReader = productListDataReader;
+    this.productListContainer = productListContainer;
 
-  this.getProductList = function () {
-    productListContainer.innerHTML = '';
+    this.filterInformation = {
+      searchProductKeyWord: '',
+      tagList: [],
+      categoryList: [],
+      orderBy: defaultOrderBy,
+      orderRule: defaultOrderRule,
+      pageNum: 1,
+      pageSize: 12
+    };
+  }
 
-    productListDataReader.readData(this.filter, function (data) {
-      data.forEach(product => {
-        let productOldPrice =
-          (product.ProductPrice / (100 - product.ProductSalePercent)) * 100;
+  initProductListData(callBackFn = Function) {
+    // this.productListDataReader.readData((data) => {
+    //   const fullData = [];
+    //   Object.keys(data).map((key) => {
+    //     data[key].FireBaseKey = key;
+    //     fullData.push(data[key]);
+    //   });
 
-        let productPrice = currencyFormatter.formatCurrency(product.ProductPrice);
-        productOldPrice = currencyFormatter.formatCurrency(productOldPrice);
+    //   this.fullData = fullData;
+    //   callBackFn();
+    // });
 
-        productListContainer.innerHTML += `
-          <div class="product-item">
-            <div class="product-item-tag">
-              <img src="/images/tags/${product.TagImage}" alt="Product Tag">
-            </div>
-            <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-img">
-              <img src="/images/products/${product.ProductImage}" alt="${product.ProductName}">
-            </a>
-            <div class="product-information">
-              <a href="/shop/product-detail/${product.PkProduct_Id}" class="product-item-name">
-                ${product.ProductName}
-              </a>
-              <div class="product-item-price-group">
-                <span class="product-item-price">
-                  ${productPrice}
-                </span>
-                <span class="product-item-old-price">
-                  ${productOldPrice}
-                </span>
-              </div>
-            </div>
-            <button class="product-item-add-to-cart btn-primary"
-              data-id="${product.PkProduct_Id}"
-            >
-              Add to cart
-            </button>
+    callBackFn();
+  }
+
+  getProductList() {
+    this.productListContainer.innerHTML = '';
+    // const productListData = JSON.parse(JSON.stringify(this.fullData)); // deep clone
+    let productListData = JSON.parse(JSON.stringify(testProductList)); // deep clone
+    // console.log(this.filterInformation);
+
+    (() => { // filterData
+      const filterData = (item) => {
+        // console.log(item);
+
+        let isPassed = true;
+
+        (() => { // filter by search key word
+          const productName = item.ProductName;
+          const productDescription = item.ProductDescription;
+          const searchValueList 
+            = this.filterInformation.searchProductKeyWord.trim().split(/\s+/); 
+          searchValueList.forEach(searchValue => {
+            if (
+              !productName.includes(searchValue) &&
+              !productDescription.includes(searchValue)
+            ) {
+              isPassed = false;
+            };
+          });
+        })();
+
+        (() => { // filter by category
+          const productCategory = item.ProductCategory;
+          const filterCategoryList = this.filterInformation.categoryList;
+
+          if (
+            !filterCategoryList.includes(productCategory) &&
+            filterCategoryList.length > 0
+          ) {
+            isPassed = false;
+          };
+        })();
+
+        (() => { // filter by special
+          const productTag = item.ProductTag;
+          const filterTagList = this.filterInformation.tagList;
+
+          if (
+            !filterTagList.includes(productTag) &&
+            filterTagList.length > 0
+          ) {
+            isPassed = false;
+          };
+        })();
+
+        // console.log(isPassed);
+        return isPassed;
+      };
+
+      productListData = productListData.filter((filterData));
+    })();
+
+    (() => { // create paging link
+      productPagingLinkCreator.changePagingLink(
+        this.filterInformation.pageNum,
+        this.filterInformation.pageSize,
+        productListData.length,
+        (pageNum) => {
+          this.filterInformation.pageNum = pageNum;
+          this.getProductList();
+        }
+      )
+    })();
+
+    (() => { // sort data
+      const sortDataByColumnKey = (
+        columnKey = String(),
+        orderRule = 'ASC' || 'DESC'
+      ) => {
+        productListData.sort((a, b) => {
+          if (orderRule === 'ASC') {
+            return (a[columnKey] > b[columnKey]) ? 1 : -1;
+  
+          } else if (orderRule === 'DESC') {
+            return (a[columnKey] < b[columnKey]) ? 1 : -1;
+          };
+        });
+      };
+
+      sortDataByColumnKey('ProductOrder', 'DESC');
+      sortDataByColumnKey(
+        this.filterInformation.orderBy,
+        this.filterInformation.orderRule
+      );
+    })();
+
+    (() => { // slice data
+      const startIndex =
+        (this.filterInformation.pageNum - 1) * this.filterInformation.pageSize;
+      const endIndex = startIndex + this.filterInformation.pageSize;
+
+      productListData = productListData.slice(
+        startIndex,
+        endIndex
+      );
+    })();
+
+    productListData.forEach(product => {
+      const productPrice = currencyFormatter.formatCurrency(product.ProductPrice);
+      const productOldPrice = currencyFormatter.formatCurrency(
+        ((product.ProductPrice / (100 - product.ProductSalePercent)) * 100)
+      );
+      const productTagImg = (() => {
+        switch(product.ProductTag) {
+          case 'None':
+            return null;
+          case 'Hot':
+            return 'hot.svg';
+          case 'New':
+            return 'new.svg';
+        };
+      })();
+      const productTagImgElement = productTagImg ? 
+        `
+          <img
+           src="/images/tags/${productTagImg}"
+           alt="Product Tag"
+          >
+        ` :
+        '';
+
+      productListContainer.innerHTML += `
+        <div class="product-item">
+          <div class="product-item-tag">
+            ${productTagImgElement}
           </div>
-        `;
+          <a href="/shop/product-detail/${product.FireBaseKey}" class="product-item-img">
+            <img src="${product.ProductImage}" alt="${product.ProductName}">
+          </a>
+          <div class="product-information">
+            <a href="/shop/product-detail/${product.FireBaseKey}" class="product-item-name">
+              ${product.ProductName}
+            </a>
+            <div class="product-item-price-group">
+              <span class="product-item-price">
+                ${productPrice}
+              </span>
+              <span class="product-item-old-price">
+                ${productOldPrice}
+              </span>
+            </div>
+          </div>
+          <button class="js-add-to-cart btn-primary"
+            data-id="${product.FireBaseKey}"
+            data-max-qty="${product.ProductQuantity}"
+            data-name="${product.ProductName}"
+          >
+            Add to cart
+          </button>
+        </div>
+      `;
+    });
+
+    const addToCartBtnList = document.querySelectorAll('.js-add-to-cart');
+    addToCartBtnList.forEach(btn => {
+      btn.addEventListener('click', () => {
+        CartDataManager.getInstance().addItemToCart(
+          btn.dataset.id,
+          1,
+          Number(btn.dataset.maxQty),
+          () => {
+            addToCartToastCreator.createToast(
+              'success',
+              `Add Product - ${btn.dataset.name} to cart success`,
+              2
+            );
+          },
+          () => {
+            addToCartToastCreator.createToast(
+              'danger',
+              `Add Product - ${btn.dataset.name} to cart failed <br> (Exceed the maximum remaining product quantity - ${btn.dataset.maxQty})`,
+              2
+            );
+          }
+        )
       });
     });
-  };
-}
-let productListReader = new ProductListReader();
-const searchProductInput = document.querySelector('#js-search-product');
-if (sessionStorage.getItem('searchProductKeyWord') !== null) {
-  productListReader.filter.searchProductKeyWord =
-    sessionStorage.getItem('searchProductKeyWord');
-  searchProductInput.value = sessionStorage.getItem('searchProductKeyWord');
-  
-  sessionStorage.removeItem('searchProductKeyWord');
-} else {
-  productListReader.filter.searchProductKeyWord = 
-    searchProductInput.value;
+  }
 };
-productListReader.getProductList();
 
-window.addEventListener('load', function createOrderFilter() {
-  // product key word
-  searchProductInput.addEventListener('change', function () {
-    productListReader.filter.searchProductKeyWord =
-      searchProductInput.value;
+const productListFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/products';
+const productListDataReader = new DataReader(productListFetchLink);
+const productListContainer = document.querySelector('#product-list-container');
 
-    productListReader.getProductList();
-  });
-  // end product key word
+const defaultOrderBy = 'ProductViews';
+const defaultOrderRule = 'ASC';
+const productListHandler = new ProductListHandler(
+  productListDataReader,
+  defaultOrderBy,
+  defaultOrderRule,
+  productListContainer
+);
 
+const createOrderFilter = () => {
   // order by 
-  let orderBySelect =
+  const orderBySelect =
     document.querySelector('#js-shop-order-by');
-  let orderBySelectText =
+  const orderBySelectText =
     orderBySelect.querySelector('.custom-select-text');
-  let orderBySelectContainer =
+  const orderBySelectContainer =
     orderBySelect.querySelector('.custom-select-list');
 
   const orderBySelectCreator = new CustomSelectCreator(
@@ -110,26 +285,26 @@ window.addEventListener('load', function createOrderFilter() {
     ],
   );
 
-  let shopOrderByList = [{
-      descriptionText: 'View',
-      value: 'ProductViews',
-    },
-    {
-      descriptionText: 'Price',
-      value: 'ProductPrice',
-    },
-    {
-      descriptionText: 'Name',
-      value: 'ProductName',
-    },
+  const shopOrderByList = [{
+    descriptionText: 'View',
+    value: 'ProductViews',
+  },
+  {
+    descriptionText: 'Price',
+    value: 'ProductPrice',
+  },
+  {
+    descriptionText: 'Name',
+    value: 'ProductName',
+  },
   ];
-  shopOrderByList.forEach(option => {
+  shopOrderByList.forEach((option) => {
     orderBySelectCreator.addOptionItem(
       option.descriptionText,
       [{
         key: 'value',
         data: option.value,
-      }, ]
+      },]
     );
   });
 
@@ -139,21 +314,21 @@ window.addEventListener('load', function createOrderFilter() {
     'choosen',
   );
 
-  orderBySelect.addEventListener('DOMSubtreeModified', function () {
-    let orderBySelectValue = orderBySelect.getAttribute('value');
-    if (orderBySelectValue !== productListReader.filter.orderBy) {
-      productListReader.filter.orderBy = orderBySelectValue;
-      productListReader.getProductList();
+  orderBySelect.addEventListener('DOMSubtreeModified', () => {
+    const orderBySelectValue = orderBySelect.getAttribute('value');
+    if (orderBySelectValue !== productListHandler.filterInformation.orderBy) {
+      productListHandler.filterInformation.orderBy = orderBySelectValue;
+      productListHandler.getProductList();
     };
   });
   // end order by 
 
   // order rule 
-  let orderRuleSelect =
+  const orderRuleSelect =
     document.querySelector('#js-shop-order-rule');
-  let orderRuleSelectText =
+  const orderRuleSelectText =
     orderRuleSelect.querySelector('.custom-select-text');
-  let orderRuleSelectContainer =
+  const orderRuleSelectContainer =
     orderRuleSelect.querySelector('.custom-select-list');
 
   const orderRuleSelectCreator = new CustomSelectCreator(
@@ -166,28 +341,26 @@ window.addEventListener('load', function createOrderFilter() {
     ],
   );
 
-  let shopOrderRuleList = [{
-      descriptionText: 'DESC',
-      value: 'DESC',
-      style: 'color: var(--text-danger);',
-    },
-    {
-      descriptionText: 'ASC',
-      value: 'ASC',
-      style: 'color: var(--text-success);',
-    },
+  const shopOrderRuleList = [{
+    value: 'DESC',
+    style: 'color: var(--text-danger);',
+  },
+  {
+    value: 'ASC',
+    style: 'color: var(--text-success);',
+  },
   ];
-  shopOrderRuleList.forEach(option => {
+  shopOrderRuleList.forEach((option) => {
     orderRuleSelectCreator.addOptionItem(
-      option.descriptionText,
+      option.value,
       [{
-          key: 'value',
-          data: option.value,
-        },
-        {
-          key: 'style',
-          data: option.style,
-        },
+        key: 'value',
+        data: option.value,
+      },
+      {
+        key: 'style',
+        data: option.style,
+      },
       ]
     );
   });
@@ -198,95 +371,124 @@ window.addEventListener('load', function createOrderFilter() {
     'choosen',
   );
 
-  orderRuleSelect.addEventListener('DOMSubtreeModified', function () {
-    let orderRuleSelectValue = orderRuleSelect.getAttribute('value');
-    if (orderRuleSelectValue !== productListReader.filter.orderRule) {
-      productListReader.filter.orderRule = orderRuleSelectValue;
-      productListReader.getProductList();
+  orderRuleSelect.addEventListener('DOMSubtreeModified', () => {
+    const orderRuleSelectValue = orderRuleSelect.getAttribute('value');
+    if (orderRuleSelectValue !== productListHandler.filterInformation.orderRule) {
+      productListHandler.filterInformation.orderRule = orderRuleSelectValue;
+      productListHandler.getProductList();
     };
   });
   // end order rule 
-});
+};
 
-window.addEventListener('load', function createFilterInput() {
-  let productTagsFetchLink = 'http://localhost:3000/product/shop/tags';
-  const productTagsDataReader = new DataReader(productTagsFetchLink);
+const createFilterInput = () => {
+  (() => { // tag filter
+    const filterSpecialList = document.querySelector('#filter-special');
+    const tagList = ['None', 'Hot', 'New'];
 
-  productTagsDataReader.readData(null, function (data) {
-    let filterSpecialList = document.querySelector('#filter-special');
-
-    data.forEach(tag => {
+    tagList.forEach((tag = String()) => {
       filterSpecialList.innerHTML += `
-        <label class="filter-item">
-          <input class="form-check-input" type="checkbox" name="productTagList" 
-            id="productTag-${tag.PkProductTag_Id}"
-            value="${tag.PkProductTag_Id}"
-          >
-          <label for="productTag-${tag.PkProductTag_Id}"></label>
-          <span class="filter-name text-truncate">
-            ${tag.TagName}
-          </span>
-        </label>
-      `;
-    });
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="productTagList" 
+              id="productTag-${tag}"
+              value="${tag}"
+            >
+            <label for="productTag-${tag}"></label>
+            <span class="filter-name text-truncate">
+              ${tag}
+            </span>
+          </label>
+        `;
 
-    let filterSpecialInputList = filterSpecialList.querySelectorAll('input');
+      const filterSpecialInputList = filterSpecialList.querySelectorAll('input');
 
-    filterSpecialInputList.forEach(input => {
-      input.addEventListener('change', function () {
-        if (input.checked === true) {
-          productListReader.filter.tagList.push(input.value);
+      filterSpecialInputList.forEach((input) => {
+        input.addEventListener('change', () => {
+          if (input.checked === true) {
+            productListHandler.filterInformation.tagList.push(input.value);
 
-        } else if (input.checked === false) {
-          productListReader.filter.tagList.splice(
-            productListReader.filter.tagList.indexOf(input.value),
-            1
-          );
-        };
+          } else if (input.checked === false) {
+            productListHandler.filterInformation.tagList.splice(
+              productListHandler.filterInformation.tagList.indexOf(input.value),
+              1
+            );
+          };
 
-        productListReader.getProductList();
+          productListHandler.getProductList();
+        });
       });
     });
-  });
+  })();
 
-  let productCategoryFetchLink = 'http://localhost:3000/category/shop';
-  const productCategoryDataReader = new DataReader(productCategoryFetchLink);
+  (() => { // category filter
+    const productCategoryFetchLink = 'https://tcm-shop-default-rtdb.firebaseio.com/categories';
+    const productCategoryDataReader = new DataReader(productCategoryFetchLink);
 
-  productCategoryDataReader.readData(null, function (data) {
-    let filterCategoryList = document.querySelector('#filter-category');
+    productCategoryDataReader.readData((fullData) => {
+      const filterCategoryList = document.querySelector('#filter-category');
 
-    data.forEach(category => {
-      filterCategoryList.innerHTML += `
-        <label class="filter-item">
-          <input class="form-check-input" type="checkbox" name="productCategoryList" 
-            id="productCategory-${category.PkProductCategory_Id}"
-            value="${category.PkProductCategory_Id}"
-          >
-          <label for="productCategory-${category.PkProductCategory_Id}"></label>
-          <span class="filter-name text-truncate">
-            ${category.CategoryName}
-          </span>
-        </label>
-      `;
-    });
+      Object.keys(fullData).map((key) => {
+        filterCategoryList.innerHTML += `
+          <label class="filter-item">
+            <input class="form-check-input" type="checkbox" name="productCategoryList" 
+              id="productCategory-${fullData[key]['CategoryName']}"
+              value="${fullData[key]['CategoryName']}"
+            >
+            <label for="productCategory-${fullData[key]['CategoryName']}"></label>
+            <span class="filter-name text-truncate">
+              ${fullData[key]['CategoryName']}
+            </span>
+          </label>
+        `;
+      });
 
-    let filterCategoryInputList = filterCategoryList.querySelectorAll('input');
+      const filterCategoryInputList = filterCategoryList.querySelectorAll('input');
 
-    filterCategoryInputList.forEach(input => {
-      input.addEventListener('change', function () {
-        if (input.checked === true) {
-          productListReader.filter.categoryList.push(input.value);
+      filterCategoryInputList.forEach((input) => {
+        input.addEventListener('change', () => {
+          if (input.checked === true) {
+            productListHandler.filterInformation.categoryList.push(input.value);
 
-        } else if (input.checked === false) {
-          productListReader.filter.categoryList.splice(
-            productListReader.filter.categoryList.indexOf(input.value),
-            1
-          );
-        };
+          } else if (input.checked === false) {
+            productListHandler.filterInformation.categoryList.splice(
+              productListHandler.filterInformation.categoryList.indexOf(input.value),
+              1
+            );
+          };
 
-        productListReader.getProductList();
+          productListHandler.getProductList();
+        });
       });
     });
+  })();
+};
+
+window.addEventListener('load', () => {
+  productListHandler.initProductListData(() => {
+    const searchProductInput = document.querySelector('#js-search-product');
+    if (sessionStorage.getItem('searchProductKeyWord') !== null) {
+      productListHandler.filterInformation.searchProductKeyWord =
+        sessionStorage.getItem('searchProductKeyWord');
+      searchProductInput.value = sessionStorage.getItem('searchProductKeyWord');
+    
+      sessionStorage.removeItem('searchProductKeyWord');
+    } else {
+      productListHandler.filterInformation.searchProductKeyWord =
+        searchProductInput.value;
+    };
+    productListHandler.getProductList();
+    
+    // product key word
+    searchProductInput.addEventListener('change', () => {
+      productListHandler.filterInformation.searchProductKeyWord =
+        searchProductInput.value;
+
+      productListHandler.getProductList();
+    });
+    // end product key word
+
+    createOrderFilter();
+    createFilterInput();
   });
 });
 

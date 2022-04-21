@@ -61,14 +61,20 @@
         </div>
       </div>
 
-      <div class="product-container" id="product-list-container">
-        <!-- add by shop.js -->
+      <div class="product-container">
+        <div class="product-list" id="product-list-container">
+          <!-- add by shop.js -->
+        </div>
+        <ul class="mt-1" id="js-table-paging-link-list">
+          <!-- add by shop.js -->
+        </ul>
       </div>
     </main>
   </section>
 
   <%- include('./module/footer.ejs') %>
 
+  <script src="/javascripts/class/cart-data-manager.js"></script>
   <script type="module" src="/javascripts/client/shop/shop.js"></script>
 </body>
 
