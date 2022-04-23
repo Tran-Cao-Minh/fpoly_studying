@@ -1,0 +1,52 @@
+{
+  "products": [
+    {
+      "colours": 2,
+      "tag": "Just In",
+      "name": "Jordan MA2",
+      "price": "2,549,000",
+      "category": "Older Kids' Shoe",
+      "image": "1.webp"
+    },
+    {
+      "colours": 1,
+      "tag": "Just In",
+      "name": "Nike Charge",
+      "price": "379,000",
+      "category": "Kids' Football Shinguards",
+      "image": "2.webp"
+    },
+    {
+      "colours": 1,
+      "tag": "Just In",
+      "name": "Nike",
+      "price": "359,000",
+      "category": "Kids' Printed Gymsack",
+      "image": "3.webp"
+    },
+    {
+      "colours": 2,
+      "tag": "Just In",
+      "name": "Nike Flex Plus",
+      "price": "1,279,000",
+      "category": "Baby Toddler Shoe",
+      "image": "4.webp"
+    },
+    {
+      "colours": 1,
+      "tag": "Just In",
+      "name": "Nike Featherlight",
+      "price": "459,000",
+      "category": "Older Kids' Adjustable Hat",
+      "image": "5.webp"
+    },
+    {
+      "colours": 2,
+      "tag": "Just In",
+      "name": "Nike Super Charge",
+      "price": "1,399,000",
+      "category": "Younger Kids' Shoe",
+      "image": "6.webp"
+    }
+  ]
+}
