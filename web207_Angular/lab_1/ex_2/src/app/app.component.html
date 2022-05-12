@@ -1,0 +1,24 @@
+<body class="bg-dark py-5">
+  <div class="container">
+    <div class="card text-center col-12 col-md-10 col-xl-7 mx-auto">
+      <div class="card-header bg-success text-light fw-bold text-uppercase fs-5 py-4">
+        Student Information
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item py-3">Full name: {{student.name | uppercase }}</li>
+          <li class="list-group-item py-3">Birthdate: {{student.birthDate | date:'dd/MM/y'}}</li>
+          <li class="list-group-item py-3">Gender: {{(student.gender === 0) ? 'Female' : 'Male' }}</li>
+          <li class="list-group-item py-3">Age: {{student.age}}</li>
+          <li class="list-group-item py-3">Score: {{student.score}}</li>
+          <li class="list-group-item py-3">
+            <img class="card-img-top col-12 col-md-6 img-thumbnail rounded-pill" src="assets/{{student.image}}" alt="">
+          </li>
+        </ul>
+      </div>
+      <div class="card-footer text-muted py-4">
+        Lab 1 - Ex 1 - Angular Subject
+      </div>
+    </div>
+  </div>
+</body>

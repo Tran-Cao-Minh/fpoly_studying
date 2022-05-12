@@ -1,0 +1,17 @@
+<body class="bg-dark">
+  <div class="container py-5">
+    <div class="card">
+      <div class="card-header bg-success text-light fw-bold text-uppercase fs-5 py-4 text-center">
+        Inventor List
+      </div>
+      <div class="card-body pb-0 text-center">
+        <div id="inventorList">
+          {{render()}}
+        </div>
+      </div>
+      <div class="card-footer text-muted py-4 text-center">
+        Have <b>{{inventorList.length}}</b> inventor{{(inventorList.length > 1) ? 's' : '' }} in list
+      </div>
+    </div>
+  </div>
+</body>
