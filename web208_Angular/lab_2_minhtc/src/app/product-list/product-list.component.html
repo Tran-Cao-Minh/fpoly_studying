@@ -1,1 +1,58 @@
-<p>product-list works!</p>
+<div class="card">
+  <div class="card-header">
+    Product List
+    <label class="float-end">
+      <input type="text" name="keywords" [(ngModel)]="keywords" (keyup)="loadProduct()">
+      <em class="text-danger">
+        {{keywords}}
+      </em>
+    </label>
+  </div>
+  <div class="card-body">
+    <table class="table table-bordered table-hover">
+      <thead>
+        <tr>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Code</th>
+          <th>Date</th>
+          <th>Price</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of productList">
+          <td>
+            <img src="" height="50" alt="">
+          </td>
+          <td>
+            {{p.name | uppercase}}
+          </td>
+          <td>
+            {{p.code}}
+          </td>
+          <td>
+            {{p.date | date: 'dd/MM/y'}}
+          </td>
+          <td>
+            {{p.price}}
+          </td>
+          <td>
+            <div class="overflow-hidden" [style.width.px]="p.starRate*90/5" title="rating">
+              <div style="width: 90px">
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+                <i class="bi bi-star"></i>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="card-footer">
+    Product Quantity: <b>0</b>
+  </div>
+</div>
