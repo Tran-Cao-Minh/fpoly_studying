@@ -1,0 +1,2501 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> ng new lab_3_minhtc
+? Would you like to add Angular routing? Yes
+? Which stylesheet format would you like to use? CSS
+CREATE lab_3_minhtc/angular.json (3075 bytes)
+CREATE lab_3_minhtc/package.json (1075 bytes)
+CREATE lab_3_minhtc/README.md (1064 bytes)
+CREATE lab_3_minhtc/tsconfig.json (863 bytes)
+CREATE lab_3_minhtc/.editorconfig (274 bytes)
+CREATE lab_3_minhtc/.gitignore (548 bytes)
+CREATE lab_3_minhtc/.browserslistrc (600 bytes)
+CREATE lab_3_minhtc/karma.conf.js (1429 bytes)
+CREATE lab_3_minhtc/tsconfig.app.json (287 bytes)
+CREATE lab_3_minhtc/tsconfig.spec.json (333 bytes)
+CREATE lab_3_minhtc/.vscode/extensions.json (130 bytes)
+CREATE lab_3_minhtc/.vscode/launch.json (474 bytes)
+CREATE lab_3_minhtc/.vscode/tasks.json (938 bytes)
+CREATE lab_3_minhtc/src/favicon.ico (948 bytes)
+CREATE lab_3_minhtc/src/index.html (296 bytes)
+CREATE lab_3_minhtc/src/main.ts (372 bytes)
+CREATE lab_3_minhtc/src/polyfills.ts (2338 bytes)
+CREATE lab_3_minhtc/src/styles.css (80 bytes)
+CREATE lab_3_minhtc/src/test.ts (745 bytes)
+CREATE lab_3_minhtc/src/assets/.gitkeep (0 bytes)
+CREATE lab_3_minhtc/src/environments/environment.prod.ts (51 bytes)
+CREATE lab_3_minhtc/src/environments/environment.ts (658 bytes)
+CREATE lab_3_minhtc/src/app/app-routing.module.ts (245 bytes)
+CREATE lab_3_minhtc/src/app/app.module.ts (393 bytes)
+CREATE lab_3_minhtc/src/app/app.component.html (23364 bytes)
+CREATE lab_3_minhtc/src/app/app.component.spec.ts (1091 bytes)
+CREATE lab_3_minhtc/src/app/app.component.ts (216 bytes)
+CREATE lab_3_minhtc/src/app/app.component.css (0 bytes)
+✔ Packages installed successfully.
+    Directory is already under version control. Skipping initialization of git.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> ng g c productList
+The generate command requires to be run in an Angular project, but a project definition could not be found.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> cd ./lab_3_minhtc
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng g c productList
+CREATE src/app/product-list/product-list.component.html (27 bytes)
+CREATE src/app/product-list/product-list.component.spec.ts (662 bytes)
+CREATE src/app/product-list/product-list.component.ts (298 bytes)
+CREATE src/app/product-list/product-list.component.css (0 bytes)
+UPDATE src/app/app.module.ts (497 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng g c productDetail
+CREATE src/app/product-detail/product-detail.component.html (29 bytes)
+CREATE src/app/product-detail/product-detail.component.spec.ts (676 bytes)
+CREATE src/app/product-detail/product-detail.component.ts (306 bytes)
+CREATE src/app/product-detail/product-detail.component.css (0 bytes)
+UPDATE src/app/app.module.ts (609 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng g c contact
+CREATE src/app/contact/contact.component.html (22 bytes)
+CREATE src/app/contact/contact.component.spec.ts (633 bytes)
+CREATE src/app/contact/contact.component.ts (279 bytes)
+CREATE src/app/contact/contact.component.css (0 bytes)
+UPDATE src/app/app.module.ts (695 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng g c login
+CREATE src/app/login/login.component.html (20 bytes)
+CREATE src/app/login/login.component.spec.ts (619 bytes)
+CREATE src/app/login/login.component.ts (271 bytes)
+CREATE src/app/login/login.component.css (0 bytes)
+UPDATE src/app/app.module.ts (773 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  30.96 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.47 MB
+
+Build at: 2022-05-15T07:23:50.069Z - Hash: 521599f88ea31114 - Time: 18818ms
+
+./src/app/product-list/product-list.component.ts:1:0-38 - Error: Module not found: Error: Can't resolve 'stream' in 'C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-list'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "stream": require.resolve("stream-browserify") }'
+        - install 'stream-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "stream": false }
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:1:25 - error TS2339: Property 'p' does not exist on type 'ProductListComponent'.
+
+1 <td (click)="viewDetail(p.id)">{{ p.name | uppercase }}</td>
+                          ~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:1:35 - error TS2339: Property 'p' does not exist on type 'ProductListComponent'.
+
+1 <td (click)="viewDetail(p.id)">{{ p.name | uppercase }}</td>
+                                    ~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.ts:2:30 - error TS2307: Cannot find module 'stream' or its corresponding type declarations.
+
+2 import { EventEmitter } from 'stream';
+                               ~~~~~~~~
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 37.57 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:25:33.242Z - Hash: 532853072e8aa4f1 - Time: 2058ms
+
+./src/app/product-list/product-list.component.ts:1:0-38 - Error: Module not found: Error: Can't resolve 'stream' in 'C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-list'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "stream": require.resolve("stream-browserify") }'
+        - install 'stream-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "stream": false }
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:17:16 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+17         *ngIf="isShowImage"
+                  ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.ts:2:30 - error TS2307: Cannot find module 'stream' or its corresponding type declarations.
+
+2 import { EventEmitter } from 'stream';
+                               ~~~~~~~~
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+5 unchanged chunks
+
+Build at: 2022-05-15T07:25:38.745Z - Hash: 532853072e8aa4f1 - Time: 1346ms
+
+./src/app/product-list/product-list.component.ts:1:0-38 - Error: Module not found: Error: Can't resolve 'stream' in 'C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-list'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "stream": require.resolve("stream-browserify") }'
+        - install 'stream-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "stream": false }
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:17:16 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+17         *ngIf="isShowImage"
+                  ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.ts:2:30 - error TS2307: Cannot find module 'stream' or its corresponding type declarations.
+
+2 import { EventEmitter } from 'stream';
+                               ~~~~~~~~
+
+
+
+
+× Failed to compile.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  37.57 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.48 MB
+
+Build at: 2022-05-15T07:25:55.737Z - Hash: 532853072e8aa4f1 - Time: 4141ms
+
+./src/app/product-list/product-list.component.ts:1:0-38 - Error: Module not found: Error: Can't resolve 'stream' in 'C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-list'
+
+BREAKING CHANGE: webpack < 5 used to include polyfills for node.js core modules by default.
+This is no longer the case. Verify if you need this module and configure a polyfill for it.
+
+If you want to include a polyfill, you need to:
+        - add a fallback 'resolve.fallback: { "stream": require.resolve("stream-browserify") }'
+        - install 'stream-browserify'
+If you don't want to include a polyfill, you can use an empty module like this:
+        resolve.fallback: { "stream": false }
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:17:16 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+17         *ngIf="isShowImage"
+                  ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:7:16
+    7   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.ts:2:30 - error TS2307: Cannot find module 'stream' or its corresponding type declarations.
+
+2 import { EventEmitter } from 'stream';
+                               ~~~~~~~~
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 37.37 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:27:33.870Z - Hash: e0f3c75add2d78a0 - Time: 3142ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:17:16 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+17         *ngIf="isShowImage"
+                  ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  37.37 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.48 MB
+
+Build at: 2022-05-15T07:27:46.106Z - Hash: e0f3c75add2d78a0 - Time: 4071ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:17:16 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+17         *ngIf="isShowImage"
+                  ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.72 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:28:12.869Z - Hash: b138160a9d0e38da - Time: 2596ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  36.72 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.47 MB
+
+Build at: 2022-05-15T07:28:38.919Z - Hash: b138160a9d0e38da - Time: 4149ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+Error: src/app/product-list/product-list.component.html:15:26 - error TS2339: Property 'filterProductList' does not exist on type 'ProductListComponent'.
+
+15     <tr *ngFor="let p of filterProductList" (click)="viewDetail(p.id)">
+                            ~~~~~~~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.71 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:29:08.815Z - Hash: 0b0fd4dba12a524a - Time: 3016ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  36.71 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.47 MB
+
+Build at: 2022-05-15T07:29:22.137Z - Hash: 0b0fd4dba12a524a - Time: 4318ms
+
+Error: src/app/app.component.html:20:49 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+20             <a class="nav-link active" (click)="recordFunction('')" href="#"
+                                                   ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:25:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+25             <a class="nav-link" (click)="recordFunction('product')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:30:42 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+30             <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                                            ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:49:28 - error TS2339: Property 'recordFunction' does not exist on type 'AppComponent'.
+
+49                   (click)="recordFunction('login')"
+                              ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.71 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:30:12.279Z - Hash: f6395a7df1b873be - Time: 1025ms
+
+Error: src/app/app.component.html:64:13 - error NG8002: Can't bind to 'ngModel' since it isn't a known property of 'input'.
+
+64             [(ngModel)]="keywords"
+               ~~~~~~~~~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:64:26 - error TS2339: Property 'keywords' does not exist on type 'AppComponent'.
+
+64             [(ngModel)]="keywords"
+                            ~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:65:22 - error TS2339: Property 'setNewKeywords' does not exist on type 'AppComponent'.
+
+65             (keyup)="setNewKeywords()"
+                        ~~~~~~~~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+    7m                 ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/app.component.html:81:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+81           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:93m3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.22 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:31:02.803Z - Hash: 711eb0e10e4efb75 - Time: 1004ms
+
+Error: src/app/app.component.html:79:32 - error TS2322: Type 'Product | null' is not assignable to type 'Product'.
+  Type 'null' is not assignable to type 'Product'.
+
+79           <app-product-detail [product]="currentProduct"></app-product-detail>
+                                  ~~~~~~~
+
+  src/app/app.component.ts:6:16
+    6   templateUrl: './app.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component AppComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.22 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:31:56.219Z - Hash: e578d5814a23e4cb - Time: 483ms
+
+Error: src/app/product-detail/product-detail.component.html:1:13 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+1 <p>idSP: {{ sp.id }}</p>
+              ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:15 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Tên SP: {{ sp.tensp }}</p>
+                ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:12 - error TS2339: Property 'sp' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Giá: {{ sp.giasp }}</p>
+             ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.21 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:32:34.737Z - Hash: bbff2c9311b1d02c - Time: 744ms
+
+Error: src/app/product-detail/product-detail.component.html:1:11 - error TS2339: Property 'p' does not exist on type 'ProductDetailComponent'.
+
+1 <p>Id: {{ p.id }}</p>
+            ~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:13 - error TS2339: Property 'p' does not exist on type 'ProductDetailComponent'.
+
+2 <p>Name: {{ p.name }}</p>
+              ~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:14 - error TS2339: Property 'p' does not exist on type 'ProductDetailComponent'.
+
+3 <p>Price: {{ p.price }}</p>
+               ~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 35.03 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:32:51.952Z - Hash: 7d4c3e24a2ca30bb - Time: 640ms
+
+Error: src/app/product-detail/product-detail.component.html:1:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Id: {{ .id }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@0:3
+
+1 <p>Id: {{ .id }}</p>
+     ~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Id: {{ .id }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@0:3
+
+2 <p>Name: {{ .name }}</p>
+     ~~~~~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Name: {{ .name }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@1:3
+
+2 <p>Name: {{ .name }}</p>
+     ~~~~~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Id: {{ .id }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@0:3
+
+3 <p>Price: {{ .price }}</p>
+     ~~~~~~~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Name: {{ .name }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@1:3
+
+3 <p>Price: {{ .price }}</p>
+     ~~~~~~~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:4 - error NG5002: Parser Error: Unexpected token . at column 2 in [Price: {{ .price }}] in C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc\src\app\product-detail\product-detail.component.html@2:3
+
+3 <p>Price: {{ .price }}</p>
+     ~~~~~~~~~~~~~~~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 36.22 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:32:53.691Z - Hash: c8eb7d10d899438d - Time: 572ms
+
+Error: src/app/product-detail/product-detail.component.html:1:19 - error TS2531: Object is possibly 'null'.
+
+1 <p>Id: {{ product.id }}</p>
+                    ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:21 - error TS2531: Object is possibly 'null'.
+
+2 <p>Name: {{ product.name }}</p>
+                      ~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:22 - error TS2531: Object is possibly 'null'.
+
+3 <p>Price: {{ product.price }}</p>
+                       ~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+× Failed to compile.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  36.22 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.47 MB
+
+Build at: 2022-05-15T07:33:22.340Z - Hash: c8eb7d10d899438d - Time: 4088ms
+
+Error: src/app/product-detail/product-detail.component.html:1:19 - error TS2531: Object is possibly 'null'.
+
+1 <p>Id: {{ product.id }}</p>
+                    ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:21 - error TS2531: Object is possibly 'null'.
+
+2 <p>Name: {{ product.name }}</p>
+                      ~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:22 - error TS2531: Object is possibly 'null'.
+
+3 <p>Price: {{ product.price }}</p>
+                       ~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-list/product-list.component.html:4:59 - error TS2339: Property 'isShowImage' does not exist on type 'ProductListComponent'.
+
+4       <th class="px-3" style="line-height: 2.5rem" *ngIf="isShowImage">
+                                                            ~~~~~~~~~~~
+
+  src/app/product-list/product-list.component.ts:6:16
+    6   templateUrl: './product-list.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductListComponent.
+
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 35.70 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:33:59.671Z - Hash: d5742ce3ddc5c1d8 - Time: 871ms
+
+Error: src/app/product-detail/product-detail.component.html:1:19 - error TS2531: Object is possibly 'null'.
+
+1 <p>Id: {{ product.id }}</p>
+                    ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:21 - error TS2531: Object is possibly 'null'.
+
+2 <p>Name: {{ product.name }}</p>
+                      ~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:22 - error TS2531: Object is possibly 'null'.
+
+3 <p>Price: {{ product.price }}</p>
+                       ~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+5 unchanged chunks
+
+Build at: 2022-05-15T07:34:00.403Z - Hash: d5742ce3ddc5c1d8 - Time: 418ms
+
+Error: src/app/product-detail/product-detail.component.html:1:19 - error TS2531: Object is possibly 'null'.
+
+1 <p>Id: {{ product.id }}</p>
+                    ~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:2:21 - error TS2531: Object is possibly 'null'.
+
+2 <p>Name: {{ product.name }}</p>
+                      ~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+Error: src/app/product-detail/product-detail.component.html:3:22 - error TS2531: Object is possibly 'null'.
+
+3 <p>Price: {{ product.price }}</p>
+                       ~~~~~
+
+  src/app/product-detail/product-detail.component.ts:6:16
+    6   templateUrl: './product-detail.component.html',
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component ProductDetailComponent.
+
+
+
+
+× Failed to compile.
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files | Names   | Raw Size
+main.js             | main    | 35.78 kB |
+runtime.js          | runtime |  6.52 kB |
+
+3 unchanged chunks
+
+Build at: 2022-05-15T07:34:22.772Z - Hash: 2f27063b93d61a5d - Time: 305ms
+
+√ Compiled successfully.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\lab_3_minhtc> ng serve --open
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+polyfills.js          | polyfills     | 294.85 kB |
+styles.css, styles.js | styles        | 173.23 kB |
+main.js               | main          |  35.78 kB |
+runtime.js            | runtime       |   6.52 kB |
+
+                      | Initial Total |   2.47 MB
+
+Build at: 2022-05-15T07:34:41.503Z - Hash: 2f27063b93d61a5d - Time: 4058ms
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+√ Compiled successfully.

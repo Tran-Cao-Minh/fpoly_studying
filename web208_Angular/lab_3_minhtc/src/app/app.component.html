@@ -1,0 +1,112 @@
+<body class="bg-light">
+  <div class="container pb-5">
+    <header
+      class="bg-info"
+      style="
+        background-image: url(../assets/banner.png);
+        height: 5vw;
+        background-size: contain;
+        background-position: center;
+      "
+    ></header>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success py-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">TCM's Shop</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" (click)="recordFunction('')" href="#"
+                >Home</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="recordFunction('product')" href="#"
+                >Product</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" (click)="recordFunction('contact')" href="#"
+                >Contact</a
+              >
+            </li>
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Account
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li>
+                  <a
+                    class="dropdown-item"
+                    (click)="recordFunction('login')"
+                    href="#"
+                    >Login</a
+                  >
+                </li>
+                <li><a class="dropdown-item" href="#">Sign up</a></li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li><a class="dropdown-item" href="#">Forget password</a></li>
+              </ul>
+            </li>
+          </ul>
+          <form class="d-flex">
+            <input
+              class="form-control me-2"
+              type="text"
+              placeholder="Keywords"
+              aria-label="Search"
+              name="search"
+            />
+            <button class="btn btn-light" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <main>
+      <article class="col-md-9 bg-light">
+        <div [ngSwitch]="true">
+          <div *ngSwitchCase="functionName == 'detail'">
+            <app-product-detail [product]="currentProduct"></app-product-detail>
+          </div>
+          <div *ngSwitchCase="functionName == 'contact'">
+            <app-contact></app-contact>
+          </div>
+          <div *ngSwitchCase="functionName == 'login'">
+            <app-login></app-login>
+          </div>
+          <div *ngSwitchDefault>
+            <app-product-list
+              (updateProductId)="assignProduct($event)"
+            ></app-product-list>
+          </div>
+        </div>
+      </article>
+
+      <aside class="col-md-3 bg-white"></aside>
+    </main>
+    <footer
+      class="bg-light text-muted text-center py-4 fs-6 fw-bold text-light text-uppercase"
+    >
+      Tran Cao Minh
+    </footer>
+  </div>
+</body>

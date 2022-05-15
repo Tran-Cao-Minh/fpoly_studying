@@ -1,0 +1,50 @@
+<table class="table table-borderless table-hover table-striped mt-2">
+  <thead class="bg-success text-light">
+    <tr>
+      <th class="px-3" style="line-height: 2.5rem">Image</th>
+      <th class="px-3" style="line-height: 2.5rem">Name</th>
+      <th class="px-3" style="line-height: 2.5rem">Code</th>
+      <th class="px-3" style="line-height: 2.5rem">Date</th>
+      <th class="px-3" style="line-height: 2.5rem">Price</th>
+      <th class="px-3" style="line-height: 2.5rem">Rate</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products" (click)="viewDetail(p.id)">
+      <td
+        style="height: 3.5rem; line-height: 3.5rem"
+        class="px-3"
+        class="text-center"
+      >
+        <img src="{{ p.image }}" height="40" alt="" />
+      </td>
+      <td style="height: 3.5rem; line-height: 3.5rem" class="px-3">
+        {{ p.name | uppercase }}
+      </td>
+      <td style="height: 3.5rem; line-height: 3.5rem" class="px-3">
+        {{ p.code }}
+      </td>
+      <td style="height: 3.5rem; line-height: 3.5rem" class="px-3">
+        {{ p.date | date: "dd/MM/y" }}
+      </td>
+      <td style="height: 3.5rem; line-height: 3.5rem" class="px-3">
+        {{ p.price | currency }}
+      </td>
+      <td style="height: 3.5rem; line-height: 3.5rem" class="px-3">
+        <div
+          class="overflow-hidden"
+          [style.width.px]="(p.starRate * 90) / 5"
+          title="rating"
+        >
+          <div style="width: 90px">
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+            <i class="bi bi-star"></i>
+          </div>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>

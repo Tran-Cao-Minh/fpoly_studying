@@ -3,7 +3,7 @@
 - move to project and run: ng serve --open
 - install bootstrap npm: npm i bootstrap@5
 - config angular.json to add bootstrap js and css
-+ use terminal special with some config
++ use terminal special with some config + save terminal history file
 
 # 1 Create components and layouts
 - ng g c header -> ng g c productList + code template
