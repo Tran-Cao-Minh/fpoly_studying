@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import Product from '../product'
+import Product from '../product';
+import { KeywordsService } from '../keywords.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-list',
@@ -69,9 +71,33 @@ export class ProductListComponent implements OnInit {
       starRate: 3.8
     },
   ];
-  constructor() { }
+  constructor(private keywordsService: KeywordsService) { }
 
-  ngOnInit(): void {
-  }
   keywords: string = '';
+  subscription: Subscription = new Subscription();
+
+  filterProductList: Array<Product> = [];
+  ngOnInit(): void {
+    this.filterProductList = this.productList;
+    this.subscription = this.keywordsService.currentKeywords.subscribe(keywords => {
+      this.keywords = keywords;
+      this.filterProduct();
+    });
+  }
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe;
+  }
+
+  filterProduct(): void {
+    console.log(this.keywords);
+
+    this.filterProductList = this.productList.filter(p => {
+      return p.name.toLowerCase().includes(this.keywords.toLowerCase())
+    });
+  }
+
+  isShowImage: boolean = true;
+  toggleImageStatus(): void {
+    this.isShowImage = !this.isShowImage;
+  }
 }
