@@ -1,0 +1,9 @@
+<div class="mb-3" *ngFor="let p of products">
+  <img src="{{ p.image }}" align="left" height="100" width="100" />
+  <h4>
+    <a [routerLink]="['/product', p.id]" href="#">{{ p.name }}</a>
+  </h4>
+  <p>{{ p.description }}</p>
+  <p>{{ p.price }}</p>
+  <hr />
+</div>

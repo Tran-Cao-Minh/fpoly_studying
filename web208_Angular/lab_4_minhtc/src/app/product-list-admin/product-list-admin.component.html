@@ -1,0 +1,33 @@
+<h4>Product Management</h4>
+<table class="table table-bordered table-hover">
+  <thead>
+    <th class="bg-warning">
+      <tr>
+        <th>Image</th>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Price</th>
+        <th>Action</th>
+      </tr>
+    </th>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of products">
+      <td>
+        <img [src]="p.image" height="50" [title]="p.name | uppercase" />
+      </td>
+      <td>
+        <a href="#" [routerLink]="['/product', p.id]">
+          {{ p.name | uppercase }}
+        </a>
+      </td>
+      <td [innerText]="p.date | date: 'dd/MM/Y'"></td>
+      <td>{{ p.price | currency: "USD" }}</td>
+      <td>
+        <a href="#" [routerLink]="['/admin/update-product', p.id]">Update</a>
+        &nbsp;
+        <a href="#" (click)="deleteProduct(p.id)">Delete</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
