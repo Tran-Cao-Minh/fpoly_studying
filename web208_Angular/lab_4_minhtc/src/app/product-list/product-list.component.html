@@ -1,9 +1,23 @@
-<div class="mb-3" *ngFor="let p of products">
-  <img src="{{ p.image }}" align="left" height="100" width="100" />
-  <h4>
-    <a [routerLink]="['/product', p.id]" href="#">{{ p.name }}</a>
-  </h4>
-  <p>{{ p.description }}</p>
-  <p>{{ p.price }}</p>
-  <hr />
+<div class="d-flex flex-wrap w-full">
+  <div class="col-12 col-md-6 col-lg-4 p-3" *ngFor="let product of products">
+    <div class="card text-center">
+      <div class="card-header text-truncate fs-6">
+        {{ product.name }}
+      </div>
+      <div class="card-body">
+        <img src="{{ product.image }}" class="mb-4" style="height: 7.5rem" />
+        <p class="card-text text-truncate">{{ product.description }}</p>
+        <p class="card-text text-truncate">{{ product.date }}</p>
+        <a
+          href="#"
+          [routerLink]="['/product', product.id]"
+          class="btn btn-success"
+          >Show details</a
+        >
+      </div>
+      <div class="card-footer">
+        {{ product.price | currency }}
+      </div>
+    </div>
+  </div>
 </div>

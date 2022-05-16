@@ -65,7 +65,7 @@ export class ProductListComponent implements OnInit {
       price: 320.00,
       description: 'Very good, silver, 64gb',
       image: 'https://assets.thebigphonestore.co.uk/storage/26701/responsive-images/c5yVtB0iFq0yt8HWsh6y4mlW0WWxY5ILBOozn8k0___thumb_webp_140_155.webp',
-      date: '2022-04-03',
+      date: 'August 14, 2014',
       starRate: 3.8
     },
   ];

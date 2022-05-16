@@ -1,3 +1,29 @@
-<p>{{ product.id }}</p>
+<!-- <p>{{ product.id }}</p>
 <p>{{ product.name }}</p>
 <p>{{ product.price }}</p>
+ -->
+
+<div class="card text-center mt-4">
+  <div
+    class="card-header py-3 fw-bold text-success text-uppercase text-truncate"
+  >
+    {{ product.name }}
+  </div>
+  <div class="card-body">
+    <img
+      src="{{ product?.image }}"
+      class="img-fluid img-thumbnail rounded"
+      style="height: 200px"
+    />
+    <h5 class="card-title pt-3">
+      {{ product.price | currency }}
+    </h5>
+    <p class="card-text">
+      {{ product.description }}
+    </p>
+    <p class="card-text pb-1">
+      {{ product.date }}
+    </p>
+  </div>
+  <div class="card-footer text-muted py-3">Code - {{ product.code }}</div>
+</div>
