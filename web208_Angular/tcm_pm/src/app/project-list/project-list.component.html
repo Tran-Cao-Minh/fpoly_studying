@@ -1,0 +1,35 @@
+<table class="table table-borderless table-hover table-striped mt-2">
+  <caption
+    class="bg-light text-uppercase fw-bold p-3 fs-6 caption-top text-center"
+  >
+    Project List
+  </caption>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Start Date</th>
+      <th>Total Count</th>
+      <th>Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of projectList">
+      <td>{{ p.id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.startDate }}</td>
+      <td>{{ p.totalCount }}</td>
+      <td>
+        <button
+          [routerLink]="['/update-project', p.id]"
+          class="btn btn-square btn-warning me-2"
+        >
+          <i class="ms-1 fa-solid fa-file-pen"></i>
+        </button>
+        <button class="btn btn-square btn-danger">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

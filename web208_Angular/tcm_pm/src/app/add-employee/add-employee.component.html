@@ -1,0 +1,36 @@
+<form class="mt-3">
+  <h5 class="bg-primary text-light rounded p-2 text-center mb-3">
+    Add Emloyee
+  </h5>
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First Name</label>
+    <input required type="text" class="form-control" id="firstName" />
+  </div>
+  <div class="mb-3">
+    <label for="lastName" class="form-label">Last Name</label>
+    <input required type="text" class="form-control" id="lastName" />
+  </div>
+  <div class="mb-3">
+    <label for="birthDate" class="form-label">Birth Date</label>
+    <input required type="date" class="form-control" id="birthDate" />
+  </div>
+  <div class="mb-3">
+    <label for="gender" class="form-label">Gender</label>
+    <select required class="form-select" id="gender">
+      <option *ngFor="let g of genderList" value="{{ g.id }}">
+        {{ g.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="area" class="form-label">Area</label>
+    <select required class="form-select" id="area">
+      <option *ngFor="let a of areaList" value="{{ a.id }}">
+        {{ a.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-12 px-4 mb-4 mt-4">
+    <button class="btn btn-primary col-12 text-uppercase">Confirm</button>
+  </div>
+</form>

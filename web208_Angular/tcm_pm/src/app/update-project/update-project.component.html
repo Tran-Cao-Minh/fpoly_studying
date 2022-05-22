@@ -1,0 +1,63 @@
+<form class="mt-3">
+  <h5 class="bg-primary text-light rounded p-2 text-center mb-3">
+    Update Project
+  </h5>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      value="{{ project.name }}"
+      required
+      type="text"
+      class="form-control"
+      id="name"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="startDate" class="form-label">Start Date</label>
+    <input
+      value="{{ project.startDate }}"
+      required
+      type="date"
+      class="form-control"
+      id="startDate"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="totalCount" class="form-label">Total Count</label>
+    <input
+      value="{{ project.totalCount }}"
+      required
+      min="0"
+      type="number"
+      class="form-control"
+      id="totalCount"
+    />
+  </div>
+  <div class="mb-3">
+    <label for="leader" class="form-label">Leader</label>
+    <select required class="form-select" id="leader">
+      <option
+        *ngFor="let e of employeesInf"
+        value="{{ e.id }}"
+        [selected]="e.id === project.leaderId"
+      >
+        {{ e.lastName }} {{ e.firstName }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="members" class="form-label">Members</label>
+    <select required multiple size="5" class="form-select" id="members">
+      <option
+        *ngFor="let e of employeesInf"
+        value="{{ e.id }}"
+        [selected]="project.membersId?.includes(e.id)"
+      >
+        {{ e.lastName }} {{ e.firstName }}
+      </option>
+    </select>
+  </div>
+  <div class="col-12 px-4 mb-4 mt-4">
+    <button class="btn btn-primary col-12 text-uppercase">Confirm</button>
+  </div>
+</form>

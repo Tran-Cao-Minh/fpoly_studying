@@ -1,0 +1,190 @@
+<div class="container-fluid px-0">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary py-4">
+    <div class="container-xxl px-3">
+      <a class="navbar-brand text-light font-monospace" href="#">TCM's PM</a>
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a
+              class="nav-link active"
+              aria-current="page"
+              href="#"
+              routerLink="dashboard"
+              >Dashboard</a
+            >
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#" routerLink="/about">About</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Project
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#" routerLink="/add-project"
+                  >Add Project</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" routerLink="project-list"
+                  >Project List</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Task
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#" routerLink="/add-task"
+                  >Add Task</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" routerLink="/task-list"
+                  >Task List</a
+                >
+              </li>
+            </ul>
+          </li>
+          <li class="nav-item dropdown">
+            <a
+              class="nav-link dropdown-toggle"
+              id="navbarDropdown"
+              role="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              Employee
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <li>
+                <a class="dropdown-item" href="#" routerLink="/add-employee"
+                  >Add Employee</a
+                >
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" routerLink="/employee-list"
+                  >Employee List</a
+                >
+              </li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input
+            class="form-control me-2"
+            type="text"
+            placeholder="Keywords"
+            aria-label="Keywords"
+            (keyup)="showSearchResult()"
+            [(ngModel)]="keywords"
+            name="search"
+          />
+          <button class="btn btn-light text-primary" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </nav>
+  <main class="d-flex container-xxl py-4" style="min-height: 42rem">
+    <aside class="col-md-3 bg-light p-3">
+      <h6
+        class="bg-primary opacity-975 text-light rounded p-2 text-center mb-3"
+      >
+        Statistics
+      </h6>
+      <ul class="list-group list-group-flush">
+        <li
+          *ngFor="let s of statisticsInf"
+          class="list-group-item text-center mb-3 border-0 py-3 justify-content-between align-items-center rounded d-flex fp"
+        >
+          <span>{{ s.name }}</span>
+          <mark
+            class="px-3 fw-bold rounded-pill bg-primary text-white opacity-975"
+            >{{ s.inf }}</mark
+          >
+        </li>
+      </ul>
+    </aside>
+    <article class="col-md-6 bg-white px-3">
+      <!-- <app-project-list
+        *ngIf="fnName === '' || fnName === 'projectList'"
+      ></app-project-list>
+      <app-task-list
+        *ngIf="fnName === '' || fnName === 'taskList'; df"
+      ></app-task-list>
+      <app-employee-list
+        *ngIf="fnName === '' || fnName === 'employeeList'"
+      ></app-employee-list>
+      <app-add-project *ngIf="fnName === 'addProject'"></app-add-project>
+      <app-add-task *ngIf="fnName === 'addTask'"></app-add-task>
+      <app-add-employee *ngIf="fnName === 'addEmployee'"></app-add-employee> -->
+      <router-outlet></router-outlet>
+    </article>
+    <aside class="col-md-3 bg-light p-3">
+      <h6
+        class="bg-primary opacity-975 text-light rounded p-2 text-center mb-3"
+      >
+        Members
+      </h6>
+      <div *ngFor="let a of membersByArea">
+        <button
+          class="btn btn-secondary text-uppercase col-12"
+          data-bs-toggle="collapse"
+          [attr.data-bs-target]="'#' + a.name"
+        >
+          {{ a.name }}
+        </button>
+        <div
+          style="min-height: 2rem"
+          class="collapse collapse-horizontal show"
+          id="{{ a.name }}"
+        >
+          <div class="card">
+            <ul class="list-group list-group-flush">
+              <li
+                *ngFor="let m of a.members"
+                class="list-group-item text-center"
+              >
+                ({{ m.id }}) {{ m.lastName }} {{ m.firstName }}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </aside>
+  </main>
+  <footer
+    class="bg-dark text-light opacity-50 text-center py-4 fs-6 fw-semibold text-uppercase"
+  >
+    Created by Tran Cao Minh
+  </footer>
+</div>

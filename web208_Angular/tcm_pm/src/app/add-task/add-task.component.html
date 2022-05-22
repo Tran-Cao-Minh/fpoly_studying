@@ -1,0 +1,51 @@
+<form class="mt-3">
+  <h5 class="bg-primary text-light rounded p-2 text-center mb-3">Add Task</h5>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input required type="text" class="form-control" id="name" />
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      required
+      class="form-control"
+      rows="3"
+      id="description"
+    ></textarea>
+  </div>
+  <div class="mb-3">
+    <label for="project" class="form-label">Project</label>
+    <select required class="form-select" id="project">
+      <option *ngFor="let p of projectsInf" value="{{ p.id }}">
+        {{ p.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="performer" class="form-label">Performer</label>
+    <select required class="form-select" id="performer">
+      <option *ngFor="let p of performersInf" value="{{ p.id }}">
+        {{ p.lastName }} {{ p.firstName }}
+      </option>
+    </select>
+  </div>
+  <p class="mb-3">
+    Priority
+    <select required class="form-select" id="priority">
+      <option *ngFor="let p of priorityList" value="{{ p.id }}">
+        {{ p.name }}
+      </option>
+    </select>
+  </p>
+  <p class="mb-3">
+    Status
+    <select required class="form-select" id="status">
+      <option *ngFor="let s of statusList" value="{{ s.id }}">
+        {{ s.name }}
+      </option>
+    </select>
+  </p>
+  <div class="col-12 px-4 mb-4 mt-4">
+    <button class="btn btn-primary col-12 text-uppercase">Confirm</button>
+  </div>
+</form>

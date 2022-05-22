@@ -1,0 +1,130 @@
+Windows PowerShell
+Copyright (C) Microsoft Corporation. All rights reserved.
+
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> ng new tcm_pm --routing --defaults
+CREATE tcm_pm/angular.json (3039 bytes)
+CREATE tcm_pm/package.json (1069 bytes)
+CREATE tcm_pm/README.md (1059 bytes)
+CREATE tcm_pm/tsconfig.json (863 bytes)
+CREATE tcm_pm/.editorconfig (274 bytes)
+CREATE tcm_pm/.gitignore (548 bytes)
+CREATE tcm_pm/.browserslistrc (600 bytes)
+CREATE tcm_pm/karma.conf.js (1423 bytes)
+CREATE tcm_pm/tsconfig.app.json (287 bytes)
+CREATE tcm_pm/tsconfig.spec.json (333 bytes)
+CREATE tcm_pm/.vscode/extensions.json (130 bytes)
+CREATE tcm_pm/.vscode/launch.json (474 bytes)
+CREATE tcm_pm/.vscode/tasks.json (938 bytes)
+CREATE tcm_pm/src/favicon.ico (948 bytes)
+CREATE tcm_pm/src/index.html (291 bytes)
+CREATE tcm_pm/src/main.ts (372 bytes)
+CREATE tcm_pm/src/polyfills.ts (2338 bytes)
+CREATE tcm_pm/src/styles.css (80 bytes)
+CREATE tcm_pm/src/test.ts (745 bytes)
+CREATE tcm_pm/src/assets/.gitkeep (0 bytes)
+CREATE tcm_pm/src/environments/environment.prod.ts (51 bytes)
+CREATE tcm_pm/src/environments/environment.ts (658 bytes)
+CREATE tcm_pm/src/app/app-routing.module.ts (245 bytes)
+CREATE tcm_pm/src/app/app.module.ts (393 bytes)
+CREATE tcm_pm/src/app/app.component.html (23364 bytes)
+CREATE tcm_pm/src/app/app.component.spec.ts (1073 bytes)
+CREATE tcm_pm/src/app/app.component.ts (210 bytes)
+CREATE tcm_pm/src/app/app.component.css (0 bytes)
+✔ Packages installed successfully.
+    Directory is already under version control. Skipping initialization of git.
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> npm i bootstrap@5
+
+added 2 packages, and audited 3 packages in 1s
+
+2 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular> cd .\tcm_pm\
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c login
+CREATE src/app/login/login.component.html (20 bytes)
+CREATE src/app/login/login.component.spec.ts (619 bytes)
+CREATE src/app/login/login.component.ts (271 bytes)
+CREATE src/app/login/login.component.css (0 bytes)
+UPDATE src/app/app.module.ts (471 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c about
+CREATE src/app/about/about.component.html (20 bytes)
+CREATE src/app/about/about.component.spec.ts (619 bytes)
+CREATE src/app/about/about.component.ts (271 bytes)
+CREATE src/app/about/about.component.css (0 bytes)
+UPDATE src/app/app.module.ts (549 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c account
+CREATE src/app/account/account.component.html (22 bytes)
+CREATE src/app/account/account.component.spec.ts (633 bytes)
+CREATE src/app/account/account.component.ts (279 bytes)
+CREATE src/app/account/account.component.css (0 bytes)
+UPDATE src/app/app.module.ts (635 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c projectList
+CREATE src/app/project-list/project-list.component.html (27 bytes)
+CREATE src/app/project-list/project-list.component.spec.ts (662 bytes)
+CREATE src/app/project-list/project-list.component.ts (298 bytes)
+CREATE src/app/project-list/project-list.component.css (0 bytes)
+UPDATE src/app/app.module.ts (739 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c taskList
+CREATE src/app/task-list/task-list.component.html (24 bytes)
+CREATE src/app/task-list/task-list.component.spec.ts (641 bytes)
+CREATE src/app/task-list/task-list.component.ts (286 bytes)
+CREATE src/app/task-list/task-list.component.css (0 bytes)
+UPDATE src/app/app.module.ts (831 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c searchResult
+CREATE src/app/search-result/search-result.component.html (28 bytes)
+CREATE src/app/search-result/search-result.component.spec.ts (669 bytes)
+CREATE src/app/search-result/search-result.component.ts (302 bytes)
+CREATE src/app/search-result/search-result.component.css (0 bytes)
+UPDATE src/app/app.module.ts (939 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c addProject
+CREATE src/app/add-project/add-project.component.html (26 bytes)
+CREATE src/app/add-project/add-project.component.spec.ts (655 bytes)
+CREATE src/app/add-project/add-project.component.ts (294 bytes)
+CREATE src/app/add-project/add-project.component.css (0 bytes)
+UPDATE src/app/app.module.ts (1039 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c updateProject
+CREATE src/app/update-project/update-project.component.html (29 bytes)
+CREATE src/app/update-project/update-project.component.spec.ts (676 bytes)
+CREATE src/app/update-project/update-project.component.ts (306 bytes)
+CREATE src/app/update-project/update-project.component.css (0 bytes)
+UPDATE src/app/app.module.ts (1151 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c addTask
+CREATE src/app/add-task/add-task.component.html (23 bytes)
+CREATE src/app/add-task/add-task.component.spec.ts (634 bytes)
+CREATE src/app/add-task/add-task.component.ts (282 bytes)
+CREATE src/app/add-task/add-task.component.css (0 bytes)
+UPDATE src/app/app.module.ts (1239 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng g c updateTask
+CREATE src/app/update-task/update-task.component.html (26 bytes)
+CREATE src/app/update-task/update-task.component.spec.ts (655 bytes)
+CREATE src/app/update-task/update-task.component.ts (294 bytes)
+CREATE src/app/update-task/update-task.component.css (0 bytes)
+UPDATE src/app/app.module.ts (1339 bytes)
+PS C:\Users\Tran Cao Minh\OneDrive\Documents\GitHub\fpoly_studying\web208_Angular\tcm_pm> ng serve --o
+✔ Browser application bundle generation complete.
+
+Initial Chunk Files   | Names         |  Raw Size
+vendor.js             | vendor        |   1.98 MB |
+styles.css, styles.js | styles        | 370.14 kB |
+polyfills.js          | polyfills     | 294.84 kB |
+main.js               | main          |  31.25 kB |
+runtime.js            | runtime       |   6.51 kB |
+
+                      | Initial Total |   2.66 MB
+
+Build at: 2022-05-18T09:51:17.455Z - Hash: ada43cb53ef25826 - Time: 13298ms
+
+./src/styles.css.webpack[javascript/auto]!=!./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[1]!./node_modules/postcss-loader/dist/cjs.js??ruleSet[1].rules[5].rules[0].oneOf[0].use[2]!./src/styles.css - Warning: Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+Warning
+
+(2147:3) autoprefixer: Replace color-adjust to print-color-adjust. The color-adjust shorthand is currently deprecated.
+
+
+
+** Angular Live Development Server is listening on localhost:4200, open your browser on http://localhost:4200/ **
+
+
+√ Compiled successfully.

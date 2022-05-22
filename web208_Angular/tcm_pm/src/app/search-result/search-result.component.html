@@ -1,0 +1,33 @@
+<table class="table table-borderless table-hover table-striped mt-2">
+  <caption
+    class="bg-light text-uppercase fw-bold p-3 fs-6 caption-top text-center"
+  >
+    Search Result
+  </caption>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Type</th>
+      <th>Handle</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngIf="filterItems.length === 0">
+      <td colspan="3" class="text-uppercase fw-bold text-muted">
+        No results matched your search
+      </td>
+    </tr>
+    <tr *ngFor="let i of filterItems">
+      <td>{{ i.name }}</td>
+      <td>{{ i.type }}</td>
+      <td>
+        <button class="btn btn-square btn-warning me-2">
+          <i class="ms-1 fa-solid fa-file-pen"></i>
+        </button>
+        <button class="btn btn-square btn-danger">
+          <i class="fa-solid fa-trash-can"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
