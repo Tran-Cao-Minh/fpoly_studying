@@ -7,7 +7,9 @@
       <div class="card-body">
         <img src="{{ product.image }}" class="mb-4" style="height: 7.5rem" />
         <p class="card-text text-truncate">{{ product.description }}</p>
-        <p class="card-text text-truncate">{{ product.date }}</p>
+        <p class="card-text text-truncate">
+          {{ product.date | date: "dd/MM/Y" }}
+        </p>
         <a
           href="#"
           [routerLink]="['/product', product.id]"
