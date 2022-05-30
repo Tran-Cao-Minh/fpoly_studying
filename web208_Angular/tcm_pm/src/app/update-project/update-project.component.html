@@ -51,7 +51,7 @@
       <option
         *ngFor="let e of employeesInf"
         value="{{ e.id }}"
-        [selected]="project.membersId?.includes(e.id)"
+        [selected]="project.membersId?.includes(e.id || -1)"
       >
         {{ e.lastName }} {{ e.firstName }}
       </option>

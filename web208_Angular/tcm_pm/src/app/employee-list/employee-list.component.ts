@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Employee } from '../employee';
+import { EmployeeService } from '../services/employee.service';
+import { AreaService } from '../services/area.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-employee-list',
@@ -7,20 +10,35 @@ import { Employee } from '../employee';
   styleUrls: ['./employee-list.component.css']
 })
 export class EmployeeListComponent implements OnInit {
-  employeeList: Array<Employee> = [
-    {
-      id: 1,
-      lastName: 'Tran Cao',
-      firstName: 'Minh',
-      birthDate: '2002-08-14',
-      gender: true,
-      area: 'South',
-    },
-  ];
+  employeeList: Array<Employee> = [];
 
-  constructor() { }
-
-  ngOnInit(): void {
+  constructor(
+    private employeeService: EmployeeService,
+    private areaService: AreaService,
+    private route: ActivatedRoute,
+  ) {
+    route.params.subscribe(() => {
+      this.employeeService.getEmployeeList().then(result => {
+        this.employeeList = result;
+      });
+    });
   }
 
+  getAreaName(id: number = 0) {
+    return this.areaService.getAreaName(id);
+  }
+
+  ngOnInit(): void { }
+
+  deleteEmployee(id: number = 0) {
+    this.employeeService.deleteEmployee(id).then(result => {
+      console.log(result);
+
+      this.employeeList.forEach((e, i) => {
+        if (e.id === id) {
+          this.employeeList.splice(i, 1);
+        }
+      });
+    });
+  }
 }

@@ -17,8 +17,8 @@
     <tr *ngFor="let p of projectList">
       <td>{{ p.id }}</td>
       <td>{{ p.name }}</td>
-      <td>{{ p.startDate }}</td>
-      <td>{{ p.totalCount }}</td>
+      <td>{{ p.startDate | date: "dd/MM/y" }}</td>
+      <td>{{ p.totalCount | currency: "USD" }}</td>
       <td>
         <button
           [routerLink]="['/update-project', p.id]"
@@ -26,7 +26,7 @@
         >
           <i class="ms-1 fa-solid fa-file-pen"></i>
         </button>
-        <button class="btn btn-square btn-danger">
+        <button (click)="deleteProject(p.id)" class="btn btn-square btn-danger">
           <i class="fa-solid fa-trash-can"></i>
         </button>
       </td>

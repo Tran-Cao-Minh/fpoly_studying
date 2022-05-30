@@ -1,0 +1,71 @@
+{
+  "employee": [
+    {
+      "lastName": "Tran",
+      "firstName": "Cao Minh",
+      "birthDate": "2002-08-14",
+      "genderId": 0,
+      "areaId": 2,
+      "id": 1
+    },
+    {
+      "lastName": "Le",
+      "firstName": "Vinh Ky",
+      "birthDate": "2002-02-22",
+      "genderId": 0,
+      "areaId": 1,
+      "id": 2
+    },
+    {
+      "lastName": "Nguyen",
+      "firstName": "Quang Vu",
+      "birthDate": "2002-05-29",
+      "genderId": 0,
+      "areaId": 0,
+      "id": 3
+    },
+    {
+      "lastName": "Le",
+      "firstName": "Van Duong",
+      "birthDate": "2002-11-12",
+      "genderId": 0,
+      "areaId": 3,
+      "id": 4
+    },
+    {
+      "lastName": "Nguyen",
+      "firstName": "Thanh Phong",
+      "birthDate": "2002-05-12",
+      "genderId": 0,
+      "areaId": 3,
+      "id": 5
+    }
+  ],
+  "task": [],
+  "project": [
+    {
+      "name": "Super Human",
+      "startDate": "2022-04-22",
+      "totalCount": 500,
+      "leaderId": 1,
+      "membersId": [
+        3,
+        4
+      ],
+      "id": 1
+    },
+    {
+      "name": "Pig Farm Management",
+      "startDate": "2022-02-10",
+      "totalCount": 2400,
+      "leaderId": 1,
+      "membersId": [
+        2,
+        3,
+        4,
+        5
+      ],
+      "id": 2
+    }
+  ]
+}

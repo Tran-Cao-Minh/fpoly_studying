@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Employee } from './employee';
-import { KeywordsService } from './keywords.service';
+import { KeywordsService } from './services/keywords.service';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -18,8 +18,8 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 
-import { FormsModule } from '@angular/forms';
-import { KeywordsService } from './keywords.service';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { KeywordsService } from './services/keywords.service';
 
 @NgModule({
   declarations: [
@@ -43,6 +43,7 @@ import { KeywordsService } from './keywords.service';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [KeywordsService,],
   bootstrap: [AppComponent]

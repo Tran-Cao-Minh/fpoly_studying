@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { KeywordsService } from '../keywords.service';
+import { KeywordsService } from '../services/keywords.service';
 import { Subscription } from 'rxjs';
 
 @Component({

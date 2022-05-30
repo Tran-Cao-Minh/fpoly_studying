@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { EmployeeService } from '../services/employee.service';
+import { GENDER_LIST, AREA_LIST } from '../constant/fixed-data';
+import { SubAttribute } from '../sub-attribute';
+import { Employee } from '../employee';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-update-employee',
@@ -6,10 +11,35 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./update-employee.component.css']
 })
 export class UpdateEmployeeComponent implements OnInit {
+  genderList: Array<SubAttribute> = GENDER_LIST;
+  areaList: Array<SubAttribute> = AREA_LIST;
 
-  constructor() { }
+  constructor(
+    private employeeService: EmployeeService,
+    private route: ActivatedRoute,
+    private router: Router,
+  ) { }
+
+  employeeId: number = Number(this.route.snapshot.params['id']);
+  employee: Employee | undefined;
 
   ngOnInit(): void {
+    this.employeeService.getEmployee(this.employeeId).then(result => {
+      this.employee = result as Employee;
+    });
   }
 
+  updateEmployee(data: any) {
+    const employee: Employee = {
+      lastName: data.lastName,
+      firstName: data.firstName,
+      birthDate: data.birthDate,
+      genderId: Number(data.genderId),
+      areaId: Number(data.areaId),
+    }
+    this.employeeService.updateEmployee(employee, this.employeeId).then(result => {
+      console.log(result);
+      this.router.navigate(['/employee-list']);
+    });
+  }
 }

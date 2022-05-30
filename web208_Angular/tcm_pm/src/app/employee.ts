@@ -1,8 +1,8 @@
 export interface Employee {
-  id: number;
+  id?: number;
   lastName?: string;
   firstName?: string;
   birthDate?: string;
-  gender?: boolean;
-  area?: string;
+  genderId?: number;
+  areaId?: number;
 }
