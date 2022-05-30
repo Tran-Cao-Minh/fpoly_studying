@@ -12,6 +12,10 @@ export class EmployeeService {
     return HttpService.get('employee');
   }
 
+  getEmployeeListByAreaId(id: number = 0) {
+    return HttpService.get(`employee?areaId=${id}`);
+  }
+
   getEmployee(id: number = 0) {
     return HttpService.get(`employee/${id}`);
   }

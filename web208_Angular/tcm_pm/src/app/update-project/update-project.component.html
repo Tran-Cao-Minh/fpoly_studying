@@ -1,63 +1,100 @@
-<form class="mt-3">
+<form
+  class="mt-3"
+  [formGroup]="updateProjectForm"
+  (ngSubmit)="updateProject(updateProjectForm.value)"
+>
   <h5 class="bg-primary text-light rounded p-2 text-center mb-3">
     Update Project
   </h5>
   <div class="mb-3">
     <label for="name" class="form-label">Name</label>
     <input
-      value="{{ project.name }}"
-      required
+      name="name"
+      formControlName="name"
       type="text"
-      class="form-control"
+      class="form-control allow-validated"
       id="name"
     />
+    <div class="invalid-feedback">
+      {{ updateProjectForm.controls['name']?.errors?.['required'] ? 'Project name is required' : null }}
+      {{ 
+       ( (updateProjectForm.controls['name']?.errors?.['minlength']?.['actualLength']) < updateProjectForm.controls['name']?.errors?.['minlength']?.['requiredLength']) 
+       ? 'Project name should be longer than 2 characters' : null
+      }}
+      {{ 
+       ( (updateProjectForm.controls['name']?.errors?.['maxlength']?.['actualLength']) > updateProjectForm.controls['name']?.errors?.['maxlength']?.['requiredLength']) 
+       ? 'Project name should be shorter than 30 characters' : null
+      }}
+    </div>
   </div>
   <div class="mb-3">
     <label for="startDate" class="form-label">Start Date</label>
     <input
-      value="{{ project.startDate }}"
-      required
+      name="startDate"
+      formControlName="startDate"
       type="date"
-      class="form-control"
+      class="form-control allow-validated"
       id="startDate"
     />
+    <div class="invalid-feedback">
+      {{ updateProjectForm.controls['startDate'].errors?.['required'] ? 'Employee birth date is required and must be a valid date' : null }}
+    </div>
   </div>
   <div class="mb-3">
     <label for="totalCount" class="form-label">Total Count</label>
     <input
-      value="{{ project.totalCount }}"
-      required
-      min="0"
+      name="totalCount"
+      formControlName="totalCount"
       type="number"
-      class="form-control"
+      class="form-control allow-validated"
       id="totalCount"
     />
+    <div class="invalid-feedback">
+      {{ updateProjectForm.controls['totalCount']?.errors?.['required'] ? 'Project total count is required' : null }}
+      {{ 
+       ( (updateProjectForm.controls['totalCount']?.errors?.['min']?.['actual']) < updateProjectForm.controls['totalCount']?.errors?.['min']?.['min']) 
+       ? 'Project total count should be greater than 0' : null
+      }}
+      {{ 
+       ( (updateProjectForm.controls['totalCount']?.errors?.['max']?.['actual']) > updateProjectForm.controls['totalCount']?.errors?.['max']?.['max']) 
+       ? 'Project total count should be smaller than 999999999' : null
+      }}
+    </div>
   </div>
   <div class="mb-3">
-    <label for="leader" class="form-label">Leader</label>
-    <select required class="form-select" id="leader">
-      <option
-        *ngFor="let e of employeesInf"
-        value="{{ e.id }}"
-        [selected]="e.id === project.leaderId"
-      >
+    <label for="leaderId" class="form-label">Leader</label>
+    <select
+      name="leaderId"
+      formControlName="leaderId"
+      class="form-select"
+      id="leaderId"
+    >
+      <option *ngFor="let e of employeesInf" value="{{ e.id }}">
         {{ e.lastName }} {{ e.firstName }}
       </option>
     </select>
   </div>
   <div class="mb-3">
-    <label for="members" class="form-label">Members</label>
-    <select required multiple size="5" class="form-select" id="members">
-      <option
-        *ngFor="let e of employeesInf"
-        value="{{ e.id }}"
-        [selected]="project.membersId?.includes(e.id || -1)"
-      >
+    <label for="membersId" class="form-label">Members</label>
+    <select
+      name="membersId"
+      formControlName="membersId"
+      multiple
+      size="5"
+      class="form-select"
+      id="membersId"
+    >
+      <option *ngFor="let e of employeesInf" value="{{ e.id }}">
         {{ e.lastName }} {{ e.firstName }}
       </option>
     </select>
   </div>
   <div class="col-12 px-4 mb-4 mt-4">
-    <button class="btn btn-primary col-12 text-uppercase">Confirm</button>
+    <button
+      [disabled]="updateProjectForm.invalid"
+      class="btn btn-primary col-12 text-uppercase"
+    >
+      Confirm
+    </button>
   </div>
 </form>

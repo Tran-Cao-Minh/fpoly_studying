@@ -1,1 +1,89 @@
-<p>update-task works!</p>
+<form
+  class="mt-3"
+  [formGroup]="updateTaskForm"
+  (ngSubmit)="updateTask(updateTaskForm.value)"
+>
+  <h5 class="bg-primary text-light rounded p-2 text-center mb-3">
+    Update Task
+  </h5>
+  <div class="mb-3">
+    <label for="name" class="form-label">Name</label>
+    <input
+      formControlName="name"
+      type="text"
+      class="form-control allow-validated"
+      id="name"
+    />
+    <div class="invalid-feedback">
+      {{ updateTaskForm.controls['name']?.errors?.['required'] ? 'Task name is required' : null }}
+      {{ 
+       ( (updateTaskForm.controls['name']?.errors?.['minlength']?.['actualLength']) < updateTaskForm.controls['name']?.errors?.['minlength']?.['requiredLength']) 
+       ? 'Task name should be longer than 2 characters' : null
+      }}
+      {{ 
+       ( (updateTaskForm.controls['name']?.errors?.['maxlength']?.['actualLength']) > updateTaskForm.controls['name']?.errors?.['maxlength']?.['requiredLength']) 
+       ? 'Task name should be shorter than 30 characters' : null
+      }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="description" class="form-label">Description</label>
+    <textarea
+      formControlName="description"
+      class="form-control allow-validated"
+      rows="3"
+      id="description"
+    ></textarea>
+    <div class="invalid-feedback">
+      {{ updateTaskForm.controls['description']?.errors?.['required'] ? 'Task description is required' : null }}
+      {{ 
+       ( (updateTaskForm.controls['description']?.errors?.['minlength']?.['actualLength']) < updateTaskForm.controls['description']?.errors?.['minlength']?.['requiredLength']) 
+       ? 'Task description should be longer than 8 characters' : null
+      }}
+      {{ 
+       ( (updateTaskForm.controls['description']?.errors?.['maxlength']?.['actualLength']) > updateTaskForm.controls['description']?.errors?.['maxlength']?.['requiredLength']) 
+       ? 'Task description should be shorter than 120 characters' : null
+      }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="project" class="form-label">Project</label>
+    <select formControlName="projectId" class="form-select" id="project">
+      <option *ngFor="let p of projectsInf" value="{{ p.id }}">
+        {{ p.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="employeeId" class="form-label">Performer</label>
+    <select formControlName="employeeId" class="form-select" id="employeeId">
+      <option *ngFor="let e of employeesInf" value="{{ e.id }}">
+        {{ e.lastName }} {{ e.firstName }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="priorityId" class="form-label">Priority</label>
+    <select formControlName="priorityId" class="form-select" id="priorityId">
+      <option *ngFor="let p of priorityList" value="{{ p.id }}">
+        {{ p.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="statusId" class="form-label">Status</label>
+    <select formControlName="statusId" class="form-select" id="statusId">
+      <option *ngFor="let s of statusList" value="{{ s.id }}">
+        {{ s.name }}
+      </option>
+    </select>
+  </div>
+  <div class="col-12 px-4 mb-4 mt-4">
+    <button
+      [disabled]="updateTaskForm.invalid"
+      class="btn btn-primary col-12 text-uppercase"
+    >
+      Confirm
+    </button>
+  </div>
+</form>

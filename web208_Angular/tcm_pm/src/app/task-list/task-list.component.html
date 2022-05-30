@@ -8,22 +8,35 @@
     <h5 class="card-title text-center mb-3 text-primary mt-1">{{ t.name }}</h5>
     <p class="card-text text-center mb-2">{{ t.description }}</p>
     <div class="col-6 d-inline-block text-center">
-      <h6 class="card-subtitle mb-2 text-muted">Priority: {{ t.priority }}</h6>
-    </div>
-    <div class="col-6 d-inline-block text-center">
-      <h6 class="card-subtitle mb-2 text-muted">Status: {{ t.status }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">
+        Priority: {{ getPriorityName(t.priorityId) }}
+      </h6>
     </div>
     <div class="col-6 d-inline-block text-center">
       <h6 class="card-subtitle mb-2 text-muted">
-        Employee: {{ t.employeeId }}
+        Status: {{ getStatusName(t.statusId) }}
+      </h6>
+    </div>
+    <div class="col-6 d-inline-block text-center">
+      <h6 class="card-subtitle mb-2 text-muted">
+        Employee: {{ t.employeeName }}
       </h6>
     </div>
     <div class="col-6 d-inline-block text-center mb-2">
-      <h6 class="card-subtitle mb-2 text-muted">Project: {{ t.projectId }}</h6>
+      <h6 class="card-subtitle mb-2 text-muted">
+        Project: {{ t.projectName }}
+      </h6>
     </div>
     <div class="col-12 text-center mt-1 mb-1">
-      <a href="#" class="btn btn-warning col-3 me-2">Update</a>
-      <a href="#" class="btn btn-danger col-3 ms-2">Delete</a>
+      <button
+        [routerLink]="['/update-task', t.id]"
+        class="btn btn-warning col-3 me-2"
+      >
+        Update
+      </button>
+      <button (click)="deleteTask(t.id)" class="btn btn-danger col-3 ms-2">
+        Delete
+      </button>
     </div>
   </div>
 </div>

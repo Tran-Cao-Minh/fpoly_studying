@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KeywordsService } from '../services/keywords.service';
 import { Subscription } from 'rxjs';
+import { SearchItem } from '../search-item';
 
 @Component({
   selector: 'app-search-result',
@@ -8,38 +9,19 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./search-result.component.css']
 })
 export class SearchResultComponent implements OnInit {
-  itemList = [
-    {
-      name: 'Pig Farm Management',
-      type: 'Project',
-      id: 1,
-    },
-    {
-      name: 'Tran Cao Minh',
-      type: 'Employee',
-      id: 1,
-    },
-    {
-      name: 'Requirements analysis',
-      type: 'Task',
-      id: 1,
-    },
-  ];
-
   constructor(
     private keywordsService: KeywordsService
   ) { }
 
   keywords: string = '';
   subscription: Subscription = new Subscription();
-  filterItems: Array<{
-    name: string,
-    type: string,
-    id: number,
-  }> = [];
+  filterItems: Array<SearchItem> = [];
 
   ngOnInit(): void {
-    this.filterItems = this.itemList;
+    this.keywordsService.getItemsByKeywords('').then(result => {
+      this.filterItems = result;
+    });
+
     this.subscription = this.keywordsService.currentKeywords.subscribe(keywords => {
       this.keywords = keywords;
       this.filterProduct();
@@ -47,10 +29,8 @@ export class SearchResultComponent implements OnInit {
   }
 
   filterProduct(): void {
-    console.log(this.keywords);
-
-    this.filterItems = this.itemList.filter(i => {
-      return i.name.toLowerCase().includes(this.keywords.toLowerCase())
+    this.keywordsService.getItemsByKeywords(this.keywords).then(result => {
+      this.filterItems = result;
     });
   }
 }

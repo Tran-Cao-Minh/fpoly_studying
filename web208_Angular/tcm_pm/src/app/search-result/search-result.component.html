@@ -19,13 +19,13 @@
     </tr>
     <tr *ngFor="let i of filterItems">
       <td>{{ i.name }}</td>
-      <td>{{ i.type }}</td>
+      <td class="text-capitalize">{{ i.type }}</td>
       <td>
-        <button class="btn btn-square btn-warning me-2">
-          <i class="ms-1 fa-solid fa-file-pen"></i>
-        </button>
-        <button class="btn btn-square btn-danger">
-          <i class="fa-solid fa-trash-can"></i>
+        <button
+          [routerLink]="['/update-' + i.type, i.id]"
+          class="btn btn-square btn-primary me-2"
+        >
+          <i class="fa-solid fa-eye"></i>
         </button>
       </td>
     </tr>

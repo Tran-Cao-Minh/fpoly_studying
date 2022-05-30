@@ -2,6 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Employee } from '../employee';
 import { Project } from '../project';
+import { EmployeeService } from '../services/employee.service';
+import { ProjectService } from '../services/project.service';
+import { Router } from '@angular/router';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+
 
 @Component({
   selector: 'app-update-project',
@@ -9,60 +14,67 @@ import { Project } from '../project';
   styleUrls: ['./update-project.component.css']
 })
 export class UpdateProjectComponent implements OnInit {
-  employeesInf: Array<Employee> = [
-    {
-      id: 1,
-      lastName: 'Tran Cao',
-      firstName: 'Minh',
-    },
-    {
-      id: 2,
-      lastName: 'Le Vinh',
-      firstName: 'Ky',
-    },
-    {
-      id: 3,
-      lastName: 'Nguyen Quang',
-      firstName: 'Vu',
-    },
-    {
-      id: 4,
-      lastName: 'Le Van',
-      firstName: 'Duong',
-    },
-    {
-      id: 5,
-      lastName: 'Nguyen Thanh',
-      firstName: 'Phong',
-    },
-  ];
-
-  projectList: Array<Project> = [
-    {
-      id: 1,
-      name: 'Pig Farm Management',
-      startDate: '2022-03-01',
-      totalCount: 3200,
-      leaderId: 1,
-      membersId: [1, 3, 4],
-    },
-  ];
+  employeesInf: Array<Employee> = [];
+  projectList: Array<Project> = [];
 
   constructor(
+    private employeeService: EmployeeService,
+    private projectService: ProjectService,
+    private router: Router,
     private route: ActivatedRoute
   ) { }
 
+  updateProjectForm!: FormGroup;
   projectId: number = Number(this.route.snapshot.params['id']);
-  project = <Project>{};
 
   ngOnInit(): void {
-    if (this.projectId < 0) return;
-    const result = this.projectList.find(p => p.id === this.projectId);
+    this.employeeService.getEmployeeList().then(result => {
+      this.employeesInf = result;
 
-    if (result === null) {
-      this.project = {} as Project;
-    } else {
-      this.project = result as Project;
+      this.projectService.getProject(this.projectId).then((project: Project) => {
+        this.updateProjectForm.setValue({
+          'name': project.name,
+          'startDate': project.startDate,
+          'totalCount': project.totalCount,
+          'leaderId': String(project.leaderId),
+          'membersId': project.membersId?.map(String),
+        });
+      });
+    });
+
+    this.updateProjectForm = new FormGroup({
+      name: new FormControl(null, [
+        Validators.required,
+        Validators.minLength(2),
+        Validators.maxLength(30),
+      ]),
+      startDate: new FormControl(null, [
+        Validators.required,
+      ]),
+      totalCount: new FormControl(null, [
+        Validators.required,
+        Validators.min(0),
+        Validators.max(999999999),
+      ]),
+      leaderId: new FormControl(),
+      membersId: new FormControl(null, [
+        Validators.required,
+      ]),
+    });
+  }
+
+  updateProject(data: any) {
+    const project: Project = {
+      name: data.name,
+      startDate: data.startDate,
+      totalCount: Number(data.totalCount),
+      leaderId: Number(data.leaderId),
+      membersId: data.membersId?.map((i: String) => Number(i)),
     }
+
+    this.projectService.updateProject(project, this.projectId).then(result => {
+      console.log(result);
+      this.router.navigate(['/project-list']);
+    });
   }
 }
