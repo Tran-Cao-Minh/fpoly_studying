@@ -1,5 +1,5 @@
 # Template-Driven - employee
 
-# Reactive - project >> project list show
+# Reactive - project
 
 # Form Buider - task
