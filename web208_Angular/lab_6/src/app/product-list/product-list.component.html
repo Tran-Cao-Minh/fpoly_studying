@@ -1,0 +1,4 @@
+<p *ngFor="let p of productList">
+  {{ p.name }} - {{ p.price | currency: "USD" }} -
+  {{ p.date | date: "dd/MM/y" }}
+</p>
