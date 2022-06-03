@@ -1,4 +1,6 @@
 <p *ngFor="let p of productList">
   {{ p.name }} - {{ p.price | currency: "USD" }} -
   {{ p.date | date: "dd/MM/y" }}
+  <a href="#" (click)="updateProduct(p)">Update</a> &nbsp;
+  <a href="#" (click)="deleteProduct(p.id)">Delete</a>
 </p>

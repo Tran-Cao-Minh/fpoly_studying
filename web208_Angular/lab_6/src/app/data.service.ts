@@ -17,4 +17,12 @@ export class DataService {
   addProduct(product: any) {
     return this._http.post('http://localhost:3000/product', product);
   }
+
+  updateProduct(product: any) {
+    return this._http.put(`http://localhost:3000/product/${product.id}`, product);
+  }
+
+  deleteProduct(id: number) {
+    return this._http.delete(`http://localhost:3000/product/${id}`);
+  }
 }

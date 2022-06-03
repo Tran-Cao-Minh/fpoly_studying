@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { DataService } from '../data.service';
 
 @Component({
@@ -8,10 +8,24 @@ import { DataService } from '../data.service';
 })
 export class ProductListComponent implements OnInit {
   productList: any;
-  constructor(private data: DataService) { }
+  constructor(private _data: DataService) { }
 
   ngOnInit(): void {
-    this.data.getProducts().subscribe(data => { this.productList = data });
+    this._data.getProducts().subscribe(data => { this.productList = data });
   }
 
+  deleteProduct(id: number = 0) {
+    if (confirm('Do you really want to delete') === true) {
+      this._data.deleteProduct(id).subscribe(data => {
+        console.log(data);
+        alert('Delete successfully');
+      })
+    }
+  }
+
+  @Output() chooseProduct = new EventEmitter();
+  updateProduct(product: any) {
+    console.log(product);
+    this.chooseProduct.emit(product);
+  }
 }

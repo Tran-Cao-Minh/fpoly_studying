@@ -1,11 +1,11 @@
-<h4>Loại sản phẩm:</h4>
+<h4>Product Types:</h4>
 <app-product-type></app-product-type>
 <hr />
-<h4>Danh sách sản phẩm</h4>
-<app-product-list></app-product-list>
+<h4>Product List:</h4>
+<app-product-list (chooseProduct)="assignProduct($event)"></app-product-list>
 <hr />
-<h4>Chỉnh sửa sản phẩm:</h4>
-<app-update-product></app-update-product>
+<h4>Update Product:</h4>
+<app-update-product [product]="product"></app-update-product>
 <hr />
-<h4>Thêm sản phẩm :</h4>
+<h4>Add Product:</h4>
 <app-add-product></app-add-product>

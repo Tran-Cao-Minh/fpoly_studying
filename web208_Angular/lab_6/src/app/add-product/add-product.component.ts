@@ -21,6 +21,7 @@ export class AddProductComponent implements OnInit {
     console.log(productName, productPrice);
 
     this._data.addProduct(product).subscribe(data => {
+      console.log(data);
       alert('Add product success');
     });
   }

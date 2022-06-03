@@ -1,1 +1,35 @@
-<p>update-product works!</p>
+<form
+  #updateProductForm="ngForm"
+  (ngSubmit)="updateProduct(updateProductForm.value)"
+  class="col-6 m-auto"
+>
+  <p>
+    <label>Product ID</label>
+    <input
+      name="id"
+      [(ngModel)]="product.id"
+      readonly
+      class="form-control"
+      type="text"
+    />
+  </p>
+  <p>
+    <label>Name</label>
+    <input
+      name="name"
+      [(ngModel)]="product.name"
+      class="form-control"
+      type="text"
+    />
+  </p>
+  <p>
+    <label>Price</label>
+    <input
+      name="price"
+      [(ngModel)]="product.price"
+      class="form-control"
+      type="number"
+    />
+  </p>
+  <p><button type="submit" class="btn btn-success">Update product</button></p>
+</form>
