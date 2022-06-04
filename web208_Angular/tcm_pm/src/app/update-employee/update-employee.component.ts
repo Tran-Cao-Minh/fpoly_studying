@@ -24,7 +24,7 @@ export class UpdateEmployeeComponent implements OnInit {
   employee: Employee | undefined;
 
   ngOnInit(): void {
-    this.employeeService.getEmployee(this.employeeId).then(result => {
+    this.employeeService.getEmployee(this.employeeId).subscribe(result => {
       this.employee = result as Employee;
     });
   }
@@ -37,7 +37,7 @@ export class UpdateEmployeeComponent implements OnInit {
       genderId: Number(data.genderId),
       areaId: Number(data.areaId),
     }
-    this.employeeService.updateEmployee(employee, this.employeeId).then(result => {
+    this.employeeService.updateEmployee(employee, this.employeeId).subscribe(result => {
       console.log(result);
       this.router.navigate(['/employee-list']);
     });

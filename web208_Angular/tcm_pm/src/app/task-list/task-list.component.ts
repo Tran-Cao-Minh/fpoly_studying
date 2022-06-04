@@ -16,6 +16,9 @@ import { Task } from '../task';
 })
 export class TaskListComponent implements OnInit {
   taskList: Array<Task> = [];
+  taskName: string | undefined;
+  employeeName: string | undefined;
+
 
   constructor(
     private taskService: TaskService,
@@ -26,13 +29,20 @@ export class TaskListComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     route.params.subscribe(() => {
-      this.taskService.getTaskList().then(taskList => {
+      this.taskService.getTaskList().subscribe((taskList: any) => {
         taskList.map(async (t: Task) => {
-          t.employeeName = await this.employeeService.getEmployee(t.id).then((employee: Employee) => {
-            return `${employee.lastName} ${employee.firstName}`;
+          // t.employeeName = await this.employeeService.getEmployee(t.id).subscribe((employee: Employee) => {
+          //   return `${employee.lastName} ${employee.firstName}`;
+          // });
+          // t.projectName = await this.projectService.getProject(t.id).subscribe((project: Project) => {
+          //   return project.name;
+          // });
+          this.employeeService.getEmployee(t.id).subscribe((employee: Employee) => {
+            this.employeeName = `${employee.lastName} ${employee.firstName}`;
           });
-          t.projectName = await this.projectService.getProject(t.id).then((project: Project) => {
-            return project.name;
+
+          this.projectService.getProject(t.id).subscribe((project: Project) => {
+            this.taskName = project.name;
           });
         });
 
@@ -53,14 +63,16 @@ export class TaskListComponent implements OnInit {
   }
 
   deleteTask(id: number = 0) {
-    this.taskService.deleteTask(id).then(result => {
-      console.log(result);
+    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+      this.taskService.deleteTask(id).subscribe((result: any) => {
+        console.log(result);
 
-      this.taskList.forEach((e, i) => {
-        if (e.id === id) {
-          this.taskList.splice(i, 1);
-        }
+        this.taskList.forEach((e, i) => {
+          if (e.id === id) {
+            this.taskList.splice(i, 1);
+          }
+        });
       });
-    });
+    }
   }
 }

@@ -30,7 +30,7 @@ export class AddEmployeeComponent implements OnInit {
       genderId: Number(data.genderId),
       areaId: Number(data.areaId),
     }
-    this.employeeService.addEmployee(employee).then(result => {
+    this.employeeService.addEmployee(employee).subscribe((result: any) => {
       console.log(result);
       this.router.navigate(['/employee-list']);
     });

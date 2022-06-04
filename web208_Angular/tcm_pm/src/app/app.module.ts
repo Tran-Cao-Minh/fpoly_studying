@@ -20,6 +20,8 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeywordsService } from './services/keywords.service';
+import { HttpClientModule } from '@angular/common/http';
+import HttpService from './services/rest.service';
 
 @NgModule({
   declarations: [
@@ -44,8 +46,9 @@ import { KeywordsService } from './services/keywords.service';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [KeywordsService,],
+  providers: [KeywordsService, HttpService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -6,25 +6,27 @@ import HttpService from './rest.service';
   providedIn: 'root'
 })
 export class TaskService {
-  constructor() { }
+  constructor(
+    private _httpService: HttpService
+  ) { }
 
   getTaskList() {
-    return HttpService.get('task');
+    return this._httpService.get('task');
   }
 
   getTask(id: number = 0) {
-    return HttpService.get(`task/${id}`);
+    return this._httpService.get(`task/${id}`);
   }
 
   addTask(task: Task = <Task>{}) {
-    return HttpService.post('task', task);
+    return this._httpService.post('task', task);
   }
 
   updateTask(task: Task = <Task>{}, id: number) {
-    return HttpService.put('task', id, task);
+    return this._httpService.put('task', id, task);
   }
 
   deleteTask(id: number = 0) {
-    return HttpService.delete('task', id);
+    return this._httpService.delete('task', id);
   }
 }

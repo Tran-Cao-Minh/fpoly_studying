@@ -18,7 +18,7 @@ export class EmployeeListComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     route.params.subscribe(() => {
-      this.employeeService.getEmployeeList().then(result => {
+      this.employeeService.getEmployeeList().subscribe((result: any) => {
         this.employeeList = result;
       });
     });
@@ -31,14 +31,16 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void { }
 
   deleteEmployee(id: number = 0) {
-    this.employeeService.deleteEmployee(id).then(result => {
-      console.log(result);
+    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+      this.employeeService.deleteEmployee(id).subscribe((result: any) => {
+        console.log(result);
 
-      this.employeeList.forEach((e, i) => {
-        if (e.id === id) {
-          this.employeeList.splice(i, 1);
-        }
+        this.employeeList.forEach((e, i) => {
+          if (e.id === id) {
+            this.employeeList.splice(i, 1);
+          }
+        });
       });
-    });
+    }
   }
 }

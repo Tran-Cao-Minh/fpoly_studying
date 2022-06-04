@@ -16,7 +16,7 @@ export class ProjectListComponent implements OnInit {
     private route: ActivatedRoute,
   ) {
     route.params.subscribe(() => {
-      this.projectService.getProjectList().then(result => {
+      this.projectService.getProjectList().subscribe((result: any) => {
         this.projectList = result;
       });
     });
@@ -26,14 +26,16 @@ export class ProjectListComponent implements OnInit {
   }
 
   deleteProject(id: number = 0) {
-    this.projectService.deleteProject(id).then(result => {
-      console.log(result);
+    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+      this.projectService.deleteProject(id).subscribe(result => {
+        console.log(result);
 
-      this.projectList.forEach((e, i) => {
-        if (e.id === id) {
-          this.projectList.splice(i, 1);
-        }
+        this.projectList.forEach((e, i) => {
+          if (e.id === id) {
+            this.projectList.splice(i, 1);
+          }
+        });
       });
-    });
+    }
   }
 }

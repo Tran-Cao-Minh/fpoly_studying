@@ -28,10 +28,10 @@ export class UpdateProjectComponent implements OnInit {
   projectId: number = Number(this.route.snapshot.params['id']);
 
   ngOnInit(): void {
-    this.employeeService.getEmployeeList().then(result => {
+    this.employeeService.getEmployeeList().subscribe((result: any) => {
       this.employeesInf = result;
 
-      this.projectService.getProject(this.projectId).then((project: Project) => {
+      this.projectService.getProject(this.projectId).subscribe((project: Project) => {
         this.updateProjectForm.setValue({
           'name': project.name,
           'startDate': project.startDate,
@@ -72,7 +72,7 @@ export class UpdateProjectComponent implements OnInit {
       membersId: data.membersId?.map((i: String) => Number(i)),
     }
 
-    this.projectService.updateProject(project, this.projectId).then(result => {
+    this.projectService.updateProject(project, this.projectId).subscribe((result: any) => {
       console.log(result);
       this.router.navigate(['/project-list']);
     });

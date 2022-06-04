@@ -48,10 +48,10 @@ export class AddTaskComponent implements OnInit {
       statusId: [this.statusList[0].id,],
     });
 
-    this.employeeService.getEmployeeList().then(employeeList => {
+    this.employeeService.getEmployeeList().subscribe((employeeList: any) => {
       this.employeesInf = employeeList;
 
-      this.projectService.getProjectList().then(projectList => {
+      this.projectService.getProjectList().subscribe((projectList: any) => {
         this.projectsInf = projectList;
 
         this.addTaskForm.setValue(
@@ -77,7 +77,7 @@ export class AddTaskComponent implements OnInit {
       statusId: Number(data.statusId),
     };
 
-    this.taskService.addTask(task).then(result => {
+    this.taskService.addTask(task).subscribe((result: any) => {
       console.log(result);
       this.router.navigate(['/task-list']);
     });

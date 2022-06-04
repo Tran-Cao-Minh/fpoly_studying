@@ -51,15 +51,15 @@ export class UpdateTaskComponent implements OnInit {
       statusId: [this.statusList[0].id,],
     });
 
-    this.employeeService.getEmployeeList().then(employeeList => {
+    this.employeeService.getEmployeeList().subscribe((employeeList: any) => {
       this.employeesInf = employeeList;
 
-      this.projectService.getProjectList().then(projectList => {
+      this.projectService.getProjectList().subscribe((projectList: any) => {
         this.projectsInf = projectList;
       });
     });
 
-    this.taskService.getTask(this.taskId).then((task: Task) => {
+    this.taskService.getTask(this.taskId).subscribe((task: Task) => {
       this.updateTaskForm.setValue(
         {
           'name': task.name,
@@ -83,7 +83,7 @@ export class UpdateTaskComponent implements OnInit {
       statusId: Number(data.statusId),
     };
 
-    this.taskService.updateTask(task, this.taskId).then(result => {
+    this.taskService.updateTask(task, this.taskId).subscribe((result: any) => {
       console.log(result);
       this.router.navigate(['/task-list']);
     });

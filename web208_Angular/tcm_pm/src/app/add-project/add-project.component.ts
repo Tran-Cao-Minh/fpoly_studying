@@ -24,7 +24,7 @@ export class AddProjectComponent implements OnInit {
   addProjectForm!: FormGroup;
 
   ngOnInit(): void {
-    this.employeeService.getEmployeeList().then(result => {
+    this.employeeService.getEmployeeList().subscribe((result: any) => {
       this.employeesInf = result;
       this.addProjectForm.setValue({
         'name': null,
@@ -65,7 +65,7 @@ export class AddProjectComponent implements OnInit {
       membersId: data.membersId?.map((i: String) => Number(i)),
     }
 
-    this.projectService.addProject(project).then(result => {
+    this.projectService.addProject(project).subscribe((result: any) => {
       console.log(result);
       this.router.navigate(['/project-list']);
     });

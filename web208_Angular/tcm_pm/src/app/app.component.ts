@@ -21,19 +21,19 @@ export class AppComponent {
   statisticsInf: Array<{ name: string, inf: string }> = [
     {
       name: 'Project Quantity',
-      inf: '21',
+      inf: '',
     },
     {
       name: 'Total Count',
-      inf: '$ 2480K',
+      inf: '',
     },
     {
       name: 'Handled Task Quantity',
-      inf: '14',
+      inf: '',
     },
     {
       name: 'Members Quantity',
-      inf: '5'
+      inf: ''
     },
   ];
 
@@ -48,14 +48,16 @@ export class AppComponent {
     this.subscription
       = this.keywordsService.currentKeywords.subscribe(keywords => this.keywords = keywords);
 
-    AREA_LIST.forEach(async area => {
-      this.membersByArea.push({
-        name: area.name,
-        members: await this.employeeService.getEmployeeListByAreaId(area.id),
-      });
+    AREA_LIST.forEach(area => {
+      this.employeeService.getEmployeeListByAreaId(area.id).subscribe((data: any) => {
+        this.membersByArea.push({
+          name: area.name,
+          members: data,
+        });
+      })
     });
 
-    this.projectService.getProjectList().then(projectList => {
+    this.projectService.getProjectList().subscribe((projectList: any) => {
       this.statisticsInf[0].inf = String(projectList.length);
 
       let totalCount = 0;
@@ -69,10 +71,10 @@ export class AppComponent {
       });
     });
 
-    this.taskService.getTaskList().then(taskList => {
+    this.taskService.getTaskList().subscribe((taskList: any) => {
       this.statisticsInf[2].inf = String(taskList.length);
     });
-    this.employeeService.getEmployeeList().then(employeeList => {
+    this.employeeService.getEmployeeList().subscribe((employeeList: any) => {
       this.statisticsInf[3].inf = String(employeeList.length);
     });
   }
