@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Employee } from './employee';
+import { Employee } from './interfaces/employee';
 import { KeywordsService } from './services/keywords.service';
 import { Subscription } from 'rxjs';
 import { AREA_LIST } from './constant/fixed-data';
 import { EmployeeService } from './services/employee.service';
 import { TaskService } from './services/task.service';
 import { ProjectService } from './services/project.service';
-import { Project } from './project';
+import { Project } from './interfaces/project';
 
 @Component({
   selector: 'app-root',
@@ -47,6 +47,9 @@ export class AppComponent {
   ngOnInit(): void {
     this.subscription
       = this.keywordsService.currentKeywords.subscribe(keywords => this.keywords = keywords);
+  }
+
+  ngDoCheck(): void {
 
     AREA_LIST.forEach(area => {
       this.employeeService.getEmployeeListByAreaId(area.id).subscribe((data: any) => {
@@ -78,6 +81,7 @@ export class AppComponent {
       this.statisticsInf[3].inf = String(employeeList.length);
     });
   }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe;
   }
