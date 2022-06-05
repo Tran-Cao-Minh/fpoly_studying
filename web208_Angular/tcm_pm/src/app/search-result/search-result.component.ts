@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { KeywordsService } from '../services/keywords.service';
 import { Subscription } from 'rxjs';
-import { SearchItem } from '../search-item';
+import { SearchItem } from '../interfaces/search-item';
 
 @Component({
   selector: 'app-search-result',

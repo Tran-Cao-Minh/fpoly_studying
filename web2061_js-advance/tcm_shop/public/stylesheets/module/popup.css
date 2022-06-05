@@ -8,7 +8,7 @@
 
   background: var(--black-overlay);
 
-  transition: all .45s ease-out;
+  transition: all 0.45s ease-out;
 }
 
 .popup-wrapper {
@@ -61,7 +61,7 @@
   border-color: var(--red);
 }
 
-.popup-icon-wrapper--danger>.popup-icon {
+.popup-icon-wrapper--danger > .popup-icon {
   color: var(--red);
 
   font-size: 2.5rem;

@@ -1,6 +1,6 @@
-import { Employee } from './../employee';
+import { Employee } from '../interfaces/employee';
 import { Component, OnInit } from '@angular/core';
-import { SubAttribute } from '../sub-attribute';
+import { SubAttribute } from '../interfaces/sub-attribute';
 import { EmployeeService } from '../services/employee.service';
 import { GENDER_LIST, AREA_LIST } from '../constant/fixed-data';
 import { Router } from '@angular/router';

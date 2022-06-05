@@ -1,4 +1,4 @@
-import { SubAttribute } from "../sub-attribute";
+import { SubAttribute } from "../interfaces/sub-attribute";
 
 export const GENDER_LIST: Array<SubAttribute> = [
   {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { SearchItem } from '../search-item';
+import { SearchItem } from '../interfaces/search-item';
 import HttpService from './rest.service';
 
 @Injectable()

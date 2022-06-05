@@ -1,14 +1,14 @@
-import { Employee } from './../employee';
+import { Employee } from '../interfaces/employee';
 import { Component, OnInit } from '@angular/core';
-import { Project } from '../project';
-import { SubAttribute } from '../sub-attribute';
+import { Project } from '../interfaces/project';
+import { SubAttribute } from '../interfaces/sub-attribute';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { PRIORITY_LIST, STATUS_LIST } from '../constant/fixed-data';
 import { EmployeeService } from '../services/employee.service';
 import { ProjectService } from '../services/project.service';
 import { TaskService } from './../services/task.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Task } from '../task';
+import { Task } from '../interfaces/task';
 
 @Component({
   selector: 'app-update-task',

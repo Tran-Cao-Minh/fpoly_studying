@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Employee } from '../employee';
-import { Project } from '../project';
+import { Employee } from '../interfaces/employee';
+import { Project } from '../interfaces/project';
 import { EmployeeService } from '../services/employee.service';
 import { PriorityService } from '../services/priority.service';
 import { ProjectService } from '../services/project.service';
 import { StatusService } from '../services/status.service';
 import { TaskService } from '../services/task.service';
-import { Task } from '../task';
+import { Task } from '../interfaces/task';
+import { ConfirmDangerActionPopupCreator } from '../utils/popup-creator';
 
 @Component({
   selector: 'app-task-list',
@@ -27,6 +28,7 @@ export class TaskListComponent implements OnInit {
     private priorityService: PriorityService,
     private statusService: StatusService,
     private route: ActivatedRoute,
+    private _confirmPopup: ConfirmDangerActionPopupCreator,
   ) {
     route.params.subscribe(() => {
       this.taskService.getTaskList().subscribe((taskList: any) => {
@@ -63,7 +65,7 @@ export class TaskListComponent implements OnInit {
   }
 
   deleteTask(id: number = 0) {
-    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+    this._confirmPopup.createConfirmDangerActionPopup(`Are you sure to delete task with ID: ${id}`, () => {
       this.taskService.deleteTask(id).subscribe((result: any) => {
         console.log(result);
 
@@ -73,6 +75,6 @@ export class TaskListComponent implements OnInit {
           }
         });
       });
-    }
+    })
   }
 }

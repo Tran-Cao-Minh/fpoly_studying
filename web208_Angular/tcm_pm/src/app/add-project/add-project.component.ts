@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../employee';
+import { Employee } from '../interfaces/employee';
 import { FormControl, Validators } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { EmployeeService } from '../services/employee.service';
 import { ProjectService } from '../services/project.service';
-import { Project } from '../project';
+import { Project } from '../interfaces/project';
 import { Router } from '@angular/router';
 
 @Component({

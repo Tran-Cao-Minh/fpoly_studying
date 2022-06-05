@@ -22,6 +22,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { KeywordsService } from './services/keywords.service';
 import { HttpClientModule } from '@angular/common/http';
 import HttpService from './services/rest.service';
+import { ConfirmDangerActionPopupCreator } from './utils/popup-creator';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,11 @@ import HttpService from './services/rest.service';
     ReactiveFormsModule,
     HttpClientModule,
   ],
-  providers: [KeywordsService, HttpService],
+  providers: [
+    KeywordsService,
+    HttpService,
+    ConfirmDangerActionPopupCreator,
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

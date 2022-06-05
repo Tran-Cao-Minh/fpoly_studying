@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Project } from '../project';
+import { Project } from '../interfaces/project';
 import { ProjectService } from '../services/project.service';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDangerActionPopupCreator } from '../utils/popup-creator';
 
 @Component({
   selector: 'app-project-list',
@@ -14,6 +15,7 @@ export class ProjectListComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
+    private _confirmPopup: ConfirmDangerActionPopupCreator,
   ) {
     route.params.subscribe(() => {
       this.projectService.getProjectList().subscribe((result: any) => {
@@ -26,7 +28,7 @@ export class ProjectListComponent implements OnInit {
   }
 
   deleteProject(id: number = 0) {
-    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+    this._confirmPopup.createConfirmDangerActionPopup(`Are you sure to delete project with ID: ${id}`, () => {
       this.projectService.deleteProject(id).subscribe(result => {
         console.log(result);
 
@@ -36,6 +38,6 @@ export class ProjectListComponent implements OnInit {
           }
         });
       });
-    }
+    })
   }
 }

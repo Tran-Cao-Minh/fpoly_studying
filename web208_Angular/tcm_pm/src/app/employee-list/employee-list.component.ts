@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Employee } from '../employee';
+import { Employee } from '../interfaces/employee';
 import { EmployeeService } from '../services/employee.service';
 import { AreaService } from '../services/area.service';
 import { ActivatedRoute } from '@angular/router';
+import { ConfirmDangerActionPopupCreator } from '../utils/popup-creator';
 
 @Component({
   selector: 'app-employee-list',
@@ -16,6 +17,7 @@ export class EmployeeListComponent implements OnInit {
     private employeeService: EmployeeService,
     private areaService: AreaService,
     private route: ActivatedRoute,
+    private _confirmPopup: ConfirmDangerActionPopupCreator,
   ) {
     route.params.subscribe(() => {
       this.employeeService.getEmployeeList().subscribe((result: any) => {
@@ -31,7 +33,7 @@ export class EmployeeListComponent implements OnInit {
   ngOnInit(): void { }
 
   deleteEmployee(id: number = 0) {
-    if (confirm(`Are you sure to delete data with ID: ${id}`)) {
+    this._confirmPopup.createConfirmDangerActionPopup(`Are you sure to delete employee with ID: ${id}`, () => {
       this.employeeService.deleteEmployee(id).subscribe((result: any) => {
         console.log(result);
 
@@ -41,6 +43,6 @@ export class EmployeeListComponent implements OnInit {
           }
         });
       });
-    }
+    })
   }
 }
