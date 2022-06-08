@@ -47,9 +47,6 @@ export class AppComponent {
   ngOnInit(): void {
     this.subscription
       = this.keywordsService.currentKeywords.subscribe(keywords => this.keywords = keywords);
-  }
-
-  ngDoCheck(): void {
 
     AREA_LIST.forEach(area => {
       this.employeeService.getEmployeeListByAreaId(area.id).subscribe((data: any) => {
@@ -81,6 +78,9 @@ export class AppComponent {
       this.statisticsInf[3].inf = String(employeeList.length);
     });
   }
+
+  // ngDoCheck(): void {
+  // }
 
   ngOnDestroy(): void {
     this.subscription.unsubscribe;

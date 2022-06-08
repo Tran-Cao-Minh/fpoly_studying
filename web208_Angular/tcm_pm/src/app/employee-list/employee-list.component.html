@@ -7,9 +7,10 @@
   <thead>
     <tr>
       <th>ID</th>
+      <th>Avatar</th>
       <th>Fullname</th>
-      <th>Birth Date</th>
-      <th>Gender</th>
+      <!-- <th>Birth Date</th>
+      <th>Gender</th> -->
       <th>Area</th>
       <th>Handle</th>
     </tr>
@@ -17,9 +18,17 @@
   <tbody>
     <tr *ngFor="let e of employeeList">
       <td>{{ e.id }}</td>
+      <td>
+        <img
+          class="img-thumbnail"
+          style="width: 3rem; height: 3rem"
+          src="{{ e.avatar }}"
+          alt="{{ e.lastName }} {{ e.firstName }}"
+        />
+      </td>
       <td>{{ e.lastName }} {{ e.firstName }}</td>
-      <td>{{ e.birthDate | date: "dd/MM/y" }}</td>
-      <td>{{ e.genderId ? "Female" : "Male" }}</td>
+      <!-- <td>{{ e.birthDate | date: "dd/MM/y" }}</td> -->
+      <!-- <td>{{ e.genderId ? "Female" : "Male" }}</td> -->
       <td>{{ getAreaName(e.areaId) }}</td>
       <td>
         <button

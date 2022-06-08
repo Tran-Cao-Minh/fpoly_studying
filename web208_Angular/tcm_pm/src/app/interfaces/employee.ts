@@ -5,4 +5,5 @@ export interface Employee {
   birthDate?: string;
   genderId?: number;
   areaId?: number;
+  avatar?: string;
 }

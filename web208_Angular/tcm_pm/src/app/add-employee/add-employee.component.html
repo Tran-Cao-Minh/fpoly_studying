@@ -90,6 +90,26 @@
       </option>
     </select>
   </div>
+  <div class="mb-3">
+    <label for="avatar" class="form-label">Avatar</label>
+    <input
+      name="avatar"
+      ngModel
+      #avatar="ngModel"
+      required
+      type="file"
+      accept="image/*"
+      class="form-control allow-validated"
+      id="avatar"
+      (change)="handleInputAvatarChange($event)"
+    />
+    <div class="invalid-feedback">
+      {{ avatar.errors?.['required'] ? 'Employee avatar is required' : null }}
+    </div>
+    <div class="bg-light p-2 justify-content-center d-flex">
+      <img [src]="imgSrcBase64" class="img-thumbnail" />
+    </div>
+  </div>
   <div class="col-12 px-4 mb-4 mt-4">
     <button
       [disabled]="addEmployeeForm.invalid"

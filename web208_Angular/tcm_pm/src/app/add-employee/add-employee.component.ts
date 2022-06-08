@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 export class AddEmployeeComponent implements OnInit {
   genderList: Array<SubAttribute> = GENDER_LIST;
   areaList: Array<SubAttribute> = AREA_LIST;
+  imgSrcBase64: string = 'data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
 
   constructor(
     private employeeService: EmployeeService,
@@ -22,6 +23,18 @@ export class AddEmployeeComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  handleInputAvatarChange(e: any) {
+    var file = e.dataTransfer ? e.dataTransfer.files[0] : e.target.files[0];
+    var reader = new FileReader();
+    reader.onload = this._handleReaderLoaded.bind(this);
+    reader.readAsDataURL(file);
+  }
+  _handleReaderLoaded(e: any) {
+    let reader = e.target;
+    this.imgSrcBase64 = reader.result;
+    console.log(this.imgSrcBase64);
+  }
+
   addEmployee(data: any) {
     const employee: Employee = {
       lastName: data.lastName,
@@ -29,6 +42,7 @@ export class AddEmployeeComponent implements OnInit {
       birthDate: data.birthDate,
       genderId: Number(data.genderId),
       areaId: Number(data.areaId),
+      avatar: this.imgSrcBase64,
     }
     this.employeeService.addEmployee(employee).subscribe((result: any) => {
       console.log(result);
