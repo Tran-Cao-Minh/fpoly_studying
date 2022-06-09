@@ -19,6 +19,7 @@ export class TaskListComponent implements OnInit {
   taskList: Array<Task> = [];
   taskName: string | undefined;
   employeeName: string | undefined;
+  projectName: string | undefined;
 
 
   constructor(
@@ -33,18 +34,11 @@ export class TaskListComponent implements OnInit {
     route.params.subscribe(() => {
       this.taskService.getTaskList().subscribe((taskList: any) => {
         taskList.map(async (t: Task) => {
-          // t.employeeName = await this.employeeService.getEmployee(t.id).subscribe((employee: Employee) => {
-          //   return `${employee.lastName} ${employee.firstName}`;
-          // });
-          // t.projectName = await this.projectService.getProject(t.id).subscribe((project: Project) => {
-          //   return project.name;
-          // });
-          this.employeeService.getEmployee(t.id).subscribe((employee: Employee) => {
-            this.employeeName = `${employee.lastName} ${employee.firstName}`;
-          });
-
           this.projectService.getProject(t.id).subscribe((project: Project) => {
-            this.taskName = project.name;
+            t.projectName = project.name;
+          });
+          this.employeeService.getEmployee(t.id).subscribe((employee: Employee) => {
+            t.employeeName = `${employee.lastName} ${employee.firstName}`;
           });
         });
 
