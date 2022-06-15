@@ -1,0 +1,16 @@
+<form
+  #loginForm="ngForm"
+  class="col-6 m-auto"
+  (ngSubmit)="handleLogin(loginForm.value)"
+>
+  <h4>MEMBER LOGIN</h4>
+  <p>
+    <label>Username</label>
+    <input name="username" ngModel class="form-control" type="text" />
+  </p>
+  <p>
+    <label>Password</label>
+    <input name="password" ngModel class="form-control" type="password" />
+  </p>
+  <p><button type="submit" class="btn btn-success">Login</button></p>
+</form>
