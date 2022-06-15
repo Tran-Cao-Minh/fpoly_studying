@@ -11,7 +11,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="signup" href="#">Sign up</a>
         </li>
-        <li class="nav-item">
+        <li *ngIf="!isLogged()" class="nav-item">
           <a class="nav-link" routerLink="login" href="#">Log in</a>
         </li>
         <li *ngIf="isLogged()" class="nav-item">
@@ -24,8 +24,10 @@
     <article class="col-md-9 bg-light">
       <router-outlet></router-outlet>
     </article>
-    <aside class="col-md-3 bg-secondary">
-      <a href="#" (click)="exit()" class="btn btn-danger">Exit</a>
+    <aside
+      class="col-md-3 px-4 bg-secondary d-flex justify-content-center align-items-center"
+    >
+      <a href="#" (click)="exit()" class="btn btn-danger col-12">Exit</a>
     </aside>
   </main>
 </div>

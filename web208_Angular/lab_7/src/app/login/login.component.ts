@@ -9,10 +9,10 @@ import * as moment from 'moment';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
+  isFailedLogged: boolean = false;
   constructor(
     private _auth: AuthService,
-    private _router: Router
+    private _router: Router,
   ) { }
 
   ngOnInit(): void {
@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
         this._router.navigateByUrl(previousPagePath || '');
       },
       error => {
+        this.isFailedLogged = true;
         console.log('oops', error);
-        this._router.navigateByUrl('/login');
       },
     )
   } // handleLogin

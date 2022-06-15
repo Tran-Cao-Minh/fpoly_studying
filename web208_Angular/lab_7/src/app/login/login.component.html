@@ -1,6 +1,6 @@
 <form
   #loginForm="ngForm"
-  class="col-6 m-auto"
+  class="col-6 m-auto py-5"
   (ngSubmit)="handleLogin(loginForm.value)"
 >
   <h4>MEMBER LOGIN</h4>
@@ -13,4 +13,5 @@
     <input name="password" ngModel class="form-control" type="password" />
   </p>
   <p><button type="submit" class="btn btn-success">Login</button></p>
+  <p *ngIf="isFailedLogged" class="text-danger">Login Failed</p>
 </form>

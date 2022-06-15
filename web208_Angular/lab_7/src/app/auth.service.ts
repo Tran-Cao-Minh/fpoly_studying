@@ -26,6 +26,22 @@ export class AuthService {
     );
   }
 
+  changePass(username: string = '', password: string = '', newPassword: string = '') {
+    const userInfo = {
+      username: username,
+      password: password,
+      newPassword: newPassword,
+    };
+    const headers = new HttpHeaders().set(
+      'Content-Type', 'application/json'
+    );
+    return this._http.post(
+      'http://localhost:3000/change-pass',
+      JSON.stringify(userInfo),
+      { headers: headers, responseType: 'text' }
+    );
+  }
+
   exit() {
     localStorage.removeItem('id_token');
     localStorage.removeItem('expires_at');
