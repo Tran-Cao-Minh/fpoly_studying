@@ -25,6 +25,4 @@ export class ProtectGuard implements CanActivate {
       return true;
     };
   }
-
-
 }

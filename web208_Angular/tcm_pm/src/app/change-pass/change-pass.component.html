@@ -1,0 +1,21 @@
+<form
+  #changePassForm="ngForm"
+  class="col-6 m-auto py-5"
+  (ngSubmit)="handleChangePass(changePassForm.value)"
+>
+  <h4>MEMBER CHANGE PASS</h4>
+  <p>
+    <label>Username</label>
+    <input name="username" ngModel class="form-control" type="text" />
+  </p>
+  <p>
+    <label>Password</label>
+    <input name="password" ngModel class="form-control" type="password" />
+  </p>
+  <p>
+    <label>New password</label>
+    <input name="newPassword" ngModel class="form-control" type="password" />
+  </p>
+  <p><button type="submit" class="btn btn-success">Confirm</button></p>
+  <p *ngIf="isFailedChangePass" class="text-danger">Change Password Failed</p>
+</form>

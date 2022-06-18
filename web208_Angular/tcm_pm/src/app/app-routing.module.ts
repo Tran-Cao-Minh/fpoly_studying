@@ -12,25 +12,25 @@ import { UpdateTaskComponent } from './update-task/update-task.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { SearchResultComponent } from './search-result/search-result.component';
 
+import { ProtectGuard } from './protect.guard';
+
 const routes: Routes = [
-  { path: '', component: ProjectListComponent },
+  { path: '', component: ProjectListComponent, canActivate: [ProtectGuard] },
   { path: 'login', component: LoginComponent },
-  { path: 'account', component: AccountComponent },
-  { path: 'about', component: AboutComponent },
-  { path: 'project-list', component: ProjectListComponent },
-  { path: 'add-project', component: AddProjectComponent },
-  { path: 'update-project/:id', component: UpdateProjectComponent },
-  { path: 'task-list', component: TaskListComponent },
-  { path: 'add-task', component: AddTaskComponent },
-  { path: 'update-task/:id', component: UpdateTaskComponent },
-  { path: 'employee-list', component: EmployeeListComponent },
-  { path: 'add-employee', component: AddEmployeeComponent },
-  { path: 'update-employee/:id', component: UpdateEmployeeComponent },
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'search-result', component: SearchResultComponent },
+  { path: 'account', component: AccountComponent, canActivate: [ProtectGuard] },
+  { path: 'about', component: AboutComponent, canActivate: [ProtectGuard] },
+  { path: 'project-list', component: ProjectListComponent, canActivate: [ProtectGuard] },
+  { path: 'add-project', component: AddProjectComponent, canActivate: [ProtectGuard] },
+  { path: 'update-project/:id', component: UpdateProjectComponent, canActivate: [ProtectGuard] },
+  { path: 'task-list', component: TaskListComponent, canActivate: [ProtectGuard] },
+  { path: 'add-task', component: AddTaskComponent, canActivate: [ProtectGuard] },
+  { path: 'update-task/:id', component: UpdateTaskComponent, canActivate: [ProtectGuard] },
+  { path: 'employee-list', component: EmployeeListComponent, canActivate: [ProtectGuard] },
+  { path: 'add-employee', component: AddEmployeeComponent, canActivate: [ProtectGuard] },
+  { path: 'update-employee/:id', component: UpdateEmployeeComponent, canActivate: [ProtectGuard] },
+  { path: 'search-result', component: SearchResultComponent, canActivate: [ProtectGuard] },
 ];
 
 @NgModule({

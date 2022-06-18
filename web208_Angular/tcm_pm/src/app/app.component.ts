@@ -8,6 +8,7 @@ import { EmployeeService } from './services/employee.service';
 import { TaskService } from './services/task.service';
 import { ProjectService } from './services/project.service';
 import { Project } from './interfaces/project';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -43,6 +44,7 @@ export class AppComponent {
     private employeeService: EmployeeService,
     private taskService: TaskService,
     private projectService: ProjectService,
+    private _auth: AuthService,
   ) { }
   ngOnInit(): void {
     this.subscription
@@ -98,4 +100,9 @@ export class AppComponent {
   // recordFn(fnName: string = '') {
   //   this.fnName = fnName;
   // }
+
+  exit() {
+    this._auth.exit();
+    this.router.navigate(['/login']);
+  }
 }

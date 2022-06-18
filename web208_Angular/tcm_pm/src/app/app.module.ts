@@ -13,7 +13,6 @@ import { AddProjectComponent } from './add-project/add-project.component';
 import { UpdateProjectComponent } from './update-project/update-project.component';
 import { AddTaskComponent } from './add-task/add-task.component';
 import { UpdateTaskComponent } from './update-task/update-task.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
 import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
@@ -37,7 +36,6 @@ import { ConfirmDangerActionPopupCreator } from './utils/popup-creator';
     UpdateProjectComponent,
     AddTaskComponent,
     UpdateTaskComponent,
-    DashboardComponent,
     EmployeeListComponent,
     AddEmployeeComponent,
     UpdateEmployeeComponent,
