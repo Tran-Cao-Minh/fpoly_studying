@@ -1,0 +1,120 @@
+<form
+  *ngIf="employee !== undefined"
+  #updateEmployeeForm="ngForm"
+  class="mt-3"
+  (ngSubmit)="updateEmployee(updateEmployeeForm.value)"
+>
+  <h5 class="bg-primary text-light rounded p-2 text-center mb-3">
+    Update Emloyee
+  </h5>
+  <div class="mb-3">
+    <label for="firstName" class="form-label">First Name</label>
+    <input
+      name="firstName"
+      ngModel="{{ employee.firstName }}"
+      #firstName="ngModel"
+      required
+      minlength="2"
+      maxlength="20"
+      type="text"
+      class="form-control allow-validated"
+      id="firstName"
+    />
+    <div class="invalid-feedback">
+      {{ firstName.errors?.['required'] ? 'Employee first name is required' : null }}
+      {{ 
+       ( (firstName.errors?.['minlength']?.['actualLength']) < firstName.errors?.['minlength']?.['requiredLength']) 
+       ? 'Employee first name should be longer than 2 characters' : null
+      }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="lastName" class="form-label">Last Name</label>
+    <input
+      name="lastName"
+      ngModel="{{ employee.lastName }}"
+      #lastName="ngModel"
+      required
+      minlength="2"
+      maxlength="20"
+      type="text"
+      class="form-control allow-validated"
+      id="lastName"
+      value="employee.lastName"
+    />
+    <div class="invalid-feedback">
+      {{ lastName.errors?.['required'] ? 'Employee last name is required' : null }}
+      {{ 
+       ( (lastName.errors?.['minlength']?.['actualLength']) < lastName.errors?.['minlength']?.['requiredLength']) 
+       ? 'Employee last name should be longer than 2 characters' : null
+      }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="birthDate" class="form-label">Birth Date</label>
+    <input
+      name="birthDate"
+      ngModel="{{ employee.birthDate }}"
+      required
+      #birthDate="ngModel"
+      type="date"
+      class="form-control allow-validated"
+      id="birthDate"
+      value="employee.birthDate"
+    />
+    <div class="invalid-feedback">
+      {{ lastName.errors?.['required'] ? 'Employee birth date is required and must be a valid date' : null }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="genderId" class="form-label">Gender</label>
+    <select
+      name="genderId"
+      ngModel="{{ employee.genderId }}"
+      class="form-select"
+      id="genderId"
+    >
+      <option *ngFor="let g of genderList" value="{{ g.id }}">
+        {{ g.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="areaId" class="form-label">Area</label>
+    <select
+      name="areaId"
+      ngModel="{{ employee.areaId }}"
+      required
+      class="form-select"
+      id="areaId"
+    >
+      <option *ngFor="let a of areaList" value="{{ a.id }}">
+        {{ a.name }}
+      </option>
+    </select>
+  </div>
+  <div class="mb-3">
+    <label for="avatar" class="form-label">Avatar</label>
+    <input
+      name="avatar"
+      ngModel
+      #avatar="ngModel"
+      type="file"
+      accept="image/*"
+      class="form-control allow-validated"
+      id="avatar"
+      (change)="handleInputAvatarChange($event)"
+    />
+    <div class="bg-light p-2 justify-content-center d-flex">
+      <img [src]="imgSrcBase64" class="img-thumbnail" />
+    </div>
+  </div>
+  <div class="col-12 px-4 mb-4 mt-4">
+    <button
+      [disabled]="updateEmployeeForm.invalid"
+      class="btn btn-primary col-12 text-uppercase"
+    >
+      Confirm
+    </button>
+  </div>
+</form>
