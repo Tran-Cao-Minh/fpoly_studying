@@ -1,0 +1,82 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+* {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+header {
+  height: 180px;
+  background-color: #dfdfde;
+  position: relative;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+header .logo {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+main {
+  display: grid;
+  grid-template-columns: 300px auto 350px;
+  grid-template-rows: 500px;
+}
+
+main > aside:nth-child(1) {
+  background-color: #ffc54d;
+}
+
+main > article {
+  background: #f9f2ed;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+main > aside:nth-child(3) {
+  background-color: #f94c66;
+}
+
+footer {
+  background: #fdaf75;
+  height: 60px;
+  line-height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+footer h4 {
+  font-size: 18px;
+}
+
+nav ul {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  list-style: none;
+}
+
+nav li {
+  width: 100%;
+  line-height: 60px;
+  background: #ffa8a8;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+nav li a {
+  font-size: 22px;
+  font-weight: bold;
+  color: #333;
+  text-decoration: none;
+}
