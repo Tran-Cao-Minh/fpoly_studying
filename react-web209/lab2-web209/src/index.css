@@ -1,0 +1,17 @@
+.container {
+  width: 1200px;
+  margin: auto;
+}
+
+header {
+  height: 90px;
+  background: slategray;
+}
+
+section #sec-1 {
+  display: grid;
+  grid-gap: 5px;
+  grid-template-columns: 50% auto auto;
+  height: 450px;
+  margin: 5px 0;
+}
