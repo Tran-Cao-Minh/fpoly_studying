@@ -1,3 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap");
+
+* {
+  font-family: "Ubuntu", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 .container {
   width: 1200px;
   margin: auto;
@@ -5,13 +14,107 @@
 
 header {
   height: 90px;
-  background: slategray;
+  background: #a2b5bb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bolder;
 }
 
-section #sec-1 {
+section#sec-1 {
   display: grid;
   grid-gap: 5px;
   grid-template-columns: 50% auto auto;
   height: 450px;
   margin: 5px 0;
+}
+
+section#sec-1 > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+section#sec-1 #col-1 {
+  grid-row-start: 1;
+  grid-row-end: 3;
+  background: #76ba99;
+}
+
+section#sec-1 #col-2 {
+  grid-column-start: 2;
+  grid-column-end: 4;
+  background: #66bfbf;
+}
+
+section#sec-1 #col-3 {
+  background: #8879b0;
+}
+
+section#sec-1 #col-4 {
+  background: #a27b5c;
+}
+
+section#sec-2 {
+  display: grid;
+  grid-template-columns: auto 300px;
+  min-height: 500px;
+}
+
+section#sec-2 > aside {
+  background: #f37878;
+}
+
+section#sec-2 > aside #most-viewed-news {
+  display: grid;
+  grid-auto-rows: 120px;
+}
+
+section#sec-2 > article {
+  background: #cfd2cf;
+}
+
+section#sec-2 > article #new-news {
+  display: grid;
+  grid-auto-rows: 120px;
+  grid-template-columns: repeat(2, calc(50% - 5px));
+  grid-row-gap: 10px;
+  grid-column-gap: 10px;
+}
+
+.showOneNews {
+  height: 120px;
+  /* background-color: white; */
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  flex-wrap: wrap;
+}
+
+section#sec-2 > article #new-news .showOneNews {
+  border: 1px solid #3ab0ff;
+  border-radius: 10px;
+}
+
+section#sec-2 > aside #most-viewed-news .showOneNews {
+  border-bottom: 1px solid white;
+}
+
+h3 {
+  width: 100%;
+  /* background: blue; */
+  text-align: center;
+}
+
+footer {
+  background: #ffdcae;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: bolder;
 }
