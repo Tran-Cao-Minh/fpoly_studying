@@ -1,0 +1,131 @@
+body {
+  margin: 0;
+  background: #193519;
+  color: white;
+}
+
+.container {
+  width: 1200px;
+  margin: auto;
+  font-size: 1.2em;
+}
+
+header {
+  height: 80px;
+  background: slategray;
+  position: relative;
+}
+
+main {
+  display: grid;
+  grid-template-columns: auto 300px;
+  min-height: 400px;
+}
+
+main > article {
+  background: lightgray;
+}
+
+main > aside {
+  background: indianred;
+}
+
+footer {
+  background: bisque;
+  height: 45px;
+  color: brown;
+  line-height: 45px;
+}
+
+#best-seller-books .books {
+  display: grid;
+  grid-template-columns: 33% 33% auto;
+  grid-gap: 10px;
+}
+
+.book {
+  border: 1px solid rgb(8, 3, 41);
+  text-align: center;
+}
+
+.book h3 {
+  height: 50px;
+  margin: 5px 0 0 0;
+  color: deeppink;
+}
+
+.book p {
+  margin: 5px 0 5px 0;
+  font-size: 1.3em;
+  font-weight: bold;
+  color: darkorange;
+}
+
+.book a {
+  color: deeppink;
+  font-size: 1em;
+}
+
+.book img {
+  max-width: 100%;
+  height: 180px;
+  border: 1px black solid;
+}
+
+/* like buy btn */
+.buy-btn {
+  height: 45px;
+  width: 80px;
+  background: darkcyan;
+  border: none;
+  margin-right: 10px;
+  color: white;
+}
+.buy-btn:hover {
+  background: darkorange;
+  color: white;
+  cursor: pointer;
+}
+.like-btn {
+  height: 43px;
+  width: 45px;
+  background: darkslategray;
+  border: none;
+  margin-right: 10px;
+  color: white;
+  border-radius: 50%;
+}
+.like-btn:hover {
+  background: darkorange;
+  color: white;
+  cursor: pointer;
+}
+/* like buy btn */
+
+.show-cart h2 {
+  font-size: 1em;
+}
+
+.show-cart .book {
+  border: 1px white solid;
+
+  margin: 5px 3px;
+  padding: 5px;
+
+  text-align: left;
+  font-size: 0.8em;
+
+  text-transform: capitalize;
+  height: 100px;
+}
+
+.show-cart .book img {
+  width: 60px;
+  height: 95px;
+  margin-right: 10px;
+}
+
+.show-cart .book p {
+  margin-top: 0;
+  margin-bottom: 5px;
+}
